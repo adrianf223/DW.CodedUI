@@ -1,0 +1,8 @@
+/*.suo
+/*/bin/
+/*/obj/
+/Documentation/
+*.shfbproj_*
+*.user
+/_ReSharper*
+/TestResults/

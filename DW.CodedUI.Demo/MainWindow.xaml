@@ -1,0 +1,34 @@
+﻿<Window x:Class="DW.CodedUI.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Application Window Title"
+        Height="350"
+        Width="525">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            
+            <MenuItem Header="File"
+                      AutomationProperties.AutomationId="FileMenuItem"
+                      AutomationProperties.Name="FileMenuItem">
+                
+                <MenuItem Header="Open"
+                          AutomationProperties.AutomationId="FileOpenMenuItem"
+                          AutomationProperties.Name="FileOpenMenuItem" />
+                
+                <MenuItem Header="MessageBox"
+                          AutomationProperties.AutomationId="FileMessageBoxMenuItem"
+                          AutomationProperties.Name="FileMessageBoxMenuItem" />
+                
+            </MenuItem>
+            
+            <MenuItem Header="Edit"
+                      AutomationProperties.AutomationId="EditMenuItem"
+                      AutomationProperties.Name="EditMenuItem">
+                
+            </MenuItem>
+            
+        </Menu>
+        
+        <Button />
+    </DockPanel>
+</Window>

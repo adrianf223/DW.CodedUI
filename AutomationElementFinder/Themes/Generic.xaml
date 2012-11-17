@@ -1,0 +1,151 @@
+<!-- License
+
+    Copyright (c) 2009-2012 David Wendland
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+-->
+    
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:AutomationElementFinder="clr-namespace:AutomationElementFinder">
+
+    <Style TargetType="{x:Type AutomationElementFinder:TitledItemsControl}" BasedOn="{StaticResource {x:Type ItemsControl}}">
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+        <Setter Property="VerticalTitleAlignments" Value="Center" />
+        <Setter Property="HorizontalTitleAlignments" Value="Right" />
+        <Setter Property="TitleMargins" Value="5,0" />
+        <Setter Property="HorizontalContentAlignments" Value="Stretch" />
+        <Setter Property="VerticalContentAlignments" Value="Center" />
+        <Setter Property="ContentMargins" Value="0,2" />
+    </Style>
+
+    <Style TargetType="{x:Type AutomationElementFinder:TitledItem}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="VerticalTitleAlignment" Value="{Binding VerticalTitleAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+        <Setter Property="HorizontalTitleAlignment" Value="{Binding HorizontalTitleAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+        <Setter Property="TitleMargin" Value="{Binding TitleMargins, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+        <Setter Property="ContentMargin" Value="{Binding ContentMargins, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type AutomationElementFinder:TitledItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="title" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter ContentSource="Title"
+                                          VerticalAlignment="{TemplateBinding VerticalTitleAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
+                                          Margin="{TemplateBinding TitleMargin}" />
+
+                        <ContentPresenter Grid.Column="1"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding ContentMargin}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type AutomationElementFinder:AutomationElementVisualization}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type AutomationElementFinder:AutomationElementVisualization}">
+                    <AutomationElementFinder:TitledItemsControl DataContext="{Binding Element.Current, RelativeSource={RelativeSource TemplatedParent}}">
+                        <AutomationElementFinder:TitledItem Title="AcceleratorKey">
+                            <TextBox Text="{Binding AcceleratorKey, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="AccessKey">
+                            <TextBox Text="{Binding AccessKey, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="AutomationId">
+                            <TextBox Text="{Binding AutomationId, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="BoundingRectangle">
+                            <TextBox Text="{Binding BoundingRectangle, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="ClassName">
+                            <TextBox Text="{Binding ClassName, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="ControlType">
+                            <TextBox Text="{Binding ControlType, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="FrameworkId">
+                            <TextBox Text="{Binding FrameworkId, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="HasKeyboardFocus">
+                            <TextBox Text="{Binding HasKeyboardFocus, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="HelpText">
+                            <TextBox Text="{Binding HelpText, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsContentElement">
+                            <TextBox Text="{Binding IsContentElement, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsControlElement">
+                            <TextBox Text="{Binding IsControlElement, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsEnabled">
+                            <TextBox Text="{Binding IsEnabled, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsKeyboardFocusable">
+                            <TextBox Text="{Binding IsKeyboardFocusable, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsOffscreen">
+                            <TextBox Text="{Binding IsOffscreen, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsPassword">
+                            <TextBox Text="{Binding IsPassword, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="IsRequiredForForm">
+                            <TextBox Text="{Binding IsRequiredForForm, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="ItemStatus">
+                            <TextBox Text="{Binding ItemStatus, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="ItemType">
+                            <TextBox Text="{Binding ItemType, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="LabeledBy">
+                            <TextBox Text="{Binding LabeledBy, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="LocalizedControlType">
+                            <TextBox Text="{Binding LocalizedControlType, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="Name">
+                            <TextBox Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="NativeWindowHandle">
+                            <TextBox Text="{Binding NativeWindowHandle, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="Orientation">
+                            <TextBox Text="{Binding Orientation, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                        <AutomationElementFinder:TitledItem Title="ProcessId">
+                            <TextBox Text="{Binding ProcessId, Mode=OneWay}" IsReadOnly="True" />
+                        </AutomationElementFinder:TitledItem>
+                    </AutomationElementFinder:TitledItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
