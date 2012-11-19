@@ -1,12 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Automation;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using System.Windows.Interop;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Interaction;
@@ -59,13 +50,13 @@ namespace DW.CodedUI.Tests
         }
 
         [TestMethod]
-        public void WPFElementFinder_FindChilds()
+        public void WPFElementFinder_FindChildren()
         {
-            var fileMenuItems1 = WpfElementFinder.FindChildsByAutomationIdCondition<WpfMenuItem>(_target, i => i.Contains("MenuItem"));
+            var fileMenuItems1 = WpfElementFinder.FindChildrenByAutomationIdCondition<WpfMenuItem>(_target, i => i.Contains("MenuItem"));
 
-            var fileMenuItems2 = WpfElementFinder.FindChildsByType<WpfMenuItem>(_target);
+            var fileMenuItems2 = WpfElementFinder.FindChildrenByType<WpfMenuItem>(_target);
 
-            var fileMenuItems3 = WpfElementFinder.FindChildsByNameCondition<WpfMenuItem>(_target, i => i.Contains("MenuItem"));
+            var fileMenuItems3 = WpfElementFinder.FindChildrenByNameCondition<WpfMenuItem>(_target, i => i.Contains("MenuItem"));
         }
 
         [TestMethod]

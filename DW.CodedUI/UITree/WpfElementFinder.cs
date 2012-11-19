@@ -75,36 +75,36 @@ namespace DW.CodedUI.UITree
 
         #endregion Child
 
-        #region Childs
+        #region Children
 
-        #region FindChildsByAutomationIdCondition
+        #region FindChildrenByAutomationIdCondition
 
-        public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
+        public static IEnumerable<TControl> FindChildrenByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
         {
-            return FindChildsByCondition<TControl>(parent, c => condition(c.AutomationId));
+            return FindChildrenByCondition<TControl>(parent, c => condition(c.AutomationId));
         }
 
-        #endregion FindChildsByAutomationIdCondition
+        #endregion FindChildrenByAutomationIdCondition
 
-        #region FindChildsByType
+        #region FindChildrenByType
 
-        public static IEnumerable<TControl> FindChildsByType<TControl>(WpfControl parent) where TControl : WpfControl
+        public static IEnumerable<TControl> FindChildrenByType<TControl>(WpfControl parent) where TControl : WpfControl
         {
-            return FindChildsByCondition<TControl>(parent, c => c.GetType() == typeof(TControl));
+            return FindChildrenByCondition<TControl>(parent, c => c.GetType() == typeof(TControl));
         }
 
-        #endregion FindChildsByType
+        #endregion FindChildrenByType
 
-        #region FindChildsByNameCondition
+        #region FindChildrenByNameCondition
 
-        public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
+        public static IEnumerable<TControl> FindChildrenByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
         {
-            return FindChildsByCondition<TControl>(parent, c => condition(c.Name));
+            return FindChildrenByCondition<TControl>(parent, c => condition(c.Name));
         }
 
-        #endregion FindChildsByNameCondition
+        #endregion FindChildrenByNameCondition
 
-        #endregion Childs
+        #endregion Children
 
         private static TControl FindChildByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
         {
@@ -119,14 +119,14 @@ namespace DW.CodedUI.UITree
             return null;
         }
 
-        private static IEnumerable<TControl> FindChildsByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
+        private static IEnumerable<TControl> FindChildrenByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
         {
             var childs = new List<TControl>();
             foreach (WpfControl child in parent.GetChildren())
             {
                 if (condition(child))
                     childs.Add((TControl)child);
-                childs.AddRange(FindChildsByCondition<TControl>(child, condition));
+                childs.AddRange(FindChildrenByCondition<TControl>(child, condition));
             }
             return childs;
         }

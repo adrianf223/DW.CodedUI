@@ -31,7 +31,7 @@
                         </Style>
                     </TreeView.ItemContainerStyle>
                     <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding Childs}">
+                        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                             <TextBlock x:Name="PART_NameDisplay" Text="{Binding }" Foreground="Black" />
                             <HierarchicalDataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding HasAutomationId}" Value="True">

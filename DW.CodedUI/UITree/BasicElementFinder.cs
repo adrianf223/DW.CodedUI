@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
-using DW.CodedUI.Waiting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.UITree
@@ -255,7 +254,7 @@ namespace DW.CodedUI.UITree
 
         private static TControl FindChildByCondition<TControl>(AutomationElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            foreach (var child in GetChilds(parent))
+            foreach (var child in GetChildren(parent))
             {
                 if (condition(child))
                     return (TControl)Activator.CreateInstance(typeof(TControl), child);
@@ -268,236 +267,236 @@ namespace DW.CodedUI.UITree
 
         #endregion Child
 
-        #region Childs
+        #region Children
 
-        #region FindChildsByAutomationId
+        #region FindChildrenByAutomationId
 
-        public static IEnumerable<BasicElement> FindChildsByAutomationId(WpfControl parent, string automationId)
+        public static IEnumerable<BasicElement> FindChildrenByAutomationId(WpfControl parent, string automationId)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
-        public static IEnumerable<BasicElement> FindChildsByAutomationId(AutomationElement parent, string automationId)
+        public static IEnumerable<BasicElement> FindChildrenByAutomationId(AutomationElement parent, string automationId)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
-        public static IEnumerable<BasicElement> FindChildsByAutomationId(BasicElement parent, string automationId)
+        public static IEnumerable<BasicElement> FindChildrenByAutomationId(BasicElement parent, string automationId)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
-        public static IEnumerable<TControl> FindChildsByAutomationId<TControl>(WpfControl parent, string automationId) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByAutomationId<TControl>(WpfControl parent, string automationId) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
-        public static IEnumerable<TControl> FindChildsByAutomationId<TControl>(AutomationElement parent, string automationId) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByAutomationId<TControl>(AutomationElement parent, string automationId) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
-        public static IEnumerable<TControl> FindChildsByAutomationId<TControl>(BasicElement parent, string automationId) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByAutomationId<TControl>(BasicElement parent, string automationId) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
-        #endregion FindChildsByAutomationId
+        #endregion FindChildrenByAutomationId
 
-        #region FindChildsByAutomationIdCondition
+        #region FindChildrenByAutomationIdCondition
 
-        public static IEnumerable<BasicElement> FindChildsByAutomationIdCondition(WpfControl parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByAutomationIdCondition(WpfControl parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
-        public static IEnumerable<BasicElement> FindChildsByAutomationIdCondition(AutomationElement parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByAutomationIdCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
-        public static IEnumerable<BasicElement> FindChildsByAutomationIdCondition(BasicElement parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByAutomationIdCondition(BasicElement parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
-        public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
-        public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByAutomationIdCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
-        public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByAutomationIdCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
-        #endregion FindChildsByAutomationIdCondition
+        #endregion FindChildrenByAutomationIdCondition
 
-        #region FindChildsByName
+        #region FindChildrenByName
 
-        public static IEnumerable<BasicElement> FindChildsByName(WpfControl parent, string name)
+        public static IEnumerable<BasicElement> FindChildrenByName(WpfControl parent, string name)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.Name == name);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
-        public static IEnumerable<BasicElement> FindChildsByName(AutomationElement parent, string name)
+        public static IEnumerable<BasicElement> FindChildrenByName(AutomationElement parent, string name)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.Name == name);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
-        public static IEnumerable<BasicElement> FindChildsByName(BasicElement parent, string name)
+        public static IEnumerable<BasicElement> FindChildrenByName(BasicElement parent, string name)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.Name == name);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
-        public static IEnumerable<TControl> FindChildsByName<TControl>(WpfControl parent, string name) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByName<TControl>(WpfControl parent, string name) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.Name == name);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
-        public static IEnumerable<TControl> FindChildsByName<TControl>(AutomationElement parent, string name) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByName<TControl>(AutomationElement parent, string name) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.Name == name);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
-        public static IEnumerable<TControl> FindChildsByName<TControl>(BasicElement parent, string name) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByName<TControl>(BasicElement parent, string name) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.Name == name);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
-        #endregion FindChildsByName
+        #endregion FindChildrenByName
 
-        #region FindChildsByNameCondition
+        #region FindChildrenByNameCondition
 
-        public static IEnumerable<BasicElement> FindChildsByNameCondition(WpfControl parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.Name));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
-        public static IEnumerable<BasicElement> FindChildsByNameCondition(AutomationElement parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.Name));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
-        public static IEnumerable<BasicElement> FindChildsByNameCondition(BasicElement parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.Name));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
-        public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.Name));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
-        public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.Name));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
-        public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.Name));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
-        #endregion FindChildsByNameCondition
+        #endregion FindChildrenByNameCondition
 
-        #region FindChildsByClassName
+        #region FindChildrenByClassName
 
-        public static IEnumerable<BasicElement> FindChildsByClassName(WpfControl parent, string className)
+        public static IEnumerable<BasicElement> FindChildrenByClassName(WpfControl parent, string className)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
-        public static IEnumerable<BasicElement> FindChildsByClassName(AutomationElement parent, string className)
+        public static IEnumerable<BasicElement> FindChildrenByClassName(AutomationElement parent, string className)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
-        public static IEnumerable<BasicElement> FindChildsByClassName(BasicElement parent, string className)
+        public static IEnumerable<BasicElement> FindChildrenByClassName(BasicElement parent, string className)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
+            return FindChildrenByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
-        public static IEnumerable<TControl> FindChildsByClassName<TControl>(WpfControl parent, string className) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByClassName<TControl>(WpfControl parent, string className) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.ClassName == className);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
-        public static IEnumerable<TControl> FindChildsByClassName<TControl>(AutomationElement parent, string className) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByClassName<TControl>(AutomationElement parent, string className) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.ClassName == className);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
-        public static IEnumerable<TControl> FindChildsByClassName<TControl>(BasicElement parent, string className) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByClassName<TControl>(BasicElement parent, string className) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => a.Current.ClassName == className);
+            return FindChildrenByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
-        #endregion FindChildsByClassName
+        #endregion FindChildrenByClassName
 
-        #region FindChildsByNameCondition
+        #region FindChildrenByNameCondition
 
-        public static IEnumerable<BasicElement> FindChildsByClassNameCondition(WpfControl parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByClassNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
-        public static IEnumerable<BasicElement> FindChildsByClassNameCondition(AutomationElement parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByClassNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
-        public static IEnumerable<BasicElement> FindChildsByClassNameCondition(BasicElement parent, Func<string, bool> condition)
+        public static IEnumerable<BasicElement> FindChildrenByClassNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
+            return FindChildrenByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
-        public static IEnumerable<TControl> FindChildsByClassNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByClassNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.ClassName));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
-        public static IEnumerable<TControl> FindChildsByClassNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByClassNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.ClassName));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
-        public static IEnumerable<TControl> FindChildsByClassNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
+        public static IEnumerable<TControl> FindChildrenByClassNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent, a => condition(a.Current.ClassName));
+            return FindChildrenByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
-        #endregion FindChildsByNameCondition
+        #endregion FindChildrenByNameCondition
 
-        private static IEnumerable<TControl> FindChildsByCondition<TControl>(WpfControl parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
+        private static IEnumerable<TControl> FindChildrenByCondition<TControl>(WpfControl parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
             var automationElement = AutomationElement.FromHandle(parent.WindowHandle);
-            return FindChildsByCondition<TControl>(automationElement, condition);
+            return FindChildrenByCondition<TControl>(automationElement, condition);
         }
 
-        private static IEnumerable<TControl> FindChildsByCondition<TControl>(BasicElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
+        private static IEnumerable<TControl> FindChildrenByCondition<TControl>(BasicElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            return FindChildsByCondition<TControl>(parent.AutomationElement, condition);
+            return FindChildrenByCondition<TControl>(parent.AutomationElement, condition);
         }
 
-        private static IEnumerable<TControl> FindChildsByCondition<TControl>(AutomationElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
+        private static IEnumerable<TControl> FindChildrenByCondition<TControl>(AutomationElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
             var foundItems = new List<TControl>();
-            foreach (var child in GetChilds(parent))
+            foreach (var child in GetChildren(parent))
             {
                 if (condition(child))
                     foundItems.Add((TControl)Activator.CreateInstance(typeof(TControl), child));
-                foundItems.AddRange(FindChildsByCondition<TControl>(child, condition));
+                foundItems.AddRange(FindChildrenByCondition<TControl>(child, condition));
             }
             return foundItems;
         }
 
-        #endregion Childs
+        #endregion Children
 
         #region Parent
 
@@ -533,17 +532,17 @@ namespace DW.CodedUI.UITree
 
         private static void Read(BasicElementInfo rootElement)
         {
-            foreach (var child in GetChilds(rootElement.AutomationElement))
+            foreach (var child in GetChildren(rootElement.AutomationElement))
             {
                 var childElementInfo = new BasicElementInfo(child);
-                rootElement.Childs.Add(childElementInfo);
+                rootElement.Children.Add(childElementInfo);
                 Read(childElementInfo);
             }
         }
 
         #endregion GetFullUITree
 
-        private static IEnumerable<AutomationElement> GetChilds(AutomationElement parent)
+        private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
         {
             var childs = new List<AutomationElement>();
             var child = TreeWalker.ControlViewWalker.GetFirstChild(parent);

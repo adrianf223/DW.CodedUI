@@ -34,10 +34,10 @@ namespace DW.CodedUI.BasicElements
         public BasicElementInfo(AutomationElement element)
         {
             AutomationElement = element;
-            Childs = new List<BasicElementInfo>();
+            Children = new List<BasicElementInfo>();
         }
 
-        public List<BasicElementInfo> Childs { get; set; }
+        public List<BasicElementInfo> Children { get; set; }
 
         public override string ToString()
         {
