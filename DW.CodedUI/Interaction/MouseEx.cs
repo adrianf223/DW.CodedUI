@@ -52,7 +52,6 @@ namespace DW.CodedUI.Interaction
 
         public static void Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
-            DynamicSleep.Wait();
             System.Windows.Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
                 Mouse.Click(button, modifierKeys, new Point((int)point.X, (int)point.Y));
@@ -87,7 +86,6 @@ namespace DW.CodedUI.Interaction
 
         public static void DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
-            DynamicSleep.Wait();
             System.Windows.Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
                 Mouse.DoubleClick(button, modifierKeys, new Point((int)point.X, (int)point.Y));

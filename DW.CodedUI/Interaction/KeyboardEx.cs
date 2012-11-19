@@ -23,7 +23,6 @@
 #endregion License
 
 using System.Windows.Input;
-using DW.CodedUI.Waiting;
 using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
@@ -38,49 +37,41 @@ namespace DW.CodedUI.Interaction
 
         public static void PressModifierKeys(ModifierKeys keys)
         {
-            DynamicSleep.Wait();
             Keyboard.PressModifierKeys(keys);
         }
 
         public static void PressModifierKeys(UITestControl testControl, ModifierKeys keys)
         {
-            DynamicSleep.Wait();
             Keyboard.PressModifierKeys(testControl, keys);
         }
 
         public static void ReleaseModifierKeys(ModifierKeys keys)
         {
-            DynamicSleep.Wait();
             Keyboard.ReleaseModifierKeys(keys);
         }
 
         public static void ReleaseModifierKeys(UITestControl testControl, ModifierKeys keys)
         {
-            DynamicSleep.Wait();
             Keyboard.ReleaseModifierKeys(testControl, keys);
         }
 
         public static void SendKeys(string text)
         {
-            DynamicSleep.Wait();
             SendKeys(text, ModifierKeys.None);
         }
 
         public static void SendKeys(string text, ModifierKeys modifierKeys)
         {
-            DynamicSleep.Wait();
             Keyboard.SendKeys(text, modifierKeys);
         }
 
         public static void SendKeys(UITestControl control, string text)
         {
-            DynamicSleep.Wait();
             SendKeys(control, text, ModifierKeys.None);
         }
 
         public static void SendKeys(UITestControl control, string text, ModifierKeys modifierKeys)
         {
-            DynamicSleep.Wait();
             Keyboard.SendKeys(control, text, modifierKeys);
         }
     }

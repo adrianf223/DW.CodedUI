@@ -42,37 +42,31 @@ namespace DW.CodedUI.UITree
             //var condition = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
             //var element = AutomationElement.RootElement.FindFirst(TreeScope.Descendants, condition);
 
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static BasicElement FindChildByAutomationId(AutomationElement parent, string automationId)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static BasicElement FindChildByAutomationId(BasicElement parent, string automationId)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static TControl FindChildByAutomationId<TControl>(WpfControl parent, string automationId) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static TControl FindChildByAutomationId<TControl>(AutomationElement parent, string automationId) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static TControl FindChildByAutomationId<TControl>(BasicElement parent, string automationId) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
@@ -82,37 +76,31 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByAutomationIdCondition(WpfControl parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static BasicElement FindChildByAutomationIdCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static BasicElement FindChildByAutomationIdCondition(BasicElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static TControl FindChildByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static TControl FindChildByAutomationIdCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static TControl FindChildByAutomationIdCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
@@ -122,37 +110,31 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByName(WpfControl parent, string name)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
         public static BasicElement FindChildByName(AutomationElement parent, string name)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
         public static BasicElement FindChildByName(BasicElement parent, string name)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
         public static TControl FindChildByName<TControl>(WpfControl parent, string name) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
         public static TControl FindChildByName<TControl>(AutomationElement parent, string name) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
         public static TControl FindChildByName<TControl>(BasicElement parent, string name) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
@@ -162,37 +144,31 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
         public static BasicElement FindChildByNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
         public static BasicElement FindChildByNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
         public static TControl FindChildByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
         public static TControl FindChildByNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
         public static TControl FindChildByNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
@@ -202,37 +178,31 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByClassName(WpfControl parent, string className)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
         public static BasicElement FindChildByClassName(AutomationElement parent, string className)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
         public static BasicElement FindChildByClassName(BasicElement parent, string className)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
         public static TControl FindChildByClassName<TControl>(WpfControl parent, string className) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
         public static TControl FindChildByClassName<TControl>(AutomationElement parent, string className) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
         public static TControl FindChildByClassName<TControl>(BasicElement parent, string className) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
@@ -242,37 +212,31 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByClassNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
         public static BasicElement FindChildByClassNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
         public static BasicElement FindChildByClassNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
         public static TControl FindChildByClassNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
         public static TControl FindChildByClassNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
         public static TControl FindChildByClassNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
@@ -280,14 +244,12 @@ namespace DW.CodedUI.UITree
 
         private static TControl FindChildByCondition<TControl>(WpfControl parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             var automationElement = AutomationElement.FromHandle(parent.WindowHandle);
             return FindChildByCondition<TControl>(automationElement, condition);
         }
 
         private static TControl FindChildByCondition<TControl>(BasicElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildByCondition<TControl>(parent.AutomationElement, condition);
         }
 
@@ -312,37 +274,31 @@ namespace DW.CodedUI.UITree
 
         public static IEnumerable<BasicElement> FindChildsByAutomationId(WpfControl parent, string automationId)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static IEnumerable<BasicElement> FindChildsByAutomationId(AutomationElement parent, string automationId)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static IEnumerable<BasicElement> FindChildsByAutomationId(BasicElement parent, string automationId)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static IEnumerable<TControl> FindChildsByAutomationId<TControl>(WpfControl parent, string automationId) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static IEnumerable<TControl> FindChildsByAutomationId<TControl>(AutomationElement parent, string automationId) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
         public static IEnumerable<TControl> FindChildsByAutomationId<TControl>(BasicElement parent, string automationId) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
         }
 
@@ -352,37 +308,31 @@ namespace DW.CodedUI.UITree
 
         public static IEnumerable<BasicElement> FindChildsByAutomationIdCondition(WpfControl parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static IEnumerable<BasicElement> FindChildsByAutomationIdCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static IEnumerable<BasicElement> FindChildsByAutomationIdCondition(BasicElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
         public static IEnumerable<TControl> FindChildsByAutomationIdCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
         }
 
@@ -392,37 +342,31 @@ namespace DW.CodedUI.UITree
 
         public static IEnumerable<BasicElement> FindChildsByName(WpfControl parent, string name)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
         public static IEnumerable<BasicElement> FindChildsByName(AutomationElement parent, string name)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
         public static IEnumerable<BasicElement> FindChildsByName(BasicElement parent, string name)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.Name == name);
         }
 
         public static IEnumerable<TControl> FindChildsByName<TControl>(WpfControl parent, string name) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
         public static IEnumerable<TControl> FindChildsByName<TControl>(AutomationElement parent, string name) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
         public static IEnumerable<TControl> FindChildsByName<TControl>(BasicElement parent, string name) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.Name == name);
         }
 
@@ -432,37 +376,31 @@ namespace DW.CodedUI.UITree
 
         public static IEnumerable<BasicElement> FindChildsByNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
         public static IEnumerable<BasicElement> FindChildsByNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
         public static IEnumerable<BasicElement> FindChildsByNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.Name));
         }
 
         public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
         public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
         public static IEnumerable<TControl> FindChildsByNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.Name));
         }
 
@@ -472,37 +410,31 @@ namespace DW.CodedUI.UITree
 
         public static IEnumerable<BasicElement> FindChildsByClassName(WpfControl parent, string className)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
         public static IEnumerable<BasicElement> FindChildsByClassName(AutomationElement parent, string className)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
         public static IEnumerable<BasicElement> FindChildsByClassName(BasicElement parent, string className)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
         }
 
         public static IEnumerable<TControl> FindChildsByClassName<TControl>(WpfControl parent, string className) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
         public static IEnumerable<TControl> FindChildsByClassName<TControl>(AutomationElement parent, string className) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
         public static IEnumerable<TControl> FindChildsByClassName<TControl>(BasicElement parent, string className) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => a.Current.ClassName == className);
         }
 
@@ -512,37 +444,31 @@ namespace DW.CodedUI.UITree
 
         public static IEnumerable<BasicElement> FindChildsByClassNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
         public static IEnumerable<BasicElement> FindChildsByClassNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
         public static IEnumerable<BasicElement> FindChildsByClassNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
         }
 
         public static IEnumerable<TControl> FindChildsByClassNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
         public static IEnumerable<TControl> FindChildsByClassNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
         public static IEnumerable<TControl> FindChildsByClassNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent, a => condition(a.Current.ClassName));
         }
 
@@ -550,14 +476,12 @@ namespace DW.CodedUI.UITree
 
         private static IEnumerable<TControl> FindChildsByCondition<TControl>(WpfControl parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             var automationElement = AutomationElement.FromHandle(parent.WindowHandle);
             return FindChildsByCondition<TControl>(automationElement, condition);
         }
 
         private static IEnumerable<TControl> FindChildsByCondition<TControl>(BasicElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            DynamicSleep.Wait();
             return FindChildsByCondition<TControl>(parent.AutomationElement, condition);
         }
 

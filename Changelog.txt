@@ -1,5 +1,6 @@
 ﻿
 
+12.11.19.0   Remove DynamicSleep from MouseEx, KeyboardEx and BasicElementFinder because the waiting process is not clear right now
 12.11.19.0   In the AutomationElementFinder the current highlight can be toggled off and on back again
 12.11.19.0   If there is no clickable point available because of an invible control or because it is out of screen, a InvalidOperationException will be thrown by the MouseEx
 12.11.19.0   Add IsVisible, IsEnabled, WaitForControlEnabled and WaitForControlVisible to the BasicElement
