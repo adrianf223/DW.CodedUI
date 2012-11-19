@@ -1,0 +1,8 @@
+﻿
+
+12.11.19.0   Fixed possible crash if a control without a clickable point was tried to click
+12.11.19.0   Add DoubleClick functionalities to the MouseEx
+12.11.6.0    Initialize with some basic behaviors
+
+Version denotation:
+Year . Month . Day . Unused

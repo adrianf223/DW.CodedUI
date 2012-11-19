@@ -51,8 +51,50 @@ namespace DW.CodedUI.Interaction
         public static void Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
             DynamicSleep.Wait();
-            System.Windows.Point point = element.AutomationElement.GetClickablePoint();
-            Mouse.Click(button, modifierKeys, new Point((int)point.X, (int)point.Y));
+            System.Windows.Point point;
+            if (element.AutomationElement.TryGetClickablePoint(out point))
+                Mouse.Click(button, modifierKeys, new Point((int)point.X, (int)point.Y));
+            else
+                Click(element.Properties.BoundingRectangle, button, modifierKeys);
+        }
+
+        private static void Click(System.Windows.Rect rect, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            var x = rect.Left + (rect.Width / 2.0);
+            var y = rect.Top + (rect.Height / 2.0);
+            Mouse.Click(button, modifierKeys, new Point((int)x, (int)y));
+        }
+
+        public static void DoubleClick(BasicElement element)
+        {
+            DoubleClick(element, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        public static void DoubleClick(BasicElement element, ModifierKeys modifierKeys)
+        {
+            DoubleClick(element, MouseButtons.Left, modifierKeys);
+        }
+
+        public static void DoubleClick(BasicElement element, MouseButtons button)
+        {
+            DoubleClick(element, button, ModifierKeys.None);
+        }
+
+        public static void DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            DynamicSleep.Wait();
+            System.Windows.Point point;
+            if (element.AutomationElement.TryGetClickablePoint(out point))
+                Mouse.DoubleClick(button, modifierKeys, new Point((int)point.X, (int)point.Y));
+            else
+                DoubleClick(element.Properties.BoundingRectangle, button, modifierKeys);
+        }
+
+        private static void DoubleClick(System.Windows.Rect rect, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            var x = rect.Left + (rect.Width / 2.0);
+            var y = rect.Top + (rect.Height / 2.0);
+            Mouse.DoubleClick(button, modifierKeys, new Point((int)x, (int)y));
         }
     }
 }
