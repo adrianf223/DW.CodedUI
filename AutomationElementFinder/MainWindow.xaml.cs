@@ -18,6 +18,7 @@ namespace AutomationElementFinder
         private Highlighter _highlighter;
 
         public ObservableCollection<BasicElementInfo> Elements { get; set; }
+        private AutomationElement _currentSelectedElement;
 
         public MainWindow()
         {
@@ -40,7 +41,8 @@ namespace AutomationElementFinder
         {
             if (e.NewValue != null)
             {
-                HighlightElement(((BasicElementInfo) e.NewValue).AutomationElement);
+                _currentSelectedElement = ((BasicElementInfo) e.NewValue).AutomationElement;
+                HighlightElement(_currentSelectedElement);
                 elementTree.Focus();
             }
         }
@@ -58,6 +60,7 @@ namespace AutomationElementFinder
             if (element.Current.ProcessId == _currentProcessId)
                 return;
 
+            _currentSelectedElement = element;
             if (Elements.Count == 0)
             {
                 var elementInfo = BasicElementFinder.GetFullUITree(element);
@@ -80,6 +83,17 @@ namespace AutomationElementFinder
                 _highlighter.Close();
             _highlighter = new Highlighter();
             _highlighter.Highlight(element);
+        }
+
+        private void ToggleHighlight_Click(object sender, RoutedEventArgs e)
+        {
+            if (_highlighter != null)
+            {
+                _highlighter.Close();
+                _highlighter = null;
+            }
+            else if (_currentSelectedElement != null)
+                HighlightElement(_currentSelectedElement);
         }
     }
 }

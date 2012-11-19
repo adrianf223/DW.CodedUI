@@ -5,6 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI", "DW.CodedUI\DW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23764708-D0BB-4B46-B7D0-B570C6D0913D}"
 	ProjectSection(SolutionItems) = preProject
+		Changelog.txt = Changelog.txt
 		DW.CodedUI.vsmdi = DW.CodedUI.vsmdi
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings

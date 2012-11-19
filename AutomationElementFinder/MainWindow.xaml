@@ -8,7 +8,7 @@
 
     <DockPanel>
         <Border Background="YellowGreen" DockPanel.Dock="Bottom">
-            <TextBlock Text="Hold down Strl-Shift and mouse over elements to select them" Margin="2" />
+            <TextBlock Text="Hold down Ctrl-Shift and mouse over elements to select them" Margin="2" />
         </Border>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -17,32 +17,35 @@
                 <ColumnDefinition Width="0.6*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView x:Name="elementTree" ItemsSource="{Binding Elements}">
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsExpanded" Value="True" />
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Padding" Value="2" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Childs}">
-                        <TextBlock x:Name="PART_NameDisplay" Text="{Binding }" Foreground="Black" />
-                        <HierarchicalDataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding HasAutomationId}" Value="True">
-                                <Setter TargetName="PART_NameDisplay" Property="Background" Value="LightGreen" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding HasAutomationId}" Value="False">
-                                <Setter TargetName="PART_NameDisplay" Property="Foreground" Value="Gray" />
-                                <Setter TargetName="PART_NameDisplay" Property="FontStyle" Value="Italic" />
-                            </DataTrigger>
-                        </HierarchicalDataTemplate.Triggers>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
+            <DockPanel>
+                <Button HorizontalAlignment="Left" Content="Toggle Highlight" Click="ToggleHighlight_Click" DockPanel.Dock="Bottom" />
+                <TreeView x:Name="elementTree" ItemsSource="{Binding Elements}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="True" />
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Padding" Value="2" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childs}">
+                            <TextBlock x:Name="PART_NameDisplay" Text="{Binding }" Foreground="Black" />
+                            <HierarchicalDataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding HasAutomationId}" Value="True">
+                                    <Setter TargetName="PART_NameDisplay" Property="Background" Value="LightGreen" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding HasAutomationId}" Value="False">
+                                    <Setter TargetName="PART_NameDisplay" Property="Foreground" Value="Gray" />
+                                    <Setter TargetName="PART_NameDisplay" Property="FontStyle" Value="Italic" />
+                                </DataTrigger>
+                            </HierarchicalDataTemplate.Triggers>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </DockPanel>
 
             <GridSplitter Width="4" ResizeBehavior="PreviousAndNext" Grid.Column="1" />
 

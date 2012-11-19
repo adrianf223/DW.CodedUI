@@ -22,12 +22,14 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
-using System.Drawing;
+using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Waiting;
 using Microsoft.VisualStudio.TestTools.UITesting;
+using Point = System.Drawing.Point;
 
 namespace DW.CodedUI.Interaction
 {
@@ -60,6 +62,9 @@ namespace DW.CodedUI.Interaction
 
         private static void Click(System.Windows.Rect rect, MouseButtons button, ModifierKeys modifierKeys)
         {
+            if (rect == Rect.Empty)
+                throw new InvalidOperationException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
+
             var x = rect.Left + (rect.Width / 2.0);
             var y = rect.Top + (rect.Height / 2.0);
             Mouse.Click(button, modifierKeys, new Point((int)x, (int)y));
@@ -90,8 +95,11 @@ namespace DW.CodedUI.Interaction
                 DoubleClick(element.Properties.BoundingRectangle, button, modifierKeys);
         }
 
-        private static void DoubleClick(System.Windows.Rect rect, MouseButtons button, ModifierKeys modifierKeys)
+        private static void DoubleClick(Rect rect, MouseButtons button, ModifierKeys modifierKeys)
         {
+            if (rect == Rect.Empty)
+                throw new InvalidOperationException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
+
             var x = rect.Left + (rect.Width / 2.0);
             var y = rect.Top + (rect.Height / 2.0);
             Mouse.DoubleClick(button, modifierKeys, new Point((int)x, (int)y));

@@ -22,6 +22,7 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Utilities;
 
@@ -29,6 +30,13 @@ namespace DW.CodedUI.BasicElements
 {
     public class BasicElement
     {
+        private Highlighter _highlighter;
+
+        public BasicElement(AutomationElement automationElement)
+        {
+            AutomationElement = automationElement;
+        }
+
         public AutomationElement AutomationElement { get; private set; }
 
         public AutomationElement.AutomationElementInformation Properties
@@ -36,17 +44,33 @@ namespace DW.CodedUI.BasicElements
             get { return AutomationElement.Current; }
         }
 
-        public BasicElement(AutomationElement automationElement)
-        {
-            AutomationElement = automationElement;
-        }
-
         public string Name
         {
             get { return Properties.Name; }
         }
 
-        private Highlighter _highlighter;
+        public bool IsVisible
+        {
+            get { return !Properties.IsOffscreen; }
+        }
+
+        public bool IsEnabled
+        {
+            get { return Properties.IsEnabled; }
+        }
+
+        public void WaitForControlEnabled()
+        {
+            while (!Properties.IsEnabled)
+                Thread.Sleep(100);
+        }
+
+        public void WaitForControlVisible()
+        {
+            while (Properties.IsOffscreen)
+                Thread.Sleep(100);
+        }
+        
         public void BeginHighlight()
         {
             if (_highlighter != null)

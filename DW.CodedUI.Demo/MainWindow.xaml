@@ -29,6 +29,15 @@
             
         </Menu>
         
-        <Button />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button />
+            <Button IsEnabled="False" Grid.Row="1" />
+            <Button Visibility="Collapsed" Grid.Row="2" />
+        </Grid>
     </DockPanel>
 </Window>
