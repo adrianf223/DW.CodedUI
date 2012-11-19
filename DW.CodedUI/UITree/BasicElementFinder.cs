@@ -24,6 +24,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
@@ -38,35 +40,62 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByAutomationId(WpfControl parent, string automationId)
         {
-            //var condition = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-            //var element = AutomationElement.RootElement.FindFirst(TreeScope.Descendants, condition);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId, 0);
+        }
 
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
+        public static BasicElement FindChildByAutomationId(WpfControl parent, string automationId, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId, timeout);
         }
 
         public static BasicElement FindChildByAutomationId(AutomationElement parent, string automationId)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId, 0);
+        }
+
+        public static BasicElement FindChildByAutomationId(AutomationElement parent, string automationId, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId, timeout);
         }
 
         public static BasicElement FindChildByAutomationId(BasicElement parent, string automationId)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId, 0);
+        }
+
+        public static BasicElement FindChildByAutomationId(BasicElement parent, string automationId, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.AutomationId == automationId, timeout);
         }
 
         public static TControl FindChildByAutomationId<TControl>(WpfControl parent, string automationId) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId, 0);
+        }
+
+        public static TControl FindChildByAutomationId<TControl>(WpfControl parent, string automationId, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId, timeout);
         }
 
         public static TControl FindChildByAutomationId<TControl>(AutomationElement parent, string automationId) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId, 0);
+        }
+
+        public static TControl FindChildByAutomationId<TControl>(AutomationElement parent, string automationId, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId, timeout);
         }
 
         public static TControl FindChildByAutomationId<TControl>(BasicElement parent, string automationId) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId);
+            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId, 0);
+        }
+
+        public static TControl FindChildByAutomationId<TControl>(BasicElement parent, string automationId, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.AutomationId == automationId, timeout);
         }
 
         #endregion FindChildByAutomationId
@@ -75,32 +104,62 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByAutomationIdCondition(WpfControl parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId), 0);
+        }
+
+        public static BasicElement FindChildByAutomationIdCondition(WpfControl parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId), timeout);
         }
 
         public static BasicElement FindChildByAutomationIdCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId), 0);
+        }
+
+        public static BasicElement FindChildByAutomationIdCondition(AutomationElement parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId), timeout);
         }
 
         public static BasicElement FindChildByAutomationIdCondition(BasicElement parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId), 0);
+        }
+
+        public static BasicElement FindChildByAutomationIdCondition(BasicElement parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.AutomationId), timeout);
         }
 
         public static TControl FindChildByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId), 0);
+        }
+
+        public static TControl FindChildByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId), timeout);
         }
 
         public static TControl FindChildByAutomationIdCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId), 0);
+        }
+
+        public static TControl FindChildByAutomationIdCondition<TControl>(AutomationElement parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId), timeout);
         }
 
         public static TControl FindChildByAutomationIdCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId), 0);
+        }
+
+        public static TControl FindChildByAutomationIdCondition<TControl>(BasicElement parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.AutomationId), timeout);
         }
 
         #endregion FindChildByAutomationIdCondition
@@ -109,32 +168,62 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByName(WpfControl parent, string name)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name, 0);
+        }
+
+        public static BasicElement FindChildByName(WpfControl parent, string name, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name, timeout);
         }
 
         public static BasicElement FindChildByName(AutomationElement parent, string name)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name, 0);
+        }
+
+        public static BasicElement FindChildByName(AutomationElement parent, string name, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name, timeout);
         }
 
         public static BasicElement FindChildByName(BasicElement parent, string name)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name, 0);
+        }
+
+        public static BasicElement FindChildByName(BasicElement parent, string name, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.Name == name, timeout);
         }
 
         public static TControl FindChildByName<TControl>(WpfControl parent, string name) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name);
+            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name, 0);
+        }
+
+        public static TControl FindChildByName<TControl>(WpfControl parent, string name, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name, timeout);
         }
 
         public static TControl FindChildByName<TControl>(AutomationElement parent, string name) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name);
+            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name, 0);
+        }
+
+        public static TControl FindChildByName<TControl>(AutomationElement parent, string name, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name, timeout);
         }
 
         public static TControl FindChildByName<TControl>(BasicElement parent, string name) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name);
+            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name, 0);
+        }
+
+        public static TControl FindChildByName<TControl>(BasicElement parent, string name, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.Name == name, timeout);
         }
 
         #endregion FindChildByName
@@ -143,32 +232,62 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name), 0);
+        }
+
+        public static BasicElement FindChildByNameCondition(WpfControl parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name), timeout);
         }
 
         public static BasicElement FindChildByNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name), 0);
+        }
+
+        public static BasicElement FindChildByNameCondition(AutomationElement parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name), timeout);
         }
 
         public static BasicElement FindChildByNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name), 0);
+        }
+
+        public static BasicElement FindChildByNameCondition(BasicElement parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.Name), timeout);
         }
 
         public static TControl FindChildByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name), 0);
+        }
+
+        public static TControl FindChildByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name), timeout);
         }
 
         public static TControl FindChildByNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name), 0);
+        }
+
+        public static TControl FindChildByNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name), timeout);
         }
 
         public static TControl FindChildByNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name), 0);
+        }
+
+        public static TControl FindChildByNameCondition<TControl>(BasicElement parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.Name), timeout);
         }
 
         #endregion FindChildByNameCondition
@@ -177,32 +296,62 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByClassName(WpfControl parent, string className)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className, 0);
+        }
+
+        public static BasicElement FindChildByClassName(WpfControl parent, string className, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className, timeout);
         }
 
         public static BasicElement FindChildByClassName(AutomationElement parent, string className)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className, 0);
+        }
+
+        public static BasicElement FindChildByClassName(AutomationElement parent, string className, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className, timeout);
         }
 
         public static BasicElement FindChildByClassName(BasicElement parent, string className)
         {
-            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className);
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className, 0);
+        }
+
+        public static BasicElement FindChildByClassName(BasicElement parent, string className, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => a.Current.ClassName == className, timeout);
         }
 
         public static TControl FindChildByClassName<TControl>(WpfControl parent, string className) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className);
+            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className, 0);
+        }
+
+        public static TControl FindChildByClassName<TControl>(WpfControl parent, string className, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className, timeout);
         }
 
         public static TControl FindChildByClassName<TControl>(AutomationElement parent, string className) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className);
+            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className, 0);
+        }
+
+        public static TControl FindChildByClassName<TControl>(AutomationElement parent, string className, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className, timeout);
         }
 
         public static TControl FindChildByClassName<TControl>(BasicElement parent, string className) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className);
+            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className, 0);
+        }
+
+        public static TControl FindChildByClassName<TControl>(BasicElement parent, string className, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => a.Current.ClassName == className, timeout);
         }
 
         #endregion FindChildByClassName
@@ -211,32 +360,62 @@ namespace DW.CodedUI.UITree
 
         public static BasicElement FindChildByClassNameCondition(WpfControl parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName), 0);
+        }
+        
+        public static BasicElement FindChildByClassNameCondition(WpfControl parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName), timeout);
         }
 
         public static BasicElement FindChildByClassNameCondition(AutomationElement parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName), 0);
+        }
+
+        public static BasicElement FindChildByClassNameCondition(AutomationElement parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName), timeout);
         }
 
         public static BasicElement FindChildByClassNameCondition(BasicElement parent, Func<string, bool> condition)
         {
-            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName));
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName), 0);
+        }
+
+        public static BasicElement FindChildByClassNameCondition(BasicElement parent, Func<string, bool> condition, int timeout)
+        {
+            return FindChildByCondition<BasicElement>(parent, a => condition(a.Current.ClassName), timeout);
         }
 
         public static TControl FindChildByClassNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName), 0);
+        }
+
+        public static TControl FindChildByClassNameCondition<TControl>(WpfControl parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName), timeout);
         }
 
         public static TControl FindChildByClassNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName), 0);
+        }
+
+        public static TControl FindChildByClassNameCondition<TControl>(AutomationElement parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName), timeout);
         }
 
         public static TControl FindChildByClassNameCondition<TControl>(BasicElement parent, Func<string, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName));
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName), 0);
+        }
+
+        public static TControl FindChildByClassNameCondition<TControl>(BasicElement parent, Func<string, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent, a => condition(a.Current.ClassName), timeout);
         }
 
         #endregion FindChildByNameCondition
@@ -244,21 +423,51 @@ namespace DW.CodedUI.UITree
         private static TControl FindChildByCondition<TControl>(WpfControl parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
             var automationElement = AutomationElement.FromHandle(parent.WindowHandle);
-            return FindChildByCondition<TControl>(automationElement, condition);
+            return FindChildByCondition<TControl>(automationElement, condition, 0);
+        }
+
+        private static TControl FindChildByCondition<TControl>(WpfControl parent, Func<AutomationElement, bool> condition, int timeout) where TControl : BasicElement
+        {
+            var automationElement = AutomationElement.FromHandle(parent.WindowHandle);
+            return FindChildByCondition<TControl>(automationElement, condition, timeout);
         }
 
         private static TControl FindChildByCondition<TControl>(BasicElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
-            return FindChildByCondition<TControl>(parent.AutomationElement, condition);
+            return FindChildByCondition<TControl>(parent.AutomationElement, condition, 0);
         }
 
-        private static TControl FindChildByCondition<TControl>(AutomationElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
+        private static TControl FindChildByCondition<TControl>(BasicElement parent, Func<AutomationElement, bool> condition, int timeout) where TControl : BasicElement
+        {
+            return FindChildByCondition<TControl>(parent.AutomationElement, condition, timeout);
+        }
+
+        private static TControl FindChildByCondition<TControl>(AutomationElement parent, Func<AutomationElement, bool> condition, int timeout) where TControl : BasicElement
+        {
+            if (timeout == 0)
+                return FindChildByConditionImplementation<TControl>(parent, condition);
+
+            var watch = new Stopwatch();
+            watch.Start();
+            while (true)
+            {
+                if (watch.Elapsed.TotalMilliseconds >= timeout)
+                    return null;
+
+                var foundItem = FindChildByConditionImplementation<TControl>(parent, condition);
+                if (foundItem != null)
+                    return foundItem;
+                Thread.Sleep(200);
+            }
+        }
+
+        private static TControl FindChildByConditionImplementation<TControl>(AutomationElement parent, Func<AutomationElement, bool> condition) where TControl : BasicElement
         {
             foreach (var child in GetChildren(parent))
             {
                 if (condition(child))
                     return (TControl)Activator.CreateInstance(typeof(TControl), child);
-                var foundItem = FindChildByCondition<TControl>(child, condition);
+                var foundItem = FindChildByConditionImplementation<TControl>(child, condition);
                 if (foundItem != null)
                     return foundItem;
             }

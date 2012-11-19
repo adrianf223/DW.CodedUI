@@ -1,5 +1,6 @@
 ﻿
 
+12.11.19.0   Create overloads for all methods in the BasicElementFinder with a timeout propertys. It searches until the element is found or the timeout occurs
 12.11.19.0   Rename Childs by Children because it is the correct terminology
 12.11.19.0   Remove DynamicSleep from MouseEx, KeyboardEx and BasicElementFinder because the waiting process is not clear right now
 12.11.19.0   In the AutomationElementFinder the current highlight can be toggled off and on back again

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Interaction;
@@ -45,8 +46,6 @@ namespace DW.CodedUI.Tests
             var fileMenuItem4 = WpfElementFinder.FindChildByName<WpfMenuItem>(_target, "FileMenuItem");
 
             var fileMenuItem5 = WpfElementFinder.FindChildByNameCondition<WpfMenuItem>(_target, i => i == "FileMenuItem");
-
-            //fileMenuItem5.DrawHighlight();
         }
 
         [TestMethod]
@@ -103,6 +102,13 @@ namespace DW.CodedUI.Tests
 
             fileMenuItem.EndHighlight();
             openMenuItem.EndHighlight();
+        }
+
+        [TestMethod]
+        public void Method_TestCondition_ExpectedResult3()
+        {
+            var notFoundItem = BasicElementFinder.FindChildByAutomationId(_target, "Wurstbrot", 5000);
+            Assert.IsNull(notFoundItem);
         }
     }
 
