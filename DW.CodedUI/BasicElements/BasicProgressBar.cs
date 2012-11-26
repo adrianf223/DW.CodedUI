@@ -32,5 +32,10 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        // TODO:
+        // Minimum?
+        // Maximum?
+        // Value?
     }
 }

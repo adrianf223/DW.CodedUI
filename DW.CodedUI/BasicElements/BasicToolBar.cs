@@ -32,5 +32,8 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        // TODO:
+        // IEnumerable<BasicItem> Elements
     }
 }

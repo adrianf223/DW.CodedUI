@@ -1,5 +1,9 @@
 ﻿
 
+12.11.26.0   The CleanMessagebox method in the Shutdown object closes only known messageboxes (Registered with the ShutdownConfiguration.SetSetMessageBoxInfo)
+12.11.26.0   Add timeout to the WaitFor** in the BasicElement
+12.11.26.0   Remove methods which invokes funktionality without using the mouse. They does not represent the real user
+12.11.26.0   Add some properties to the specific BasicElements
 12.11.19.0   Create overloads for all methods in the BasicElementFinder with a timeout propertys. It searches until the element is found or the timeout occurs
 12.11.19.0   Rename Childs by Children because it is the correct terminology
 12.11.19.0   Remove DynamicSleep from MouseEx, KeyboardEx and BasicElementFinder because the waiting process is not clear right now

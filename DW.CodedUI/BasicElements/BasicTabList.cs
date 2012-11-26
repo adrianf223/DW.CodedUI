@@ -32,5 +32,9 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        // TODO:
+        // SelectedItem
+        // Items
     }
 }

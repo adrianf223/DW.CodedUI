@@ -22,6 +22,8 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Utilities;
@@ -61,16 +63,49 @@ namespace DW.CodedUI.BasicElements
 
         public void WaitForControlEnabled()
         {
-            while (!Properties.IsEnabled)
-                Thread.Sleep(100);
+            WaitForControlEnabled(TimeSpan.FromSeconds(30));
+        }
+
+        public void WaitForControlEnabled(TimeSpan timeout)
+        {
+            WaitForControlEnabled(timeout, TimeSpan.FromMilliseconds(100));
+        }
+
+        public void WaitForControlEnabled(TimeSpan timeout, TimeSpan waitCycle)
+        {
+            WaitForCondition(timeout, waitCycle, () => !Properties.IsEnabled);
         }
 
         public void WaitForControlVisible()
         {
-            while (Properties.IsOffscreen)
-                Thread.Sleep(100);
+            WaitForControlVisible(TimeSpan.FromSeconds(30));
+        }
+
+        public void WaitForControlVisible(TimeSpan timeout)
+        {
+            WaitForControlVisible(timeout, TimeSpan.FromMilliseconds(100));
+        }
+
+        public void WaitForControlVisible(TimeSpan timeout, TimeSpan waitCycle)
+        {
+            WaitForCondition(timeout, waitCycle, () => Properties.IsOffscreen);
         }
         
+        private void WaitForCondition(TimeSpan timeout, TimeSpan waitCycle, Func<bool> condition)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (condition())
+            {
+                Thread.Sleep(waitCycle);
+                if (stopwatch.Elapsed >= timeout)
+                {
+                    stopwatch.Stop();
+                    return;
+                }
+            }
+        }
+
         public void BeginHighlight()
         {
             if (_highlighter != null)

@@ -41,27 +41,40 @@ namespace DW.CodedUI.Utilities
             _configuration = configuration;
         }
 
-        public void CleanMessageBoxes()
+        public int CleanMessageBoxes()
         {
             var timer = new Stopwatch();
             timer.Start();
+            var closedMessageBoxes = 0;
             while (true)
             {
                 Thread.Sleep(_configuration.WaitTimeBetweenMessageBoxes);
-                var messageBox = WindowsMessageBox.FindMessageBox();
+                var messageBox = FindMessageBox();
                 if (messageBox != null)
                 {
                     timer.Stop();
                     var boxResult = GetBoxResult(messageBox.Title);
                     MessageBoxHandler.Close(messageBox, boxResult);
+                    ++closedMessageBoxes;
                     timer.Restart();
                 }
                 else
                 {
                     if (timer.Elapsed.TotalMilliseconds >= _configuration.FinishedIfNoMessageBoxApearsAfter)
-                        return;
+                        return closedMessageBoxes;
                 }
             }
+        }
+
+        private OpenWindow FindMessageBox()
+        {
+            foreach (var messageBoxInfo in _configuration.MessageBoxInfo)
+            {
+                var messageBox = WindowsMessageBox.FindMessageBox(messageBoxInfo.Title);
+                if (messageBox != null)
+                    return messageBox;
+            }
+            return null;
         }
 
         public void CloseApplication(WpfWindow window)

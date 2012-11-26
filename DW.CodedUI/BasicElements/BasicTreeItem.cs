@@ -23,11 +23,10 @@
 #endregion License
 
 using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Bases;
 
 namespace DW.CodedUI.BasicElements
 {
-    public class BasicTreeItem : ExpandableSelectableElement
+    public class BasicTreeItem : BasicElement
     {
         public BasicTreeItem(AutomationElement automationElement)
             : base(automationElement)
@@ -37,6 +36,24 @@ namespace DW.CodedUI.BasicElements
         public static string ClassName
         {
             get { return "TreeViewItem"; }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                var pattern = (SelectionItemPattern)AutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                return pattern.Current.IsSelected;
+            }
+        }
+
+        public bool IsExpanded
+        {
+            get
+            {
+                var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+            }
         }
     }
 }

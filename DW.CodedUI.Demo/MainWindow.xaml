@@ -17,7 +17,8 @@
                 
                 <MenuItem Header="MessageBox"
                           AutomationProperties.AutomationId="FileMessageBoxMenuItem"
-                          AutomationProperties.Name="FileMessageBoxMenuItem" />
+                          AutomationProperties.Name="FileMessageBoxMenuItem"
+                          Click="ShowRandomMessageBoxes_Click" />
                 
             </MenuItem>
             
@@ -35,7 +36,28 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Button />
+            <!--<Button />-->
+            <ComboBox x:Name="DemoComboBox">
+                <ComboBoxItem Content="First" AutomationProperties.AutomationId="FirstItem" />
+                <ComboBoxItem Content="Second" AutomationProperties.AutomationId="SecondItem" />
+                <ComboBoxItem Content="Third" AutomationProperties.AutomationId="ThirdItem" />
+
+                <ComboBox.ContextMenu>
+                    <ContextMenu ItemsSource="{Binding Commands}">
+                        <ContextMenu.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Command" Value="{Binding Command}" />
+                            </Style>
+                        </ContextMenu.ItemContainerStyle>
+                        <ContextMenu.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding SubEntries}">
+                                <TextBlock Text="{Binding TitleKey}" />
+                            </HierarchicalDataTemplate>
+                        </ContextMenu.ItemTemplate>
+                    </ContextMenu>
+                </ComboBox.ContextMenu>
+
+            </ComboBox>
             <Button IsEnabled="False" Grid.Row="1" />
             <Button Visibility="Collapsed" Grid.Row="2" />
         </Grid>

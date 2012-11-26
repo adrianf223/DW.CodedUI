@@ -63,9 +63,6 @@
     <Compile Include="Application\WindowKind.cs" />
     <Compile Include="Application\WindowsMessageBox.cs" />
     <Compile Include="Application\WindowUnderTest.cs" />
-    <Compile Include="BasicElements\Bases\ExpandableElement.cs" />
-    <Compile Include="BasicElements\Bases\ExpandableSelectableElement.cs" />
-    <Compile Include="BasicElements\Bases\SelectableElement.cs" />
     <Compile Include="BasicElements\BasicButton.cs" />
     <Compile Include="BasicElements\BasicCheckBox.cs" />
     <Compile Include="BasicElements\BasicComboBox.cs" />

@@ -32,5 +32,14 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        public bool IsSelected
+        {
+            get
+            {
+                var pattern = (SelectionItemPattern)AutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                return pattern.Current.IsSelected;
+            }
+        }
     }
 }

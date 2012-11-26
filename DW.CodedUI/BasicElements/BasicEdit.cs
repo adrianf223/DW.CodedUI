@@ -31,6 +31,12 @@ namespace DW.CodedUI.BasicElements
         public BasicEdit(AutomationElement automationElement)
             : base(automationElement)
         {
+            // TODO:
+            //var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
+            //pattern.SupportedTextSelection
+            //pattern.GetVisibleRanges()
+            //pattern.GetSelection()
+            //pattern.DocumentRange
         }
     }
 }

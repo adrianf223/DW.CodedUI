@@ -32,5 +32,14 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        public bool IsPressed // TODO: Test
+        {
+            get
+            {
+                var pattern = (TogglePattern)AutomationElement.GetCurrentPattern(TogglePattern.Pattern);
+                return pattern.Current.ToggleState == ToggleState.On;
+            }
+        }
     }
 }

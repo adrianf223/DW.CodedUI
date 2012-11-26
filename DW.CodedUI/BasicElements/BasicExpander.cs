@@ -32,5 +32,14 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        public bool IsExpanded
+        {
+            get
+            {
+                var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+            }
+        }
     }
 }

@@ -23,15 +23,23 @@
 #endregion License
 
 using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Bases;
 
 namespace DW.CodedUI.BasicElements
 {
-    public class BasicMenuItem : ExpandableElement
+    public class BasicMenuItem : BasicElement
     {
         public BasicMenuItem(AutomationElement automationElement)
             : base(automationElement)
         {
+        }
+
+        public bool IsExpanded // TODO: Test
+        {
+            get
+            {
+                var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+            }
         }
     }
 }
