@@ -37,7 +37,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <!--<Button />-->
-            <ComboBox x:Name="DemoComboBox">
+            <!--<ComboBox x:Name="DemoComboBox">
                 <ComboBoxItem Content="First" AutomationProperties.AutomationId="FirstItem" />
                 <ComboBoxItem Content="Second" AutomationProperties.AutomationId="SecondItem" />
                 <ComboBoxItem Content="Third" AutomationProperties.AutomationId="ThirdItem" />
@@ -57,7 +57,18 @@
                     </ContextMenu>
                 </ComboBox.ContextMenu>
 
-            </ComboBox>
+            </ComboBox>-->
+            
+            <ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="Wurst" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+                10
+            </ListBox>
+            
             <Button IsEnabled="False" Grid.Row="1" />
             <Button Visibility="Collapsed" Grid.Row="2" />
         </Grid>

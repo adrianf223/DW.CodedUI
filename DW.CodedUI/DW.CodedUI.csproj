@@ -103,7 +103,6 @@
     <Compile Include="Utilities\MessageBoxInfo.cs" />
     <Compile Include="Utilities\Shutdown.cs" />
     <Compile Include="Utilities\ShutdownConfiguration.cs" />
-    <Compile Include="Utilities\TextBlockReader.cs" />
     <Compile Include="Utilities\WindowFocus.cs" />
     <Compile Include="Waiting\DynamicSleep.cs" />
     <Compile Include="Waiting\ExecutionSpeed.cs" />

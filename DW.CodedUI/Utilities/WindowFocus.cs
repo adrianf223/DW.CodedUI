@@ -25,6 +25,7 @@
 using System;
 using System.Runtime.InteropServices;
 using DW.CodedUI.Application;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
@@ -33,6 +34,11 @@ namespace DW.CodedUI.Utilities
         public static void BringOnTop(OpenWindow window)
         {
             SetForegroundWindow(new IntPtr(window.NativeWindowHandle));
+        }
+
+        public static void BringOnTop(WpfWindow window)
+        {
+            SetForegroundWindow(window.WindowHandle);
         }
 
         [DllImport("user32.dll")]
