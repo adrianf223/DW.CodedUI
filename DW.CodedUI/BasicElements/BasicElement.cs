@@ -118,5 +118,21 @@ namespace DW.CodedUI.BasicElements
         {
             _highlighter.Close();
         }
+
+        public bool IsAvailable
+        {
+            get
+            {
+                try
+                {
+                    var elementAvailbilityCheck = Name;
+                    return true;
+                }
+                catch (ElementNotAvailableException )
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

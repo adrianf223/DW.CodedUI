@@ -709,14 +709,24 @@ namespace DW.CodedUI.UITree
 
         #region Parent
 
-        public static BasicElement GetParent(BasicTreeItem child)
+        public static BasicElement GetParent(BasicElement child)
+        {
+            return GetParent<BasicElement>(child.AutomationElement);
+        }
+
+        public static BasicElement GetParent(AutomationElement child)
         {
             return GetParent<BasicElement>(child);
         }
 
-        public static TControl GetParent<TControl>(BasicTreeItem child) where TControl : BasicElement
+        public static BasicElement GetParent<TControl>(BasicElement child) where TControl : BasicElement
         {
-            var parent = TreeWalker.ControlViewWalker.GetParent(child.AutomationElement);
+            return GetParent<TControl>(child.AutomationElement);
+        }
+
+        public static TControl GetParent<TControl>(AutomationElement child) where TControl : BasicElement
+        {
+            var parent = TreeWalker.ControlViewWalker.GetParent(child);
             if (parent != null)
                 return (TControl)Activator.CreateInstance(typeof(TControl), parent);
             return null;

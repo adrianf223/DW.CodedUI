@@ -23,25 +23,20 @@
 #endregion License
 
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
 
 namespace AutomationElementFinder
 {
-    public class AutomationElementVisualization : Control
+    public class EnhancedTreeView : TreeView
     {
-        static AutomationElementVisualization()
+        protected override DependencyObject GetContainerForItemOverride()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(AutomationElementVisualization), new FrameworkPropertyMetadata(typeof(AutomationElementVisualization)));
+            return new EnhancedTreeViewItem();
         }
 
-        public AutomationElement Element
+        protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            get { return (AutomationElement)GetValue(ElementProperty); }
-            set { SetValue(ElementProperty, value); }
+            return item is EnhancedTreeViewItem;
         }
-
-        public static readonly DependencyProperty ElementProperty =
-            DependencyProperty.Register("Element", typeof(AutomationElement), typeof(AutomationElementVisualization), new UIPropertyMetadata(null));
     }
 }

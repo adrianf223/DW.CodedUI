@@ -25,127 +25,146 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:AutomationElementFinder="clr-namespace:AutomationElementFinder">
 
-    <Style TargetType="{x:Type AutomationElementFinder:TitledItemsControl}" BasedOn="{StaticResource {x:Type ItemsControl}}">
-        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
-        <Setter Property="VerticalTitleAlignments" Value="Center" />
-        <Setter Property="HorizontalTitleAlignments" Value="Right" />
-        <Setter Property="TitleMargins" Value="5,0" />
-        <Setter Property="HorizontalContentAlignments" Value="Stretch" />
-        <Setter Property="VerticalContentAlignments" Value="Center" />
-        <Setter Property="ContentMargins" Value="0,2" />
+    <Style x:Key="TreeViewItemFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-
-    <Style TargetType="{x:Type AutomationElementFinder:TitledItem}">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="VerticalTitleAlignment" Value="{Binding VerticalTitleAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
-        <Setter Property="HorizontalTitleAlignment" Value="{Binding HorizontalTitleAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
-        <Setter Property="TitleMargin" Value="{Binding TitleMargins, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
-        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
-        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignments, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
-        <Setter Property="ContentMargin" Value="{Binding ContentMargins, RelativeSource={RelativeSource AncestorType={x:Type AutomationElementFinder:TitledItemsControl}}}" />
+    
+    <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+    
+    <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Width" Value="16"/>
+        <Setter Property="Height" Value="16"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type AutomationElementFinder:TitledItem}">
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Background="Transparent" Height="16" Padding="5,5,5,5" Width="16">
+                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="Transparent" Stroke="#FF989898">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF1BBBFA"/>
+                            <Setter Property="Fill" TargetName="ExpandPath" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="RenderTransform" TargetName="ExpandPath">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Fill" TargetName="ExpandPath" Value="#FF595959"/>
+                            <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF262626"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type AutomationElementFinder:EnhancedTreeViewItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Padding" Value="1,0,0,0"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
+        <Setter Property="FontStyle" Value="Normal"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type AutomationElementFinder:EnhancedTreeViewItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="title" />
-                            <ColumnDefinition />
+                            <ColumnDefinition MinWidth="19" Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ContentPresenter ContentSource="Title"
-                                          VerticalAlignment="{TemplateBinding VerticalTitleAlignment}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
-                                          Margin="{TemplateBinding TitleMargin}" />
-
-                        <ContentPresenter Grid.Column="1"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Margin="{TemplateBinding ContentMargin}" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <Label Padding="0" x:Name="PART_Header" Content="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="false">
+                            <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                        </Trigger>
+
+                        <Trigger Property="HasAutomationId" Value="false">
+                            <Setter Property="FontStyle" Value="Italic" />
+                            <Setter Property="Foreground" TargetName="PART_Header" Value="Gray" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="HasAutomationId" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Bd" Value="LightGreen" />
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="HasAutomationId" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Bd" Value="LightBlue" />
+                            <Setter Property="Foreground" TargetName="PART_Header" Value="Black" />
+                        </MultiTrigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type AutomationElementFinder:AutomationElementVisualization}">
+    <Style TargetType="{x:Type AutomationElementFinder:PropertiesControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type AutomationElementFinder:AutomationElementVisualization}">
-                    <AutomationElementFinder:TitledItemsControl DataContext="{Binding Element.Current, RelativeSource={RelativeSource TemplatedParent}}">
-                        <AutomationElementFinder:TitledItem Title="AcceleratorKey">
-                            <TextBox Text="{Binding AcceleratorKey, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="AccessKey">
-                            <TextBox Text="{Binding AccessKey, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="AutomationId">
-                            <TextBox Text="{Binding AutomationId, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="BoundingRectangle">
-                            <TextBox Text="{Binding BoundingRectangle, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="ClassName">
-                            <TextBox Text="{Binding ClassName, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="ControlType">
-                            <TextBox Text="{Binding ControlType, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="FrameworkId">
-                            <TextBox Text="{Binding FrameworkId, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="HasKeyboardFocus">
-                            <TextBox Text="{Binding HasKeyboardFocus, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="HelpText">
-                            <TextBox Text="{Binding HelpText, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsContentElement">
-                            <TextBox Text="{Binding IsContentElement, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsControlElement">
-                            <TextBox Text="{Binding IsControlElement, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsEnabled">
-                            <TextBox Text="{Binding IsEnabled, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsKeyboardFocusable">
-                            <TextBox Text="{Binding IsKeyboardFocusable, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsOffscreen">
-                            <TextBox Text="{Binding IsOffscreen, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsPassword">
-                            <TextBox Text="{Binding IsPassword, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="IsRequiredForForm">
-                            <TextBox Text="{Binding IsRequiredForForm, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="ItemStatus">
-                            <TextBox Text="{Binding ItemStatus, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="ItemType">
-                            <TextBox Text="{Binding ItemType, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="LabeledBy">
-                            <TextBox Text="{Binding LabeledBy, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="LocalizedControlType">
-                            <TextBox Text="{Binding LocalizedControlType, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="Name">
-                            <TextBox Text="{Binding Name, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="NativeWindowHandle">
-                            <TextBox Text="{Binding NativeWindowHandle, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="Orientation">
-                            <TextBox Text="{Binding Orientation, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                        <AutomationElementFinder:TitledItem Title="ProcessId">
-                            <TextBox Text="{Binding ProcessId, Mode=OneWay}" IsReadOnly="True" />
-                        </AutomationElementFinder:TitledItem>
-                    </AutomationElementFinder:TitledItemsControl>
+                <ControlTemplate TargetType="{x:Type AutomationElementFinder:PropertiesControl}">
+                    <ItemsPresenter />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type AutomationElementFinder:Property}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type AutomationElementFinder:Property}">
+                    <DockPanel Background="{TemplateBinding Background}" Margin="1">
+                        <Button Content="Copy" DockPanel.Dock="Right" x:Name="PART_Copy" />
+                        <TextBlock Text="{TemplateBinding Title}" DockPanel.Dock="Left" Width="150" VerticalAlignment="Center" Margin="2,0" />
+                        <TextBox Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" IsReadOnly="True" />
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Highlight" Value="True">
+                            <Setter Property="Background" Value="LightGreen" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

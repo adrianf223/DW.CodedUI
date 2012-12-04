@@ -1,5 +1,11 @@
 ﻿
 
+12.12.4.0    Add some availability check in the AutomationElementFinder to prevent crashes
+12.12.4.0    Add property IsAvailable to the BasicElement
+12.12.4.0    Fix crashes if an element goes lost until bind to the AutomationElementFinder tree
+12.12.3.0    Renew the AutomationElementFinder
+12.12.3.0    Add overloads for the BasicElementFinder.GetParent to take BasicElements and AutomationElements
+12.12.3.0    Change wrong argument type for the BasicElementFinder.GetParent
 12.11.29.0   Add overloads to the WindowFocus method to take a WpfWindow too (WindowUnderTest and ChildWindow are WpfWindow objects)
 12.11.29.0   Remove TextBlockReader, since the BasicElementFinder can get TextBlocks this class gets obsolete
 12.11.26.0   The CleanMessagebox method in the Shutdown object closes only known messageboxes (Registered with the ShutdownConfiguration.SetSetMessageBoxInfo)
