@@ -33,7 +33,7 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
-        public bool IsPressed // TODO: Test
+        public bool IsChecked // TODO: Test
         {
             get
             {

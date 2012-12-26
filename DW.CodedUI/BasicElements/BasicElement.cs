@@ -41,6 +41,11 @@ namespace DW.CodedUI.BasicElements
 
         public AutomationElement AutomationElement { get; private set; }
 
+        public AutomationPattern[] SupportedPatterns
+        {
+            get { return AutomationElement.GetSupportedPatterns(); }
+        }
+
         public AutomationElement.AutomationElementInformation Properties
         {
             get { return AutomationElement.Current; }

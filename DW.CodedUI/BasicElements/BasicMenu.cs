@@ -22,7 +22,9 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -33,7 +35,12 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
-        // TODO:
-        // Items
+        public IEnumerable<BasicMenuItem> Items // TODO: Test
+        {
+            get
+            {
+                return BasicElementFinder.FindChildrenByClassName<BasicMenuItem>(AutomationElement, "MenuItem");
+            }
+        }
     }
 }

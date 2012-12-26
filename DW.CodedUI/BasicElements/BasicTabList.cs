@@ -22,7 +22,10 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -33,8 +36,21 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
-        // TODO:
-        // SelectedItem
-        // Items
+        public BasicTabPage SelectedItem // TODO: Test
+        {
+            get
+            {
+                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                return new BasicTabPage(pattern.Current.GetSelection().FirstOrDefault());
+            }
+        }
+
+        public IEnumerable<BasicTabPage> Items // TODO: Test
+        {
+            get
+            {
+                return BasicElementFinder.FindChildrenByClassName<BasicTabPage>(AutomationElement, "TabItem");
+            }
+        }
     }
 }

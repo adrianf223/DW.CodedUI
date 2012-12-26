@@ -32,5 +32,14 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
         }
+
+        public string Text // TODO: Test
+        {
+            get
+            {
+                var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
+                return pattern.DocumentRange.GetText(-1);
+            }
+        }
     }
 }

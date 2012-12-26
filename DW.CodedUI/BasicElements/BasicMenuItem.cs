@@ -22,7 +22,9 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -39,6 +41,18 @@ namespace DW.CodedUI.BasicElements
             {
                 var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
                 return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+            }
+        }
+
+        public IEnumerable<BasicMenuItem> Items // TODO: Test
+        {
+            get
+            {
+                var expandCollapsePattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                expandCollapsePattern.Expand();
+                expandCollapsePattern.Collapse();
+
+                return BasicElementFinder.FindChildrenByClassName<BasicMenuItem>(AutomationElement, "MenuItem");
             }
         }
     }

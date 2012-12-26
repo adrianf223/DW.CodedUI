@@ -33,7 +33,7 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
-        public bool IsExpanded
+        public bool IsExpanded // TODO: Test
         {
             get
             {

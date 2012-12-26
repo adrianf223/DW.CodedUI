@@ -22,7 +22,10 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -33,7 +36,34 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
-        // TODO:
-        // Items
+        public bool CanMultiSelect // TODO: Test
+        {
+            get
+            {
+                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                return pattern.Current.CanSelectMultiple;
+            }
+        }
+
+        public IEnumerable<BasicListItem> SelectedItems // TODO: Test
+        {
+            get
+            {
+                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                return pattern.Current.GetSelection().Select(element => new BasicListItem(element));
+            }
+        }
+
+        public IEnumerable<BasicListItem> Items // TODO: Test
+        {
+            get
+            {
+                var listBoxChilds = BasicElementFinder.FindChildrenByClassName<BasicListItem>(AutomationElement, "ListBoxItem");
+                if (listBoxChilds.Any())
+                    return listBoxChilds;
+                var listViewChilds = BasicElementFinder.FindChildrenByClassName<BasicListItem>(AutomationElement, "ListViewItem");
+                return listViewChilds;
+            }
+        }
     }
 }

@@ -22,7 +22,9 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -33,12 +35,7 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
-        public static string ClassName
-        {
-            get { return "TreeViewItem"; }
-        }
-
-        public bool IsSelected
+        public bool IsSelected // TODO: Test
         {
             get
             {
@@ -47,12 +44,24 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        public bool IsExpanded
+        public bool IsExpanded // TODO: Test
         {
             get
             {
                 var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
                 return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+            }
+        }
+
+        public IEnumerable<BasicTreeItem> Items // TODO: Test
+        {
+            get
+            {
+                var expandCollapsePattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                expandCollapsePattern.Expand();
+                expandCollapsePattern.Collapse();
+
+                return BasicElementFinder.FindChildrenByClassName<BasicTreeItem>(AutomationElement, "TreeViewItem");
             }
         }
     }
