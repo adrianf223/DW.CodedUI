@@ -29,13 +29,24 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a TreeView
+    /// </summary>
     public class BasicTree : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicTree class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicTree(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets the selected tree item
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public BasicTreeItem SelectedItem // TODO: Test
         {
             get
@@ -45,6 +56,10 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all available child tree items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicTreeItem> Items // TODO: Test
         {
             get

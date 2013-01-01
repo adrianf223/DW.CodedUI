@@ -27,20 +27,53 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using DW.CodedUI.Application;
+using DW.CodedUI.BasicElements;
 using DW.CodedUI.Interaction;
+using DW.CodedUI.UITree;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Brings possibility to shut down an application
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestCleanup]
+    /// [ExecutionSpeed(Speed.Fast)]
+    /// public void TearDown()
+    /// {
+    ///     var shutdownConfiguration = new ShutdownConfiguration();
+    ///     shutdownConfiguration.SetSetMessageBoxInfo(new MessageBoxInfo("Really Close?", MessageBoxResult.OK),
+    ///                                                new MessageBoxInfo("Save changes?", MessageBoxResult.Cancel));
+    ///     var shutdown = new Shutdown(shutdownConfiguration);
+    /// 
+    ///     shutdown.CloseApplication(_target); // May raise messageboxes up
+    ///     DynamicSleep.Wait();
+    ///     shutdown.CleanMessageBoxes(); // Close the possible messageboxes
+    ///     DynamicSleep.Wait();
+    ///     shutdown.CloseApplication(_target); // Just to be sure the application has been closed
+    /// }]]>
+    /// </code>
+    /// </example>
     public class Shutdown
     {
         private readonly ShutdownConfiguration _configuration;
-        
+
+        /// <summary>
+        /// Initializes a new instance of the Shutdown class
+        /// </summary>
         public Shutdown(ShutdownConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Wait for messageboxes and closes them by the ShutdownConfiguration
+        /// </summary>
+        /// <returns>Amount of closed MessageBoxes</returns>
+        /// <remarks>If a MessageBox is not defined in the ShutdownConfiguration it will not closed</remarks>
         public int CleanMessageBoxes()
         {
             var timer = new Stopwatch();
@@ -66,17 +99,21 @@ namespace DW.CodedUI.Utilities
             }
         }
 
-        private OpenWindow FindMessageBox()
+        private BasicMessageBox FindMessageBox()
         {
             foreach (var messageBoxInfo in _configuration.MessageBoxInfo)
             {
-                var messageBox = WindowsMessageBox.FindMessageBox(messageBoxInfo.Title);
+                var messageBox = MessageBoxFinder.FindFirstAvailableByTitle(messageBoxInfo.Title);
                 if (messageBox != null)
                     return messageBox;
             }
             return null;
         }
 
+        /// <summary>
+        /// Closed the application
+        /// </summary>
+        /// <param name="window">The main window of the application</param>
         public void CloseApplication(WpfWindow window)
         {
             var process = Process.GetProcesses().FirstOrDefault(p => p.MainWindowHandle == window.WindowHandle);
@@ -87,10 +124,14 @@ namespace DW.CodedUI.Utilities
             process.Kill();
         }
 
-        public void CloseApplication(WindowUnderTest window)
+        /// <summary>
+        /// Closed the application
+        /// </summary>
+        /// <param name="window">The main window of the application</param>
+        public void CloseApplication(TestableApplication window)
         {
             if (!window.Shutdown())
-                CloseApplication((WpfWindow) window);
+                CloseApplication((WpfWindow)window);
         }
 
         private MessageBoxResult GetBoxResult(string title)

@@ -24,38 +24,26 @@
 
 using System.Windows.Automation;
 
-namespace DW.CodedUI.Application
+namespace DW.CodedUI.BasicElements
 {
-    public class OpenWindow
+    /// <summary>
+    /// Represents a MessageBox
+    /// </summary>
+    public class BasicMessageBox : BasicElement
     {
-        public OpenWindow(AutomationElement.AutomationElementInformation current)
+        /// <summary>
+        /// Initializes a new instance of the BasicMessageBox class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
+        public BasicMessageBox(AutomationElement automationElement)
+            : base(automationElement)
         {
-            ClassName = current.ClassName;
-            HasKeyboardFocus = current.HasKeyboardFocus;
-            Title = current.Name;
-            NativeWindowHandle = current.NativeWindowHandle;
-            ProcessId = current.ProcessId;
-            IsKeyboardFocusable = current.IsKeyboardFocusable;
-            switch (current.FrameworkId)
-            {
-                case "Win32":
-                    Kind = WindowKind.WindowsMessageBox;
-                    break;
-                case "WinForm":
-                    Kind = WindowKind.FormsWindow;
-                    break;
-                case "WPF":
-                    Kind = WindowKind.WPFWindow;
-                    break;
-            }
+            Title = Name;
         }
 
-        public string ClassName { get; private set; }
-        public bool HasKeyboardFocus { get; private set; }
+        /// <summary>
+        /// Gets the title of the MessageBox
+        /// </summary>
         public string Title { get; private set; }
-        public int NativeWindowHandle { get; private set; }
-        public int ProcessId { get; private set; }
-        public bool IsKeyboardFocusable { get; private set; }
-        public WindowKind Kind { get; private set; }
     }
 }

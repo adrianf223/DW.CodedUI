@@ -26,16 +26,51 @@ using System;
 
 namespace DW.CodedUI.Waiting
 {
+    /// <summary>
+    /// Attribute to define how long all DynamicSleep.Wait methods has to wait in the current focus
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [ExecutionSpeed(Speed.MaximumSpeed)]
+    /// public class TryOut
+    /// {
+    ///     [TestMethod]
+    ///     public void Method_TestCondition_ExpectedResult()
+    ///     {
+    ///         DynamicSleep.Wait(); // Uses "MaximumSpeed" which is no wait
+    ///     }
+    /// 
+    ///     [TestMethod]
+    ///     [ExecutionSpeed(Speed.Slow)]
+    ///     public void Method_TestCondition_ExpectedResult2()
+    ///     {
+    ///         DynamicSleep.Wait(); // Uses "Slow" which is one second
+    ///     }
+    /// }]]>
+    /// </code>
+    /// </example>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class ExecutionSpeed : Attribute
     {
+        /// <summary>
+        /// Gets the time to wait
+        /// </summary>
         public int Milliseconds { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the ExecutionSpeed class
+        /// </summary>
+        /// <param name="milliseconds">The time to wait</param>
         public ExecutionSpeed(int milliseconds)
         {
             Milliseconds = milliseconds;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the ExecutionSpeed class
+        /// </summary>
+        /// <param name="speed">The execution speed</param>
         public ExecutionSpeed(Speed speed)
         {
             switch (speed)

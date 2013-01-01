@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ToggleButton
+    /// </summary>
     public class BasicToggleButton : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the ToggleButton class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicToggleButton(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if the button is checked or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsChecked // TODO: Test
         {
             get

@@ -27,26 +27,72 @@ using System.Diagnostics;
 
 namespace DW.CodedUI.Application
 {
-    public class WindowUnderTest : ChildWindow
+    /// <summary>
+    /// Represents the application under test
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [CodedUITest]
+    /// public class AnyWindowTests
+    /// {
+    ///     private TestableApplication _target;
+    /// 
+    ///     [TestInitialize]
+    ///     public void Setup()
+    ///     {
+    ///         _target = ApplicationFactory.Launch(@"Application Window Title",
+    ///                                             @"..\..\..\Anypath\MyApplication.exe");
+    ///     }
+    /// 
+    ///     [TestCleanup]
+    ///     public void Teatdown()
+    ///     {
+    ///         _target.Shutdown();
+    ///     }
+    /// 
+    ///     [TestMethod]
+    ///     public void Method_TestCondition_ExpectedResult()
+    ///     {
+    ///         var anyButton = BasicElementFinder.FindChildByAutomationId<BasicComboBox>(_target, "AnyButton");
+    ///         
+    ///         MouseEx.Click(anyButton);
+    /// 
+    ///         //Assert
+    ///     }
+    /// }]]>
+    /// </code>
+    /// </example>
+    public class TestableApplication : TestableWindow
     {
         private readonly Process _process;
 
-        internal WindowUnderTest(string title, Process process, int instance)
+        internal TestableApplication(string title, Process process, int instance)
             : base(title, instance)
         {
             _process = process;
         }
 
+        /// <summary>
+        /// Tries to close the main window of the application
+        /// </summary>
+        /// <returns>True if the close message was sent to the application successfully; otherwise false</returns>
         public bool Shutdown()
         {
             return _process.CloseMainWindow();
         }
 
+        /// <summary>
+        /// Getsthe application handle
+        /// </summary>
         public IntPtr Handle
         {
             get { return _process.Handle; }
         }
 
+        /// <summary>
+        /// Gets the handle of the main window
+        /// </summary>
         public IntPtr MainWindowHandle
         {
             get { return _process.MainWindowHandle; }

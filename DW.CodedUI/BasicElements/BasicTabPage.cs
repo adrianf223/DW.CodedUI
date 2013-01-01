@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a TabItem
+    /// </summary>
     public class BasicTabPage : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicTabPage class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicTabPage(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if it is selected or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsSelected // TODO: Test
         {
             get

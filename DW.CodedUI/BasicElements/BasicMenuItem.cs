@@ -28,13 +28,24 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a MenuItem
+    /// </summary>
     public class BasicMenuItem : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicMenuItem class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicMenuItem(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if it is expanded or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsExpanded // TODO: Test
         {
             get
@@ -44,6 +55,10 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all available child items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicMenuItem> Items // TODO: Test
         {
             get

@@ -29,13 +29,24 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a TabControl
+    /// </summary>
     public class BasicTabList : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicTabList class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicTabList(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets the selected tab item
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public BasicTabPage SelectedItem // TODO: Test
         {
             get
@@ -45,6 +56,10 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all available tab items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicTabPage> Items // TODO: Test
         {
             get

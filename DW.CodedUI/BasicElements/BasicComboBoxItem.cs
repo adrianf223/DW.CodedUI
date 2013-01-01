@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ComboBoxItem
+    /// </summary>
     public class BasicComboBoxItem : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicComboBoxItem class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicComboBoxItem(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if the box is selected or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsSelected // TODO: Test
         {
             get

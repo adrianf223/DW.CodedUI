@@ -26,12 +26,55 @@ using System.Diagnostics;
 
 namespace DW.CodedUI.Application
 {
+    /// <summary>
+    /// Starts an application for test
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [CodedUITest]
+    /// public class AnyWindowTests
+    /// {
+    ///     private TestableApplication _target;
+    /// 
+    ///     [TestInitialize]
+    ///     public void Setup()
+    ///     {
+    ///         _target = ApplicationFactory.Launch(@"Application Window Title",
+    ///                                             @"..\..\..\Anypath\MyApplication.exe");
+    ///     }
+    /// 
+    ///     [TestCleanup]
+    ///     public void Teatdown()
+    ///     {
+    ///         _target.Shutdown();
+    ///     }
+    /// 
+    ///     [TestMethod]
+    ///     public void Method_TestCondition_ExpectedResult()
+    ///     {
+    ///         var anyButton = BasicElementFinder.FindChildByAutomationId<BasicComboBox>(_target, "AnyButton");
+    ///         
+    ///         MouseEx.Click(anyButton);
+    /// 
+    ///         //Assert
+    ///     }
+    /// }]]>
+    /// </code>
+    /// </example>
     public static class ApplicationFactory
     {
-        public static WindowUnderTest Launch(string title, string applicationPath, int instance = 1)
+        /// <summary>
+        /// Starts the application
+        /// </summary>
+        /// <param name="title">The title of the window which appears as soon the application has been started</param>
+        /// <param name="applicationPath">The path to the application. (Can be relative)</param>
+        /// <param name="instance">If there are multiple applications with the same title, this parameter says which instance should be used</param>
+        /// <returns>The TestableApplication which can be used by other Coded UI tests</returns>
+        public static TestableApplication Launch(string title, string applicationPath, int instance = 1)
         {
             var process = Process.Start(applicationPath);
-            return new WindowUnderTest(title, process, instance);
+            return new TestableApplication(title, process, instance);
         }
     }
 }

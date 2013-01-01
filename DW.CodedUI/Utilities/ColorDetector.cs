@@ -30,8 +30,35 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Brings you possibility to get the color of from specific position
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Click_OnButton_ChangesButtonColor()
+    /// {
+    ///     var control = WpfElementFinder.FindChildByAutomationId(_target, "Example");
+    ///     var oldColor = ColorDetector.GetColor(control);
+    /// 
+    ///     Mouse.Click(control)
+    /// 
+    ///     var newColor = ColorDetector.GetColor(control);
+    /// 
+    ///     Assert.AreNotEqual(oldColor, newColor);
+    /// }]]>
+    /// </code>
+    /// </example>
     public static class ColorDetector
     {
+        /// <summary>
+        /// Gets the color of a WPF control on a specific relative position
+        /// </summary>
+        /// <param name="control">The control to get the color from</param>
+        /// <param name="relativePositionX">Relative X position inside the control</param>
+        /// <param name="relativePositionY">Relative Y position inside the control</param>
+        /// <returns></returns>
         public static Color GetColor(WpfControl control, int relativePositionX = 1, int relativePositionY = 1)
         {
             var originalMouseSpeed = Mouse.MouseMoveSpeed;

@@ -23,56 +23,67 @@
 #endregion License
 
 using System.Windows.Input;
+using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
 {
+    /// <summary>
+    /// Enhances the static Keyboard class to send keys to basic elements
+    /// </summary>
     public static class KeyboardEx
     {
+        /// <summary>
+        /// Gets or sets the delay between each key
+        /// </summary>
         public static int SendKeysDelay
         {
             get { return Keyboard.SendKeysDelay; }
             set { Keyboard.SendKeysDelay = value; }
         }
 
-        public static void PressModifierKeys(ModifierKeys keys)
+        /// <summary>
+        /// Focuses the given control and sends modifier keys
+        /// </summary>
+        /// <param name="control">The control which should receive the keys</param>
+        /// <param name="keys">The modifier keys to press</param>
+        public static void PressModifierKeys(BasicElement control, ModifierKeys keys)
         {
+            control.AutomationElement.SetFocus();
             Keyboard.PressModifierKeys(keys);
         }
 
-        public static void PressModifierKeys(UITestControl testControl, ModifierKeys keys)
+        /// <summary>
+        /// Focuses the given control and sends release of modifier keys
+        /// </summary>
+        /// <param name="control">The control which should receive release</param>
+        /// <param name="keys">The modifier keys to release</param>
+        public static void ReleaseModifierKeys(BasicElement control, ModifierKeys keys)
         {
-            Keyboard.PressModifierKeys(testControl, keys);
-        }
-
-        public static void ReleaseModifierKeys(ModifierKeys keys)
-        {
+            control.AutomationElement.SetFocus();
             Keyboard.ReleaseModifierKeys(keys);
         }
 
-        public static void ReleaseModifierKeys(UITestControl testControl, ModifierKeys keys)
-        {
-            Keyboard.ReleaseModifierKeys(testControl, keys);
-        }
-
-        public static void SendKeys(string text)
-        {
-            SendKeys(text, ModifierKeys.None);
-        }
-
-        public static void SendKeys(string text, ModifierKeys modifierKeys)
-        {
-            Keyboard.SendKeys(text, modifierKeys);
-        }
-
-        public static void SendKeys(UITestControl control, string text)
+        /// <summary>
+        /// Focuses the given control and sends key commands to it
+        /// </summary>
+        /// <param name="control">The control which should receive the keys</param>
+        /// <param name="text">The keys to send</param>
+        public static void SendKeys(BasicElement control, string text)
         {
             SendKeys(control, text, ModifierKeys.None);
         }
 
-        public static void SendKeys(UITestControl control, string text, ModifierKeys modifierKeys)
+        /// <summary>
+        /// Focuses the given control and sends key commands to it
+        /// </summary>
+        /// <param name="control">The control which should receive the keys</param>
+        /// <param name="text">The keys to send</param>
+        /// <param name="modifierKeys">The pressed modifier keys until keys will be send</param>
+        public static void SendKeys(BasicElement control, string text, ModifierKeys modifierKeys)
         {
-            Keyboard.SendKeys(control, text, modifierKeys);
+            control.AutomationElement.SetFocus();
+            Keyboard.SendKeys(text, modifierKeys);
         }
     }
 }

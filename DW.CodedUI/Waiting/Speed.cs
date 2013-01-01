@@ -24,10 +24,24 @@
 
 namespace DW.CodedUI.Waiting
 {
+    /// <summary>
+    /// Defines how long the DynamicSleep has to wait
+    /// </summary>
     public enum Speed
     {
+        /// <summary>
+        /// 3000 Milliseconds
+        /// </summary>
         Slow,
+
+        /// <summary>
+        /// 1000 Milliseconds
+        /// </summary>
         Fast,
+
+        /// <summary>
+        /// 0 Milliseconds
+        /// </summary>
         MaximumSpeed
     }
 }

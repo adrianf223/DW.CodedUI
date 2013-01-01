@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a RadioButton
+    /// </summary>
     public class BasicRadioButton : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicRadioButton class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicRadioButton(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if the button is checked or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsChecked // TODO: Test
         {
             get

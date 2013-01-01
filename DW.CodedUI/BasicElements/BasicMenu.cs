@@ -28,13 +28,24 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a Menu or ContextMenu
+    /// </summary>
     public class BasicMenu : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicCheckBox class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicMenu(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets all available items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicMenuItem> Items // TODO: Test
         {
             get

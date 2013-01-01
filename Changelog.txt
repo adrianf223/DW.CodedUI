@@ -1,5 +1,11 @@
 ﻿
 
+13.1.1.0     Add some missing methods to the BasicElementFinder
+13.1.1.0     Rename WindowsMessageBox by MessageBoxFinder and move to other namespace, it just tries to find messageboxes
+13.1.1.0     Rename WindowUnderTest to TestableApplication, this represents the object type much better
+13.1.1.0     Rename ChildWindow by TestableWindow since it can represent any window not just child windows
+13.1.1.0     Rename OpenWindow by BasicMessageBox since it is used for MessageBoxes only
+13.1.1.0     Remove Window observing features
 12.12.4.0    Add some availability check in the AutomationElementFinder to prevent crashes
 12.12.4.0    Add property IsAvailable to the BasicElement
 12.12.4.0    Fix crashes if an element goes lost until bind to the AutomationElementFinder tree

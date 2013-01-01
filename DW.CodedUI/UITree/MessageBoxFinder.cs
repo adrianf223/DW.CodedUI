@@ -25,25 +25,38 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements;
 
-namespace DW.CodedUI.Application
+namespace DW.CodedUI.UITree
 {
-    public static class WindowsMessageBox
+    /// <summary>
+    /// Brings you possibilities to find MessageBoxes
+    /// </summary>
+    public static class MessageBoxFinder
     {
-        public static OpenWindow FindMessageBox()
+        /// <summary>
+        /// Finds the first available MessageBox
+        /// </summary>
+        /// <returns>Returns the MessageBox if any; otherwise null</returns>
+        public static BasicMessageBox FindFirstAvailable()
         {
             var handle = FindWindow("#32770", null);
             if (handle == IntPtr.Zero)
                 return null;
-            return new OpenWindow(AutomationElement.FromHandle(handle).Current);
+            return new BasicMessageBox(AutomationElement.FromHandle(handle));
         }
 
-        public static OpenWindow FindMessageBox(string title)
+        /// <summary>
+        /// Finds the first available MessageBox with the given title
+        /// </summary>
+        /// <param name="title">The title of the MessageBox to search for</param>
+        /// <returns>Returns the MessageBox if any; otherwise null</returns>
+        public static BasicMessageBox FindFirstAvailableByTitle(string title)
         {
             var handle = FindWindow("#32770", title);
             if (handle == IntPtr.Zero)
                 return null;
-            return new OpenWindow(AutomationElement.FromHandle(handle).Current);
+            return new BasicMessageBox(AutomationElement.FromHandle(handle));
         }
 
         [DllImport("user32.dll", SetLastError = true)]

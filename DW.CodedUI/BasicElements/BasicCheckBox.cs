@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a CheckBox
+    /// </summary>
     public class BasicCheckBox : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicCheckBox class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicCheckBox(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if the box is checked or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsChecked // TODO: Test
         {
             get

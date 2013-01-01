@@ -28,85 +28,92 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.UITree
 {
+    /// <summary>
+    /// Brings methods to find WPF controls in a UI tree
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Method_TestCondition_ExpectedResult()
+    /// {
+    ///     var button = WpfElementFinder.FindChildByAutomationId<WpfButton>(_target, "MyButton");
+    /// 
+    ///     Mouse.Click(button);
+    /// }]]>
+    /// </code>
+    /// </example>
     public static class WpfElementFinder
     {
         #region Child
 
-        #region FindChildByAutomationId
-
+        /// <summary>
+        /// Tries to find a child control recursively by its automation id
+        /// </summary>
+        /// <typeparam name="TControl">The expected control type</typeparam>
+        /// <param name="parent">A parent control of the searched child</param>
+        /// <param name="automationId">The automation id to search for</param>
+        /// <returns>The first found child element if any; otherwise null</returns>
         public static TControl FindChildByAutomationId<TControl>(WpfControl parent, string automationId) where TControl : WpfControl
         {
             return FindChildByCondition<TControl>(parent, c => c.AutomationId == automationId);
         }
 
+        /// <summary>
+        /// Tries to find a child control recursively by its automation id
+        /// </summary>
+        /// <typeparam name="TControl">The expected control type</typeparam>
+        /// <param name="parent">A parent control of the searched child</param>
+        /// <param name="condition">The condition to check on every child control</param>
+        /// <returns>The first found child element if any; otherwise null</returns>
         public static TControl FindChildByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
         {
             return FindChildByCondition<TControl>(parent, c => condition(c.AutomationId));
         }
 
-        #endregion FindChildByAutomationId
-
-        #region FindChildByType
-
+        /// <summary>
+        /// Tries to find a child control recursively by its exact type
+        /// </summary>
+        /// <typeparam name="TControl">The expected control type</typeparam>
+        /// <param name="parent">A parent control of the searched child</param>
+        /// <returns>The first found child element if any; otherwise null</returns>
         public static TControl FindChildByType<TControl>(WpfControl parent) where TControl : WpfControl
         {
             return FindChildByCondition<TControl>(parent, c => c.GetType() == typeof(TControl));
         }
 
-        #endregion FindChildByType
-
-        #region FindChildByName
-
+        /// <summary>
+        /// Tries to find a child control recursively by its name
+        /// </summary>
+        /// <typeparam name="TControl">The expected control type</typeparam>
+        /// <param name="parent">A parent control of the searched child</param>
+        /// <param name="name">The name to search for</param>
+        /// <returns>The first found child element if any; otherwise null</returns>
         public static TControl FindChildByName<TControl>(WpfControl parent, string name) where TControl : WpfControl
         {
             return FindChildByCondition<TControl>(parent, c => c.Name == name);
         }
 
-        #endregion FindChildByName
-
-        #region FindChildByNameCondition
-
+        /// <summary>
+        /// Tries to find a child control recursively by its name
+        /// </summary>
+        /// <typeparam name="TControl">The expected control type</typeparam>
+        /// <param name="parent">A parent control of the searched child</param>
+        /// <param name="condition">The condition to check on every child control</param>
+        /// <returns>The first found child element if any; otherwise null</returns>
         public static TControl FindChildByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
         {
             return FindChildByCondition<TControl>(parent, c => condition(c.Name));
         }
 
-        #endregion FindChildByNameCondition
-
-        #endregion Child
-
-        #region Children
-
-        #region FindChildrenByAutomationIdCondition
-
-        public static IEnumerable<TControl> FindChildrenByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
-        {
-            return FindChildrenByCondition<TControl>(parent, c => condition(c.AutomationId));
-        }
-
-        #endregion FindChildrenByAutomationIdCondition
-
-        #region FindChildrenByType
-
-        public static IEnumerable<TControl> FindChildrenByType<TControl>(WpfControl parent) where TControl : WpfControl
-        {
-            return FindChildrenByCondition<TControl>(parent, c => c.GetType() == typeof(TControl));
-        }
-
-        #endregion FindChildrenByType
-
-        #region FindChildrenByNameCondition
-
-        public static IEnumerable<TControl> FindChildrenByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
-        {
-            return FindChildrenByCondition<TControl>(parent, c => condition(c.Name));
-        }
-
-        #endregion FindChildrenByNameCondition
-
-        #endregion Children
-
-        private static TControl FindChildByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
+        /// <summary>
+        /// Tries to find a child control recursively
+        /// </summary>
+        /// <typeparam name="TControl">The expected control type</typeparam>
+        /// <param name="parent">A parent control of the searched child</param>
+        /// <param name="condition">The condition to check on every child control</param>
+        /// <returns>The first found child element if any; otherwise null</returns>
+        public static TControl FindChildByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
         {
             foreach (WpfControl child in parent.GetChildren())
             {
@@ -119,7 +126,53 @@ namespace DW.CodedUI.UITree
             return null;
         }
 
-        private static IEnumerable<TControl> FindChildrenByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
+        #endregion Child
+
+        #region Children
+
+        /// <summary>
+        /// Collects all child controls recursively filtered by their automation id
+        /// </summary>
+        /// <typeparam name="TControl">The expected control types</typeparam>
+        /// <param name="parent">A parent control of the children</param>
+        /// <param name="condition">The condition to check on every child control</param>
+        /// <returns>A list of found children</returns>
+        public static IEnumerable<TControl> FindChildrenByAutomationIdCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
+        {
+            return FindChildrenByCondition<TControl>(parent, c => condition(c.AutomationId));
+        }
+
+        /// <summary>
+        /// Collects all child controls recursively filtered by their exact type
+        /// </summary>
+        /// <typeparam name="TControl">The expected control types</typeparam>
+        /// <param name="parent">A parent control of the children</param>
+        /// <returns>A list of found children</returns>
+        public static IEnumerable<TControl> FindChildrenByType<TControl>(WpfControl parent) where TControl : WpfControl
+        {
+            return FindChildrenByCondition<TControl>(parent, c => c.GetType() == typeof(TControl));
+        }
+
+        /// <summary>
+        /// Collects all child controls recursively by their name
+        /// </summary>
+        /// <typeparam name="TControl">The expected control types</typeparam>
+        /// <param name="parent">A parent control of the children</param>
+        /// <param name="condition">The condition to check on every child control</param>
+        /// <returns>A list of found children</returns>
+        public static IEnumerable<TControl> FindChildrenByNameCondition<TControl>(WpfControl parent, Func<string, bool> condition) where TControl : WpfControl
+        {
+            return FindChildrenByCondition<TControl>(parent, c => condition(c.Name));
+        }
+
+        /// <summary>
+        /// Collects all child controls recursively
+        /// </summary>
+        /// <typeparam name="TControl">The expected control types</typeparam>
+        /// <param name="parent">A parent control of the children</param>
+        /// <param name="condition">The condition to check on every child control</param>
+        /// <returns>A list of found children</returns>
+        public static IEnumerable<TControl> FindChildrenByCondition<TControl>(WpfControl parent, Func<WpfControl, bool> condition) where TControl : WpfControl
         {
             var childs = new List<TControl>();
             foreach (WpfControl child in parent.GetChildren())
@@ -130,5 +183,7 @@ namespace DW.CodedUI.UITree
             }
             return childs;
         }
+
+        #endregion Children
     }
 }

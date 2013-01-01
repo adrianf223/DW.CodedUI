@@ -26,11 +26,26 @@ using System.Windows;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Represents the single information how a specific MessageBox should be closed
+    /// </summary>
     public class MessageBoxInfo
     {
-        public string Title { get; set; }
-        public MessageBoxResult MessageBoxResult { get; set; }
+        /// <summary>
+        /// Gets the title of the MessageBox to close
+        /// </summary>
+        public string Title { get; private set; }
 
+        /// <summary>
+        /// Gets the result how the MessageBox should be closed
+        /// </summary>
+        public MessageBoxResult MessageBoxResult { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the MessageBoxInfo class
+        /// </summary>
+        /// <param name="title">The title of the BessageBox to close</param>
+        /// <param name="messageBoxResult">The result how the MessageBox should be closed</param>
         public MessageBoxInfo(string title, MessageBoxResult messageBoxResult)
         {
             Title = title;

@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a TextBox
+    /// </summary>
     public class BasicEdit : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicEdit class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicEdit(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets the written text
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public string Text // TODO: Test
         {
             get

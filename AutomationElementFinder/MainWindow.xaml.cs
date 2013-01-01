@@ -122,7 +122,7 @@ namespace AutomationElementFinder
                 var tree = BasicElementFinder.GetFullUITree(toppestParent);
                 items.AddRange(GetAllElementsByPosition(tree, point));
             }
-            catch (Exception ex)
+            catch
             {
                 return items;
             }

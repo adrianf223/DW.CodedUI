@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a Label
+    /// </summary>
     public class BasicText : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicText class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicText(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets the text written in the label
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public string Text // TODO: Test
         {
             get

@@ -22,17 +22,39 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
-using System;
+using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Application
 {
-    public class WindowEventArgs : EventArgs
+    /// <summary>
+    /// Represents a single open WPF window
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Method_TestCondition_ExpectedResult1()
+    /// {
+    ///     // do anything and a window appears
+    /// 
+    ///     var window = new TestableWindow("The title");
+    /// 
+    ///     // Assert anything in the window
+    /// }
+    /// ]]>
+    /// </code>
+    /// </example>
+    public class TestableWindow : WpfWindow
     {
-        public OpenWindow OpenWindow { get; private set; }
-
-        public WindowEventArgs(OpenWindow openWindow)
+        /// <summary>
+        /// Initializes a new instance of the TestableWindow class
+        /// </summary>
+        public TestableWindow(string title, int instance = 1)
         {
-            OpenWindow = openWindow;
+            SearchProperties[UITestControl.PropertyNames.Name] = title;
+            SearchProperties[UITestControl.PropertyNames.Instance] = instance.ToString();
+            SearchProperties.Add(new PropertyExpression(UITestControl.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
         }
     }
 }

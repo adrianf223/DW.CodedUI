@@ -24,10 +24,32 @@
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Brings you an easiert access to the recordered UIMap
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [CodedUITest]
+    /// public class TryOut : CodedUIBase<UIMap>
+    /// {
+    ///     [TestMethod]
+    ///     public void Method_TestCondition_ExpectedResult()
+    ///     {
+    ///         var map = UIMap;
+    /// 
+    ///         RefreshUIMap();
+    ///     }
+    /// }]]>
+    /// </code>
+    /// </example>
     public abstract class CodedUIBase<T> where T : new()
     {
         private T _uiMap;
 
+        /// <summary>
+        /// Gets the recorded UIMap
+        /// </summary>
         protected T UIMap
         {
             private set { _uiMap = value; }
@@ -39,6 +61,9 @@ namespace DW.CodedUI.Utilities
             }
         }
 
+        /// <summary>
+        /// Recreates the recordered UIMap to force a refresh
+        /// </summary>
         protected void RefreshUIMap()
         {
             UIMap = new T();

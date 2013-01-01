@@ -24,18 +24,43 @@
 
 using System;
 using System.Runtime.InteropServices;
-using DW.CodedUI.Application;
+using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Provides possibilities to bring any kind of a window on top
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Method_TestCondition_ExpectedResult()
+    /// {
+    ///     var myMessageBox = MessageBoxFinder.FindFirstAvailable();
+    /// 
+    ///     WindowFocux.BringOnTop(myMessageBox);
+    /// }
+    /// ]]>
+    /// </code>
+    /// </example>
     public static class WindowFocus
     {
-        public static void BringOnTop(OpenWindow window)
+        /// <summary>
+        /// Brings a MessageBox on top
+        /// </summary>
+        /// <param name="messageBox">The MessageBox to bring on top</param>
+        public static void BringOnTop(BasicMessageBox messageBox)
         {
-            SetForegroundWindow(new IntPtr(window.NativeWindowHandle));
+            SetForegroundWindow(new IntPtr(messageBox.Properties.NativeWindowHandle));
         }
 
+        /// <summary>
+        /// Brings a WPF Window on top
+        /// </summary>
+        /// <param name="window">The window to bring on top</param>
+        /// <remarks>TestableApplication and TestableWindow can be passed as well</remarks>
         public static void BringOnTop(WpfWindow window)
         {
             SetForegroundWindow(window.WindowHandle);

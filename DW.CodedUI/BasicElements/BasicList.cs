@@ -29,13 +29,24 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ListBox or ListView
+    /// </summary>
     public class BasicList : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicList class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicList(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if the list allows multi selection or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool CanMultiSelect // TODO: Test
         {
             get
@@ -45,6 +56,10 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the selected items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicListItem> SelectedItems // TODO: Test
         {
             get
@@ -54,6 +69,10 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all available items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicListItem> Items // TODO: Test
         {
             get

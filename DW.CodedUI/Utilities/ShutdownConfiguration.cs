@@ -26,12 +26,51 @@ using System.Collections.Generic;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Holds some properties how an application should be shut down
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestCleanup]
+    /// [ExecutionSpeed(Speed.Fast)]
+    /// public void TearDown()
+    /// {
+    ///     var shutdownConfiguration = new ShutdownConfiguration();
+    ///     shutdownConfiguration.SetSetMessageBoxInfo(new MessageBoxInfo("Really Close?", MessageBoxResult.OK),
+    ///                                                new MessageBoxInfo("Save changes?", MessageBoxResult.Cancel));
+    ///     var shutdown = new Shutdown(shutdownConfiguration);
+    /// 
+    ///     shutdown.CloseApplication(_target); // May raise messageboxes up
+    ///     DynamicSleep.Wait();
+    ///     shutdown.CleanMessageBoxes(); // Close the possible messageboxes
+    ///     DynamicSleep.Wait();
+    ///     shutdown.CloseApplication(_target); // Just to be sure the application has been closed
+    /// }]]>
+    /// </code>
+    /// </example>
     public class ShutdownConfiguration
     {
+        /// <summary>
+        /// Gets the time in milliseconds to wait if a MessageBox has been closed
+        /// </summary>
+        /// <value>If not set: 200</value>
         public int WaitTimeBetweenMessageBoxes { get; set; }
+
+        /// <summary>
+        /// Gets the time in milliseconds to wait for new MessageBoxes at maximum
+        /// </summary>
+        /// <value>If not set: 5000</value>
         public int FinishedIfNoMessageBoxApearsAfter { get; set; }
+
+        /// <summary>
+        /// Gets a list of information how messageboxes should be closed
+        /// </summary>
         public List<MessageBoxInfo> MessageBoxInfo { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the ShutdownConfiguration class
+        /// </summary>
         public ShutdownConfiguration()
         {
             MessageBoxInfo = new List<MessageBoxInfo>();
@@ -40,6 +79,10 @@ namespace DW.CodedUI.Utilities
             FinishedIfNoMessageBoxApearsAfter = 5000;
         }
 
+        /// <summary>
+        /// Sets the information how messageboxes should be closed
+        /// </summary>
+        /// <param name="info"></param>
         public void SetSetMessageBoxInfo(params MessageBoxInfo[] info)
         {
             MessageBoxInfo.AddRange(info);

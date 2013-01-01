@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents an Expander
+    /// </summary>
     public class BasicExpander : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicExpander class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicExpander(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if it is expanded or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsExpanded // TODO: Test
         {
             get

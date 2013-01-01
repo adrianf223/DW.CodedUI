@@ -29,13 +29,24 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ComboBox
+    /// </summary>
     public class BasicComboBox : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicComboBox class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicComboBox(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets the selected item
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public BasicComboBoxItem SelectedItem // TODO: Test
         {
             get
@@ -45,6 +56,10 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all created items
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public IEnumerable<BasicComboBoxItem> Items // TODO: Test
         {
             get

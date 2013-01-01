@@ -27,29 +27,51 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
-using DW.CodedUI.Waiting;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Point = System.Drawing.Point;
 
 namespace DW.CodedUI.Interaction
 {
+    /// <summary>
+    /// Enhances the static Mouse class to click basic elements
+    /// </summary>
     public static class MouseEx
     {
+        /// <summary>
+        /// Tries to click the given element
+        /// </summary>
+        /// <param name="element">The element to click on</param>
         public static void Click(BasicElement element)
         {
             Click(element, MouseButtons.Left, ModifierKeys.None);
         }
 
+        /// <summary>
+        /// Tries to click the given element
+        /// </summary>
+        /// <param name="element">The element to click on</param>
+        /// <param name="modifierKeys">The modifier keys pressed until the click</param>
         public static void Click(BasicElement element, ModifierKeys modifierKeys)
         {
             Click(element, MouseButtons.Left, modifierKeys);
         }
 
+        /// <summary>
+        /// Tries to click the given element
+        /// </summary>
+        /// <param name="element">The element to click on</param>
+        /// <param name="button">The mouse button which should be clicked</param>
         public static void Click(BasicElement element, MouseButtons button)
         {
             Click(element, button, ModifierKeys.None);
         }
 
+        /// <summary>
+        /// Tries to click the given element
+        /// </summary>
+        /// <param name="element">The element to click on</param>
+        /// <param name="button">The mouse button which should be clicked</param>
+        /// <param name="modifierKeys">The modifier keys pressed until the click</param>
         public static void Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
             System.Windows.Point point;
@@ -69,21 +91,41 @@ namespace DW.CodedUI.Interaction
             Mouse.Click(button, modifierKeys, new Point((int)x, (int)y));
         }
 
+        /// <summary>
+        /// Tries to double click the given element
+        /// </summary>
+        /// <param name="element">The element to double click on</param>
         public static void DoubleClick(BasicElement element)
         {
             DoubleClick(element, MouseButtons.Left, ModifierKeys.None);
         }
 
+        /// <summary>
+        /// Tries to double click the given element
+        /// </summary>
+        /// <param name="element">The element to double click on</param>
+        /// <param name="modifierKeys">The modifier keys pressed until the double click</param>
         public static void DoubleClick(BasicElement element, ModifierKeys modifierKeys)
         {
             DoubleClick(element, MouseButtons.Left, modifierKeys);
         }
 
+        /// <summary>
+        /// Tries to double click the given element
+        /// </summary>
+        /// <param name="element">The element to double click on</param>
+        /// <param name="button">The mouse button which should be double clicked</param>
         public static void DoubleClick(BasicElement element, MouseButtons button)
         {
             DoubleClick(element, button, ModifierKeys.None);
         }
 
+        /// <summary>
+        /// Tries to double click the given element
+        /// </summary>
+        /// <param name="element">The element to double click on</param>
+        /// <param name="button">The mouse button which should be double clicked</param>
+        /// <param name="modifierKeys">The modifier keys pressed until the double click</param>
         public static void DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
             System.Windows.Point point;

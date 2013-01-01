@@ -24,6 +24,9 @@
 
 namespace DW.CodedUI.Interaction
 {
+    /// <summary>
+    /// Gives you easy access to the commands send to controls to simulate keyboard pressings
+    /// </summary>
     public static class KeyboardCommands
     {
         public const string Backspace = "{BACKSPACE}";

@@ -30,16 +30,43 @@ using System.Windows.Forms;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Shows you an colored border on a UI control
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Method_TestCondition_ExpectedResult1()
+    /// {
+    ///     var control = BasicElementFinder.FindChildByAutomationId(_target, "Example");
+    /// 
+    ///     var highlighter = new Highlighter();
+    ///     highlighter.Highlight(control); // Begin highlight
+    /// 
+    ///     // Do anything else
+    /// 
+    ///     highlighter.Close(); // End highlight
+    /// }]]>
+    /// </code>
+    /// </example>
     public class Highlighter : Form
     {
         private Panel _mainPanel;
 
+        /// <summary>
+        /// Initializes a new instance of the Highlighter class
+        /// </summary>
         public Highlighter()
         {
             InitializeComponent();
             Hide();
         }
 
+        /// <summary>
+        /// Highlight the given control
+        /// </summary>
+        /// <param name="element">The control to highlight</param>
         public void Highlight(AutomationElement element)
         {
             Highlight(new Rectangle((int)element.Current.BoundingRectangle.Left,
@@ -48,6 +75,10 @@ namespace DW.CodedUI.Utilities
                                     (int)element.Current.BoundingRectangle.Height));
         }
 
+        /// <summary>
+        /// Highlight the given region
+        /// </summary>
+        /// <param name="region">The region to highlight</param>
         public void Highlight(Rectangle region)
         {
             Bounds = new Rectangle(2, 2, 2, 2);
@@ -58,10 +89,10 @@ namespace DW.CodedUI.Utilities
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
         [DllImport("user32.dll")]
-        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
         private void InitializeComponent()
         {

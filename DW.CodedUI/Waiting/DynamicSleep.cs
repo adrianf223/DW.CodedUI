@@ -26,8 +26,36 @@ using System.Threading;
 
 namespace DW.CodedUI.Waiting
 {
+    /// <summary>
+    /// Brings possibility to have dynamic sleeps between test methods
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [ExecutionSpeed(Speed.MaximumSpeed)]
+    /// public class TryOut
+    /// {
+    ///     [TestMethod]
+    ///     public void Method_TestCondition_ExpectedResult()
+    ///     {
+    ///         DynamicSleep.Wait(); // Uses "MaximumSpeed" which is no wait
+    ///     }
+    /// 
+    ///     [TestMethod]
+    ///     [ExecutionSpeed(Speed.Slow)]
+    ///     public void Method_TestCondition_ExpectedResult2()
+    ///     {
+    ///         DynamicSleep.Wait(); // Uses "Slow" which is one second
+    ///     }
+    /// }]]>
+    /// </code>
+    /// </example>
     public static class DynamicSleep
     {
+        /// <summary>
+        /// Let the thread sleep
+        /// </summary>
+        /// <remarks>The time to sleep is defined in the ExecutionSpeed attribute</remarks>
         public static void Wait()
         {
             Thread.Sleep(CodedUIConfiguration.GetSpeed());

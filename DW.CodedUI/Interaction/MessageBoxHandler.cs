@@ -28,11 +28,27 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using DW.CodedUI.Application;
+using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
 {
+    /// <summary>
+    /// Provides possibilities to close MessageBoxes
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Method_TestCondition_ExpectedResult()
+    /// {
+    ///     var messageBox = MessageBoxFinder.FindFirstAvailable();
+    /// 
+    ///     if (messageBox != null)
+    ///         MessageBoxHandler.CloseWithCancel(messageBox);
+    /// }]]>
+    /// </code>
+    /// </example>
     public static class MessageBoxHandler
     {
         private const string AutomationId_OK = "1";
@@ -43,36 +59,65 @@ namespace DW.CodedUI.Interaction
 
         private const int ID_Close = 0x10;
 
-        public static void Close(OpenWindow messageBox)
+        /// <summary>
+        /// Sends just "Close" to the MessageBox
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        public static void Close(BasicMessageBox messageBox)
         {
-            SendMessage(new HandleRef(null, new IntPtr(messageBox.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
+            SendMessage(new HandleRef(null, new IntPtr(messageBox.Properties.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
         }
 
-        public static void CloseWithOK(OpenWindow messageBox)
+        /// <summary>
+        /// Tries to find the OK Button on the MessageBox and presses it.
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        /// <remarks>If the OK is not found it tries to close the MessageBox jst with "Close"</remarks>
+        public static void CloseWithOK(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_OK))
                 Close(messageBox);
         }
 
-        public static void CloseWithCancel(OpenWindow messageBox)
+        /// <summary>
+        /// Tries to find the Cancel Button on the MessageBox and presses it.
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        /// <remarks>If the Cancel is not found it tries to close the MessageBox jst with "Close"</remarks>
+        public static void CloseWithCancel(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_Cancel))
                 Close(messageBox);
         }
 
-        public static void CloseWithYes(OpenWindow messageBox)
+        /// <summary>
+        /// Tries to find the Yes Button on the MessageBox and presses it.
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        /// <remarks>If the Yes is not found it tries to close the MessageBox jst with "Close"</remarks>
+        public static void CloseWithYes(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_Yes))
                 Close(messageBox);
         }
 
-        public static void CloseWithNo(OpenWindow messageBox)
+        /// <summary>
+        /// Tries to find the No Button on the MessageBox and presses it.
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        /// <remarks>If the No is not found it tries to close the MessageBox jst with "Close"</remarks>
+        public static void CloseWithNo(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_No))
                 Close(messageBox);
         }
 
-        public static void Close(OpenWindow messageBox, MessageBoxResult messageBoxResult)
+        /// <summary>
+        /// Tries to close the MessageBox with the given retult
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        /// <param name="messageBoxResult">The result the MessageBox should have</param>
+        public static void Close(BasicMessageBox messageBox, MessageBoxResult messageBoxResult)
         {
             switch (messageBoxResult)
             {
@@ -94,7 +139,12 @@ namespace DW.CodedUI.Interaction
             }
         }
 
-        public static string GetText(OpenWindow messageBox)
+        /// <summary>
+        /// Returns the displayed text in the MessageBox
+        /// </summary>
+        /// <param name="messageBox">The recipient MessageBox</param>
+        /// <returns>The text written in the MessageBox</returns>
+        public static string GetText(BasicMessageBox messageBox)
         {
             var element = FindMessageBoxElement(messageBox, AutomationId_Text);
             if (element == null)
@@ -102,7 +152,7 @@ namespace DW.CodedUI.Interaction
             return element.Current.Name;
         }
 
-        private static bool FindAndClick(OpenWindow messageBox, string automationId)
+        private static bool FindAndClick(BasicMessageBox messageBox, string automationId)
         {
             var element = FindMessageBoxElement(messageBox, automationId);
             if (element == null)
@@ -116,9 +166,9 @@ namespace DW.CodedUI.Interaction
             return true;
         }
 
-        private static AutomationElement FindMessageBoxElement(OpenWindow messageBox, string automationId)
+        private static AutomationElement FindMessageBoxElement(BasicMessageBox messageBox, string automationId)
         {
-            var childs = GetChildWindows(new IntPtr(messageBox.NativeWindowHandle));
+            var childs = GetChildWindows(new IntPtr(messageBox.Properties.NativeWindowHandle));
             foreach (var child in childs)
             {
                 var element = AutomationElement.FromHandle(child);

@@ -26,13 +26,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ListBoxItem or ListViewItem
+    /// </summary>
     public class BasicListItem : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicListItem class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicListItem(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets if it is selected or not
+        /// </summary>
+        /// <remarks>Not tested yet!</remarks>
         public bool IsSelected // TODO: Test
         {
             get

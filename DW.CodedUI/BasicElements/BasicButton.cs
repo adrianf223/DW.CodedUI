@@ -26,8 +26,15 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a button
+    /// </summary>
     public class BasicButton : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the BasicButton class
+        /// </summary>
+        /// <param name="automationElement">The automation control</param>
         public BasicButton(AutomationElement automationElement)
             : base(automationElement)
         {
