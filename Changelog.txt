@@ -1,5 +1,7 @@
 ﻿
 
+13.1.3.0     Add element availability checks to be sure it did not crash if the children will be read very often and are very dynamic added and removed
+13.1.3.0     Remove annoying horizontal scroll bar in the tree of the AutomationElementFinder
 13.1.1.0     Add some missing methods to the BasicElementFinder
 13.1.1.0     Rename WindowsMessageBox by MessageBoxFinder and move to other namespace, it just tries to find messageboxes
 13.1.1.0     Rename WindowUnderTest to TestableApplication, this represents the object type much better

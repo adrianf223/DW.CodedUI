@@ -57,7 +57,7 @@
                 <ColumnDefinition Width="0.6*" />
             </Grid.ColumnDefinitions>
             
-            <AutomationElementFinder:EnhancedTreeView x:Name="elementTree" ItemsSource="{Binding Elements}" >
+            <AutomationElementFinder:EnhancedTreeView x:Name="elementTree" ItemsSource="{Binding Elements}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type AutomationElementFinder:EnhancedTreeViewItem}">
                         <Setter Property="IsExpanded" Value="True" />

@@ -1726,15 +1726,41 @@ namespace DW.CodedUI.UITree
 
         private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
         {
-            var childs = new List<AutomationElement>();
-            var child = TreeWalker.ControlViewWalker.GetFirstChild(parent);
-            if (child != null)
+            var children = new List<AutomationElement>();
+            try
             {
-                childs.Add(child);
-                while ((child = TreeWalker.ControlViewWalker.GetNextSibling(child)) != null)
-                    childs.Add(child);
+                var child = TreeWalker.ControlViewWalker.GetFirstChild(parent);
+                if (child != null && IsAvailable(child))
+                {
+                    children.Add(child);
+                    while ((child = TreeWalker.ControlViewWalker.GetNextSibling(child)) != null)
+                    {
+                        if (!IsAvailable(child))
+                            return children;
+
+                        children.Add(child);
+                    }
+                }
+
+                return children;
             }
-            return childs;
+            catch (ElementNotAvailableException )
+            {
+                return children;
+            }
+        }
+
+        private static bool IsAvailable(AutomationElement automationElement)
+        {
+            try
+            {
+                var elementAvailbilityCheck = automationElement.Current.Name;
+                return true;
+            }
+            catch (ElementNotAvailableException )
+            {
+                return false;
+            }
         }
     }
 }
