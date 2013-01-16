@@ -165,7 +165,7 @@ namespace AutomationElementFinder
         private void HandleSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             _currentSelectedElement = null;
-            if (e.NewValue != null)
+            if (e.NewValue != null && e.NewValue is BasicElementInfo)
             {
                 _currentSelectedElement = (BasicElementInfo)e.NewValue;
                 if (ShowHighlight)
