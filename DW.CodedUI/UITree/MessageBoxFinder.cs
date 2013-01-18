@@ -29,6 +29,8 @@ using DW.CodedUI.BasicElements;
 
 namespace DW.CodedUI.UITree
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Brings you possibilities to find MessageBoxes
     /// </summary>
@@ -62,4 +64,6 @@ namespace DW.CodedUI.UITree
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
     }
+
+    // ReSharper restore UnusedMember.Global
 }

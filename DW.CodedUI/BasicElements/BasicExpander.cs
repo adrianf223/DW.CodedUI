@@ -26,6 +26,8 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Represents an Expander
     /// </summary>
@@ -53,4 +55,6 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
+
+    // ReSharper restore UnusedMember.Global
 }

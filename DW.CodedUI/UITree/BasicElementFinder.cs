@@ -32,6 +32,11 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.UITree
 {
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable UnusedMember.Global
+    // ReSharper disable UnusedMember.Local
+    // ReSharper disable UnusedVariable
+
     /// <summary>
     /// Brings methods to find basic elements in a UI tree
     /// </summary>
@@ -1763,4 +1768,9 @@ namespace DW.CodedUI.UITree
             }
         }
     }
+
+    // ReSharper restore MemberCanBePrivate.Global
+    // ReSharper restore UnusedMember.Global
+    // ReSharper restore UnusedMember.Local
+    // ReSharper restore UnusedVariable
 }

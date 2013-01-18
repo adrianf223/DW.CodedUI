@@ -30,6 +30,11 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable UnusedMember.Global
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable UnusedVariable
+    // ReSharper disable PossibleNullReferenceException
+        
     /// <summary>
     /// Represents information about a UI control
     /// </summary>
@@ -142,4 +147,9 @@ namespace DW.CodedUI.BasicElements
 
         #endregion NotifyPropertyChanged
     }
+
+    // ReSharper restore UnusedMember.Global
+    // ReSharper restore MemberCanBePrivate.Global
+    // ReSharper restore UnusedVariable
+    // ReSharper restore PossibleNullReferenceException
 }

@@ -30,6 +30,8 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Brings you possibility to get the color of from specific position
     /// </summary>
@@ -68,7 +70,7 @@ namespace DW.CodedUI.Utilities
             var position = Mouse.Location;
 
             var hdcScreen = CreateDC("Display", null, null, IntPtr.Zero);
-            var cr = GetPixel(hdcScreen, (int)position.X, (int)position.Y);
+            var cr = GetPixel(hdcScreen, position.X, position.Y);
             DeleteDC(hdcScreen);
 
             var clr = Color.FromArgb((cr & 0x000000FF),
@@ -79,10 +81,13 @@ namespace DW.CodedUI.Utilities
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateDC(string strDriver, string strDevice, string strOutput, IntPtr pData);
+
         [DllImport("gdi32.dll")]
         private static extern bool DeleteDC(IntPtr hdc);
 
         [DllImport("gdi32.dll")]
         private static extern int GetPixel(IntPtr hdc, int x, int y);
     }
+
+    // ReSharper restore UnusedMember.Global
 }

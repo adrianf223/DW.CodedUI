@@ -29,6 +29,8 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Provides possibilities to bring any kind of a window on top
     /// </summary>
@@ -69,4 +71,6 @@ namespace DW.CodedUI.Utilities
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
     }
+
+    // ReSharper restore UnusedMember.Global
 }

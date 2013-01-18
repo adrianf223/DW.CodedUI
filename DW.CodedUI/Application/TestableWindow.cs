@@ -22,6 +22,7 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
@@ -53,7 +54,7 @@ namespace DW.CodedUI.Application
         public TestableWindow(string title, int instance = 1)
         {
             SearchProperties[UITestControl.PropertyNames.Name] = title;
-            SearchProperties[UITestControl.PropertyNames.Instance] = instance.ToString();
+            SearchProperties[UITestControl.PropertyNames.Instance] = instance.ToString(CultureInfo.InvariantCulture);
             SearchProperties.Add(new PropertyExpression(UITestControl.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
         }
     }

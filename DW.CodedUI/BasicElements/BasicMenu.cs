@@ -28,6 +28,8 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Represents a Menu or ContextMenu
     /// </summary>
@@ -54,4 +56,6 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
+
+    // ReSharper restore UnusedMember.Global
 }

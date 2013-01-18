@@ -27,6 +27,8 @@ using System.Diagnostics;
 
 namespace DW.CodedUI.Application
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Represents the application under test
     /// </summary>
@@ -98,4 +100,6 @@ namespace DW.CodedUI.Application
             get { return _process.MainWindowHandle; }
         }
     }
+    
+    // ReSharper restore UnusedMember.Global
 }

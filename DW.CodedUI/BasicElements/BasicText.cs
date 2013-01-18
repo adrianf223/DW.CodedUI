@@ -26,11 +26,16 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable ClassNeverInstantiated.Global
+
     /// <summary>
     /// Represents a Label
     /// </summary>
     public class BasicText : BasicElement
     {
+        // Patterns:
+        // SynchronizedInputPatternIdentifiers
+
         /// <summary>
         /// Initializes a new instance of the BasicText class
         /// </summary>
@@ -43,14 +48,11 @@ namespace DW.CodedUI.BasicElements
         /// <summary>
         /// Gets the text written in the label
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public string Text // TODO: Test
+        public string Text
         {
-            get
-            {
-                var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-                return pattern.DocumentRange.GetText(-1);
-            }
+            get { return Name; }
         }
     }
+
+    // ReSharper restore ClassNeverInstantiated.Global
 }

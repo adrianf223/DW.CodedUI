@@ -28,21 +28,14 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.UITree
 {
+    // ReSharper disable UnusedMember.Global
+    // ReSharper disable MemberCanBePrivate.Global
+
     /// <summary>
     /// Brings methods to find WPF controls in a UI tree
     /// </summary>
-    /// <example>
-    /// <code lang="cs">
-    /// <![CDATA[
-    /// [TestMethod]
-    /// public void Method_TestCondition_ExpectedResult()
-    /// {
-    ///     var button = WpfElementFinder.FindChildByAutomationId<WpfButton>(_target, "MyButton");
-    /// 
-    ///     Mouse.Click(button);
-    /// }]]>
-    /// </code>
-    /// </example>
+    /// <remarks>This class is not supported anymore. Consider using the BasicElementFinder instead. The class might be deleted in upcoming versions.</remarks>
+    [Obsolete("This class is not supported anymore. Consider using the BasicElementFinder instead. The class might be deleted in upcoming versions.", false)]
     public static class WpfElementFinder
     {
         #region Child
@@ -186,4 +179,7 @@ namespace DW.CodedUI.UITree
 
         #endregion Children
     }
+
+    // ReSharper restore UnusedMember.Global
+    // ReSharper restore MemberCanBePrivate.Global
 }

@@ -26,11 +26,17 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable ClassNeverInstantiated.Global
+
     /// <summary>
     /// Represents a button
     /// </summary>
     public class BasicButton : BasicElement
     {
+        // Patterns:
+        // InvokePattern
+        // SynchronizedInputPatternIdentifiers
+
         /// <summary>
         /// Initializes a new instance of the BasicButton class
         /// </summary>
@@ -38,6 +44,47 @@ namespace DW.CodedUI.BasicElements
         public BasicButton(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
+        }
+
+        /// <summary>
+        /// Contains unsafe methods for interact with the control directly
+        /// </summary>
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Invokes a click on a button whithout using the mouse
+            /// </summary>
+            /// <remarks>
+            /// It doesn't matter if a modal dialog is open and the button cannot clicked by the user, the button gets invoked
+            /// </remarks>
+            public void Click()
+            {
+                var invokePattern = (InvokePattern) _automationElement.GetCurrentPattern(InvokePattern.Pattern);
+                invokePattern.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Gets the text written in the button
+        /// </summary>
+        public string Text
+        {
+            get { return Name; }
         }
     }
+
+    // ReSharper restore ClassNeverInstantiated.Global
 }

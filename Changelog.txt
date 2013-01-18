@@ -1,5 +1,7 @@
 ﻿
 
+13.1.18.0    Add possibility to [double] click on a relative position inside a BasicElement
+13.1.18.0    Mark the WpfElementFinder as obsolete because this class will not used anymore and might be deleted in an upcoming version
 13.1.16.0    Fix crash of the AutomationElementFinder if a sub child is selected and another element will be detected
 13.1.9.0     Add exception display for the AutomationElementFinder to see the reason if it has been crashed
 13.1.3.0     Add element availability checks to be sure it did not crash if the children will be read very often and are very dynamic added and removed

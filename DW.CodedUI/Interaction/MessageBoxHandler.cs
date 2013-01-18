@@ -33,6 +33,11 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
 {
+    // ReSharper disable InconsistentNaming
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable UnusedMember.Global
+    // ReSharper disable LoopCanBeConvertedToQuery
+
     /// <summary>
     /// Provides possibilities to close MessageBoxes
     /// </summary>
@@ -157,7 +162,7 @@ namespace DW.CodedUI.Interaction
             var element = FindMessageBoxElement(messageBox, automationId);
             if (element == null)
                 return false;
-            System.Windows.Point point = element.GetClickablePoint();
+            var point = element.GetClickablePoint();
             var originalMouseSpeed = Mouse.MouseMoveSpeed;
             Mouse.MouseMoveSpeed = 10000;
             Mouse.Move(new System.Drawing.Point((int) point.X, (int) point.Y));
@@ -185,7 +190,7 @@ namespace DW.CodedUI.Interaction
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr i);
 
-        private static List<IntPtr> GetChildWindows(IntPtr parent)
+        private static IEnumerable<IntPtr> GetChildWindows(IntPtr parent)
         {
             var result = new List<IntPtr>();
             var listHandle = GCHandle.Alloc(result);
@@ -214,4 +219,9 @@ namespace DW.CodedUI.Interaction
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
     }
+
+    // ReSharper restore InconsistentNaming
+    // ReSharper restore MemberCanBePrivate.Global
+    // ReSharper restore UnusedMember.Global
+    // ReSharper restore LoopCanBeConvertedToQuery
 }

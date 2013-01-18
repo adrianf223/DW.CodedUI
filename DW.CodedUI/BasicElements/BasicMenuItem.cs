@@ -28,6 +28,9 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable ClassNeverInstantiated.Global
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Represents a MenuItem
     /// </summary>
@@ -71,4 +74,7 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
+
+    // ReSharper restore ClassNeverInstantiated.Global
+    // ReSharper restore UnusedMember.Global
 }

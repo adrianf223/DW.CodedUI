@@ -29,6 +29,9 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable UnusedMember.Global
+    // ReSharper disable PossibleMultipleEnumeration
+
     /// <summary>
     /// Represents a ListBox or ListView
     /// </summary>
@@ -85,4 +88,7 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
+
+    // ReSharper restore UnusedMember.Global
+    // ReSharper restore PossibleMultipleEnumeration
 }

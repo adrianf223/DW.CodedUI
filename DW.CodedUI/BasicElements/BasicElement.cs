@@ -30,6 +30,11 @@ using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable MemberCanBeProtected.Global
+    // ReSharper disable UnusedMember.Global
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable UnusedVariable
+
     /// <summary>
     /// Represents a UI control
     /// </summary>
@@ -146,7 +151,7 @@ namespace DW.CodedUI.BasicElements
         {
             WaitForCondition(timeout, waitCycle, () => Properties.IsOffscreen);
         }
-        
+
         private void WaitForCondition(TimeSpan timeout, TimeSpan waitCycle, Func<bool> condition)
         {
             var stopwatch = new Stopwatch();
@@ -194,11 +199,16 @@ namespace DW.CodedUI.BasicElements
                     var elementAvailbilityCheck = Name;
                     return true;
                 }
-                catch (ElementNotAvailableException )
+                catch (ElementNotAvailableException)
                 {
                     return false;
                 }
             }
         }
     }
+
+    // ReSharper restore MemberCanBeProtected.Global
+    // ReSharper restore UnusedMember.Global
+    // ReSharper restore MemberCanBePrivate.Global
+    // ReSharper restore UnusedVariable
 }

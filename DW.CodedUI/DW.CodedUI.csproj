@@ -80,6 +80,7 @@
     <Compile Include="BasicElements\BasicTreeItem.cs" />
     <Compile Include="BasicElements\BasicTree.cs" />
     <Compile Include="CodedUIConfiguration.cs" />
+    <Compile Include="Interaction\At.cs" />
     <Compile Include="Interaction\KeyboardCommands.cs" />
     <Compile Include="Interaction\KeyboardEx.cs" />
     <Compile Include="Interaction\MessageBoxHandler.cs" />

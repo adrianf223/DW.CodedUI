@@ -31,10 +31,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI
 {
+    // ReSharper disable AssignNullToNotNullAttribute
+
     internal static class CodedUIConfiguration
     {
-        private static readonly Dictionary<Type, int> _classSpeeds = new Dictionary<Type, int>();
-        private static readonly Dictionary<MethodBase, int> _methodSpeeds = new Dictionary<MethodBase, int>();
+        private static readonly Dictionary<Type, int> ClassSpeeds = new Dictionary<Type, int>();
+        private static readonly Dictionary<MethodBase, int> MethodSpeeds = new Dictionary<MethodBase, int>();
 
         internal static int GetSpeed()
         {
@@ -42,23 +44,23 @@ namespace DW.CodedUI
             if (testMethod == null)
                 return 0;
 
-            if (_methodSpeeds.ContainsKey(testMethod))
-                return _methodSpeeds[testMethod];
+            if (MethodSpeeds.ContainsKey(testMethod))
+                return MethodSpeeds[testMethod];
 
             var methodSpeed = GetSpeedValue(testMethod);
             if (methodSpeed != null)
             {
-                _methodSpeeds.Add(testMethod, methodSpeed.Value);
+                MethodSpeeds.Add(testMethod, methodSpeed.Value);
                 return methodSpeed.Value;
             }
 
-            if (_classSpeeds.ContainsKey(testMethod.DeclaringType))
-                return _classSpeeds[testMethod.DeclaringType];
+            if (ClassSpeeds.ContainsKey(testMethod.DeclaringType))
+                return ClassSpeeds[testMethod.DeclaringType];
 
             var classSpeed = GetSpeedValue(testMethod.DeclaringType);
             if (classSpeed != null)
             {
-                _classSpeeds.Add(testMethod.DeclaringType, classSpeed.Value);
+                ClassSpeeds.Add(testMethod.DeclaringType, classSpeed.Value);
                 return classSpeed.Value;
             }
 
@@ -110,4 +112,6 @@ namespace DW.CodedUI
             return null;
         }
     }
+
+    // ReSharper restore AssignNullToNotNullAttribute
 }

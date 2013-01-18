@@ -24,6 +24,9 @@
 
 namespace DW.CodedUI.Interaction
 {
+    // ReSharper disable UnusedMember.Global
+#pragma warning disable 1591
+
     /// <summary>
     /// Gives you easy access to the commands send to controls to simulate keyboard pressings
     /// </summary>
@@ -73,4 +76,7 @@ namespace DW.CodedUI.Interaction
         public const string Control = "^";
         public const string Alt = "%";
     }
+
+    // ReSharper restore UnusedMember.Global
+#pragma warning restore 1591
 }

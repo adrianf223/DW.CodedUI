@@ -28,6 +28,8 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    // ReSharper disable UnusedMember.Global
+
     /// <summary>
     /// Represents a TreeViewItem
     /// </summary>
@@ -84,4 +86,6 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
+
+    // ReSharper restore UnusedMember.Global
 }
