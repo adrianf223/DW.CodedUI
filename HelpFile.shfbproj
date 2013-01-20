@@ -29,7 +29,7 @@
     <HelpTitle>The DW.CodedUI Class Library</HelpTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>None</VisibleItems>
-    <SyntaxFilters>CSharp, XamlUsage</SyntaxFilters>
+    <SyntaxFilters>CSharp</SyntaxFilters>
     <PresentationStyle>VS2010</PresentationStyle>
     <NamingMethod>MemberName</NamingMethod>
     <FrameworkVersion>.NET Framework 4.0</FrameworkVersion>
