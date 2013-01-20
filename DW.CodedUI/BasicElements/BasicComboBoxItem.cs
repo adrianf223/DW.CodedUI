@@ -26,8 +26,6 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Represents a ComboBoxItem
     /// </summary>
@@ -54,7 +52,15 @@ namespace DW.CodedUI.BasicElements
                 return pattern.Current.IsSelected;
             }
         }
-    }
 
-    // ReSharper restore UnusedMember.Global
+        /// <summary>
+        /// Gets the text written in the button
+        /// </summary>
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
+        /// <remarks>Not tested yet!</remarks>
+        public string Text // TODO: Test
+        {
+            get { return Name; }
+        }
+    }
 }

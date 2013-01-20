@@ -24,11 +24,6 @@
 
 namespace DW.CodedUI.Utilities
 {
-    // ReSharper disable UnusedMember.Global
-    // ReSharper disable MemberCanBePrivate.Global
-    // ReSharper disable ConvertIfStatementToNullCoalescingExpression
-    // ReSharper disable CompareNonConstrainedGenericWithNull
-
     /// <summary>
     /// Brings you an easiert access to the recordered UIMap
     /// </summary>
@@ -74,9 +69,4 @@ namespace DW.CodedUI.Utilities
             UIMap = new T();
         }
     }
-
-    // ReSharper restore UnusedMember.Global
-    // ReSharper restore MemberCanBePrivate.Global
-    // ReSharper restore ConvertIfStatementToNullCoalescingExpression
-    // ReSharper restore CompareNonConstrainedGenericWithNull
 }

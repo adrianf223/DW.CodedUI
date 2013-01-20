@@ -26,8 +26,6 @@ using System;
 
 namespace DW.CodedUI.Waiting
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Attribute to define how long all DynamicSleep.Wait methods has to wait in the current focus
     /// </summary>
@@ -89,6 +87,4 @@ namespace DW.CodedUI.Waiting
             }
         }
     }
-
-    // ReSharper restore UnusedMember.Global
 }

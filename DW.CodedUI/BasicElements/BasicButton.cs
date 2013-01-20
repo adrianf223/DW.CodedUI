@@ -26,8 +26,6 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    // ReSharper disable ClassNeverInstantiated.Global
-
     /// <summary>
     /// Represents a button
     /// </summary>
@@ -35,7 +33,7 @@ namespace DW.CodedUI.BasicElements
     {
         // Patterns:
         // InvokePattern
-        // SynchronizedInputPatternIdentifiers
+        // SynchronizedInputPattern
 
         /// <summary>
         /// Initializes a new instance of the BasicButton class
@@ -62,9 +60,6 @@ namespace DW.CodedUI.BasicElements
             /// <summary>
             /// Invokes a click on a button whithout using the mouse
             /// </summary>
-            /// <remarks>
-            /// It doesn't matter if a modal dialog is open and the button cannot clicked by the user, the button gets invoked
-            /// </remarks>
             public void Click()
             {
                 var invokePattern = (InvokePattern) _automationElement.GetCurrentPattern(InvokePattern.Pattern);
@@ -80,11 +75,10 @@ namespace DW.CodedUI.BasicElements
         /// <summary>
         /// Gets the text written in the button
         /// </summary>
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
         public string Text
         {
             get { return Name; }
         }
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }

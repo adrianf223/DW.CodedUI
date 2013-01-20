@@ -32,10 +32,6 @@ using Point = System.Drawing.Point;
 
 namespace DW.CodedUI.Interaction
 {
-    // ReSharper disable IntroduceOptionalParameters.Global
-    // ReSharper disable MemberCanBePrivate.Global
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Enhances the static Mouse class to click basic elements
     /// </summary>
@@ -267,8 +263,4 @@ namespace DW.CodedUI.Interaction
         }
         #endregion DoubleClick
     }
-
-    // ReSharper restore IntroduceOptionalParameters.Global
-    // ReSharper restore MemberCanBePrivate.Global
-    // ReSharper restore UnusedMember.Global
 }

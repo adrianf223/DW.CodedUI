@@ -1,5 +1,13 @@
 ﻿
 
+13.1.20.0    Add Text property to the BasicComboBoxItem
+13.1.20.0    Add Text, IsReadonly, IsExpanded, VerticalScrollPercent, VerticalViewSize and VerticallyScrollable to the BasicComboBox
+13.1.20.0    Add method to the BasicComboBox to find a BasicComboBoxItem child control, even it is virtualized and it needs to be scrolled
+13.1.20.0    Add unsafe methods Expand, Collapse, SetValue, SetScrollPercent and ScrollVertical to the BasicComboBox
+13.1.20.0    Add Text property to the BasicCheckBox
+13.1.20.0    Add unsafe toggle method to the BasicCheckBox
+13.1.20.0    Add application parameter possibility to the ApplicationFactory
+13.1.20.0    Add HasExited to the TestableApplication
 13.1.18.0    Add possibility to [double] click on a relative position inside a BasicElement
 13.1.18.0    Mark the WpfElementFinder as obsolete because this class will not used anymore and might be deleted in an upcoming version
 13.1.16.0    Fix crash of the AutomationElementFinder if a sub child is selected and another element will be detected

@@ -4,8 +4,6 @@ using Point = System.Drawing.Point;
 
 namespace DW.CodedUI.Interaction
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Describes the relative position inside a control
     /// </summary>
@@ -155,6 +153,4 @@ namespace DW.CodedUI.Interaction
             return y + rect.Top;
         }
     }
-
-    // ReSharper restore UnusedMember.Global
 }

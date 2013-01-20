@@ -26,8 +26,6 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    // ReSharper disable ClassNeverInstantiated.Global
-
     /// <summary>
     /// Represents a TextBox
     /// </summary>
@@ -52,7 +50,7 @@ namespace DW.CodedUI.BasicElements
         /// Gets the written text
         /// </summary>
         /// <remarks>Not tested yet!</remarks>
-        public string Text
+        public string Text // TODO: Test
         {
             get
             {
@@ -61,6 +59,4 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }

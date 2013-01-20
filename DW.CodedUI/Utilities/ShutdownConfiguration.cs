@@ -26,10 +26,6 @@ using System.Collections.Generic;
 
 namespace DW.CodedUI.Utilities
 {
-    // ReSharper disable ClassNeverInstantiated.Global
-    // ReSharper disable MemberCanBePrivate.Global
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Holds some properties how an application should be shut down
     /// </summary>
@@ -92,8 +88,4 @@ namespace DW.CodedUI.Utilities
             MessageBoxInfo.AddRange(info);
         }
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
-    // ReSharper restore MemberCanBePrivate.Global
-    // ReSharper restore UnusedMember.Global
 }

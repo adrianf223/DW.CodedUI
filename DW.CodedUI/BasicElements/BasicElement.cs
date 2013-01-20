@@ -30,11 +30,6 @@ using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
-    // ReSharper disable MemberCanBeProtected.Global
-    // ReSharper disable UnusedMember.Global
-    // ReSharper disable MemberCanBePrivate.Global
-    // ReSharper disable UnusedVariable
-
     /// <summary>
     /// Represents a UI control
     /// </summary>
@@ -206,9 +201,4 @@ namespace DW.CodedUI.BasicElements
             }
         }
     }
-
-    // ReSharper restore MemberCanBeProtected.Global
-    // ReSharper restore UnusedMember.Global
-    // ReSharper restore MemberCanBePrivate.Global
-    // ReSharper restore UnusedVariable
 }

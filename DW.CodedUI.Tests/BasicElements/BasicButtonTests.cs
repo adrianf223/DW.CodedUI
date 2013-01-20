@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Automation;
-using System.Windows.Controls;
+﻿using System.Threading;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Interaction;
 using DW.CodedUI.UITree;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,55 +13,39 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicButtonTests
     {
-        private Window _wpfWindow;
-        private Button _wpfButton;
-        private TestableWindow _testableWindow;
+        private TestableApplication _application;
         private BasicButton _button;
 
         [TestInitialize]
         public void Setup()
         {
-            _wpfWindow = new Window();
-            _wpfWindow.Height = 300;
-            _wpfWindow.Width = 300;
-            _wpfWindow.Title = "BasicButtonTests";
+            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
-            _wpfButton = new Button();
-            _wpfButton.Content = "Button Text";
-            AutomationProperties.SetAutomationId(_wpfButton, "ButtonId");
-            _wpfWindow.Content = _wpfButton;
-
-            _wpfWindow.Show();
-            _testableWindow = new TestableWindow("BasicButtonTests");
-            _button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_testableWindow, "ButtonId");
+            _button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_application, ApplicationInfo.ButtonAutomationId);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            _wpfWindow.Close();
+            _application.Shutdown();
         }
 
         [TestMethod]
         public void UnsafeClick_Called_ClicksTheButton()
         {
-            var triggered = false;
-            var eventHandler = new RoutedEventHandler((s, e) => triggered = true);
-            _wpfButton.Click += eventHandler;
-
-            DispatcherUtility.DoEvents();
             _button.Unsafe.Click();
-            
-            DispatcherUtility.DoEvents();
-            Assert.IsTrue(triggered);
+            Thread.Sleep(1000);
 
-            _wpfButton.Click -= eventHandler;
+            var messageBox = MessageBoxFinder.FindFirstAvailableByTitle(ApplicationInfo.ButtonClickedMessageBox);
+            Assert.IsNotNull(messageBox);
+            MessageBoxHandler.Close(messageBox);
         }
 
         [TestMethod]
         public void Text_Getted_ReturnsContentText()
         {
-            Assert.AreEqual("Button Text", _button.Text);
+            Assert.AreEqual(ApplicationInfo.ButtonText, _button.Text);
         }
     }
 

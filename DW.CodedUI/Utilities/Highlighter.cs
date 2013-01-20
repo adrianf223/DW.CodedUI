@@ -30,8 +30,6 @@ using System.Windows.Forms;
 
 namespace DW.CodedUI.Utilities
 {
-    // ReSharper disable MemberCanBePrivate.Global
-
     /// <summary>
     /// Shows you an colored border on a UI control
     /// </summary>
@@ -128,6 +126,4 @@ namespace DW.CodedUI.Utilities
             ResumeLayout(false);
         }
     }
-
-    // ReSharper restore MemberCanBePrivate.Global
 }

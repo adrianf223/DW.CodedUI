@@ -28,10 +28,6 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
 {
-    // ReSharper disable UnusedMember.Global
-    // ReSharper disable IntroduceOptionalParameters.Global
-    // ReSharper disable MemberCanBePrivate.Global
-
     /// <summary>
     /// Enhances the static Keyboard class to send keys to basic elements
     /// </summary>
@@ -90,8 +86,4 @@ namespace DW.CodedUI.Interaction
             Keyboard.SendKeys(text, modifierKeys);
         }
     }
-
-    // ReSharper restore UnusedMember.Global
-    // ReSharper restore IntroduceOptionalParameters.Global
-    // ReSharper restore MemberCanBePrivate.Global
 }

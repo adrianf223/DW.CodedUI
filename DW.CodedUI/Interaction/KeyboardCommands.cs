@@ -24,7 +24,6 @@
 
 namespace DW.CodedUI.Interaction
 {
-    // ReSharper disable UnusedMember.Global
 #pragma warning disable 1591
 
     /// <summary>
@@ -77,6 +76,5 @@ namespace DW.CodedUI.Interaction
         public const string Alt = "%";
     }
 
-    // ReSharper restore UnusedMember.Global
 #pragma warning restore 1591
 }

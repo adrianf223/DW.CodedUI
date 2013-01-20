@@ -28,9 +28,6 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.UITree
 {
-    // ReSharper disable UnusedMember.Global
-    // ReSharper disable MemberCanBePrivate.Global
-
     /// <summary>
     /// Brings methods to find WPF controls in a UI tree
     /// </summary>
@@ -179,7 +176,4 @@ namespace DW.CodedUI.UITree
 
         #endregion Children
     }
-
-    // ReSharper restore UnusedMember.Global
-    // ReSharper restore MemberCanBePrivate.Global
 }

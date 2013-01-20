@@ -26,8 +26,6 @@ using System.Threading;
 
 namespace DW.CodedUI.Waiting
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Brings possibility to have dynamic sleeps between test methods
     /// </summary>
@@ -63,6 +61,4 @@ namespace DW.CodedUI.Waiting
             Thread.Sleep(CodedUIConfiguration.GetSpeed());
         }
     }
-
-    // ReSharper restore UnusedMember.Global
 }

@@ -66,9 +66,13 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationInfo.cs" />
+    <Compile Include="Application\ApplicationFactoryTests.cs" />
+    <Compile Include="Application\TestableApplicationTests.cs" />
+    <Compile Include="Application\TestableWindowTests.cs" />
     <Compile Include="BasicElements\BasicButtonTests.cs" />
-    <Compile Include="BasicElements\BasicTextTests.cs" />
-    <Compile Include="BasicElements\BasicEditTests.cs" />
+    <Compile Include="BasicElements\BasicCheckBoxTests.cs" />
+    <Compile Include="BasicElements\BasicComboBoxTests.cs" />
     <Compile Include="DispatcherUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

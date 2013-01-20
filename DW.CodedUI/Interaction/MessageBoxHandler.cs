@@ -33,11 +33,6 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
 {
-    // ReSharper disable InconsistentNaming
-    // ReSharper disable MemberCanBePrivate.Global
-    // ReSharper disable UnusedMember.Global
-    // ReSharper disable LoopCanBeConvertedToQuery
-
     /// <summary>
     /// Provides possibilities to close MessageBoxes
     /// </summary>
@@ -219,9 +214,4 @@ namespace DW.CodedUI.Interaction
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
     }
-
-    // ReSharper restore InconsistentNaming
-    // ReSharper restore MemberCanBePrivate.Global
-    // ReSharper restore UnusedMember.Global
-    // ReSharper restore LoopCanBeConvertedToQuery
 }

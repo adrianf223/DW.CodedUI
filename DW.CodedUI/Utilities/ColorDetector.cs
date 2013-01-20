@@ -30,8 +30,6 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Brings you possibility to get the color of from specific position
     /// </summary>
@@ -88,6 +86,4 @@ namespace DW.CodedUI.Utilities
         [DllImport("gdi32.dll")]
         private static extern int GetPixel(IntPtr hdc, int x, int y);
     }
-
-    // ReSharper restore UnusedMember.Global
 }

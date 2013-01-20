@@ -26,8 +26,6 @@ using System.Windows;
 
 namespace DW.CodedUI.Utilities
 {
-    // ReSharper disable ClassNeverInstantiated.Global
-
     /// <summary>
     /// Represents the single information how a specific MessageBox should be closed
     /// </summary>
@@ -54,6 +52,4 @@ namespace DW.CodedUI.Utilities
             MessageBoxResult = messageBoxResult;
         }
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }

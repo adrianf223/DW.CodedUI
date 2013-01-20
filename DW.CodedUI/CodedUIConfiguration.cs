@@ -31,8 +31,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI
 {
-    // ReSharper disable AssignNullToNotNullAttribute
-
     internal static class CodedUIConfiguration
     {
         private static readonly Dictionary<Type, int> ClassSpeeds = new Dictionary<Type, int>();
@@ -112,6 +110,4 @@ namespace DW.CodedUI
             return null;
         }
     }
-
-    // ReSharper restore AssignNullToNotNullAttribute
 }

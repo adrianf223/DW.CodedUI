@@ -27,8 +27,6 @@ using System.Diagnostics;
 
 namespace DW.CodedUI.Application
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Represents the application under test
     /// </summary>
@@ -99,7 +97,13 @@ namespace DW.CodedUI.Application
         {
             get { return _process.MainWindowHandle; }
         }
+
+        /// <summary>
+        /// Gets indicator if the application has been exited
+        /// </summary>
+        public bool HasExited
+        {
+            get { return _process.HasExited; }
+        }
     }
-    
-    // ReSharper restore UnusedMember.Global
 }

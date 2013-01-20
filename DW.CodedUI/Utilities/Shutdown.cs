@@ -34,10 +34,6 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
-    // ReSharper disable UnusedMember.Global
-    // ReSharper disable LoopCanBeConvertedToQuery
-    // ReSharper disable MemberCanBePrivate.Global
-
     /// <summary>
     /// Brings possibility to shut down an application
     /// </summary>
@@ -146,8 +142,4 @@ namespace DW.CodedUI.Utilities
             return MessageBoxResult.None;
         }
     }
-
-    // ReSharper restore UnusedMember.Global
-    // ReSharper restore LoopCanBeConvertedToQuery
-    // ReSharper restore MemberCanBePrivate.Global
 }

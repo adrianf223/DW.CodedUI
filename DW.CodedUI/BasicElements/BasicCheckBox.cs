@@ -26,13 +26,15 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Represents a CheckBox
     /// </summary>
     public class BasicCheckBox : BasicElement
     {
+        // Patterns:
+        // TogglePattern
+        // SynchronizedInputPattern
+
         /// <summary>
         /// Initializes a new instance of the BasicCheckBox class
         /// </summary>
@@ -40,13 +42,40 @@ namespace DW.CodedUI.BasicElements
         public BasicCheckBox(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
+        }
+
+        /// <summary>
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Contains unsafe methods for interact with the control directly
+        /// </summary>
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Changes the IsChecked state whithout using the mouse
+            /// </summary>
+            public void Toggle()
+            {
+                var pattern = (TogglePattern)_automationElement.GetCurrentPattern(TogglePattern.Pattern);
+                pattern.Toggle();
+            }
         }
 
         /// <summary>
         /// Gets if the box is checked or not
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public bool IsChecked // TODO: Test
+        public bool IsChecked
         {
             get
             {
@@ -54,7 +83,14 @@ namespace DW.CodedUI.BasicElements
                 return pattern.Current.ToggleState == ToggleState.On;
             }
         }
-    }
 
-    // ReSharper restore UnusedMember.Global
+        /// <summary>
+        /// Gets the text written in the CheckBox
+        /// </summary>
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
+        public string Text
+        {
+            get { return Name; }
+        }
+    }
 }

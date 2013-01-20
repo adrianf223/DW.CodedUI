@@ -26,8 +26,6 @@ using System.Diagnostics;
 
 namespace DW.CodedUI.Application
 {
-    // ReSharper disable UnusedMember.Global
-
     /// <summary>
     /// Starts an application for test
     /// </summary>
@@ -71,14 +69,13 @@ namespace DW.CodedUI.Application
         /// </summary>
         /// <param name="title">The title of the window which appears as soon the application has been started</param>
         /// <param name="applicationPath">The path to the application. (Can be relative)</param>
+        /// <param name="arguments">The arguments passed to the application start.</param>
         /// <param name="instance">If there are multiple applications with the same title, this parameter says which instance should be used</param>
         /// <returns>The TestableApplication which can be used by other Coded UI tests</returns>
-        public static TestableApplication Launch(string title, string applicationPath, int instance = 1)
+        public static TestableApplication Launch(string title, string applicationPath, string arguments = null, int instance = 1)
         {
-            var process = Process.Start(applicationPath);
+            var process = Process.Start(applicationPath, arguments);
             return new TestableApplication(title, process, instance);
         }
     }
-
-    // ReSharper restore UnusedMember.Global
 }

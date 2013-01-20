@@ -26,8 +26,6 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    // ReSharper disable ClassNeverInstantiated.Global
-
     /// <summary>
     /// Represents a Label
     /// </summary>
@@ -48,11 +46,9 @@ namespace DW.CodedUI.BasicElements
         /// <summary>
         /// Gets the text written in the label
         /// </summary>
-        public string Text
+        public string Text // TODO: Test
         {
             get { return Name; }
         }
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }
