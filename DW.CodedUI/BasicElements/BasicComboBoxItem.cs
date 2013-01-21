@@ -31,6 +31,11 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicComboBoxItem : BasicElement
     {
+        // Patterns:
+        // SelectionItemPattern
+        // ScrollItemPattern
+        // SynchronizedInputPattern
+
         /// <summary>
         /// Initializes a new instance of the BasicComboBoxItem class
         /// </summary>
@@ -38,13 +43,58 @@ namespace DW.CodedUI.BasicElements
         public BasicComboBoxItem(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
         }
+
+        /// <summary>
+        /// Contains unsafe methods for interact with the control directly
+        /// </summary>
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Selects the item whithout using the mouse
+            /// </summary>
+            public void Select()
+            {
+                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                pattern.Select();
+            }
+
+            /// <summary>
+            /// Deselect the item
+            /// </summary>
+            public void Deselect()
+            {
+                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                pattern.RemoveFromSelection();
+            }
+
+            /// <summary>
+            /// Scrolls to the item whithout using the mouse
+            /// </summary>
+            public void ScrollIntoView()
+            {
+                var pattern = (ScrollItemPattern)_automationElement.GetCurrentPattern(ScrollItemPattern.Pattern);
+                pattern.ScrollIntoView();
+            }
+        }
+
+        /// <summary>
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
 
         /// <summary>
         /// Gets if the box is selected or not
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public bool IsSelected // TODO: Test
+        public bool IsSelected
         {
             get
             {
@@ -57,8 +107,7 @@ namespace DW.CodedUI.BasicElements
         /// Gets the text written in the button
         /// </summary>
         /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
-        /// <remarks>Not tested yet!</remarks>
-        public string Text // TODO: Test
+        public string Text
         {
             get { return Name; }
         }

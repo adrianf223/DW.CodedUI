@@ -72,7 +72,9 @@
     <Compile Include="Application\TestableWindowTests.cs" />
     <Compile Include="BasicElements\BasicButtonTests.cs" />
     <Compile Include="BasicElements\BasicCheckBoxTests.cs" />
+    <Compile Include="BasicElements\BasicComboBoxItemTests.cs" />
     <Compile Include="BasicElements\BasicComboBoxTests.cs" />
+    <Compile Include="BasicElements\BasicEditTests.cs" />
     <Compile Include="DispatcherUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

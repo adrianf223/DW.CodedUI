@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Application Window Title"
-        Height="350"
-        Width="525">
+        Height="550"
+        Width="555">
     <UniformGrid>
         
         <GroupBox Header="Button">
@@ -101,6 +101,53 @@
                     <ComboBoxItem Content="3Nineth" />
                     <ComboBoxItem Content="3Tenth" />
                 </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        
+        <GroupBox Header="TextBox">
+            <StackPanel>
+                <TextBox AcceptsReturn="True" AutomationProperties.AutomationId="MultilineTextBoxId" Text="MultilineTextBoxText" />
+                <TextBox AutomationProperties.AutomationId="NormalTextBoxId" Text="NormalTextBoxText" />
+                <TextBox AutomationProperties.AutomationId="ReadonlyTextBoxId" Text="ReadonlyTextBoxText" IsReadOnly="True" />
+                <RichTextBox AutomationProperties.AutomationId="RichTextBoxId">
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run>RichTextBoxText</Run>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+                <TextBox AutomationProperties.AutomationId="TextBoxWithManyTextId"
+                         AcceptsReturn="True"
+                         HorizontalScrollBarVisibility="Visible"
+                         VerticalScrollBarVisibility="Visible"
+                         x:Name="TextBoxWithManyTextName"
+                         MaxHeight="60" />
+                <RichTextBox AutomationProperties.AutomationId="RichTextBoxWithManyTextId"
+                             MaxHeight="60"
+                             HorizontalScrollBarVisibility="Visible"
+                             VerticalScrollBarVisibility="Visible">
+                    <FlowDocument PageWidth="550">
+                        <Paragraph x:Name="RichTextBoxWithManyTextName">
+                            <Run>1111111111111111111111111111111111111111111111111111111111111111111111111</Run>
+                            <LineBreak />
+                            <Run>2222222222222222222222222222222222222222222222222222222222222222222222222</Run>
+                            <LineBreak />
+                            <Run>3333333333333333333333333333333333333333333333333333333333333333333333333</Run>
+                            <LineBreak />
+                            <Run>4444444444444444444444444444444444444444444444444444444444444444444444444</Run>
+                            <LineBreak />
+                            <Run>5555555555555555555555555555555555555555555555555555555555555555555555555</Run>
+                            <LineBreak />
+                            <Run>6666666666666666666666666666666666666666666666666666666666666666666666666</Run>
+                            <LineBreak />
+                            <Run>7777777777777777777777777777777777777777777777777777777777777777777777777</Run>
+                            <LineBreak />
+                            <Run>8888888888888888888888888888888888888888888888888888888888888888888888888</Run>
+                            <LineBreak />
+                            <Run>9999999999999999999999999999999999999999999999999999999999999999999999999</Run>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
             </StackPanel>
         </GroupBox>
 

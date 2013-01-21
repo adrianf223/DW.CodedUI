@@ -96,7 +96,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Sets the current vertical scroll position
+            /// Sets the vertical scroll position
             /// </summary>
             /// <param name="verticalPercent">The percentual value to set</param>
             public void SetScrollPercent(double verticalPercent)
@@ -106,7 +106,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Scrolls up or down; Small is just like arrow up/down; Large is like page Up/Down
+            /// Scrolls up or down; Small is just like arrow up/down; Large is like page up/down
             /// </summary>
             /// <param name="amount">The amount of lines to scroll</param>
             public void ScrollVertical(ScrollAmount amount)

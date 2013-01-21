@@ -1,5 +1,8 @@
 ﻿
 
+13.1.21.0    Add unsafe methods SetValue, Scroll, ScrollHorizontal, ScrollVertical and SetScrollPercent to the BasicEdit
+13.1.21.0    Add IsReadOnly, SupportedTextSelection, HorizontalScrollPercent, HorizontalViewSize, HorizontallyScrollable, VerticalScrollPercent, VerticalViewSize and VerticallyScrollable to the BasicEdit
+13.1.21.0    Add unsafe methods Select, Deselect and ScrollIntoView to the BasicComboBoxItem
 13.1.20.0    Add Text property to the BasicComboBoxItem
 13.1.20.0    Add Text, IsReadonly, IsExpanded, VerticalScrollPercent, VerticalViewSize and VerticallyScrollable to the BasicComboBox
 13.1.20.0    Add method to the BasicComboBox to find a BasicComboBoxItem child control, even it is virtualized and it needs to be scrolled
