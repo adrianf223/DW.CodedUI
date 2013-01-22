@@ -28,6 +28,8 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.UITree
 {
+    // TODO: Obsolete
+
     /// <summary>
     /// Brings methods to find WPF controls in a UI tree
     /// </summary>

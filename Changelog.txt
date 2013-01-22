@@ -1,5 +1,27 @@
 ﻿
 
+13.1.22.0    Add unsafe methods Expand, Collapse, Select, Deselect and ScrollIntoView to the TreeViewItem
+13.1.22.0    Add Text to the TreeViewItem
+13.1.22.0    Add unsafe methods Scroll, ScrollHorizontal, ScrollVertical and SetScrollPercent to the BasicTreeView
+13.1.22.0    Add HorizontalScrollPercent, HorizontalViewSize, HorizontallyScrollable, VerticalScrollPercent, VerticalViewSize and VerticallyScrollable to the BasicTreeView
+13.1.22.0    Add unsafe method Toggle to the BasicToggleButton
+13.1.22.0    Add Text to the BasicToggleButton
+13.1.22.0    Add unsafe method Check to the BasicRadioButton
+13.1.22.0    Add unsafe methods Expand anc Collapse to the MenuItem
+13.1.22.0    Add Text to the MenuItem
+13.1.22.0    Add unsafe methods AddToSelection, RemoveFromSelection, Select and ScrollIntoView to the BasicListItem
+13.1.22.0    Add Text to the BasicListItem
+13.1.22.0    Add unsafe methods Scroll, ScrollHorizontal, ScrollVertical and SetScrollPercent to the BasicList
+13.1.22.0    Add GetColumnHeaders to the BasicList
+13.1.22.0    Add Getitem to get a cell item to the BasicList
+13.1.22.0    Add HorizontalScrollPercent, HorizontalViewSize, HorizontallyScrollable, VerticalScrollPercent, VerticalViewSize, VerticallyScrollable, ColumnCount and RowCount to the BasicList
+13.1.22.0    Add method FindChildByCondition to BsicList
+13.1.22.0    Add unsage methods Expand and Collapse to the BasicExpander
+13.1.22.0    Add IsExpanded to the BasicExpander
+13.1.22.0    Mark BasicTreeItem as obsolete, it is replaced by the BasicTreeViewItem
+13.1.22.0    Mark BasicTree as obsolete, it is replaced by the BasicTreeView
+13.1.22.0    Mark BasicTabPage as obsolete, it is replaced by the BasicTabItem
+13.1.22.0    Mark BasicTabList as obsolete, it is replaced by the BasicTabView
 13.1.21.0    Add unsafe methods SetValue, Scroll, ScrollHorizontal, ScrollVertical and SetScrollPercent to the BasicEdit
 13.1.21.0    Add IsReadOnly, SupportedTextSelection, HorizontalScrollPercent, HorizontalViewSize, HorizontallyScrollable, VerticalScrollPercent, VerticalViewSize and VerticallyScrollable to the BasicEdit
 13.1.21.0    Add unsafe methods Select, Deselect and ScrollIntoView to the BasicComboBoxItem

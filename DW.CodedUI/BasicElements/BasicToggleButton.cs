@@ -38,19 +38,55 @@ namespace DW.CodedUI.BasicElements
         public BasicToggleButton(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
         }
 
         /// <summary>
-        /// Gets if the button is checked or not
+        /// Contains unsafe methods for interact with the control directly
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public bool IsChecked // TODO: Test
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Changes the IsChecked state
+            /// </summary>
+            public void Toggle()
+            {
+                var pattern = (TogglePattern)_automationElement.GetCurrentPattern(TogglePattern.Pattern);
+                pattern.Toggle();
+            }
+        }
+
+        /// <summary>
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Gets if the ToggleButton is checked or not
+        /// </summary>
+        public bool IsChecked
         {
             get
             {
                 var pattern = (TogglePattern)AutomationElement.GetCurrentPattern(TogglePattern.Pattern);
                 return pattern.Current.ToggleState == ToggleState.On;
             }
+        }
+
+        /// <summary>
+        /// Gets the text written in the ToggleButton
+        /// </summary>
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
+        public string Text
+        {
+            get { return Name; }
         }
     }
 }

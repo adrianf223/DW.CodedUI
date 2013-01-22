@@ -1,7 +1,7 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
-using DW.CodedUI.Interaction;
 using DW.CodedUI.UITree;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,10 +11,10 @@ namespace DW.CodedUI.Tests.BasicElements
     // ReSharper disable InconsistentNaming
 
     [CodedUITest]
-    public class BasicButtonTests
+    public class BasicTabControlTests
     {
         private TestableApplication _application;
-        private BasicButton _button;
+        private BasicTabControl _tabControl;
 
         [TestInitialize]
         public void Setup()
@@ -22,7 +22,7 @@ namespace DW.CodedUI.Tests.BasicElements
             _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
-            _button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_application, "ButtonId");
+            _tabControl = BasicElementFinder.FindChildByAutomationId<BasicTabControl>(_application, "TabControlId");
         }
 
         [TestCleanup]
@@ -32,20 +32,20 @@ namespace DW.CodedUI.Tests.BasicElements
         }
 
         [TestMethod]
-        public void UnsafeClick_Called_ClicksTheButton()
+        public void SelectedItem_Getted_ReturnsSelectedItem()
         {
-            _button.Unsafe.Click();
-            Thread.Sleep(1000);
+            var item = _tabControl.SelectedItem;
 
-            var messageBox = MessageBoxFinder.FindFirstAvailableByTitle("Button Clicked");
-            Assert.IsNotNull(messageBox);
-            MessageBoxHandler.Close(messageBox);
+            Assert.IsNotNull(item);
+            Assert.IsTrue(item.IsSelected);
         }
 
         [TestMethod]
-        public void Text_Getted_ReturnsContentText()
+        public void Items_Getted_ReturnsTwoItems()
         {
-            Assert.AreEqual("ButtonText", _button.Text);
+            var items = _tabControl.Items;
+
+            Assert.AreEqual(2, items.Count());
         }
     }
 

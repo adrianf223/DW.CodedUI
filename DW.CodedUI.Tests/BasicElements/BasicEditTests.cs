@@ -71,6 +71,60 @@ namespace DW.CodedUI.Tests.BasicElements
         }
 
         [TestMethod]
+        public void HorizontalScrollPercent_Getted_ReturnsHorizontalScrollPostion()
+        {
+            Assert.AreEqual(0, _textBoxWithManyText.HorizontalScrollPercent);
+            Assert.AreEqual(0, _richTextBoxWithManyText.HorizontalScrollPercent);
+
+            _textBoxWithManyText.Unsafe.ScrollHorizontal(ScrollAmount.LargeIncrement);
+            _richTextBoxWithManyText.Unsafe.ScrollHorizontal(ScrollAmount.LargeIncrement);
+
+            Assert.AreNotEqual(0, _textBoxWithManyText.HorizontalScrollPercent);
+            Assert.AreNotEqual(0, _richTextBoxWithManyText.HorizontalScrollPercent);
+        }
+
+        [TestMethod]
+        public void HorizontalViewSize_Getted_ReturnsHorizontalScrollPostion()
+        {
+            Assert.IsTrue(_textBoxWithManyText.HorizontalViewSize > 0 && _textBoxWithManyText.HorizontalViewSize < 100);
+            Assert.IsTrue(_richTextBoxWithManyText.HorizontalViewSize > 0 && _richTextBoxWithManyText.HorizontalViewSize < 100);
+        }
+
+        [TestMethod]
+        public void HorizontallyScrollable_Getted_ReturnsScrollPossibility()
+        {
+            Assert.IsTrue(_textBoxWithManyText.HorizontallyScrollable);
+            Assert.IsTrue(_richTextBoxWithManyText.HorizontallyScrollable);
+        }
+
+        [TestMethod]
+        public void VerticalScrollPercent_Getted_ReturnsVerticalScrollPostion()
+        {
+            Assert.AreEqual(0, _textBoxWithManyText.VerticalScrollPercent);
+            Assert.AreEqual(0, _richTextBoxWithManyText.VerticalScrollPercent);
+
+            _textBoxWithManyText.Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
+            _richTextBoxWithManyText.Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
+
+            Assert.AreNotEqual(0, _textBoxWithManyText.VerticalScrollPercent);
+            Assert.AreNotEqual(0, _richTextBoxWithManyText.VerticalScrollPercent);
+        }
+
+        [TestMethod]
+        public void VerticalViewSize_Getted_ReturnsHorizontalScrollPostion()
+        {
+            Assert.IsTrue(_textBoxWithManyText.VerticalViewSize > 0 && _textBoxWithManyText.VerticalViewSize < 100);
+            Assert.IsTrue(_richTextBoxWithManyText.VerticalViewSize > 0 && _richTextBoxWithManyText.VerticalViewSize < 100);
+        }
+
+        [TestMethod]
+        public void VerticallyScrollable_Getted_ReturnsScrollPossibility()
+        {
+            Assert.IsTrue(_textBoxWithManyText.VerticallyScrollable);
+            Assert.IsTrue(_richTextBoxWithManyText.VerticallyScrollable);
+        }
+
+        [TestMethod]
         public void UnsafeSetValue_Called_SetsTheText()
         {
             _normalTextBox.Unsafe.SetValue("Karlheinz");
@@ -139,7 +193,7 @@ namespace DW.CodedUI.Tests.BasicElements
         }
 
         [TestMethod]
-        public void SetScrollPercent_Called_ScrollsInTheVisibleRange()
+        public void UnsafeSetScrollPercent_Called_ScrollsInTheVisibleRange()
         {
             var oldHorizontalPercent = _textBoxWithManyText.HorizontalScrollPercent;
             var oldVerticalPercent = _textBoxWithManyText.VerticalScrollPercent;
@@ -158,60 +212,6 @@ namespace DW.CodedUI.Tests.BasicElements
 
             Assert.AreNotEqual(oldHorizontalPercent, newHorizontalPercent);
             Assert.AreNotEqual(oldVerticalPercent, newVerticalPercent);
-        }
-
-        [TestMethod]
-        public void HorizontalScrollPercent_Getted_ReturnsHorizontalScrollPostion()
-        {
-            Assert.AreEqual(0, _textBoxWithManyText.HorizontalScrollPercent);
-            Assert.AreEqual(0, _richTextBoxWithManyText.HorizontalScrollPercent);
-
-            _textBoxWithManyText.Unsafe.ScrollHorizontal(ScrollAmount.LargeIncrement);
-            _richTextBoxWithManyText.Unsafe.ScrollHorizontal(ScrollAmount.LargeIncrement);
-
-            Assert.AreNotEqual(0, _textBoxWithManyText.HorizontalScrollPercent);
-            Assert.AreNotEqual(0, _richTextBoxWithManyText.HorizontalScrollPercent);
-        }
-
-        [TestMethod]
-        public void HorizontalViewSize_Getted_ReturnsHorizontalScrollPostion()
-        {
-            Assert.IsTrue(_textBoxWithManyText.HorizontalViewSize > 0 && _textBoxWithManyText.HorizontalViewSize < 100);
-            Assert.IsTrue(_richTextBoxWithManyText.HorizontalViewSize > 0 && _richTextBoxWithManyText.HorizontalViewSize < 100);
-        }
-
-        [TestMethod]
-        public void HorizontallyScrollable_Getted_ReturnsScrollPossibility()
-        {
-            Assert.IsTrue(_textBoxWithManyText.HorizontallyScrollable);
-            Assert.IsTrue(_richTextBoxWithManyText.HorizontallyScrollable);
-        }
-
-        [TestMethod]
-        public void VerticalScrollPercent_Getted_ReturnsVerticalScrollPostion()
-        {
-            Assert.AreEqual(0, _textBoxWithManyText.VerticalScrollPercent);
-            Assert.AreEqual(0, _richTextBoxWithManyText.VerticalScrollPercent);
-
-            _textBoxWithManyText.Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
-            _richTextBoxWithManyText.Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
-
-            Assert.AreNotEqual(0, _textBoxWithManyText.VerticalScrollPercent);
-            Assert.AreNotEqual(0, _richTextBoxWithManyText.VerticalScrollPercent);
-        }
-
-        [TestMethod]
-        public void VerticalViewSize_Getted_ReturnsHorizontalScrollPostion()
-        {
-            Assert.IsTrue(_textBoxWithManyText.VerticalViewSize > 0 && _textBoxWithManyText.VerticalViewSize < 100);
-            Assert.IsTrue(_richTextBoxWithManyText.VerticalViewSize > 0 && _richTextBoxWithManyText.VerticalViewSize < 100);
-        }
-
-        [TestMethod]
-        public void VerticallyScrollable_Getted_ReturnsScrollPossibility()
-        {
-            Assert.IsTrue(_textBoxWithManyText.VerticallyScrollable);
-            Assert.IsTrue(_richTextBoxWithManyText.VerticallyScrollable);
         }
     }
 

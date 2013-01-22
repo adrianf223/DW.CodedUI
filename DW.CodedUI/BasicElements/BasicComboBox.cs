@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.UITree;
 
@@ -36,14 +35,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicComboBox : BasicElement
     {
-        // Patterns:
-        // SelectionPattern
-        // ValuePattern
-        // ScrollPattern
-        // ExpandCollapsePattern
-        // SynchronizedInputPattern
-        // ItemContainerPattern // TODO: FindItemByProperty
-
         /// <summary>
         /// Initializes a new instance of the BasicComboBox class
         /// </summary>
@@ -67,7 +58,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Expands the ComboBox whithout using the mouse
+            /// Expands the ComboBox
             /// </summary>
             public void Expand()
             {
@@ -76,7 +67,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Collapses the ComboBox whithout using the mouse
+            /// Collapses the ComboBox
             /// </summary>
             public void Collapse()
             {
@@ -85,7 +76,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Sets the value without using the mouse if the ComboBox is editable
+            /// Sets the value if the ComboBox is editable
             /// </summary>
             /// <param name="value">The value to set</param>
             public void SetValue(string value)

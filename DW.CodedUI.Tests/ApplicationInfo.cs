@@ -6,13 +6,5 @@
         internal const string Title = "Application Window Title";
         internal const string FastStartArguments = "/FastStart";
         internal const int StartupWaitTime = 3000;
-
-        internal const string ButtonAutomationId = "ButtonId";
-        internal const string ButtonClickedMessageBox = "Button Clicked";
-        internal const string ButtonText = "Button";
-
-        internal const string CheckBoxCheckedAutomationId = "CheckBoxCheckedId";
-        internal const string CheckBoxUncheckedAutomationId = "CheckBoxUncheckedId";
-        internal const string CheckBoxText = "CheckBox";
     }
 }

@@ -22,21 +22,22 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
-using System;
+using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
     /// <summary>
-    /// Represents a TextBox or RichTextBox
+    /// Represents a TreeView
     /// </summary>
-    public class BasicEdit : BasicElement
+    public class BasicTreeView : BasicElement
     {
         /// <summary>
-        /// Initializes a new instance of the BasicEdit class
+        /// Initializes a new instance of the BasicTreeView class
         /// </summary>
         /// <param name="automationElement">The automation control</param>
-        public BasicEdit(AutomationElement automationElement)
+        public BasicTreeView(AutomationElement automationElement)
             : base(automationElement)
         {
             Unsafe = new UnsafeMethods(automationElement);
@@ -52,20 +53,6 @@ namespace DW.CodedUI.BasicElements
             internal UnsafeMethods(AutomationElement automationElement)
             {
                 _automationElement = automationElement;
-            }
-
-            /// <summary>
-            /// Sets the text into the [Rich]TextBox
-            /// </summary>
-            /// <param name="value">The value to set</param>
-            /// <remarks>Not supported for a RichTextBox</remarks>
-            public void SetValue(string value)
-            {
-                object pattern;
-                if (_automationElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern))
-                    ((ValuePattern)pattern).SetValue(value);
-                else
-                    throw new NotSupportedException(string.Format("The '{0}' does not support to set the value with the unsafe method.", _automationElement.Current.ClassName));
             }
 
             /// <summary>
@@ -116,88 +103,30 @@ namespace DW.CodedUI.BasicElements
         /// </summary>
         public UnsafeMethods Unsafe { get; private set; }
 
+        // TODO: No item is selected
         /// <summary>
-        /// Gets the written text in the [Rich]TextBox
+        /// Gets the selected TreeViewItem
         /// </summary>
-        public string Text
-        {
-            get
-            {
-                var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-                return pattern.DocumentRange.GetText(-1);
-            }
-        }
-
-        /// <summary>
-        /// Gets if the [Rich]TextBox is read only or not
-        /// </summary>
-        /// <remarks>Not supported for a RichTextBox</remarks>
-        public bool IsReadOnly
-        {
-            get
-            {
-                object pattern;
-                if (AutomationElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern))
-                    return ((ValuePattern)pattern).Current.IsReadOnly;
-                throw new NotSupportedException(string.Format("The '{0}' does not support to set the value with the unsafe method.", AutomationElement.Current.ClassName));
-            }
-        }
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange[] GetSelection
+        //public BasicTreeViewItem SelectedItem
         //{
         //    get
         //    {
-        //        var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //        return pattern.GetSelection();
+        //        var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+        //        var element = pattern.Current.GetSelection().FirstOrDefault();
+        //        return element != null ? new BasicTreeViewItem(element) : null;
         //    }
-        //}
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange[] GetVisibleRanges
-        //{
-        //    get
-        //    {
-        //        var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //        return pattern.GetVisibleRanges();
-        //    }
-        //}
-
-        // TODO: Put into BasicTextPatternRange and pass BasicElement
-        //public TextPatternRange RangeFromChild(AutomationElement automationElemen)
-        //{
-        //    var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //    return pattern.RangeFromChild(automationElement);
-        //}
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange RangeFromPoint(Point screenLocation)
-        //{
-        //    var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //    return pattern.RangeFromPoint(screenLocation);
         //}
 
         /// <summary>
-        /// Gets how text can be selected
+        /// Gets all available child TreeViewItems
         /// </summary>
-        public SupportedTextSelection SupportedTextSelection
+        public IEnumerable<BasicTreeViewItem> Items
         {
             get
             {
-                var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-                return pattern.SupportedTextSelection;
+                return BasicElementFinder.FindChildrenByClassName<BasicTreeViewItem>(AutomationElement, "TreeViewItem");
             }
         }
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange DocumentRange
-        //{
-        //    get
-        //    {
-        //        var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //        return pattern.DocumentRange;
-        //    }
-        //}
 
         /// <summary>
         /// Gets the current vertical scroll position; -1 if nothing has to scroll; 
@@ -224,7 +153,7 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets if the [Rich]TextBox can scroll horizontally
+        /// Gets if the TreeView can scroll horizontally
         /// </summary>
         public bool HorizontallyScrollable
         {
@@ -260,7 +189,7 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets if the [Rich]TextBox can scroll vertically
+        /// Gets if the TreeView can scroll vertically
         /// </summary>
         public bool VerticallyScrollable
         {

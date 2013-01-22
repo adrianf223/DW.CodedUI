@@ -27,13 +27,10 @@ using System.Windows.Automation;
 namespace DW.CodedUI.BasicElements
 {
     /// <summary>
-    /// Represents a Label
+    /// Represents a TextBlock or Label
     /// </summary>
     public class BasicText : BasicElement
     {
-        // Patterns:
-        // SynchronizedInputPatternIdentifiers
-
         /// <summary>
         /// Initializes a new instance of the BasicText class
         /// </summary>
@@ -44,9 +41,10 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets the text written in the label
+        /// Gets the text written in the TextBlock\Label
         /// </summary>
-        public string Text // TODO: Test
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched (In case of a TextBlock you cannot get the text then).</remarks>
+        public string Text
         {
             get { return Name; }
         }

@@ -43,10 +43,9 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets all available items
+        /// Gets all available MenuItems
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public IEnumerable<BasicMenuItem> Items // TODO: Test
+        public IEnumerable<BasicMenuItem> Items
         {
             get
             {

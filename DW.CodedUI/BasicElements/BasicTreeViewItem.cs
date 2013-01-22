@@ -22,29 +22,26 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
     /// <summary>
-    /// Represents a ListBoxItem or ListViewItem
+    /// Represents a TreeViewItem
     /// </summary>
-    public class BasicListItem : BasicElement
+    public class BasicTreeViewItem : BasicElement
     {
         /// <summary>
-        /// Initializes a new instance of the BasicListItem class
+        /// Initializes a new instance of the BasicTreeViewItem class
         /// </summary>
         /// <param name="automationElement">The automation control</param>
-        public BasicListItem(AutomationElement automationElement)
+        public BasicTreeViewItem(AutomationElement automationElement)
             : base(automationElement)
         {
             Unsafe = new UnsafeMethods(automationElement);
         }
-
-        /// <summary>
-        /// Gets access to unsafe methods
-        /// </summary>
-        public UnsafeMethods Unsafe { get; private set; }
 
         /// <summary>
         /// Contains unsafe methods for interact with the control directly
@@ -59,25 +56,25 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Adds the ListBoxItem\ListViewItem to the list of selected ListBoxItems\ListViewItems
+            /// Expands the item
             /// </summary>
-            public void AddToSelection()
+            public void Expand()
             {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
-                pattern.AddToSelection();
+                var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                pattern.Expand();
             }
 
             /// <summary>
-            /// Removes the ListBoxItem\ListViewItem from the list of the selected ListBoxItems\ListViewItems
+            /// Collapses the item
             /// </summary>
-            public void RemoveFromSelection()
+            public void Collapse()
             {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
-                pattern.RemoveFromSelection();
+                var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                pattern.Collapse();
             }
 
             /// <summary>
-            /// Deselects all other ListBoxItems\ListViewItems if any and selects the current ListBoxItem\ListViewItem
+            /// Selects the item
             /// </summary>
             public void Select()
             {
@@ -86,17 +83,31 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Scrolls to the ListBoxItem\ListViewItem
+            /// Deselects the item
+            /// </summary>
+            public void Deselect()
+            {
+                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                pattern.RemoveFromSelection();
+            }
+
+            /// <summary>
+            /// Scrolls the parent TreeView to the item
             /// </summary>
             public void ScrollIntoView()
             {
                 var pattern = (ScrollItemPattern)_automationElement.GetCurrentPattern(ScrollItemPattern.Pattern);
-                pattern.ScrollIntoView();
+                pattern.ScrollIntoView();   
             }
         }
 
         /// <summary>
-        /// Gets if the ListBoxItem\ListViewItem is selected or not
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Gets if it is selected or not
         /// </summary>
         public bool IsSelected
         {
@@ -108,7 +119,32 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets the written text in the ListBoxItem\ListViewItem
+        /// Gets if it is expanded or not
+        /// </summary>
+        public bool IsExpanded
+        {
+            get
+            {
+                var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+            }
+        }
+
+        /// <summary>
+        /// Gets all available child tree items
+        /// </summary>
+        public IEnumerable<BasicTreeViewItem> Items
+        {
+            get
+            {
+                Unsafe.Expand();
+                Unsafe.Collapse();
+                return BasicElementFinder.FindChildrenByClassName<BasicTreeViewItem>(AutomationElement, "TreeViewItem");
+            }
+        }
+
+        /// <summary>
+        /// Gets the text written in the TreeViewItem
         /// </summary>
         /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
         public string Text

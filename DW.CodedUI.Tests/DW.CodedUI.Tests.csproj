@@ -75,6 +75,18 @@
     <Compile Include="BasicElements\BasicComboBoxItemTests.cs" />
     <Compile Include="BasicElements\BasicComboBoxTests.cs" />
     <Compile Include="BasicElements\BasicEditTests.cs" />
+    <Compile Include="BasicElements\BasicExpanderTests.cs" />
+    <Compile Include="BasicElements\BasicListItemTests.cs" />
+    <Compile Include="BasicElements\BasicListTests.cs" />
+    <Compile Include="BasicElements\BasicMenuItemTests.cs" />
+    <Compile Include="BasicElements\BasicMenuTests.cs" />
+    <Compile Include="BasicElements\BasicRadioButtonTests.cs" />
+    <Compile Include="BasicElements\BasicTabControlTests.cs" />
+    <Compile Include="BasicElements\BasicTabItemTests.cs" />
+    <Compile Include="BasicElements\BasicTextTests.cs" />
+    <Compile Include="BasicElements\BasicToggleButtonTests.cs" />
+    <Compile Include="BasicElements\BasicTreeViewItemTests.cs" />
+    <Compile Include="BasicElements\BasicTreeViewTests.cs" />
     <Compile Include="DispatcherUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -22,8 +22,8 @@ namespace DW.CodedUI.Tests.BasicElements
             _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
-            _checkBoxChecked = BasicElementFinder.FindChildByAutomationId<BasicCheckBox>(_application, ApplicationInfo.CheckBoxCheckedAutomationId);
-            _checkBoxUnchecked = BasicElementFinder.FindChildByAutomationId<BasicCheckBox>(_application, ApplicationInfo.CheckBoxUncheckedAutomationId);
+            _checkBoxChecked = BasicElementFinder.FindChildByAutomationId<BasicCheckBox>(_application, "CheckBoxCheckedId");
+            _checkBoxUnchecked = BasicElementFinder.FindChildByAutomationId<BasicCheckBox>(_application, "CheckBoxUncheckedId");
         }
 
         [TestCleanup]
@@ -52,7 +52,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestMethod]
         public void Text_Getted_ReturnsContentText()
         {
-            Assert.AreEqual(ApplicationInfo.CheckBoxText, _checkBoxChecked.Text);
+            Assert.AreEqual("CheckBoxText", _checkBoxChecked.Text);
         }
     }
 

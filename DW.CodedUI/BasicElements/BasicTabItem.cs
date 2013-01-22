@@ -27,24 +27,19 @@ using System.Windows.Automation;
 namespace DW.CodedUI.BasicElements
 {
     /// <summary>
-    /// Represents a ListBoxItem or ListViewItem
+    /// Represents a TabItem
     /// </summary>
-    public class BasicListItem : BasicElement
+    public class BasicTabItem : BasicElement
     {
         /// <summary>
-        /// Initializes a new instance of the BasicListItem class
+        /// Initializes a new instance of the BasicTabItem class
         /// </summary>
         /// <param name="automationElement">The automation control</param>
-        public BasicListItem(AutomationElement automationElement)
+        public BasicTabItem(AutomationElement automationElement)
             : base(automationElement)
         {
             Unsafe = new UnsafeMethods(automationElement);
         }
-
-        /// <summary>
-        /// Gets access to unsafe methods
-        /// </summary>
-        public UnsafeMethods Unsafe { get; private set; }
 
         /// <summary>
         /// Contains unsafe methods for interact with the control directly
@@ -59,44 +54,22 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Adds the ListBoxItem\ListViewItem to the list of selected ListBoxItems\ListViewItems
-            /// </summary>
-            public void AddToSelection()
-            {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
-                pattern.AddToSelection();
-            }
-
-            /// <summary>
-            /// Removes the ListBoxItem\ListViewItem from the list of the selected ListBoxItems\ListViewItems
-            /// </summary>
-            public void RemoveFromSelection()
-            {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
-                pattern.RemoveFromSelection();
-            }
-
-            /// <summary>
-            /// Deselects all other ListBoxItems\ListViewItems if any and selects the current ListBoxItem\ListViewItem
+            /// Selects the item
             /// </summary>
             public void Select()
             {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
-                pattern.Select();
-            }
-
-            /// <summary>
-            /// Scrolls to the ListBoxItem\ListViewItem
-            /// </summary>
-            public void ScrollIntoView()
-            {
-                var pattern = (ScrollItemPattern)_automationElement.GetCurrentPattern(ScrollItemPattern.Pattern);
-                pattern.ScrollIntoView();
+                var invokePattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                invokePattern.Select();
             }
         }
 
         /// <summary>
-        /// Gets if the ListBoxItem\ListViewItem is selected or not
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Gets if it is selected or not
         /// </summary>
         public bool IsSelected
         {
@@ -108,9 +81,9 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets the written text in the ListBoxItem\ListViewItem
+        /// Gets the text written in the button
         /// </summary>
-        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched (In case of a TextBlock you cannot get the text then).</remarks>
         public string Text
         {
             get { return Name; }

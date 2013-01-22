@@ -31,10 +31,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicCheckBox : BasicElement
     {
-        // Patterns:
-        // TogglePattern
-        // SynchronizedInputPattern
-
         /// <summary>
         /// Initializes a new instance of the BasicCheckBox class
         /// </summary>
@@ -63,7 +59,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Changes the IsChecked state whithout using the mouse
+            /// Changes the IsChecked state
             /// </summary>
             public void Toggle()
             {

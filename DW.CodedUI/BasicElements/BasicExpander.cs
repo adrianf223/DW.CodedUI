@@ -38,13 +38,49 @@ namespace DW.CodedUI.BasicElements
         public BasicExpander(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
         }
 
         /// <summary>
-        /// Gets if it is expanded or not
+        /// Gets access to unsafe methods
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public bool IsExpanded // TODO: Test
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Contains unsafe methods for interact with the control directly
+        /// </summary>
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Expands the Expander
+            /// </summary>
+            public void Expand()
+            {
+                var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                pattern.Expand();
+            }
+
+            /// <summary>
+            /// Collapses the Expander
+            /// </summary>
+            public void Collapse()
+            {
+                var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                pattern.Collapse();
+            }
+        }
+
+        /// <summary>
+        /// Gets if the Expander it is expanded or not
+        /// </summary>
+        public bool IsExpanded
         {
             get
             {

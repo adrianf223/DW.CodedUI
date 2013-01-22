@@ -2,22 +2,22 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Application Window Title"
-        Height="550"
-        Width="555">
+        Height="800"
+        Width="1000">
     <UniformGrid>
         
         <GroupBox Header="Button">
-            <Button Content="Button"
+            <Button Content="ButtonText"
                     Click="Button_Click"
                     AutomationProperties.AutomationId="ButtonId" />
         </GroupBox>
         
         <GroupBox Header="CheckBox">
             <StackPanel>
-                <CheckBox Content="CheckBox"
+                <CheckBox Content="CheckBoxText"
                           IsChecked="True"
                           AutomationProperties.AutomationId="CheckBoxCheckedId" />
-                <CheckBox Content="CheckBox"
+                <CheckBox Content="CheckBoxText"
                           AutomationProperties.AutomationId="CheckBoxUncheckedId" />
             </StackPanel>
         </GroupBox>
@@ -103,8 +103,8 @@
                 </ComboBox>
             </StackPanel>
         </GroupBox>
-        
-        <GroupBox Header="TextBox">
+
+        <GroupBox Header="TextBox\RichTextBox">
             <StackPanel>
                 <TextBox AcceptsReturn="True" AutomationProperties.AutomationId="MultilineTextBoxId" Text="MultilineTextBoxText" />
                 <TextBox AutomationProperties.AutomationId="NormalTextBoxId" Text="NormalTextBoxText" />
@@ -149,6 +149,220 @@
                     </FlowDocument>
                 </RichTextBox>
             </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Expander">
+            <StackPanel>
+                <Expander Header="Expander"
+                          IsExpanded="False"
+                          AutomationProperties.AutomationId="CollapsedExpanderId" />
+                <Expander Header="Expander"
+                          IsExpanded="True"
+                          AutomationProperties.AutomationId="ExpandedExpanderId" />
+            </StackPanel>
+        </GroupBox>
+        
+        <GroupBox Header="Lists">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <ListBox x:Name="ListBoxId"
+                         SelectionMode="Single"
+                         VirtualizingStackPanel.IsVirtualizing="True"
+                         VirtualizingStackPanel.VirtualizationMode="Recycling">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBoxItem Content="First" />
+                    <ListBoxItem Content="Secondwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" />
+                    <ListBoxItem Content="Third" />
+                    <ListBoxItem Content="Fourth" />
+                    <ListBoxItem Content="Fifth" />
+                    <ListBoxItem Content="Sixth" />
+                    <ListBoxItem Content="Seventh" />
+                    <ListBoxItem Content="Eighth" />
+                    <ListBoxItem Content="Nineth" />
+                    <ListBoxItem Content="Tenth" />
+                    
+                    <ListBoxItem Content="1First" />
+                    <ListBoxItem Content="1Second" />
+                    <ListBoxItem Content="1Third" />
+                    <ListBoxItem Content="1Fourth" />
+                    <ListBoxItem Content="1Fifth" />
+                    <ListBoxItem Content="1Sixth" />
+                    <ListBoxItem Content="1Seventh" />
+                    <ListBoxItem Content="1Eighth" />
+                    <ListBoxItem Content="1Nineth" />
+                    <ListBoxItem Content="1Tenth" />
+                    
+                    <ListBoxItem Content="2First" />
+                    <ListBoxItem Content="2Second" />
+                    <ListBoxItem Content="2Third" />
+                    <ListBoxItem Content="2Fourth" />
+                    <ListBoxItem Content="2Fifth" />
+                    <ListBoxItem Content="2Sixth" />
+                    <ListBoxItem Content="2Seventh" />
+                    <ListBoxItem Content="2Eighth" />
+                    <ListBoxItem Content="2Nineth" />
+                    <ListBoxItem Content="2Tenth" />
+                    
+                    <ListBoxItem Content="3First" />
+                    <ListBoxItem Content="3Second" />
+                    <ListBoxItem Content="3Third" />
+                    <ListBoxItem Content="3Fourth" />
+                    <ListBoxItem Content="3Fifth" />
+                    <ListBoxItem Content="3Sixth" />
+                    <ListBoxItem Content="3Seventh" />
+                    <ListBoxItem Content="3Eighth" />
+                    <ListBoxItem Content="3Nineth" />
+                    <ListBoxItem Content="3Tenth" />
+                </ListBox>
+
+                <ListView x:Name="ListViewId"
+                          Grid.Row="1"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Recycling"
+                          SelectionMode="Extended">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="First" />
+                            <GridViewColumn Header="Second" />
+                            <GridViewColumn Header="Third" />
+                        </GridView>
+                    </ListView.View>
+                    <ListViewItem Content="First" />
+                    <ListViewItem Content="Secondwwwwwwwwwwwwwwwwwwwww" />
+                    <ListViewItem Content="Third" />
+                    <ListViewItem Content="Fourth" />
+                    <ListViewItem Content="Fifth" />
+                    <ListViewItem Content="Sixth" />
+                    <ListViewItem Content="Seventh" />
+                    <ListViewItem Content="Eighth" />
+                    <ListViewItem Content="Nineth" />
+                    <ListViewItem Content="Tenth" />
+
+                    <ListViewItem Content="1First" />
+                    <ListViewItem Content="1Second" />
+                    <ListViewItem Content="1Third" />
+                    <ListViewItem Content="1Fourth" />
+                    <ListViewItem Content="1Fifth" />
+                    <ListViewItem Content="1Sixth" />
+                    <ListViewItem Content="1Seventh" />
+                    <ListViewItem Content="1Eighth" />
+                    <ListViewItem Content="1Nineth" />
+                    <ListViewItem Content="1Tenth" />
+
+                    <ListViewItem Content="2First" />
+                    <ListViewItem Content="2Second" />
+                    <ListViewItem Content="2Third" />
+                    <ListViewItem Content="2Fourth" />
+                    <ListViewItem Content="2Fifth" />
+                    <ListViewItem Content="2Sixth" />
+                    <ListViewItem Content="2Seventh" />
+                    <ListViewItem Content="2Eighth" />
+                    <ListViewItem Content="2Nineth" />
+                    <ListViewItem Content="2Tenth" />
+
+                    <ListViewItem Content="3First" />
+                    <ListViewItem Content="3Second" />
+                    <ListViewItem Content="3Third" />
+                    <ListViewItem Content="3Fourth" />
+                    <ListViewItem Content="3Fifth" />
+                    <ListViewItem Content="3Sixth" />
+                    <ListViewItem Content="3Seventh" />
+                    <ListViewItem Content="3Eighth" />
+                    <ListViewItem Content="3Nineth" />
+                    <ListViewItem Content="3Tenth" />
+                </ListView>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Header="Menu">
+            <Menu AutomationProperties.AutomationId="MenuId">
+                <MenuItem Header="First" AutomationProperties.AutomationId="MenuItemId">
+                    <MenuItem Header="Second" />
+                </MenuItem>
+                <MenuItem Header="Third">
+                    <MenuItem Header="Fourth" />
+                </MenuItem>
+            </Menu>
+        </GroupBox>
+        
+        <GroupBox Header="RadioButton">
+            <StackPanel>
+                <RadioButton Content="First" IsChecked="True" AutomationProperties.AutomationId="CheckedRadioButtonId" />
+                <RadioButton Content="Second" IsChecked="False" AutomationProperties.AutomationId="UnheckedRadioButtonId" />
+            </StackPanel>
+        </GroupBox>
+        
+        <GroupBox Header="TabControl">
+            <TabControl AutomationProperties.AutomationId="TabControlId">
+                <TabItem Header="SelectedTabItemText" IsSelected="True" AutomationProperties.AutomationId="SelectedTabItemId" />
+                <TabItem Header="DeselectedTabItemText" IsSelected="False" AutomationProperties.AutomationId="DeselectedTabItemId" />
+            </TabControl>
+        </GroupBox>
+
+        <GroupBox Header="TextBlock\Label">
+            <StackPanel>
+                <TextBlock Text="TextBlockText" AutomationProperties.AutomationId="TextBlockId" />
+                <Label Content="LabelText" AutomationProperties.AutomationId="LabelId" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="ToggleButton">
+            <StackPanel>
+                <ToggleButton Content="CheckedToggleButtonText" IsChecked="True" AutomationProperties.AutomationId="CheckedToggleButtonId" />
+                <ToggleButton Content="UncheckedToggleButtonText" IsChecked="False" AutomationProperties.AutomationId="UncheckedToggleButtonId" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="TreeView">
+            <TreeView AutomationProperties.AutomationId="TreeViewId">
+                <TreeViewItem Header="SelectedTreeViewItemText" IsSelected="True" AutomationProperties.AutomationId="SelectedTreeViewItemId">
+                    <TreeViewItem Header="Child1" />
+                    <TreeViewItem Header="Child2" />
+                </TreeViewItem>
+                <TreeViewItem Header="DeselectedTreeViewItemText" IsSelected="False" AutomationProperties.AutomationId="DeselectedTreeViewItemId">
+                    <TreeViewItem Header="Child1" />
+                    <TreeViewItem Header="Child2" />
+                </TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem></TreeViewItem>
+                <TreeViewItem Header="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"></TreeViewItem>
+            </TreeView>
         </GroupBox>
 
     </UniformGrid>

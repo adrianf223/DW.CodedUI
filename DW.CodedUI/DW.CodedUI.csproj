@@ -73,12 +73,16 @@
     <Compile Include="BasicElements\BasicMenuItem.cs" />
     <Compile Include="BasicElements\BasicMessageBox.cs" />
     <Compile Include="BasicElements\BasicRadioButton.cs" />
+    <Compile Include="BasicElements\BasicTabControl.cs" />
     <Compile Include="BasicElements\BasicTabList.cs" />
+    <Compile Include="BasicElements\BasicTabItem.cs" />
     <Compile Include="BasicElements\BasicTabPage.cs" />
     <Compile Include="BasicElements\BasicText.cs" />
     <Compile Include="BasicElements\BasicToggleButton.cs" />
-    <Compile Include="BasicElements\BasicTreeItem.cs" />
     <Compile Include="BasicElements\BasicTree.cs" />
+    <Compile Include="BasicElements\BasicTreeItem.cs" />
+    <Compile Include="BasicElements\BasicTreeViewItem.cs" />
+    <Compile Include="BasicElements\BasicTreeView.cs" />
     <Compile Include="CodedUIConfiguration.cs" />
     <Compile Include="Interaction\At.cs" />
     <Compile Include="Interaction\KeyboardCommands.cs" />

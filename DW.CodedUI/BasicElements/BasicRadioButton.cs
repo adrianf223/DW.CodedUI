@@ -38,18 +38,45 @@ namespace DW.CodedUI.BasicElements
         public BasicRadioButton(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
         }
 
         /// <summary>
-        /// Gets if the button is checked or not
+        /// Contains unsafe methods for interact with the control directly
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public bool IsChecked // TODO: Test
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Checks the RadioButton. All other items in the group should get unchecked automatically
+            /// </summary>
+            public void Check()
+            {
+                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                pattern.Select();
+            }
+        }
+
+        /// <summary>
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Gets if the RadioButton is checked or not
+        /// </summary>
+        public bool IsChecked
         {
             get
             {
-                var pattern = (TogglePattern)AutomationElement.GetCurrentPattern(TogglePattern.Pattern);
-                return pattern.Current.ToggleState == ToggleState.On;
+                var pattern = (SelectionItemPattern)AutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                return pattern.Current.IsSelected;
             }
         }
     }

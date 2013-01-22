@@ -40,13 +40,49 @@ namespace DW.CodedUI.BasicElements
         public BasicMenuItem(AutomationElement automationElement)
             : base(automationElement)
         {
+            Unsafe = new UnsafeMethods(automationElement);
         }
 
         /// <summary>
-        /// Gets if it is expanded or not
+        /// Contains unsafe methods for interact with the control directly
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public bool IsExpanded // TODO: Test
+        public class UnsafeMethods
+        {
+            private readonly AutomationElement _automationElement;
+
+            internal UnsafeMethods(AutomationElement automationElement)
+            {
+                _automationElement = automationElement;
+            }
+
+            /// <summary>
+            /// Expands the MenuItem
+            /// </summary>
+            public void Expand()
+            {
+                var expandCollapsePattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                expandCollapsePattern.Expand();
+            }
+
+            /// <summary>
+            /// Collapses the MenuItem
+            /// </summary>
+            public void Collapse()
+            {
+                var expandCollapsePattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                expandCollapsePattern.Collapse();
+            }
+        }
+
+        /// <summary>
+        /// Gets access to unsafe methods
+        /// </summary>
+        public UnsafeMethods Unsafe { get; private set; }
+
+        /// <summary>
+        /// Gets if the MenuItem is expanded or not
+        /// </summary>
+        public bool IsExpanded
         {
             get
             {
@@ -56,19 +92,24 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets all available child items
+        /// Gets all available MenuItems
         /// </summary>
-        /// <remarks>Not tested yet!</remarks>
-        public IEnumerable<BasicMenuItem> Items // TODO: Test
+        public IEnumerable<BasicMenuItem> Items
         {
             get
             {
-                var expandCollapsePattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
-                expandCollapsePattern.Expand();
-                expandCollapsePattern.Collapse();
-
+                Unsafe.Expand();
                 return BasicElementFinder.FindChildrenByClassName<BasicMenuItem>(AutomationElement, "MenuItem");
             }
+        }
+
+        /// <summary>
+        /// Gets the text written in the MenuItem
+        /// </summary>
+        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
+        public string Text
+        {
+            get { return Name; }
         }
     }
 }

@@ -22,59 +22,50 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
     /// <summary>
-    /// Represents a button
+    /// Represents a TabControl
     /// </summary>
-    public class BasicButton : BasicElement
+    public class BasicTabControl : BasicElement
     {
         /// <summary>
-        /// Initializes a new instance of the BasicButton class
+        /// Initializes a new instance of the BasicTabControl class
         /// </summary>
         /// <param name="automationElement">The automation control</param>
-        public BasicButton(AutomationElement automationElement)
+        public BasicTabControl(AutomationElement automationElement)
             : base(automationElement)
         {
-            Unsafe = new UnsafeMethods(automationElement);
         }
 
         /// <summary>
-        /// Contains unsafe methods for interact with the control directly
+        /// Gets the selected tab item
         /// </summary>
-        public class UnsafeMethods
+        public BasicTabItem SelectedItem
         {
-            private readonly AutomationElement _automationElement;
-
-            internal UnsafeMethods(AutomationElement automationElement)
+            get
             {
-                _automationElement = automationElement;
-            }
-
-            /// <summary>
-            /// Invokes a click on the Button
-            /// </summary>
-            public void Click()
-            {
-                var invokePattern = (InvokePattern) _automationElement.GetCurrentPattern(InvokePattern.Pattern);
-                invokePattern.Invoke();
+                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                var selectedItem = pattern.Current.GetSelection().FirstOrDefault();
+                return selectedItem != null ? new BasicTabItem(selectedItem) : null;
             }
         }
 
         /// <summary>
-        /// Gets access to unsafe methods
+        /// Gets all available tab items
         /// </summary>
-        public UnsafeMethods Unsafe { get; private set; }
-
-        /// <summary>
-        /// Gets the text written in the Button
-        /// </summary>
-        /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
-        public string Text
+        public IEnumerable<BasicTabItem> Items
         {
-            get { return Name; }
+            get
+            {
+                
+                return BasicElementFinder.FindChildrenByClassName<BasicTabItem>(AutomationElement, "TabItem");
+            }
         }
     }
 }

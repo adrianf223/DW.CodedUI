@@ -31,11 +31,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicComboBoxItem : BasicElement
     {
-        // Patterns:
-        // SelectionItemPattern
-        // ScrollItemPattern
-        // SynchronizedInputPattern
-
         /// <summary>
         /// Initializes a new instance of the BasicComboBoxItem class
         /// </summary>
@@ -59,7 +54,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Selects the item whithout using the mouse
+            /// Selects the ComboBoxItem
             /// </summary>
             public void Select()
             {
@@ -68,7 +63,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Deselect the item
+            /// Deselect the ComboBoxItem
             /// </summary>
             public void Deselect()
             {
@@ -77,7 +72,7 @@ namespace DW.CodedUI.BasicElements
             }
 
             /// <summary>
-            /// Scrolls to the item whithout using the mouse
+            /// Scrolls to the ComboBoxItem
             /// </summary>
             public void ScrollIntoView()
             {
@@ -92,7 +87,7 @@ namespace DW.CodedUI.BasicElements
         public UnsafeMethods Unsafe { get; private set; }
 
         /// <summary>
-        /// Gets if the box is selected or not
+        /// Gets if the ComboBoxItem is selected or not
         /// </summary>
         public bool IsSelected
         {
@@ -104,7 +99,7 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Gets the text written in the button
+        /// Gets the text written in the ComboBoxItem
         /// </summary>
         /// <remarks>If AutomationProperties.AutomationName is set this text is replaced by this. To get the text a child TextBlox has to be searched.</remarks>
         public string Text
