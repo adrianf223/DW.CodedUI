@@ -68,7 +68,7 @@ namespace DW.CodedUI
         private static MethodBase GetTestMethod()
         {
             var stackTrace = new StackTrace();
-            int frameNo = 3;
+            int frameNo = 1;
             var method = stackTrace.GetFrame(frameNo).GetMethod();
             while (method != null)
             {
