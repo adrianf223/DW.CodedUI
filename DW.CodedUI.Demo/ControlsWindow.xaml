@@ -365,5 +365,9 @@
             </TreeView>
         </GroupBox>
 
+        <GroupBox Header="ColorDetector">
+            <TextBlock AutomationProperties.AutomationId="ColoredRectangleId" Background="Red" Height="140" Width="200" />
+        </GroupBox>
+        
     </UniformGrid>
 </Window>

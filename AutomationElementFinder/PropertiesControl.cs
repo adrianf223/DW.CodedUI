@@ -101,6 +101,14 @@ namespace AutomationElementFinder
             TakeProperty("NativeWindowHandle", Element.Current.NativeWindowHandle);
             TakeProperty("Orientation", Element.Current.Orientation);
             TakeProperty("ProcessId", Element.Current.ProcessId);
+            int i = 0;
+            foreach (var pattern in Element.GetSupportedPatterns())
+            {
+                string title = string.Empty;
+                if (i++ == 0)
+                    title = "Supported Patterns";
+                TakeProperty(title, pattern.ProgrammaticName);
+            }
         }
 
         private void TakeProperty(string key, object value, bool highlight = false)

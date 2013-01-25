@@ -1,5 +1,8 @@
 ﻿
 
+13.1.25.0    Add method to ColorDetector to get the color from a specific position in a BasicElement
+13.1.25.0    Mark overload method in the ColorDetector which takes a WpfControl as Obsolete because the library is focus on BasicElements
+13.1.24.0    Add display of the SupportedPatterns in the AutomationElementFinder
 13.1.22.0    Add unsafe methods Expand, Collapse, Select, Deselect and ScrollIntoView to the TreeViewItem
 13.1.22.0    Add Text to the TreeViewItem
 13.1.22.0    Add unsafe methods Scroll, ScrollHorizontal, ScrollVertical and SetScrollPercent to the BasicTreeView

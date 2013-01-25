@@ -92,6 +92,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UITree\MessageBoxFinderTests.cs" />
     <Compile Include="Utilities\CodedUIBaseTests.cs" />
+    <Compile Include="Utilities\ColorDetectorTests.cs" />
     <Compile Include="Waiting\DynamicSleepTests.cs" />
   </ItemGroup>
   <ItemGroup>

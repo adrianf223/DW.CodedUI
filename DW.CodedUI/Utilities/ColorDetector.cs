@@ -25,6 +25,8 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Windows.Automation;
+using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
@@ -52,6 +54,8 @@ namespace DW.CodedUI.Utilities
     /// </example>
     public static class ColorDetector
     {
+        // TODO: Obsolete
+
         /// <summary>
         /// Gets the color of a WPF control on a specific relative position
         /// </summary>
@@ -59,22 +63,39 @@ namespace DW.CodedUI.Utilities
         /// <param name="relativePositionX">Relative X position inside the control</param>
         /// <param name="relativePositionY">Relative Y position inside the control</param>
         /// <returns></returns>
+        [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
         public static Color GetColor(WpfControl control, int relativePositionX = 1, int relativePositionY = 1)
         {
+            var automationElement = AutomationElement.FromHandle(control.WindowHandle);
+            return GetColor(new BasicElement(automationElement), relativePositionX, relativePositionY);
+        }
+
+        /// <summary>
+        /// Gets the color of a BasicElement on a specific relative position
+        /// </summary>
+        /// <param name="element">The element to get the color from</param>
+        /// <param name="relativePositionX">Relative position from the left side of the control</param>
+        /// <param name="relativePositionY">Relative position from the top of the control</param>
+        /// <returns></returns>
+        public static Color GetColor(BasicElement element, int relativePositionX = 1, int relativePositionY = 1)
+        {
+            var positionX = (int)element.AutomationElement.Current.BoundingRectangle.Left + relativePositionX;
+            var positionY = (int)element.AutomationElement.Current.BoundingRectangle.Top + relativePositionY;
+
             var originalMouseSpeed = Mouse.MouseMoveSpeed;
-            Mouse.MouseMoveSpeed = 5000;
-            Mouse.Move(control, new Point(relativePositionX, relativePositionY));
+            Mouse.MouseMoveSpeed = 10000;
+            Mouse.Move(new Point(positionX, positionY));
             Mouse.MouseMoveSpeed = originalMouseSpeed;
-            var position = Mouse.Location;
 
             var hdcScreen = CreateDC("Display", null, null, IntPtr.Zero);
-            var cr = GetPixel(hdcScreen, position.X, position.Y);
+            var cr = GetPixel(hdcScreen, positionX, positionY);
             DeleteDC(hdcScreen);
 
             var clr = Color.FromArgb((cr & 0x000000FF),
                                      (cr & 0x0000FF00) >> 8,
                                      (cr & 0x00FF0000) >> 16);
             return clr;
+        
         }
 
         [DllImport("gdi32.dll")]
