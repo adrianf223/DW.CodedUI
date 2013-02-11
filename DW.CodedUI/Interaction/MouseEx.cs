@@ -247,7 +247,7 @@ namespace DW.CodedUI.Interaction
         {
             System.Windows.Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
-                Mouse.Click(button, modifierKeys, new Point((int)point.X, (int)point.Y));
+                Mouse.DoubleClick(button, modifierKeys, new Point((int)point.X, (int)point.Y));
             else
             {
                 var x = rect.Left + (rect.Width / 2.0);

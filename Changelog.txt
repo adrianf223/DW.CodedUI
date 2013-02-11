@@ -1,5 +1,6 @@
 ﻿
 
+13.2.11.0    The MouseEx DoubleClick without the relative At hast just click single instead of double
 13.1.25.0    Add method to ColorDetector to get the color from a specific position in a BasicElement
 13.1.25.0    Mark overload method in the ColorDetector which takes a WpfControl as Obsolete because the library is focus on BasicElements
 13.1.24.0    Add display of the SupportedPatterns in the AutomationElementFinder
