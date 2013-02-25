@@ -51,11 +51,46 @@ namespace DW.CodedUI.Application
         /// <summary>
         /// Initializes a new instance of the TestableWindow class
         /// </summary>
-        public TestableWindow(string title, int instance = 1)
+        /// <param name="title">The window title</param>
+        /// <remarks>The window title has to match exactly and the first window instance is taken</remarks>
+        public TestableWindow(string title)
+            : this(title, 1, TitleSearchCondition.IsEqual)
         {
-            SearchProperties[UITestControl.PropertyNames.Name] = title;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the TestableWindow class
+        /// </summary>
+        /// <param name="title">The window title</param>
+        /// <param name="instance">The window instance</param>
+        /// <remarks>The window title has to match exactly</remarks>
+        public TestableWindow(string title, int instance)
+            : this(title, instance, TitleSearchCondition.IsEqual)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the TestableWindow class
+        /// </summary>
+        /// <param name="title">The window title</param>
+        /// <param name="titleSearchCondition">How to compare the window title</param>
+        /// <remarks>The first window instance is taken</remarks>
+        public TestableWindow(string title, TitleSearchCondition titleSearchCondition)
+            : this(title, 1, titleSearchCondition)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the TestableWindow class
+        /// </summary>
+        /// <param name="title">The window title</param>
+        /// <param name="instance">The window instance</param>
+        /// <param name="titleSearchCondition">How to compare the window title</param>
+        public TestableWindow(string title, int instance, TitleSearchCondition titleSearchCondition)
+        {
             SearchProperties[UITestControl.PropertyNames.Instance] = instance.ToString(CultureInfo.InvariantCulture);
             SearchProperties.Add(new PropertyExpression(UITestControl.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            SearchProperties.Add(new PropertyExpression(UITestControl.PropertyNames.Name, title, (PropertyExpressionOperator)titleSearchCondition));
         }
     }
 }

@@ -40,6 +40,19 @@ namespace DW.CodedUI.Tests.Application
             process1.CloseMainWindow();
             process2.CloseMainWindow();
         }
+
+        [TestMethod]
+        public void TestableWindow_CreatedWithContainsTitleCondition_ReturnsAccessableWindow()
+        {
+            var process = Process.Start(ApplicationInfo.ExecutablePath, ApplicationInfo.FastStartArguments);
+            Thread.Sleep(1000);
+
+            var target = new TestableWindow("ation Window T", TitleSearchCondition.Contains);
+
+            Assert.AreNotSame(IntPtr.Zero, target.WindowHandle);
+
+            process.CloseMainWindow();
+        }
     }
 
     // ReSharper restore InconsistentNaming

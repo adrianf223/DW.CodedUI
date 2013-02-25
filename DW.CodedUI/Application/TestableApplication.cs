@@ -67,8 +67,8 @@ namespace DW.CodedUI.Application
     {
         private readonly Process _process;
 
-        internal TestableApplication(string title, Process process, int instance)
-            : base(title, instance)
+        internal TestableApplication(string title, Process process, int instance, TitleSearchCondition titleSearchCondition)
+            : base(title, instance, titleSearchCondition)
         {
             _process = process;
         }

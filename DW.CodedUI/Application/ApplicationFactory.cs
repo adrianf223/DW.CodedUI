@@ -23,6 +23,8 @@
 #endregion License
 
 using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
 
 namespace DW.CodedUI.Application
 {
@@ -71,11 +73,12 @@ namespace DW.CodedUI.Application
         /// <param name="applicationPath">The path to the application. (Can be relative)</param>
         /// <param name="arguments">The arguments passed to the application start.</param>
         /// <param name="instance">If there are multiple applications with the same title, this parameter says which instance should be used</param>
+        /// <param name="titleSearchCondition">How to compare the window title</param>
         /// <returns>The TestableApplication which can be used by other Coded UI tests</returns>
-        public static TestableApplication Launch(string title, string applicationPath, string arguments = null, int instance = 1)
+        public static TestableApplication Launch(string title, string applicationPath, string arguments = null, int instance = 1, TitleSearchCondition titleSearchCondition = TitleSearchCondition.IsEqual)
         {
             var process = Process.Start(applicationPath, arguments);
-            return new TestableApplication(title, process, instance);
+            return new TestableApplication(title, process, instance, titleSearchCondition);
         }
     }
 }

@@ -48,6 +48,17 @@ namespace DW.CodedUI.Tests.Application
 
             toTestApplication2.Shutdown();
         }
+
+        [TestMethod]
+        public void Launch_WithContainsCondition_ReturnsWindowHandle()
+        {
+            var application = ApplicationFactory.Launch("ation Window T", ApplicationInfo.ExecutablePath, ApplicationInfo.FastStartArguments, 1, TitleSearchCondition.Contains);
+            Thread.Sleep(1000);
+
+            Assert.AreNotEqual(IntPtr.Zero, application.WindowHandle);
+
+            application.Shutdown();
+        }
     }
 
     // ReSharper restore InconsistentNaming

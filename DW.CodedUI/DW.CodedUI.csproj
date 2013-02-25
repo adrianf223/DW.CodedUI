@@ -59,6 +59,7 @@
     <Compile Include="Application\ApplicationFactory.cs" />
     <Compile Include="Application\TestableWindow.cs" />
     <Compile Include="Application\TestableApplication.cs" />
+    <Compile Include="Application\TitleSearchCondition.cs" />
     <Compile Include="BasicElements\BasicButton.cs" />
     <Compile Include="BasicElements\BasicCheckBox.cs" />
     <Compile Include="BasicElements\BasicComboBox.cs" />
