@@ -1,5 +1,6 @@
 ﻿
 
+13.4.5.0     The ApplicationFactory sets the working directory to the directory the executable is located
 13.2.25.0    A TestableWindow can be found by part of the title. The ApplicationFactory provides the same possibility as well
 13.2.11.0    The MouseEx DoubleClick without the relative At hast just click single instead of double
 13.1.25.0    Add method to ColorDetector to get the color from a specific position in a BasicElement

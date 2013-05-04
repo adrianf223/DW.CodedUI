@@ -23,6 +23,7 @@
 #endregion License
 
 using System.Diagnostics;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
 
@@ -77,7 +78,9 @@ namespace DW.CodedUI.Application
         /// <returns>The TestableApplication which can be used by other Coded UI tests</returns>
         public static TestableApplication Launch(string title, string applicationPath, string arguments = null, int instance = 1, TitleSearchCondition titleSearchCondition = TitleSearchCondition.IsEqual)
         {
-            var process = Process.Start(applicationPath, arguments);
+            var processStartInfo = new ProcessStartInfo(applicationPath, arguments);
+            processStartInfo.WorkingDirectory = Path.GetDirectoryName(applicationPath);
+            var process = Process.Start(processStartInfo);
             return new TestableApplication(title, process, instance, titleSearchCondition);
         }
     }
