@@ -104,9 +104,9 @@ namespace DW.CodedUI.BasicElements
         public UnsafeMethods Unsafe { get; private set; }
 
         // TODO: No item is selected
-        /// <summary>
-        /// Gets the selected TreeViewItem
-        /// </summary>
+        // <summary>
+        // Gets the selected TreeViewItem
+        // </summary>
         //public BasicTreeViewItem SelectedItem
         //{
         //    get

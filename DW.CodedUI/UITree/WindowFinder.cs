@@ -106,7 +106,6 @@ namespace DW.CodedUI.UITree
                 }
                 Thread.Sleep(200);
             }
-            return null;
         }
 
         private static bool Matches(AutomationElement automationElement,

@@ -31,6 +31,24 @@ using WindowState = DW.CodedUI.Application.WindowState;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a single open WPF window
+    /// </summary>
+    /// <example>
+    /// <code lang="cs">
+    /// <![CDATA[
+    /// [TestMethod]
+    /// public void Method_TestCondition_ExpectedResult1()
+    /// {
+    ///     // do anything and a window appears
+    /// 
+    ///     var window = WindowFinder.Search("The title");
+    /// 
+    ///     // Assert anything in the window
+    /// }
+    /// ]]>
+    /// </code>
+    /// </example>
     public class BasicWindow : BasicElement
     {
         /// <summary>
@@ -60,21 +78,33 @@ namespace DW.CodedUI.BasicElements
                 _automationElement = automationElement;
             }
 
+            /// <summary>
+            /// Maximizes the window
+            /// </summary>
             public void Maximize()
             {
                 ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, ShowWindowCommands.Maximize);
             }
 
+            /// <summary>
+            /// Minimizes the window
+            /// </summary>
             public void Minimize()
             {
                 ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, ShowWindowCommands.Minimize);
             }
 
+            /// <summary>
+            /// Normalizes the window
+            /// </summary>
             public void Normalize()
             {
                 ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, ShowWindowCommands.Normal);
             }
 
+            /// <summary>
+            /// Closes the window
+            /// </summary>
             public void Close()
             {
                 SendMessage(new HandleRef(null, new IntPtr(_automationElement.Current.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
@@ -106,6 +136,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Maximizes the window
+        /// </summary>
         public void Maximize()
         {
             var maximizeButton = BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "Maximize");
@@ -113,6 +146,9 @@ namespace DW.CodedUI.BasicElements
                 MouseEx.Click(maximizeButton);
         }
 
+        /// <summary>
+        /// Normalizes the window
+        /// </summary>
         public void Normalize()
         {
             if (WindowState == WindowState.Minimized)
@@ -125,6 +161,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Minimizes the window
+        /// </summary>
         public void Minimize()
         {
             var minimizeButton = BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "Minimize");
@@ -139,11 +178,17 @@ namespace DW.CodedUI.BasicElements
         //        MouseEx.Click(closeButton);
         //}
 
+        /// <summary>
+        /// Gets the window title
+        /// </summary>
         public string Title
         {
             get { return Name; }
         }
 
+        /// <summary>
+        /// Gets the actual window state
+        /// </summary>
         public WindowState WindowState
         {
             get
