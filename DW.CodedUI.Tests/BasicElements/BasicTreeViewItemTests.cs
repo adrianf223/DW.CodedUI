@@ -14,7 +14,7 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicTreeViewItemTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicTreeView _treeView;
         private BasicTreeViewItem _selectedTreeViewItem;
         private BasicTreeViewItem _deselectedTreeViewItem;
@@ -22,7 +22,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _treeView = BasicElementFinder.FindChildByAutomationId<BasicTreeView>(_application, "TreeViewId");
@@ -33,7 +33,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

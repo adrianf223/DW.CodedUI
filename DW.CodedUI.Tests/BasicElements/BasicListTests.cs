@@ -15,14 +15,14 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicListTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicList _listBox;
         private BasicList _listView;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _listBox = BasicElementFinder.FindChildByAutomationId<BasicList>(_application, "ListBoxId");
@@ -32,7 +32,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

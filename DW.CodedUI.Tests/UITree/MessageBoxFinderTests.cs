@@ -13,13 +13,13 @@ namespace DW.CodedUI.Tests.UITree
     [CodedUITest]
     public class MessageBoxFinderTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicButton _button;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_application, "ButtonId");
@@ -28,7 +28,7 @@ namespace DW.CodedUI.Tests.UITree
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

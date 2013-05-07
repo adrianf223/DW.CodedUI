@@ -1,5 +1,14 @@
 ﻿
 
+13.7.5.0     Add new method to the ApplicationFactory to launch an assembly and get the BasicWindow from
+13.7.5.0     Add additional overload with the BasicWindow to the Shutdown object and mark the WpfWindow and TestableApplication overloads as obsolete
+13.7.5.0     Mark TestableApplication as obsolete
+13.7.5.0     Add WindowFinder to search for windows, it is replacing the TestableWindow which is obsolete now
+13.7.5.0     Obsolete WindowFocus overload with WpfWindow and add method with BasicWindow
+13.7.5.0     Add BasicWindow with the main functionality
+13.7.5.0     In the AutomationElementFinder the left tree is separated between under mouse controls and siblings
+16.7.5.0     Remove obsolete overload in ColorDetector
+13.6.5.0     Remove obsolete objects
 13.4.5.0     The ApplicationFactory sets the working directory to the directory the executable is located
 13.2.25.0    A TestableWindow can be found by part of the title. The ApplicationFactory provides the same possibility as well
 13.2.11.0    The MouseEx DoubleClick without the relative At hast just click single instead of double

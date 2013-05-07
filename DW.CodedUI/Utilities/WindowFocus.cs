@@ -61,9 +61,19 @@ namespace DW.CodedUI.Utilities
         /// </summary>
         /// <param name="window">The window to bring on top</param>
         /// <remarks>TestableApplication and TestableWindow can be passed as well</remarks>
+        [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
         public static void BringOnTop(WpfWindow window)
         {
             SetForegroundWindow(window.WindowHandle);
+        }
+
+        /// <summary>
+        /// Brings a WPF Window on top
+        /// </summary>
+        /// <param name="window">The window to bring on top</param>
+        public static void BringOnTop(BasicWindow window)
+        {
+            SetForegroundWindow((IntPtr)window.AutomationElement.Current.NativeWindowHandle);
         }
 
         [DllImport("user32.dll")]

@@ -1724,7 +1724,7 @@ namespace DW.CodedUI.UITree
 
         #endregion GetFullUITree
 
-        private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
+        internal static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
         {
             var children = new List<AutomationElement>();
             try

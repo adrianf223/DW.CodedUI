@@ -13,13 +13,13 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicTabControlTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicTabControl _tabControl;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _tabControl = BasicElementFinder.FindChildByAutomationId<BasicTabControl>(_application, "TabControlId");
@@ -28,7 +28,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

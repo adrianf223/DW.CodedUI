@@ -68,8 +68,6 @@
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
     <Compile Include="Application\ApplicationFactoryTests.cs" />
-    <Compile Include="Application\TestableApplicationTests.cs" />
-    <Compile Include="Application\TestableWindowTests.cs" />
     <Compile Include="BasicElements\BasicButtonTests.cs" />
     <Compile Include="BasicElements\BasicCheckBoxTests.cs" />
     <Compile Include="BasicElements\BasicComboBoxItemTests.cs" />
@@ -87,6 +85,7 @@
     <Compile Include="BasicElements\BasicToggleButtonTests.cs" />
     <Compile Include="BasicElements\BasicTreeViewItemTests.cs" />
     <Compile Include="BasicElements\BasicTreeViewTests.cs" />
+    <Compile Include="BasicElements\BasicWindowTests.cs" />
     <Compile Include="DispatcherUtility.cs" />
     <Compile Include="Interaction\KeyboardExTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

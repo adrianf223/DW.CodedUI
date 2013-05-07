@@ -13,14 +13,14 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicComboBoxItemTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicComboBox _comboBox;
         private BasicComboBox _comboBoxWithManyChildren;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _comboBox = BasicElementFinder.FindChildByAutomationId<BasicComboBox>(_application, "ComboBoxEditableWithSelectionId");
@@ -30,7 +30,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

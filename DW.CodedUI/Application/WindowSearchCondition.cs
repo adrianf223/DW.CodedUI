@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 /*--------------------------------------------------------------------------------
     Copyright (c) 2012-2013 David Wendland
 
@@ -22,18 +22,44 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+namespace DW.CodedUI.Application
+{
+    /// <summary>
+    /// Defines how to search for a window
+    /// </summary>
+    public enum WindowSearchCondition
+    {
+        /// <summary>
+        /// The window title contains the given pattern
+        /// </summary>
+        TitleContains,
 
-[assembly: AssemblyTitle("DW.CodedUI - Test your UI fast and easy")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("David Wendland")]
-[assembly: AssemblyProduct("DW.CodedUI")]
-[assembly: AssemblyCopyright("Copyright © 2012-2013 David Wendland")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("2fd82625-aa9a-4bf6-b260-60afb89647e7")]
-[assembly: AssemblyVersion("13.5.7.0")]
-[assembly: AssemblyFileVersion("13.5.7.0")]
+        /// <summary>
+        /// The window title matches the pattern exact
+        /// </summary>
+        TitleEquals,
+
+        /// <summary>
+        /// The C# Regex method is matching the window title by the given pattern
+        /// </summary>
+        TitleRegex,
+
+        /// <summary>
+        /// The process name owning a window contains the given pattern
+        /// </summary>
+        /// <remarks>The process name does not contain a path of extension</remarks>
+        ProcessContains,
+
+        /// <summary>
+        /// The process name owning a window matches the given pattern exact
+        /// </summary>
+        /// <remarks>The process name does not contain a path of extension</remarks>
+        ProcessEquals,
+
+        /// <summary>
+        /// The C# Regex method is matching the process name owning a window by the given pattern
+        /// </summary>
+        /// <remarks>The process name does not contain a path of extension</remarks>
+        ProcessRegex
+    }
+}

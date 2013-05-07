@@ -25,10 +25,8 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting;
-using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace DW.CodedUI.Utilities
 {
@@ -54,22 +52,6 @@ namespace DW.CodedUI.Utilities
     /// </example>
     public static class ColorDetector
     {
-        // TODO: Obsolete
-
-        /// <summary>
-        /// Gets the color of a WPF control on a specific relative position
-        /// </summary>
-        /// <param name="control">The control to get the color from</param>
-        /// <param name="relativePositionX">Relative X position inside the control</param>
-        /// <param name="relativePositionY">Relative Y position inside the control</param>
-        /// <returns></returns>
-        [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
-        public static Color GetColor(WpfControl control, int relativePositionX = 1, int relativePositionY = 1)
-        {
-            var automationElement = AutomationElement.FromHandle(control.WindowHandle);
-            return GetColor(new BasicElement(automationElement), relativePositionX, relativePositionY);
-        }
-
         /// <summary>
         /// Gets the color of a BasicElement on a specific relative position
         /// </summary>

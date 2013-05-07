@@ -12,14 +12,14 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicExpanderTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicExpander _collapsedExpander;
         private BasicExpander _expandedExpander;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _collapsedExpander = BasicElementFinder.FindChildByAutomationId<BasicExpander>(_application, "CollapsedExpanderId");
@@ -29,7 +29,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

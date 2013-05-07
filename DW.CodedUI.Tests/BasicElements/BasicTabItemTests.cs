@@ -12,14 +12,14 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicTabItemTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicTabItem _selectedTabItem;
         private BasicTabItem _deSelectedTabItem;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _selectedTabItem = BasicElementFinder.FindChildByAutomationId<BasicTabItem>(_application, "SelectedTabItemId");
@@ -29,7 +29,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

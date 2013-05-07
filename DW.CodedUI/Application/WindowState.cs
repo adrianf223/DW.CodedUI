@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 /*--------------------------------------------------------------------------------
     Copyright (c) 2012-2013 David Wendland
 
@@ -22,18 +22,31 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+namespace DW.CodedUI.Application
+{
+    /// <summary>
+    /// Represents a window state
+    /// </summary>
+    public enum WindowState
+    {
+        /// <summary>
+        /// The window is invisible
+        /// </summary>
+        Hidden = 0,
 
-[assembly: AssemblyTitle("DW.CodedUI - Test your UI fast and easy")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("David Wendland")]
-[assembly: AssemblyProduct("DW.CodedUI")]
-[assembly: AssemblyCopyright("Copyright © 2012-2013 David Wendland")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("2fd82625-aa9a-4bf6-b260-60afb89647e7")]
-[assembly: AssemblyVersion("13.5.7.0")]
-[assembly: AssemblyFileVersion("13.5.7.0")]
+        /// <summary>
+        /// The window is displayed normally; neither maximized nor minimized
+        /// </summary>
+        Normal = 1,
+
+        /// <summary>
+        /// The window is minimized
+        /// </summary>
+        Minimized = 2,
+
+        /// <summary>
+        /// The window is maximized
+        /// </summary>
+        Maximized = 3,
+    }
+}

@@ -22,10 +22,12 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UITesting;
-using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
+using System.Threading;
+using DW.CodedUI.BasicElements;
+using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.Application
 {
@@ -38,19 +40,18 @@ namespace DW.CodedUI.Application
     /// [CodedUITest]
     /// public class AnyWindowTests
     /// {
-    ///     private TestableApplication _target;
+    ///     private BasicWindow _target;
     /// 
     ///     [TestInitialize]
     ///     public void Setup()
     ///     {
-    ///         _target = ApplicationFactory.Launch(@"Application Window Title",
-    ///                                             @"..\..\..\Anypath\MyApplication.exe");
+    ///         _target = ApplicationFactory.Launch(@"..\..\..\Anypath\MyApplication.exe");
     ///     }
     /// 
     ///     [TestCleanup]
-    ///     public void Teatdown()
+    ///     public void Teardown()
     ///     {
-    ///         _target.Shutdown();
+    ///         _target.Unsafe.Close();
     ///     }
     /// 
     ///     [TestMethod]
@@ -76,12 +77,30 @@ namespace DW.CodedUI.Application
         /// <param name="instance">If there are multiple applications with the same title, this parameter says which instance should be used</param>
         /// <param name="titleSearchCondition">How to compare the window title</param>
         /// <returns>The TestableApplication which can be used by other Coded UI tests</returns>
+        [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
         public static TestableApplication Launch(string title, string applicationPath, string arguments = null, int instance = 1, TitleSearchCondition titleSearchCondition = TitleSearchCondition.IsEqual)
         {
             var processStartInfo = new ProcessStartInfo(applicationPath, arguments);
             processStartInfo.WorkingDirectory = Path.GetDirectoryName(applicationPath);
             var process = Process.Start(processStartInfo);
+            process.WaitForInputIdle();
             return new TestableApplication(title, process, instance, titleSearchCondition);
+        }
+
+        /// <summary>
+        /// Starts the application
+        /// </summary>
+        /// <param name="applicationPath">The path to the application. (Can be relative)</param>
+        /// <param name="arguments">The arguments passed to the application start.</param>
+        /// <param name="timeout">Maximum wait time for the application window to show up</param>
+        /// <returns>The BasicWindow which can be used by other Coded UI tests</returns>
+        public static BasicWindow Launch(string applicationPath, string arguments = null, int timeout = 10000)
+        {
+            var processStartInfo = new ProcessStartInfo(applicationPath, arguments);
+            processStartInfo.WorkingDirectory = Path.GetDirectoryName(applicationPath);
+            var process = Process.Start(processStartInfo);
+            process.WaitForInputIdle();
+            return WindowFinder.SearchByProcessId(process.Id, timeout);
         }
     }
 }

@@ -22,6 +22,7 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -114,6 +115,7 @@ namespace DW.CodedUI.Utilities
         /// Closed the application
         /// </summary>
         /// <param name="window">The main window of the application</param>
+        [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
         public void CloseApplication(WpfWindow window)
         {
             var process = Process.GetProcesses().FirstOrDefault(p => p.MainWindowHandle == window.WindowHandle);
@@ -128,10 +130,20 @@ namespace DW.CodedUI.Utilities
         /// Closed the application
         /// </summary>
         /// <param name="window">The main window of the application</param>
+        [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
         public void CloseApplication(TestableApplication window)
         {
             if (!window.Shutdown())
                 CloseApplication((WpfWindow)window);
+        }
+
+        /// <summary>
+        /// Closed the application
+        /// </summary>
+        /// <param name="window">The main window of the application</param>
+        public void CloseApplication(BasicWindow window)
+        {
+            window.Unsafe.Close();
         }
 
         private MessageBoxResult GetBoxResult(string title)

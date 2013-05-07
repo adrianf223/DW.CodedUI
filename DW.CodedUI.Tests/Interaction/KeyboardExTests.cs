@@ -15,19 +15,19 @@ namespace DW.CodedUI.Tests.Interaction
     [CodedUITest]
     public class KeyboardExTests
     {
-        private TestableApplication _target;
+        private BasicWindow _target;
 
         [TestInitialize]
         public void Setup()
         {
-            _target = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _target = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            _target.Shutdown();
+            _target.Unsafe.Close();
         }
 
         [TestMethod]

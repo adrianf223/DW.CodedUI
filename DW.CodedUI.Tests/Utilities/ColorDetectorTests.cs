@@ -14,13 +14,13 @@ namespace DW.CodedUI.Tests.Utilities
     [CodedUITest]
     public class ColorDetectorTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicElement _element;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _element = BasicElementFinder.FindChildByAutomationId(_application, "ColoredRectangleId");
@@ -29,7 +29,7 @@ namespace DW.CodedUI.Tests.Utilities
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

@@ -12,14 +12,14 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicToggleButtonTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicToggleButton _checkedToggleButton;
         private BasicToggleButton _uncheckedToggleButton;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _checkedToggleButton = BasicElementFinder.FindChildByAutomationId<BasicToggleButton>(_application, "CheckedToggleButtonId");
@@ -29,7 +29,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

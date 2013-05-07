@@ -33,6 +33,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Automation;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using DW.CodedUI.BasicElements;
@@ -46,6 +47,12 @@ namespace AutomationElementFinder
         private readonly DispatcherTimer _timer;
         private readonly int _currentProcessId;
         private BasicElementInfo _currentSelectedElement;
+        public BasicElementInfo CurrentSelectedElement
+        {
+            get { return _currentSelectedElement; }
+            set { _currentSelectedElement = value; NotifyPropertyChanged(() => CurrentSelectedElement); }
+        }
+
         private Highlighter _highlighter;
 
         public MainWindow()
@@ -59,8 +66,10 @@ namespace AutomationElementFinder
             _timer.Tick += HandleSearchTimerTick;
 
             elementTree.SelectedItemChanged += HandleSelectedItemChanged;
+            siblingsTree.SelectedItemChanged += HandleSelectedItemChanged;
 
-            Elements = new ObservableCollection<BasicElementInfo>();
+            DirectElements = new ObservableCollection<BasicElementInfo>();
+            TreeElements = new ObservableCollection<BasicElementInfo>();
             IsActivated = true;
             ShowHighlight = true;
             ReadFullTree = true;
@@ -88,16 +97,16 @@ namespace AutomationElementFinder
             if (elements == null)
                 return;
 
-            Elements.Clear();
+            DirectElements.Clear();
             foreach (var element in elements)
-                Elements.Add(element);
-            if (Elements.Any())
+                DirectElements.Add(element);
+            if (DirectElements.Any())
             {
-                _currentSelectedElement = Elements.First();
-                _currentSelectedElement.IsSelected = true;
+                CurrentSelectedElement = DirectElements.First();
+                CurrentSelectedElement.IsSelected = true;
             }
             if (ShowHighlight)
-                HighlightElement(_currentSelectedElement);
+                HighlightElement(CurrentSelectedElement);
         }
 
         private IEnumerable<BasicElementInfo> GetAllElementsByPosition(System.Drawing.Point position)
@@ -118,9 +127,11 @@ namespace AutomationElementFinder
                 if (!ReadFullTree)
                     return items;
 
+                TreeElements.Clear();
                 var toppestParent = GetParent(element);
                 var tree = BasicElementFinder.GetFullUITree(toppestParent);
-                items.AddRange(GetAllElementsByPosition(tree, point));
+                foreach (var treeItem in GetAllElementsByPosition(tree, point))
+                    TreeElements.Add(treeItem);
             }
             catch
             {
@@ -164,14 +175,15 @@ namespace AutomationElementFinder
         
         private void HandleSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _currentSelectedElement = null;
+            var view = (TreeView) sender;
+            CurrentSelectedElement = null;
             if (e.NewValue != null && e.NewValue is BasicElementInfo)
             {
-                _currentSelectedElement = (BasicElementInfo)e.NewValue;
+                CurrentSelectedElement = (BasicElementInfo)e.NewValue;
                 if (ShowHighlight)
                 {
-                    HighlightElement(_currentSelectedElement);
-                    elementTree.Focus();
+                    HighlightElement(CurrentSelectedElement);
+                    view.Focus();
                 }
             }
         }
@@ -196,8 +208,8 @@ namespace AutomationElementFinder
 
         private void EnableHighlight()
         {
-            if (_currentSelectedElement != null)
-                HighlightElement(_currentSelectedElement);
+            if (CurrentSelectedElement != null)
+                HighlightElement(CurrentSelectedElement);
         }
 
         private void DisableHighlight()
@@ -209,7 +221,8 @@ namespace AutomationElementFinder
 
         #region Properties
 
-        public ObservableCollection<BasicElementInfo> Elements { get; set; }
+        public ObservableCollection<BasicElementInfo> DirectElements { get; set; }
+        public ObservableCollection<BasicElementInfo> TreeElements { get; set; }
 
         public bool IsActivated
         {

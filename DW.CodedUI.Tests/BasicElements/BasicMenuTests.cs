@@ -13,13 +13,13 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicMenuTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicMenu _menu;
 
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _menu = BasicElementFinder.FindChildByAutomationId<BasicMenu>(_application, "MenuId");
@@ -28,7 +28,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

@@ -22,6 +22,7 @@
 --------------------------------------------------------------------------------*/
 #endregion License
 
+using System;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
@@ -46,6 +47,7 @@ namespace DW.CodedUI.Application
     /// ]]>
     /// </code>
     /// </example>
+    [Obsolete("The TestableWindow is not supported anyore. Use the BasicWindow instead")]
     public class TestableWindow : WpfWindow
     {
         /// <summary>

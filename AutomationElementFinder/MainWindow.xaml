@@ -57,27 +57,57 @@
                 <ColumnDefinition Width="0.6*" />
             </Grid.ColumnDefinitions>
             
-            <AutomationElementFinder:EnhancedTreeView x:Name="elementTree" ItemsSource="{Binding Elements}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type AutomationElementFinder:EnhancedTreeViewItem}">
-                        <Setter Property="IsExpanded" Value="True" />
-                        <Setter Property="ContentStretching" Value="True" />
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                        <Setter Property="HasAutomationId" Value="{Binding HasAutomationId}" />
-                    </Style>
-                </AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
-                <AutomationElementFinder:EnhancedTreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                        <TextBlock x:Name="PART_NameDisplay" Text="{Binding }" Foreground="Black" />
-                    </HierarchicalDataTemplate>
-                </AutomationElementFinder:EnhancedTreeView.ItemTemplate>
-            </AutomationElementFinder:EnhancedTreeView>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <AutomationElementFinder:EnhancedTreeView x:Name="elementTree"
+                                                              ItemsSource="{Binding DirectElements}"
+                                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                              BorderThickness="0"
+                                                              MinHeight="100">
+                        <AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type AutomationElementFinder:EnhancedTreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True" />
+                                <Setter Property="ContentStretching" Value="True" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="HasAutomationId" Value="{Binding HasAutomationId}" />
+                            </Style>
+                        </AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
+                        <AutomationElementFinder:EnhancedTreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                <TextBlock x:Name="PART_NameDisplay" Text="{Binding }" Foreground="Black" />
+                            </HierarchicalDataTemplate>
+                        </AutomationElementFinder:EnhancedTreeView.ItemTemplate>
+                    </AutomationElementFinder:EnhancedTreeView>
+                    
+                    <Border BorderThickness="1" Height="2" BorderBrush="Brown" Margin="5,2" />
+
+                    <AutomationElementFinder:EnhancedTreeView x:Name="siblingsTree"
+                                                              ItemsSource="{Binding TreeElements}"
+                                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                              BorderThickness="0">
+                        <AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type AutomationElementFinder:EnhancedTreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True" />
+                                <Setter Property="ContentStretching" Value="True" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="HasAutomationId" Value="{Binding HasAutomationId}" />
+                            </Style>
+                        </AutomationElementFinder:EnhancedTreeView.ItemContainerStyle>
+                        <AutomationElementFinder:EnhancedTreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                <TextBlock x:Name="PART_NameDisplay" Text="{Binding }" Foreground="Black" />
+                            </HierarchicalDataTemplate>
+                        </AutomationElementFinder:EnhancedTreeView.ItemTemplate>
+                    </AutomationElementFinder:EnhancedTreeView>
+                </StackPanel>
+            </ScrollViewer>
 
             <GridSplitter Width="4" ResizeBehavior="PreviousAndNext" Grid.Column="1" />
 
             <ScrollViewer Grid.Column="2">
-                <AutomationElementFinder:PropertiesControl Element="{Binding SelectedItem.AutomationElement, ElementName=elementTree}"
+                <AutomationElementFinder:PropertiesControl Element="{Binding CurrentSelectedElement.AutomationElement}"
                                                            HideEmptyEntries="{Binding IsChecked, ElementName=hideEmpty}" />
             </ScrollViewer>
         </Grid>

@@ -14,7 +14,7 @@ namespace DW.CodedUI.Tests.BasicElements
     [CodedUITest]
     public class BasicEditTests
     {
-        private TestableApplication _application;
+        private BasicWindow _application;
         private BasicEdit _multilineTextBox;
         private BasicEdit _normalTextBox;
         private BasicEdit _readonlyTextBox;
@@ -25,7 +25,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestInitialize]
         public void Setup()
         {
-            _application = ApplicationFactory.Launch(ApplicationInfo.Title, ApplicationInfo.ExecutablePath);
+            _application = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
             Thread.Sleep(ApplicationInfo.StartupWaitTime);
 
             _multilineTextBox = BasicElementFinder.FindChildByAutomationId<BasicEdit>(_application, "MultilineTextBoxId");
@@ -39,7 +39,7 @@ namespace DW.CodedUI.Tests.BasicElements
         [TestCleanup]
         public void Cleanup()
         {
-            _application.Shutdown();
+            _application.Unsafe.Close();
         }
 
         [TestMethod]

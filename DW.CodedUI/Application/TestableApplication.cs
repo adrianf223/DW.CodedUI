@@ -63,6 +63,7 @@ namespace DW.CodedUI.Application
     /// }]]>
     /// </code>
     /// </example>
+    [Obsolete("The TestableWindow is not supported anyore. Use the BasicWindow instead")]
     public class TestableApplication : TestableWindow
     {
         private readonly Process _process;
