@@ -60,6 +60,11 @@ namespace DW.CodedUI.Application
         /// The C# Regex method is matching the process name owning a window by the given pattern
         /// </summary>
         /// <remarks>The process name does not contain a path of extension</remarks>
-        ProcessRegex
+        ProcessRegex,
+
+        /// <summary>
+        /// The process ID equals the pattern exactly
+        /// </summary>
+        ProcessId
     }
 }

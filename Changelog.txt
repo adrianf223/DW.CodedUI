@@ -1,5 +1,7 @@
 ﻿
 
+13.5.17.0    Adjust searching of windows in the WindowFinder to get child windows as well
+13.5.17.0    Add 10 seconds default timeout to the WindowFinder otherwise no window will be found
 13.7.5.0     Add new method to the ApplicationFactory to launch an assembly and get the BasicWindow from
 13.7.5.0     Add additional overload with the BasicWindow to the Shutdown object and mark the WpfWindow and TestableApplication overloads as obsolete
 13.7.5.0     Mark TestableApplication as obsolete

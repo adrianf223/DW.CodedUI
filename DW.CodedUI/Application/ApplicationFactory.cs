@@ -24,8 +24,8 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
-using System.Threading;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.UITree;
 
@@ -100,7 +100,7 @@ namespace DW.CodedUI.Application
             processStartInfo.WorkingDirectory = Path.GetDirectoryName(applicationPath);
             var process = Process.Start(processStartInfo);
             process.WaitForInputIdle();
-            return WindowFinder.SearchByProcessId(process.Id, timeout);
+            return WindowFinder.Search(process.Id.ToString(CultureInfo.InvariantCulture), WindowSearchCondition.ProcessId, timeout: timeout);
         }
     }
 }

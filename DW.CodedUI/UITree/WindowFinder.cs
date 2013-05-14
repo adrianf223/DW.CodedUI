@@ -23,7 +23,11 @@
 #endregion License
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Automation;
@@ -54,6 +58,39 @@ namespace DW.CodedUI.UITree
     /// </example>
     public static class WindowFinder
     {
+        private delegate bool EnumDelegate(IntPtr hWnd, int lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDelegate lpEnumCallbackFunction, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpWindowText, int nMaxCount);
+
+        [DllImport("user32.dll")]
+        private static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        private static Dictionary<IntPtr, string> GetAllWindows(bool searchInvisibleWindows, bool searchWindowsWithoutTitle)
+        {
+            var collection = new Dictionary<IntPtr, string>();
+            EnumDelegate filter = delegate(IntPtr hWnd, int lParam)
+            {
+                if (searchInvisibleWindows || IsWindowVisible(hWnd))
+                {
+                    var strbTitle = new StringBuilder(255);
+                    GetWindowText(hWnd, strbTitle, strbTitle.Capacity + 1);
+                    var strTitle = strbTitle.ToString();
+                    if (searchWindowsWithoutTitle || !string.IsNullOrEmpty(strTitle))
+                        collection[hWnd] = strTitle;
+                }
+                return true;
+            };
+            EnumDesktopWindows(IntPtr.Zero, filter, IntPtr.Zero);
+            return collection;
+        }
+
         /// <summary>
         /// Searches for an open window
         /// </summary>
@@ -62,14 +99,18 @@ namespace DW.CodedUI.UITree
         /// <param name="stringComparison">How to compare the string (used for a Title search only)</param>
         /// <param name="regexOptions">Options for the regex search for the window (used for the Regex conditions only)</param>
         /// <param name="instance">Which instance has to be used</param>
-        /// <param name="timeout">Timeout for searching for a window in milliseconds. If not set the default value is 0</param>
+        /// <param name="timeout">Timeout for searching for a window in milliseconds</param>
+        /// <param name="searchInvisibleWindows">Defines if invisible windows should be found as well</param>
+        /// <param name="searchWindowsWithoutTitle">Defines if the window must have a title</param>
         /// <returns>The found window as a BasicWindow; otherwise null</returns>
         public static BasicWindow Search(string pattern,
                                          WindowSearchCondition windowSearchCondition = WindowSearchCondition.TitleContains,
                                          StringComparison stringComparison = StringComparison.Ordinal,
                                          RegexOptions regexOptions = RegexOptions.None,
                                          int instance = 1,
-                                         int timeout = 0)
+                                         int timeout = 10000,
+                                         bool searchInvisibleWindows = false,
+                                         bool searchWindowsWithoutTitle = false)
         {
             var watch = new Stopwatch();
             watch.Start();
@@ -79,36 +120,17 @@ namespace DW.CodedUI.UITree
                     return null;
 
                 var foundInstance = 0;
-                foreach (var child in BasicElementFinder.GetChildren(AutomationElement.RootElement))
+                var windows = GetAllWindows(searchInvisibleWindows, searchWindowsWithoutTitle);
+                foreach (var window in windows)
                 {
-                    if (Matches(child, pattern, windowSearchCondition, stringComparison, regexOptions) && ++foundInstance == instance)
-                    {
-                        return child != null ? new BasicWindow(child) : null;
-                    }
+                    if (Matches(window, pattern, windowSearchCondition, stringComparison, regexOptions) && ++foundInstance == instance)
+                        return new BasicWindow(AutomationElement.FromHandle(window.Key));
                 }
                 Thread.Sleep(200);
             }
         }
 
-        internal static BasicWindow SearchByProcessId(int processId, int timeout)
-        {
-            var watch = new Stopwatch();
-            watch.Start();
-            while (true)
-            {
-                if (watch.Elapsed.TotalMilliseconds >= timeout)
-                    return null;
-
-                foreach (var child in BasicElementFinder.GetChildren(AutomationElement.RootElement))
-                {
-                    if (child.Current.ProcessId == processId)
-                        return new BasicWindow(child);
-                }
-                Thread.Sleep(200);
-            }
-        }
-
-        private static bool Matches(AutomationElement automationElement,
+        private static bool Matches(KeyValuePair<IntPtr, string> window,
                                     string pattern,
                                     WindowSearchCondition windowSearchCondition,
                                     StringComparison stringComparison,
@@ -119,16 +141,17 @@ namespace DW.CodedUI.UITree
                 case WindowSearchCondition.TitleContains:
                 case WindowSearchCondition.TitleEquals:
                 case WindowSearchCondition.TitleRegex:
-                    return TitleMatches(automationElement, pattern, windowSearchCondition, stringComparison, regexOptions);
+                    return TitleMatches(window, pattern, windowSearchCondition, stringComparison, regexOptions);
                 case WindowSearchCondition.ProcessContains:
                 case WindowSearchCondition.ProcessEquals:
                 case WindowSearchCondition.ProcessRegex:
-                    return ProcessMatches(automationElement, pattern, windowSearchCondition, stringComparison, regexOptions);
+                case WindowSearchCondition.ProcessId:
+                    return ProcessMatches(window, pattern, windowSearchCondition, stringComparison, regexOptions);
             }
             return false;
         }
 
-        private static bool TitleMatches(AutomationElement automationElement,
+        private static bool TitleMatches(KeyValuePair<IntPtr, string> window,
                                          string pattern,
                                          WindowSearchCondition windowSearchCondition,
                                          StringComparison stringComparison,
@@ -137,22 +160,22 @@ namespace DW.CodedUI.UITree
             switch (windowSearchCondition)
             {
                 case WindowSearchCondition.TitleContains:
-                    return automationElement.Current.Name.Contains(pattern);
+                    return window.Value.Contains(pattern);
                 case WindowSearchCondition.TitleEquals:
-                    return automationElement.Current.Name.Equals(pattern, stringComparison);
+                    return window.Value.Equals(pattern, stringComparison);
                 case WindowSearchCondition.TitleRegex:
-                    return Regex.IsMatch(automationElement.Current.Name, pattern, regexOptions);
+                    return Regex.IsMatch(window.Value, pattern, regexOptions);
             }
             return false;
         }
 
-        private static bool ProcessMatches(AutomationElement automationElement,
+        private static bool ProcessMatches(KeyValuePair<IntPtr, string> window,
                                            string pattern,
                                            WindowSearchCondition windowSearchCondition,
                                            StringComparison stringComparison,
                                            RegexOptions regexOptions)
         {
-            var process = Process.GetProcessById(automationElement.Current.ProcessId);
+            var process = GetProcessByWindowHandle(window.Key);
             switch (windowSearchCondition)
             {
                 case WindowSearchCondition.ProcessContains:
@@ -161,8 +184,17 @@ namespace DW.CodedUI.UITree
                     return process.ProcessName.Equals(pattern, stringComparison);
                 case WindowSearchCondition.ProcessRegex:
                     return Regex.IsMatch(process.ProcessName, pattern, regexOptions);
+                case WindowSearchCondition.ProcessId:
+                    return process.Id.ToString(CultureInfo.InvariantCulture).Equals(pattern, stringComparison);
             }
             return false;
+        }
+
+        private static Process GetProcessByWindowHandle(IntPtr hWnd)
+        {
+            uint processId = 0;
+            GetWindowThreadProcessId(hWnd, out processId);
+            return Process.GetProcessById((int)processId);
         }
     }
 }
