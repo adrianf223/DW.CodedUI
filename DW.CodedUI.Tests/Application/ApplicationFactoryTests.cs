@@ -26,6 +26,7 @@ namespace DW.CodedUI.Tests.Application
             var toTestApplication = ApplicationFactory.Launch(ApplicationInfo.ExecutablePath);
 
             Assert.IsNotNull(toTestApplication);
+            Assert.AreEqual(toTestApplication.WindowState, WindowState.Normal);
 
             toTestApplication.Unsafe.Close();
         }

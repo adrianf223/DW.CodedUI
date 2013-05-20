@@ -1,5 +1,6 @@
 ﻿
 
+13.5.20.0    Add window state comparison and timeout check to the ApplicationFactory
 13.5.17.0    Adjust searching of windows in the WindowFinder to get child windows as well
 13.5.17.0    Add 10 seconds default timeout to the WindowFinder otherwise no window will be found
 13.7.5.0     Add new method to the ApplicationFactory to launch an assembly and get the BasicWindow from

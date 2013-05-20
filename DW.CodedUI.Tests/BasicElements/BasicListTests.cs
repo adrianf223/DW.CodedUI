@@ -52,7 +52,10 @@ namespace DW.CodedUI.Tests.BasicElements
             var listViewItems = _listView.Items.ToList();
             listBoxItem.Unsafe.AddToSelection();
             for (var i = 0; i < 5; ++i)
+            {
+                listViewItems = _listView.Items.ToList(); // Refresh items because of virtualizing
                 listViewItems[i].Unsafe.AddToSelection();
+            }
 
             Assert.AreEqual(1, _listBox.SelectedItems.Count());
             Assert.AreEqual(5, _listView.SelectedItems.Count());
