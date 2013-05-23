@@ -100,9 +100,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DW.CodedUI\DW.CodedUI.csproj">
+    <ProjectReference Include="..\DW.CodedUI\DW.CodedUI_VS2010.csproj">
       <Project>{FC72ED40-C91D-4852-8DCE-7C487AC1AEC1}</Project>
-      <Name>DW.CodedUI</Name>
+      <Name>DW.CodedUI_VS2010</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

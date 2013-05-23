@@ -1,8 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI", "DW.CodedUI\DW.CodedUI.csproj", "{FC72ED40-C91D-4852-8DCE-7C487AC1AEC1}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23764708-D0BB-4B46-B7D0-B570C6D0913D}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
@@ -13,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI.Demo", "DW.CodedUI.Demo\DW.CodedUI.Demo.csproj", "{FF58C46C-EFAB-4274-A853-6FA655FA0DD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI_VS2012", "DW.CodedUI\DW.CodedUI_VS2012.csproj", "{FC72ED40-C91D-4852-8DCE-7C487AC1AEC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI.Tests", "DW.CodedUI.Tests\DW.CodedUI.Tests.csproj", "{64786E4B-5B94-4905-B2D9-0EF6AA26ED5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI.Demo_VS2012", "DW.CodedUI.Demo\DW.CodedUI.Demo_VS2012.csproj", "{FF58C46C-EFAB-4274-A853-6FA655FA0DD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationElementFinder", "AutomationElementFinder\AutomationElementFinder.csproj", "{3438FB5C-84DD-4A3A-8021-AFF8921CDE40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI.Tests_VS2012", "DW.CodedUI.Tests\DW.CodedUI.Tests_VS2012.csproj", "{64786E4B-5B94-4905-B2D9-0EF6AA26ED5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationElementFinder_VS2012", "AutomationElementFinder\AutomationElementFinder_VS2012.csproj", "{3438FB5C-84DD-4A3A-8021-AFF8921CDE40}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
