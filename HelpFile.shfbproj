@@ -22,9 +22,8 @@
     <CopyrightHref>
     </CopyrightHref>
     <DocumentationSources>
-      <DocumentationSource sourceFile="DW.CodedUI\bin\Release\DW.CodedUI.dll" />
-      <DocumentationSource sourceFile="DW.CodedUI\bin\Release\DW.CodedUI.xml" />
-    </DocumentationSources>
+      <DocumentationSource sourceFile="DW.CodedUI\bin\Release\2012\DW.CodedUI.dll" />
+<DocumentationSource sourceFile="DW.CodedUI\bin\Release\2012\DW.CodedUI.xml" /></DocumentationSources>
     <CopyrightText>Copyright &amp;#169%3b 2012-2013 David Wendland</CopyrightText>
     <HelpTitle>The DW.CodedUI Class Library</HelpTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
