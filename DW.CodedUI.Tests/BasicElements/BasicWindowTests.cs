@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.UITree;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -160,6 +162,37 @@ namespace DW.CodedUI.Tests.BasicElements
 
             Assert.IsFalse(_target.IsAvailable);
         }
+
+        // TODO: Write such testst with the demo application
+        //[TestMethod]
+        //public void CanClicked_ChildWindowIsOpenModal_ReturnsFalse()
+        //{
+        //    var mainWindow = WindowFinder.Search("MainWindow", WindowSearchCondition.TitleEquals);
+
+        //    var clickable = mainWindow.CanClicked();
+
+        //    Assert.IsFalse(clickable);
+        //}
+
+        //[TestMethod]
+        //public void CanClicked_ChildWindowIsOpenNotModal_ReturnsTrue()
+        //{
+        //    var mainWindow = WindowFinder.Search("MainWindow", WindowSearchCondition.TitleEquals);
+
+        //    var clickable = mainWindow.CanClicked();
+
+        //    Assert.IsTrue(clickable);
+        //}
+
+        //[TestMethod]
+        //public void GetChildWindows_NoChildWindowIsOpen_ReturnsEmptyList()
+        //{
+        //    var mainWindow = WindowFinder.Search("MainWindow", WindowSearchCondition.TitleEquals);
+
+        //    var childWindows = mainWindow.GetChildWindows();
+
+        //    Assert.IsFalse(childWindows.Any());
+        //}
     }
 
     // ReSharper restore InconsistentNaming

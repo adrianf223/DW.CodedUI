@@ -23,7 +23,10 @@
 #endregion License
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Automation;
 using DW.CodedUI.Interaction;
 using DW.CodedUI.UITree;
@@ -215,5 +218,47 @@ namespace DW.CodedUI.BasicElements
             public System.Drawing.Point ptMaxPosition;
             public System.Drawing.Rectangle rcNormalPosition;
         }
+
+        /// <summary>
+        /// Indicated if the window can be used. Mostly this is an indicator that a modal child window is opened.
+        /// </summary>
+        /// <returns>True if the window can be used; otherwise false</returns>
+        public bool CanClicked    
+        {
+            get
+            {
+                var titleBar = BasicElementFinder.FindChildByAutomationId(this, "TitleBar");
+                return titleBar.IsEnabled;
+            }
+        }
+
+        /// <summary>
+        /// Returns a collection of open and visible child windows. It returns an empty collection if there aren't any
+        /// </summary>
+        /// <returns>List of open and visible child BasicWindow objects ready for UI tests</returns>
+        public IEnumerable<BasicWindow> GetChildWindows()
+        {
+            var windows = new List<BasicWindow>();
+            EnumThreadDelegate filter = delegate(IntPtr hWnd, IntPtr lParam)
+            {
+                if (hWnd != (IntPtr)AutomationElement.Current.NativeWindowHandle && IsWindowVisible(hWnd))
+                    windows.Add(new BasicWindow(AutomationElement.FromHandle(hWnd)));
+                return true;
+            };
+
+            var process = Process.GetProcessById(AutomationElement.Current.ProcessId);
+            foreach (ProcessThread thread in process.Threads)
+                EnumThreadWindows((uint) thread.Id, filter, IntPtr.Zero);
+
+            return windows;
+        }
+
+        private delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool IsWindowVisible(IntPtr hWnd);
     }
 }
