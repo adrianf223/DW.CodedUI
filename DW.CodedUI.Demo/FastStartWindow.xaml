@@ -4,6 +4,8 @@
         Title="Application Window Title"
         Height="350"
         Width="525">
-    <Grid>
-    </Grid>
+    <StackPanel>
+        <Button HorizontalAlignment="Left" Content="Show Child Modal" AutomationProperties.AutomationId="ShowModalChild" Click="ShowChildWindowModal" />
+        <Button HorizontalAlignment="Left" Content="Show Child Non Modal" AutomationProperties.AutomationId="ShowNonModalChild" Click="ShowChildWindowNonModal" />
+    </StackPanel>
 </Window>

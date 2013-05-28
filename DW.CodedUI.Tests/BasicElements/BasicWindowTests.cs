@@ -163,36 +163,55 @@ namespace DW.CodedUI.Tests.BasicElements
             Assert.IsFalse(_target.IsAvailable);
         }
 
-        // TODO: Write such testst with the demo application
-        //[TestMethod]
-        //public void CanClicked_ChildWindowIsOpenModal_ReturnsFalse()
-        //{
-        //    var mainWindow = WindowFinder.Search("MainWindow", WindowSearchCondition.TitleEquals);
+        [TestMethod]
+        public void CanClicked_ModalChildWindowIsOpen_ReturnsFalse()
+        {
+            var button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_target, "ShowModalChild");
+            button.Unsafe.Click();
 
-        //    var clickable = mainWindow.CanClicked();
+            var clickable = _target.CanClicked;
 
-        //    Assert.IsFalse(clickable);
-        //}
+            Assert.IsFalse(clickable);
+        }
 
-        //[TestMethod]
-        //public void CanClicked_ChildWindowIsOpenNotModal_ReturnsTrue()
-        //{
-        //    var mainWindow = WindowFinder.Search("MainWindow", WindowSearchCondition.TitleEquals);
+        [TestMethod]
+        public void CanClicked_NonModalChildWindowIsOpen_ReturnsTrue()
+        {
+            var button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_target, "ShowNonModalChild");
+            button.Unsafe.Click();
 
-        //    var clickable = mainWindow.CanClicked();
+            var clickable = _target.CanClicked;
 
-        //    Assert.IsTrue(clickable);
-        //}
+            Assert.IsTrue(clickable);
+        }
 
-        //[TestMethod]
-        //public void GetChildWindows_NoChildWindowIsOpen_ReturnsEmptyList()
-        //{
-        //    var mainWindow = WindowFinder.Search("MainWindow", WindowSearchCondition.TitleEquals);
+        [TestMethod]
+        public void CanClicked_NoChildWindowIsOpen_ReturnsTrue()
+        {
+            var clickable = _target.CanClicked;
 
-        //    var childWindows = mainWindow.GetChildWindows();
+            Assert.IsTrue(clickable);
+        }
 
-        //    Assert.IsFalse(childWindows.Any());
-        //}
+        [TestMethod]
+        public void GetChildWindows_NoChildWindowIsOpen_ReturnsEmptyList()
+        {
+            var childWindows = _target.GetChildWindows();
+
+            Assert.IsFalse(childWindows.Any());
+        }
+
+        [TestMethod]
+        public void GetChildWindows_TwoChildWindowsAreOpen_ReturnsListOfTwoBasicWindow()
+        {
+            var button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_target, "ShowNonModalChild");
+            button.Unsafe.Click();
+            button.Unsafe.Click();
+
+            var childWindows = _target.GetChildWindows();
+
+            Assert.AreEqual(2, childWindows.Count());
+        }
     }
 
     // ReSharper restore InconsistentNaming
