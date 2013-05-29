@@ -29,6 +29,7 @@ using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
@@ -65,7 +66,7 @@ namespace DW.CodedUI.Interaction
         /// <param name="messageBox">The recipient MessageBox</param>
         public static void Close(BasicMessageBox messageBox)
         {
-            SendMessage(new HandleRef(null, new IntPtr(messageBox.Properties.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
+            WinApi.SendMessage(new HandleRef(null, new IntPtr(messageBox.Properties.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
         }
 
         /// <summary>
@@ -178,21 +179,14 @@ namespace DW.CodedUI.Interaction
             return null;
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr SendMessage(HandleRef hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr i);
-
         private static IEnumerable<IntPtr> GetChildWindows(IntPtr parent)
         {
             var result = new List<IntPtr>();
             var listHandle = GCHandle.Alloc(result);
             try
             {
-                var childProc = new EnumWindowProc(EnumWindow);
-                EnumChildWindows(parent, childProc, GCHandle.ToIntPtr(listHandle));
+                var childProc = new WinApi.EnumWindowProc(EnumWindow);
+                WinApi.EnumChildWindows(parent, childProc, GCHandle.ToIntPtr(listHandle));
             }
             finally
             {
@@ -211,7 +205,5 @@ namespace DW.CodedUI.Interaction
             list.Add(handle);
             return true;
         }
-
-        private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
     }
 }

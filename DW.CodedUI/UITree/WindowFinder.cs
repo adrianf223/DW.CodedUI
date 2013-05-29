@@ -33,6 +33,7 @@ using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.UITree
 {
@@ -58,36 +59,22 @@ namespace DW.CodedUI.UITree
     /// </example>
     public static class WindowFinder
     {
-        private delegate bool EnumDelegate(IntPtr hWnd, int lParam);
-
-        [DllImport("user32.dll")]
-        private static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDelegate lpEnumCallbackFunction, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpWindowText, int nMaxCount);
-
-        [DllImport("user32.dll")]
-        private static extern bool IsWindowVisible(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
         private static Dictionary<IntPtr, string> GetAllWindows(bool searchInvisibleWindows, bool searchWindowsWithoutTitle)
         {
             var collection = new Dictionary<IntPtr, string>();
-            EnumDelegate filter = delegate(IntPtr hWnd, int lParam)
+            WinApi.EnumDelegate filter = delegate(IntPtr hWnd, int lParam)
             {
-                if (searchInvisibleWindows || IsWindowVisible(hWnd))
+                if (searchInvisibleWindows || WinApi.IsWindowVisible(hWnd))
                 {
                     var strbTitle = new StringBuilder(255);
-                    GetWindowText(hWnd, strbTitle, strbTitle.Capacity + 1);
+                    WinApi.GetWindowText(hWnd, strbTitle, strbTitle.Capacity + 1);
                     var strTitle = strbTitle.ToString();
                     if (searchWindowsWithoutTitle || !string.IsNullOrEmpty(strTitle))
                         collection[hWnd] = strTitle;
                 }
                 return true;
             };
-            EnumDesktopWindows(IntPtr.Zero, filter, IntPtr.Zero);
+            WinApi.EnumDesktopWindows(IntPtr.Zero, filter, IntPtr.Zero);
             return collection;
         }
 
@@ -193,7 +180,7 @@ namespace DW.CodedUI.UITree
         private static Process GetProcessByWindowHandle(IntPtr hWnd)
         {
             uint processId = 0;
-            GetWindowThreadProcessId(hWnd, out processId);
+            WinApi.GetWindowThreadProcessId(hWnd, out processId);
             return Process.GetProcessById((int)processId);
         }
     }

@@ -84,15 +84,9 @@ namespace DW.CodedUI.Utilities
             Bounds = new Rectangle(2, 2, 2, 2);
             Show();
             Bounds = region;
-            var windowLong = GetWindowLong(Handle, -20);
-            SetWindowLong(Handle, -20, windowLong | 524288 | 32);
+            var windowLong = (int)WinApi.GetWindowLongPtr(Handle, -20);
+            WinApi.SetWindowLong(Handle, -20, windowLong | 524288 | 32);
         }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        [DllImport("user32.dll")]
-        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
         private void InitializeComponent()
         {

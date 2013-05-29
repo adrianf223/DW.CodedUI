@@ -11,12 +11,16 @@ namespace DW.CodedUI.Demo
 
         private void ShowChildWindowModal(object sender, RoutedEventArgs e)
         {
-            new ChildWindow().ShowDialog();
+            var childWindow = new ChildWindow();
+            childWindow.Owner = this;
+            childWindow.ShowDialog();
         }
 
         private void ShowChildWindowNonModal(object sender, RoutedEventArgs e)
         {
-            new ChildWindow().Show();
+            var childWindow = new ChildWindow();
+            childWindow.Owner = this;
+            childWindow.Show();
         }
     }
 }

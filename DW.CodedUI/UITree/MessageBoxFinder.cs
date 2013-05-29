@@ -23,9 +23,9 @@
 #endregion License
 
 using System;
-using System.Runtime.InteropServices;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.UITree
 {
@@ -40,7 +40,7 @@ namespace DW.CodedUI.UITree
         /// <returns>Returns the MessageBox if any; otherwise null</returns>
         public static BasicMessageBox FindFirstAvailable()
         {
-            var handle = FindWindow("#32770", null);
+            var handle = WinApi.FindWindow("#32770", null);
             if (handle == IntPtr.Zero)
                 return null;
             return new BasicMessageBox(AutomationElement.FromHandle(handle));
@@ -53,13 +53,10 @@ namespace DW.CodedUI.UITree
         /// <returns>Returns the MessageBox if any; otherwise null</returns>
         public static BasicMessageBox FindFirstAvailableByTitle(string title)
         {
-            var handle = FindWindow("#32770", title);
+            var handle = WinApi.FindWindow("#32770", title);
             if (handle == IntPtr.Zero)
                 return null;
             return new BasicMessageBox(AutomationElement.FromHandle(handle));
         }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
     }
 }

@@ -1,6 +1,8 @@
 ﻿
 
-12.5.27.0    Add CanClicked and GetChildWindows to the BasicWindow
+13.5.29.0    Renew the CanClicked in the BasicWindow because it has not worked if the child windows has the correct owner set
+13.5.29.0    The Highlighter has used a method which potentially has not work every time on a 64 bit application
+13.5.27.0    Add CanClicked and GetChildWindows to the BasicWindow
 13.5.20.0    Add window state comparison and timeout check to the ApplicationFactory
 13.5.17.0    Adjust searching of windows in the WindowFinder to get child windows as well
 13.5.17.0    Add 10 seconds default timeout to the WindowFinder otherwise no window will be found

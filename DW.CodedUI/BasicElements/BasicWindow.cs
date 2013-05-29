@@ -30,6 +30,7 @@ using System.Text;
 using System.Windows.Automation;
 using DW.CodedUI.Interaction;
 using DW.CodedUI.UITree;
+using DW.CodedUI.Utilities;
 using WindowState = DW.CodedUI.Application.WindowState;
 
 namespace DW.CodedUI.BasicElements
@@ -86,7 +87,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Maximize()
             {
-                ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, ShowWindowCommands.Maximize);
+                WinApi.ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.ShowWindowCommands.Maximize);
             }
 
             /// <summary>
@@ -94,7 +95,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Minimize()
             {
-                ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, ShowWindowCommands.Minimize);
+                WinApi.ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.ShowWindowCommands.Minimize);
             }
 
             /// <summary>
@@ -102,7 +103,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Normalize()
             {
-                ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, ShowWindowCommands.Normal);
+                WinApi.ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.ShowWindowCommands.Normal);
             }
 
             /// <summary>
@@ -110,32 +111,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Close()
             {
-                SendMessage(new HandleRef(null, new IntPtr(_automationElement.Current.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
-            }
-
-            [DllImport("user32.dll")]
-            private static extern bool ShowWindow(IntPtr hWnd, ShowWindowCommands nCmdShow);
-
-            [DllImport("user32.dll")]
-            private static extern IntPtr SendMessage(HandleRef hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
-            private const int ID_Close = 0x10;
-
-            private enum ShowWindowCommands
-            {
-                Hide = 0,
-                Normal = 1,
-                ShowMinimized = 2,
-                Maximize = 3,
-                ShowMaximized = 3,
-                ShowNoActivate = 4,
-                Show = 5,
-                Minimize = 6,
-                ShowMinNoActive = 7,
-                ShowNA = 8,
-                Restore = 9,
-                ShowDefault = 10,
-                ForceMinimize = 11
+                WinApi.SendMessage(new HandleRef(null, new IntPtr(_automationElement.Current.NativeWindowHandle)), WinApi.ID_Close, IntPtr.Zero, IntPtr.Zero);
             }
         }
 
@@ -196,39 +172,24 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var placement = new WINDOWPLACEMENT();
+                var placement = new WinApi.WINDOWPLACEMENT();
                 placement.length = Marshal.SizeOf(placement);
-                GetWindowPlacement((IntPtr)AutomationElement.Current.NativeWindowHandle, ref placement);
+                WinApi.GetWindowPlacement((IntPtr)AutomationElement.Current.NativeWindowHandle, ref placement);
                 return placement.showCmd;
             }
-        }
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
-
-        [Serializable]
-        [StructLayout(LayoutKind.Sequential)]
-        private struct WINDOWPLACEMENT
-        {
-            public int length;
-            public int flags;
-            public WindowState showCmd;
-            public System.Drawing.Point ptMinPosition;
-            public System.Drawing.Point ptMaxPosition;
-            public System.Drawing.Rectangle rcNormalPosition;
         }
 
         /// <summary>
         /// Indicated if the window can be used. Mostly this is an indicator that a modal child window is opened.
         /// </summary>
         /// <returns>True if the window can be used; otherwise false</returns>
-        public bool CanClicked    
+        public bool CanClicked
         {
             get
             {
-                var titleBar = BasicElementFinder.FindChildByAutomationId(this, "TitleBar");
-                return titleBar.IsEnabled;
+                int result = (int)WinApi.GetWindowLongPtr((IntPtr)AutomationElement.Current.NativeWindowHandle, (int)WinApi.WindowLongFlags.GWL_STYLE);
+                var isDisabled = (result & WinApi.WS_DISABLED) == WinApi.WS_DISABLED;
+                return !isDisabled;
             }
         }
 
@@ -239,26 +200,18 @@ namespace DW.CodedUI.BasicElements
         public IEnumerable<BasicWindow> GetChildWindows()
         {
             var windows = new List<BasicWindow>();
-            EnumThreadDelegate filter = delegate(IntPtr hWnd, IntPtr lParam)
+            WinApi.EnumThreadDelegate filter = delegate(IntPtr hWnd, IntPtr lParam)
             {
-                if (hWnd != (IntPtr)AutomationElement.Current.NativeWindowHandle && IsWindowVisible(hWnd))
+                if (hWnd != (IntPtr)AutomationElement.Current.NativeWindowHandle && WinApi.IsWindowVisible(hWnd))
                     windows.Add(new BasicWindow(AutomationElement.FromHandle(hWnd)));
                 return true;
             };
 
             var process = Process.GetProcessById(AutomationElement.Current.ProcessId);
             foreach (ProcessThread thread in process.Threads)
-                EnumThreadWindows((uint) thread.Id, filter, IntPtr.Zero);
+                WinApi.EnumThreadWindows((uint)thread.Id, filter, IntPtr.Zero);
 
             return windows;
         }
-
-        private delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        private static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        private static extern bool IsWindowVisible(IntPtr hWnd);
     }
 }

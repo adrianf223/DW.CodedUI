@@ -53,7 +53,7 @@ namespace DW.CodedUI.Utilities
         /// <param name="messageBox">The MessageBox to bring on top</param>
         public static void BringOnTop(BasicMessageBox messageBox)
         {
-            SetForegroundWindow(new IntPtr(messageBox.Properties.NativeWindowHandle));
+            WinApi.SetForegroundWindow(new IntPtr(messageBox.Properties.NativeWindowHandle));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace DW.CodedUI.Utilities
         [Obsolete("The DW.CodedUI is focus on the BasicElement. Use the other overload instead.")]
         public static void BringOnTop(WpfWindow window)
         {
-            SetForegroundWindow(window.WindowHandle);
+            WinApi.SetForegroundWindow(window.WindowHandle);
         }
 
         /// <summary>
@@ -73,10 +73,7 @@ namespace DW.CodedUI.Utilities
         /// <param name="window">The window to bring on top</param>
         public static void BringOnTop(BasicWindow window)
         {
-            SetForegroundWindow((IntPtr)window.AutomationElement.Current.NativeWindowHandle);
+            WinApi.SetForegroundWindow((IntPtr)window.AutomationElement.Current.NativeWindowHandle);
         }
-
-        [DllImport("user32.dll")]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
     }
 }

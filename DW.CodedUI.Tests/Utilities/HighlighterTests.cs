@@ -2,7 +2,6 @@
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.UITree;
-using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests.Utilities
@@ -22,25 +21,26 @@ namespace DW.CodedUI.Tests.Utilities
             _button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_application, "ButtonId");
         }
 
-        [TestMethod]
-        public void Method_TestCondition_ExpectedResult()
-        {
-            _button.BeginHighlight();
+        // TODO: Write tests
+        //[TestMethod]
+        //public void Method_TestCondition_ExpectedResult()
+        //{
+        //    _button.BeginHighlight();
 
-            // Do anything else, the highlight is shown
+        //    // Do anything else, the highlight is shown
 
-            _button.EndHighlight();
-        }
+        //    _button.EndHighlight();
+        //}
 
-        [TestMethod]
-        public void Method_TestCondition_ExpectedResult2()
-        {
-            var highlighter = new Highlighter();
-            highlighter.Highlight(_button.AutomationElement);
+        //[TestMethod]
+        //public void Method_TestCondition_ExpectedResult2()
+        //{
+        //    var highlighter = new Highlighter();
+        //    highlighter.Highlight(_button.AutomationElement);
 
-            // Do anything else, the highlight is shown
+        //    // Do anything else, the highlight is shown
 
-            highlighter.Close();
-        }
+        //    highlighter.Close();
+        //}
     }
 }

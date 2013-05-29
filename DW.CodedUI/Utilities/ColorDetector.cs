@@ -69,9 +69,9 @@ namespace DW.CodedUI.Utilities
             Mouse.Move(new Point(positionX, positionY));
             Mouse.MouseMoveSpeed = originalMouseSpeed;
 
-            var hdcScreen = CreateDC("Display", null, null, IntPtr.Zero);
-            var cr = GetPixel(hdcScreen, positionX, positionY);
-            DeleteDC(hdcScreen);
+            var hdcScreen = WinApi.CreateDC("Display", null, null, IntPtr.Zero);
+            var cr = WinApi.GetPixel(hdcScreen, positionX, positionY);
+            WinApi.DeleteDC(hdcScreen);
 
             var clr = Color.FromArgb((cr & 0x000000FF),
                                      (cr & 0x0000FF00) >> 8,
@@ -79,14 +79,5 @@ namespace DW.CodedUI.Utilities
             return clr;
         
         }
-
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr CreateDC(string strDriver, string strDevice, string strOutput, IntPtr pData);
-
-        [DllImport("gdi32.dll")]
-        private static extern bool DeleteDC(IntPtr hdc);
-
-        [DllImport("gdi32.dll")]
-        private static extern int GetPixel(IntPtr hdc, int x, int y);
     }
 }
