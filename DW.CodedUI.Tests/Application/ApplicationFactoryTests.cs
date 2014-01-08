@@ -10,6 +10,8 @@ namespace DW.CodedUI.Tests.Application
     [CodedUITest]
     public class ApplicationFactoryTests
     {
+        // TODO: Test with different window states to wait for
+
         [TestMethod]
         public void Launch_WithExistingExecutable_LaunchesTheApplication()
         {

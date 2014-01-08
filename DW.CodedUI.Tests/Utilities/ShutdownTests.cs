@@ -3,8 +3,8 @@
 namespace DW.CodedUI.Tests.Utilities
 {
     [TestClass]
-    public class HighlighterTests
+    public class ShutdownTests
     {
-        // TODO: Tests
+        // TODO: Test
     }
 }

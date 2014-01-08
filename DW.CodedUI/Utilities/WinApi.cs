@@ -95,6 +95,9 @@ namespace DW.CodedUI.Utilities
         [DllImport("user32.dll")]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetForegroundWindow();
+
         internal const int ID_Close = 0x10;
 
         internal const uint WS_DISABLED = 0x8000000;

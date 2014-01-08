@@ -79,6 +79,18 @@ namespace DW.CodedUI.UITree
         }
 
         /// <summary>
+        /// Gets the foreground window
+        /// </summary>
+        /// <returns>The foreground window as a BasicWindow; otherwise null</returns>
+        public static BasicWindow GetForegroundWindow()
+        {
+            var windowHandle = WinApi.GetForegroundWindow();
+            if (windowHandle == IntPtr.Zero)
+                return null;
+            return new BasicWindow(AutomationElement.FromHandle(windowHandle));
+        }
+
+        /// <summary>
         /// Searches for an open window
         /// </summary>
         /// <param name="pattern">The search pattern</param>

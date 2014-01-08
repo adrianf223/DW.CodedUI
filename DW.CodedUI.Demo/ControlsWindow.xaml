@@ -26,9 +26,10 @@
             <StackPanel>
                 <ComboBox IsEditable="True"
                           AutomationProperties.AutomationId="ComboBoxEditableWithSelectionId">
-                    <ComboBoxItem Content="SelectedChild"
-                                  IsSelected="True"
-                                  AutomationProperties.AutomationId="ComboBoxSelectedChildId" />
+                    <ComboBoxItem IsSelected="True">
+                        <Label Content="SelectedChild"
+                               AutomationProperties.AutomationId="ComboBoxSelectedChildId" />
+                    </ComboBoxItem>
                     <ComboBoxItem Content="UnselectedChild"
                                   AutomationProperties.AutomationId="ComboBoxUnselectedChildId" />
                 </ComboBox>
