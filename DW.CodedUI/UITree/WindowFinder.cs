@@ -1,28 +1,4 @@
-﻿#region License
-/*--------------------------------------------------------------------------------
-    Copyright (c) 2012-2013 David Wendland
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
---------------------------------------------------------------------------------*/
-#endregion License
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -32,30 +8,11 @@ using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Internal;
 using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.UITree
 {
-    /// <summary>
-    /// Brings a method to find an open window
-    /// </summary>
-    /// <example>
-    /// <code lang="cs">
-    /// <![CDATA[
-    /// [TestMethod]
-    /// public void Method_TestCondition_ExpectedResult()
-    /// {
-    ///     var window = WindowFinder.Search<BasicCheckBox>("title", WindowSearchCondition.TitleContains,StringComparison.OrdinalIgnoreCase);
-    ///     Assert.IsNotNull(window);
-    /// 
-    ///     WindowFocus.BringOnTop(window);
-    /// 
-    ///     // Do any other stuff with the window
-    /// 
-    ///     window.Unsafe.Close();
-    /// }]]>
-    /// </code>
-    /// </example>
     public static class WindowFinder
     {
         private static Dictionary<IntPtr, string> GetAllWindows(bool searchInvisibleWindows, bool searchWindowsWithoutTitle)
@@ -77,10 +34,6 @@ namespace DW.CodedUI.UITree
             return collection;
         }
 
-        /// <summary>
-        /// Gets the foreground window
-        /// </summary>
-        /// <returns>The foreground window as a BasicWindow; otherwise null</returns>
         public static BasicWindow GetForegroundWindow()
         {
             var windowHandle = WinApi.GetForegroundWindow();
@@ -89,18 +42,6 @@ namespace DW.CodedUI.UITree
             return new BasicWindow(AutomationElement.FromHandle(windowHandle));
         }
 
-        /// <summary>
-        /// Searches for an open window
-        /// </summary>
-        /// <param name="pattern">The search pattern</param>
-        /// <param name="windowSearchCondition">How to find the window using the pattern</param>
-        /// <param name="stringComparison">How to compare the string (used for a Title search only)</param>
-        /// <param name="regexOptions">Options for the regex search for the window (used for the Regex conditions only)</param>
-        /// <param name="instance">Which instance has to be used</param>
-        /// <param name="timeout">Timeout for searching for a window in milliseconds</param>
-        /// <param name="searchInvisibleWindows">Defines if invisible windows should be found as well</param>
-        /// <param name="searchWindowsWithoutTitle">Defines if the window must have a title</param>
-        /// <returns>The found window as a BasicWindow; otherwise null</returns>
         public static BasicWindow Search(string pattern,
                                          WindowSearchCondition windowSearchCondition = WindowSearchCondition.TitleContains,
                                          StringComparison stringComparison = StringComparison.Ordinal,

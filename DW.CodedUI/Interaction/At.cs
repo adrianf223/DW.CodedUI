@@ -1,49 +1,9 @@
-#region License
-/*--------------------------------------------------------------------------------
-    Copyright (c) 2012-2013 David Wendland
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
---------------------------------------------------------------------------------*/
-#endregion License
-
 using System.Windows;
 using DW.CodedUI.BasicElements;
 using Point = System.Drawing.Point;
 
 namespace DW.CodedUI.Interaction
 {
-    /// <summary>
-    /// Describes the relative position inside a control
-    /// </summary>
-    /// <example>
-    /// <code lang="cs">
-    /// <![CDATA[
-    /// [TestMethod]
-    /// public void Method_TestCondition_ExpectedResult()
-    /// {
-    ///     var button = BasicElementFinder.FindChildByAutomationId<BasicButton>(_testableWindow, "ButtonId");
-    /// 
-    ///     // Click 20 points from the right and 10 from the bottom
-    ///     MouseEx.Click(button, At.BottomRight(20, 10));
-    /// }]]>
-    /// </code>
-    /// </example>
     public class At
     {
         private double? _left;
@@ -59,85 +19,41 @@ namespace DW.CodedUI.Interaction
             _bottom = bottom;
         }
 
-        /// <summary>
-        /// Returns the relative position from the left border of the control
-        /// </summary>
-        /// <param name="x">The distance from the left</param>
-        /// <returns>Instance of the position object</returns>
         public static At Left(double x)
         {
             return new At(x, null, null, null);
         }
 
-        /// <summary>
-        /// Returns the relative position from the top left corner of the control
-        /// </summary>
-        /// <param name="x">The distance from the left</param>
-        /// <param name="y">The distance from the top</param>
-        /// <returns>Instance of the position object</returns>
         public static At TopLeft(double x, double y)
         {
             return new At(x, y, null, null);
         }
 
-        /// <summary>
-        /// Returns the relative position from the top border of the control
-        /// </summary>
-        /// <param name="y">The distance from the top</param>
-        /// <returns>Instance of the position object</returns>
         public static At Top(double y)
         {
             return new At(null, y, null, null);
         }
 
-        /// <summary>
-        /// Returns the relative position from the top right corner of the control
-        /// </summary>
-        /// <param name="x">The distance from the right</param>
-        /// <param name="y">The distance from the top</param>
-        /// <returns>Instance of the position object</returns>
         public static At TopRight(double x, double y)
         {
             return new At(null, y, x, null);
         }
 
-        /// <summary>
-        /// Returns the relative position from the right border or the control
-        /// </summary>
-        /// <param name="x">The distance from the right</param>
-        /// <returns>Instance of the position object</returns>
         public static At Right(double x)
         {
             return new At(null, null, x, null);
         }
 
-        /// <summary>
-        /// Returns the relative position from the bottom right corner of the control
-        /// </summary>
-        /// <param name="x">The distance from the right</param>
-        /// <param name="y">The distance from the bottom</param>
-        /// <returns>Instance of the position object</returns>
         public static At BottomRight(double x, double y)
         {
             return new At(null, null, x, y);
         }
 
-        /// <summary>
-        /// Returns the relative position from the bottom border of the control
-        /// </summary>
-        /// <param name="y">The distance from the bottom</param>
-        /// <returns>Instance of the position object</returns>
         public static At Bottom(double y)
         {
             return new At(null, null, null, y);
         }
 
-        /// <summary>
-        /// Returns the relative position from the bottom left corner of the control
-        /// </summary>
-        /// <param name="x">The distance from the left</param>
-        /// <param name="y">The distance from the bottom</param>
-        /// <returns>Instance of the position object</returns>
         public static At BottomLeft(double x, double y)
         {
             return new At(x, null, null, y);
