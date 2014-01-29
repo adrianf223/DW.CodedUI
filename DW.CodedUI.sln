@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI_VS2010", "DW.CodedUI\DW.CodedUI_VS2010.csproj", "{FC72ED40-C91D-4852-8DCE-7C487AC1AEC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI", "DW.CodedUI\DW.CodedUI.csproj", "{FC72ED40-C91D-4852-8DCE-7C487AC1AEC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationElementFinder_VS2010", "AutomationElementFinder\AutomationElementFinder_VS2010.csproj", "{3438FB5C-84DD-4A3A-8021-AFF8921CDE40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationElementFinder", "AutomationElementFinder\AutomationElementFinder.csproj", "{3438FB5C-84DD-4A3A-8021-AFF8921CDE40}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
