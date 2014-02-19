@@ -1,6 +1,6 @@
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
-using Microsoft.VisualStudio.TestTools.UITesting;
+using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 namespace DW.CodedUI.Interaction
 {

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Automation;
+using DW.CodedUI.UITree;
 using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
@@ -115,6 +116,11 @@ namespace DW.CodedUI.BasicElements
                     return false;
                 }
             }
+        }
+
+        public TControl Get<TControl>(string element) where TControl : BasicElement
+        {
+            return BasicElementFinder.FindChildByAutomationId<TControl>(this, element);
         }
     }
 }

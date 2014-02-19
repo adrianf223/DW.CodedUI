@@ -695,12 +695,6 @@ namespace DW.CodedUI.UITree
             return null;
         }
 
-        public static BasicElementInfo GetFullUITree(WpfWindow window)
-        {
-            var rootElement = AutomationElement.FromHandle(window.WindowHandle);
-            return GetFullUITree(rootElement);
-        }
-
         public static BasicElementInfo GetFullUITree(AutomationElement element)
         {
             var rootElementInfo = new BasicElementInfo(element);

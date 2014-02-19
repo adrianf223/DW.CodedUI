@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
-using Microsoft.VisualStudio.TestTools.UITesting;
+using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
 using Point = System.Drawing.Point;
 
 namespace DW.CodedUI.Interaction
