@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1CE581B1-208D-4DF7-A1D3-382F592A30E2}</ProjectGuid>
+    <ProjectGuid>{F04632EE-91B4-4A2F-AF19-D46C783CABF1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutomationElementFinder</RootNamespace>
@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DW.CodedUI\DW.CodedUI.csproj">
-      <Project>{17924839-1028-4CCF-BA16-54C13B81F09D}</Project>
+      <Project>{d527ed2e-e812-478d-b5ff-c896b91df344}</Project>
       <Name>DW.CodedUI</Name>
     </ProjectReference>
   </ItemGroup>
