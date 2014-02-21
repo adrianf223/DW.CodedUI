@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Threading;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.UITree;
 using DW.CodedUI.Utilities;
+using Point = System.Drawing.Point;
 
 namespace AutomationElementFinder
 {
@@ -83,7 +85,7 @@ namespace AutomationElementFinder
                 HighlightElement(CurrentSelectedElement);
         }
 
-        private IEnumerable<BasicElementInfo> GetAllElementsByPosition(System.Drawing.Point position)
+        private IEnumerable<BasicElementInfo> GetAllElementsByPosition(Point position)
         {
             var items = new List<BasicElementInfo>();
 
