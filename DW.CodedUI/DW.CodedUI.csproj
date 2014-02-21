@@ -39,14 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.UIAutomationClient">
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\PublicAssemblies\Interop.UIAutomationClient.dll</HintPath>
+      <HintPath>..\3rdParty\Interop.UIAutomationClient.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -57,7 +53,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="UIAComWrapper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +60,12 @@
       <Visible>False</Visible>
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\3rdParty\Interop.UIAutomationClient.dll">
+      <Link>Interop.UIAutomationClient.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApplicationFactory.cs" />
     <Compile Include="Application\WindowSearchCondition.cs" />
@@ -102,7 +102,9 @@
     <Compile Include="UITree\MessageBoxFinder.cs" />
     <Compile Include="UITree\WindowFinder.cs" />
     <Compile Include="Utilities\ColorDetector.cs" />
-    <Compile Include="Utilities\Highlighter.cs" />
+    <Compile Include="Utilities\Highlighter.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\WindowFocus.cs" />
   </ItemGroup>
   <Choose>

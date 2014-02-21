@@ -91,8 +91,7 @@ namespace AutomationElementFinder
 
             try
             {
-                var point = new Point(position.X, position.Y);
-                var element = AutomationElement.FromPoint(point);
+                var element = AutomationElement.FromPoint(position);
                 if (element == null || !Helper.IsAvailable(element))
                     return null;
 
@@ -106,7 +105,7 @@ namespace AutomationElementFinder
                 TreeElements.Clear();
                 var toppestParent = GetParent(element);
                 var tree = BasicElementFinder.GetFullUITree(toppestParent);
-                foreach (var treeItem in GetAllElementsByPosition(tree, point))
+                foreach (var treeItem in GetAllElementsByPosition(tree, position))
                     TreeElements.Add(treeItem);
             }
             catch
