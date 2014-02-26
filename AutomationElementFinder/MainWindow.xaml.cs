@@ -131,7 +131,7 @@ namespace AutomationElementFinder
         private AutomationElement GetParent(AutomationElement element)
         {
             var parent = TreeWalker.ControlViewWalker.GetParent(element);
-            if (parent == null || parent.Current.FrameworkId != "WPF" || !Helper.IsAvailable(parent))
+            if (parent == null || !Helper.IsAvailable(parent))
                 return element;
 
             while (parent.Current.ClassName != "Window")
