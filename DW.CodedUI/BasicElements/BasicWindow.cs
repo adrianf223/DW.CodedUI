@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Interaction;
 using DW.CodedUI.Internal;
@@ -51,42 +53,69 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        public void Maximize()
+        public BasicButton MaximizeButton
         {
-            var maximizeButton = BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "Maximize");
-            if (maximizeButton != null && maximizeButton.IsVisible && maximizeButton.IsEnabled)
-                MouseEx.Click(maximizeButton);
-        }
-
-        public void Normalize()
-        {
-            if (WindowState == WindowState.Minimized)
-                Unsafe.Normalize();
-            else
+            get
             {
-                var restoreButton = BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "Restore");
-                if (restoreButton != null && restoreButton.IsVisible && restoreButton.IsEnabled)
-                    MouseEx.Click(restoreButton);
+                var currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (currentCulture.Name == "de-DE")
+                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Maximieren");
+                return BasicElementFinder.FindChildByName<BasicButton>(this, "Maximize");
             }
         }
 
-        public void Minimize()
+        public BasicButton RestoreButton
         {
-            var minimizeButton = BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "Minimize");
-            if (minimizeButton != null && minimizeButton.IsVisible && minimizeButton.IsEnabled)
-                MouseEx.Click(minimizeButton);
+            get
+            {
+                var currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (currentCulture.Name == "de-DE")
+                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Wiederherstellen");
+                return BasicElementFinder.FindChildByName<BasicButton>(this, "Restore");
+            }
         }
 
-        //public void Close()
-        //{
-        //    var closeButton = BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "Close");
-        //    if (closeButton != null && closeButton.IsVisible && closeButton.IsEnabled)
-        //        MouseEx.Click(closeButton);
-        //}
+        public BasicButton MinimizeButton
+        {
+            get
+            {
+                var currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (currentCulture.Name == "de-DE")
+                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Minimieren");
+                return BasicElementFinder.FindChildByName<BasicButton>(this, "Minimize");
+            }
+        }
+
+        public BasicButton CloseButton
+        {
+            get
+            {
+                var currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (currentCulture.Name == "de-DE")
+                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Schließen");
+                return BasicElementFinder.FindChildByName<BasicButton>(this, "Close");
+            }
+        }
+
+        public BasicElement TitleBar
+        {
+            get
+            {
+                return BasicElementFinder.FindChildByCondition(this, e => e.Current.ControlType.Equals(ControlType.TitleBar));
+            }
+        }
 
         public string Title
         {
-            get { return Name; }
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return Name;
+
+                var strbTitle = new StringBuilder(255);
+                WinApi.GetWindowText((IntPtr)AutomationElement.Current.NativeWindowHandle, strbTitle, strbTitle.Capacity + 1);
+                return strbTitle.ToString();
+            }
         }
 
         public WindowState WindowState
