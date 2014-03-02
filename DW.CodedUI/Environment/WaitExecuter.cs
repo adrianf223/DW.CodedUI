@@ -14,36 +14,10 @@ namespace DW.CodedUI.Environment
 
         public override void Run()
         {
-            var minimum = Minimum;
-            var maximum = ButMaximum;
-            if (Minimum > ButMaximum)
-                minimum = maximum;
-
-            switch (For)
-            {
-                case WaitFor.None:
-                    Thread.Sleep(minimum);
-                    break;
-                case WaitFor.ApplicationIdle:
-                    break;
-                case WaitFor.ApplicationClosed:
-                    break;
-            }
+            Thread.Sleep(Exact);
         }
 
-        private WaitFor For
-        {
-            get
-            {
-                var value = GetValue("for");
-                WaitFor enumValue;
-                Enum.TryParse(value, true, out enumValue);
-                return enumValue;
-            }
-        }
-
-        private TimeSpan Minimum { get { return ExtractTime(GetValue("minimum")); } }
-        private TimeSpan ButMaximum { get { return ExtractTime(GetValue("butMaximum")); } }
+        private TimeSpan Exact { get { return ExtractTime(GetValue("exact")); } }
 
         private TimeSpan ExtractTime(string value)
         {
@@ -77,13 +51,6 @@ namespace DW.CodedUI.Environment
                     return TimeSpan.FromMinutes(number);
             }
             return new TimeSpan();
-        }
-
-        enum WaitFor
-        {
-            None,
-            ApplicationIdle,
-            ApplicationClosed
         }
     }
 }

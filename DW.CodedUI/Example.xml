@@ -10,11 +10,11 @@
         <Create a="File" withTheName="D:\PDA_Tests\Documents\TestFiles\File1.txt" andTheContent="something" />
         <Create a="File" withTheName="D:\PDA_Tests\Documents\TestFiles\File2.txt" andTheContent="something" />
         <Run the="D:\PDA_Tests\src\PrivDocArchive.exe" />
-        <Wait minimum="2 Seconds" />
+        <Wait exact="2 Seconds" />
     </setup>    
     <cleanup>
         <Close the="D:\PDA_Tests\src\PrivDocArchive.exe" />
-        <Wait minimum="2 Seconds" />
+        <Wait exact="2 Seconds" />
         <Delete the="Directory" withTheName="D:\PDA_Tests" />
     </cleanup>
 </environment>
