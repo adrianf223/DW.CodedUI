@@ -1,0 +1,20 @@
+﻿<environment>
+    <setup>
+        <Delete the="Directory" withTheName="D:\PDA_Tests" />
+        <Create a="Directory" withTheName="D:\PDA_Tests" />
+        <Create a="Directory" withTheName="D:\PDA_Tests\src" />
+        <Create a="Directory" withTheName="D:\PDA_Tests\Documents" />
+        <Create a="Directory" withTheName="D:\PDA_Tests\TestFiles" />
+        <Copy the="Directory" from="..\..\..\bin" to="D:\PDA_Tests\src" />
+        <Close the="D:\PDA_Tests\src\PrivDocArchive.exe" />
+        <Create a="File" withTheName="D:\PDA_Tests\Documents\TestFiles\File1.txt" andTheContent="something" />
+        <Create a="File" withTheName="D:\PDA_Tests\Documents\TestFiles\File2.txt" andTheContent="something" />
+        <Run the="D:\PDA_Tests\src\PrivDocArchive.exe" />
+        <Wait minimum="2 Seconds" />
+    </setup>    
+    <cleanup>
+        <Close the="D:\PDA_Tests\src\PrivDocArchive.exe" />
+        <Wait minimum="2 Seconds" />
+        <Delete the="Directory" withTheName="D:\PDA_Tests" />
+    </cleanup>
+</environment>
