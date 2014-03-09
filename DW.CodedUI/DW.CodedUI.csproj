@@ -85,6 +85,7 @@
     <Compile Include="BasicElements\BasicMenu.cs" />
     <Compile Include="BasicElements\BasicMenuItem.cs" />
     <Compile Include="BasicElements\BasicMessageBox.cs" />
+    <Compile Include="BasicElements\BasicOpenFileDialog.cs" />
     <Compile Include="BasicElements\BasicRadioButton.cs" />
     <Compile Include="BasicElements\BasicTabControl.cs" />
     <Compile Include="BasicElements\BasicTabItem.cs" />
@@ -93,15 +94,6 @@
     <Compile Include="BasicElements\BasicTreeView.cs" />
     <Compile Include="BasicElements\BasicTreeViewItem.cs" />
     <Compile Include="BasicElements\BasicWindow.cs" />
-    <Compile Include="Environment\CloseExecuter.cs" />
-    <Compile Include="Environment\CopyExecuter.cs" />
-    <Compile Include="Environment\CreateExecuter.cs" />
-    <Compile Include="Environment\DeleteExecuter.cs" />
-    <Compile Include="Environment\EnvironmentSetup.cs" />
-    <Compile Include="Environment\Executer.cs" />
-    <Compile Include="Environment\ExecuterFactory.cs" />
-    <Compile Include="Environment\RunExecuter.cs" />
-    <Compile Include="Environment\WaitExecuter.cs" />
     <Compile Include="Interaction\At.cs" />
     <Compile Include="Interaction\KeyboardCommands.cs" />
     <Compile Include="Interaction\KeyboardEx.cs" />
@@ -117,9 +109,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\WindowFocus.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Example.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
