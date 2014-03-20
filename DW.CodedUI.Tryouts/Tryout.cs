@@ -13,7 +13,7 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void ApplicationFactory_StartMinimizeMaximizeAndClose()
         {
-            var app = ApplicationFactory.Launch(@"D:\Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
+            var app = ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
             Thread.Sleep(3000);
 
             Assert.AreEqual("AutomationElementFinder", app.Title);
