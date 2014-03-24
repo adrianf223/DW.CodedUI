@@ -6,11 +6,11 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7487EE20-8A80-49C9-A831-9BA89DAE1E04}</ProjectGuid>
+    <ProjectGuid>{07D8601A-081C-4222-BFC4-89A4755C316B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DW.CodedUI</RootNamespace>
-    <AssemblyName>DW.CodedUI</AssemblyName>
+    <RootNamespace>DW.CodedUI.Tryouts</RootNamespace>
+    <AssemblyName>DW.CodedUI.Tryouts</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,46 +57,17 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\ApplicationFactory.cs" />
-    <Compile Include="Application\WindowSearchCondition.cs" />
-    <Compile Include="Application\WindowState.cs" />
-    <Compile Include="BasicElements\BasicButton.cs" />
-    <Compile Include="BasicElements\BasicCheckBox.cs" />
-    <Compile Include="BasicElements\BasicComboBox.cs" />
-    <Compile Include="BasicElements\BasicComboBoxItem.cs" />
-    <Compile Include="BasicElements\BasicEdit.cs" />
-    <Compile Include="BasicElements\BasicElement.cs" />
-    <Compile Include="BasicElements\BasicElementInfo.cs" />
-    <Compile Include="BasicElements\BasicExpander.cs" />
-    <Compile Include="BasicElements\BasicList.cs" />
-    <Compile Include="BasicElements\BasicListItem.cs" />
-    <Compile Include="BasicElements\BasicMenu.cs" />
-    <Compile Include="BasicElements\BasicMenuItem.cs" />
-    <Compile Include="BasicElements\BasicMessageBox.cs" />
-    <Compile Include="BasicElements\BasicOpenFileDialog.cs" />
-    <Compile Include="BasicElements\BasicRadioButton.cs" />
-    <Compile Include="BasicElements\BasicTabControl.cs" />
-    <Compile Include="BasicElements\BasicTabItem.cs" />
-    <Compile Include="BasicElements\BasicText.cs" />
-    <Compile Include="BasicElements\BasicToggleButton.cs" />
-    <Compile Include="BasicElements\BasicTreeView.cs" />
-    <Compile Include="BasicElements\BasicTreeViewItem.cs" />
-    <Compile Include="BasicElements\BasicWindow.cs" />
-    <Compile Include="Interaction\At.cs" />
-    <Compile Include="Interaction\KeyboardCommands.cs" />
-    <Compile Include="Interaction\KeyboardEx.cs" />
-    <Compile Include="Interaction\MessageBoxHandler.cs" />
-    <Compile Include="Interaction\MouseEx.cs" />
-    <Compile Include="Internal\WinApi.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UITree\BasicElementFinder.cs" />
-    <Compile Include="UITree\MessageBoxFinder.cs" />
-    <Compile Include="UITree\WindowFinder.cs" />
-    <Compile Include="Utilities\ColorDetector.cs" />
-    <Compile Include="Utilities\Highlighter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utilities\WindowFocus.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Tryout.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DW.CodedUI\DW.CodedUI.csproj">
+      <Project>{7487EE20-8A80-49C9-A831-9BA89DAE1E04}</Project>
+      <Name>DW.CodedUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Automation;
+using System.Windows.Forms.VisualStyles;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
@@ -67,6 +68,19 @@ namespace DW.CodedUI.UITree
                 }
                 Thread.Sleep(200);
             }
+        }
+
+        public static BasicOpenFileDialog SearchOpenFileDialog(string pattern,
+                                                               WindowSearchCondition windowSearchCondition = WindowSearchCondition.TitleContains,
+                                                               StringComparison stringComparison = StringComparison.Ordinal,
+                                                               RegexOptions regexOptions = RegexOptions.None,
+                                                               int instance = 1,
+                                                               int timeout = 10000)
+        {
+            var window = Search(pattern, windowSearchCondition, stringComparison, regexOptions, instance, timeout);
+            if (window != null)
+                return new BasicOpenFileDialog(window.AutomationElement);
+            return null;
         }
 
         private static bool Matches(KeyValuePair<IntPtr, string> window,

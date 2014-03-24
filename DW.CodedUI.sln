@@ -5,7 +5,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI", "DW.CodedUI\DW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationElementFinder", "AutomationElementFinder\AutomationElementFinder.csproj", "{B6893E90-E2B1-4724-A27A-63BE9103FB2E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D6EBA0E-7DB0-445D-83F9-4BE312C2D007}"
+	ProjectSection(SolutionItems) = preProject
+		DW.CodedUI.vsmdi = DW.CodedUI.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI.Tryouts", "DW.CodedUI.Tryouts\DW.CodedUI.Tryouts.csproj", "{07D8601A-081C-4222-BFC4-89A4755C316B}"
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = DW.CodedUI.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -35,6 +47,16 @@ Global
 		{B6893E90-E2B1-4724-A27A-63BE9103FB2E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B6893E90-E2B1-4724-A27A-63BE9103FB2E}.Release|x86.ActiveCfg = Release|x86
 		{B6893E90-E2B1-4724-A27A-63BE9103FB2E}.Release|x86.Build.0 = Release|x86
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{07D8601A-081C-4222-BFC4-89A4755C316B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
