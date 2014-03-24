@@ -13,32 +13,36 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void ApplicationFactory_StartMinimizeMaximizeAndClose()
         {
-            var app = ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
+            ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
+            Thread.Sleep(3000);
+            var window = WindowFinder.Search("AutomationEle");
             Thread.Sleep(3000);
 
             Assert.AreEqual("AutomationElementFinder", app.Title);
 
-            MouseEx.Click(app.TitleBar);
+            MouseEx.Click(window.TitleBar);
             Thread.Sleep(3000);
 
-            MouseEx.Click(app.MaximizeButton);
+            MouseEx.Click(window.MaximizeButton);
             Thread.Sleep(3000);
 
-            MouseEx.Click(app.RestoreButton);
+            MouseEx.Click(window.RestoreButton);
             Thread.Sleep(3000);
 
-            MouseEx.Click(app.MinimizeButton);
+            MouseEx.Click(window.MinimizeButton);
             Thread.Sleep(3000);
 
-            app.Unsafe.Normalize();
+            window.Unsafe.Normalize();
             Thread.Sleep(3000);
 
-            MouseEx.Click(app.CloseButton);
+            MouseEx.Click(window.CloseButton);
         }
 
         [TestMethod]
         public void WindowFinder_StartMinimizeMaximizeAndClose()
         {
+            ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
+            Thread.Sleep(3000);
             var window = WindowFinder.Search("AutomationEle");
             Thread.Sleep(3000);
 
