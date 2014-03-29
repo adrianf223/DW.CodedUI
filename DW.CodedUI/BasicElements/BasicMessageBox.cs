@@ -9,6 +9,16 @@ namespace DW.CodedUI.BasicElements
         {
         }
 
+        private const string OKButtonId = "1"; // If its the only button it got the automation ID 2
+        private const string CancelButtonId = "2";
+        private const string AbortButtonId = "3";
+        private const string RetryButtonId = "4";
+        private const string IgnoreButtonId = "5";
+        private const string YesButtonId = "6";
+        private const string NoButtonId = "7";
+        private const string IconId = "20";
+        private const string TextId = "65535";
+
         public string Title
         {
             get { return Name; }
@@ -16,14 +26,14 @@ namespace DW.CodedUI.BasicElements
 
         public BasicElement Icon
         {
-            get { return UI.GetChild(By.AutomationId("20"), From.Element(this)); }
+            get { return UI.GetChild(By.AutomationId(IconId), From.Element(this)); }
         }
 
         public string Text
         {
             get
             {
-                var textElement = UI.GetChild<BasicText>(By.AutomationId("65535"), From.Element(this));
+                var textElement = UI.GetChild<BasicText>(By.AutomationId(TextId), From.Element(this));
                 if (textElement == null)
                     return string.Empty;
                 return textElement.Text;
@@ -32,22 +42,41 @@ namespace DW.CodedUI.BasicElements
 
         public BasicButton OKButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId("1"), From.Element(this)); }
+            get
+            {
+                var okButton = UI.GetChild<BasicButton>(By.AutomationId(OKButtonId), From.Element(this), With.NoAssert());
+                return okButton ?? CancelButton;
+            }
         }
 
         public BasicButton CancelButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId("2"), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(CancelButtonId), From.Element(this)); }
+        }
+
+        public BasicButton AbortButton
+        {
+            get { return UI.GetChild<BasicButton>(By.AutomationId(AbortButtonId), From.Element(this)); }
+        }
+
+        public BasicButton RetryButton
+        {
+            get { return UI.GetChild<BasicButton>(By.AutomationId(RetryButtonId), From.Element(this)); }
+        }
+
+        public BasicButton IgnoreButton
+        {
+            get { return UI.GetChild<BasicButton>(By.AutomationId(IgnoreButtonId), From.Element(this)); }
         }
 
         public BasicButton YesButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId("6"), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(YesButtonId), From.Element(this)); }
         }
 
         public BasicButton NoButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId("7"), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(NoButtonId), From.Element(this)); }
         }
     }
 }

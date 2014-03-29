@@ -47,6 +47,30 @@ namespace DW.CodedUI.Tryouts
         }
 
         [TestMethod]
+        public void Method_TestCondition_ExpectedResult()
+        {
+            Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
+
+            var messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
+            MouseEx.Click(messageBox.OKButton);
+
+            messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
+            MouseEx.Click(messageBox.OKButton);
+
+            messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
+            MouseEx.Click(messageBox.YesButton);
+
+            messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
+            MouseEx.Click(messageBox.YesButton);
+
+            messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
+            MouseEx.Click(messageBox.RetryButton);
+
+            messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
+            MouseEx.Click(messageBox.AbortButton);
+        }
+
+        [TestMethod]
         public void WindowFinder_StartMinimizeMaximizeAndClose()
         {
             Process.Start(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");

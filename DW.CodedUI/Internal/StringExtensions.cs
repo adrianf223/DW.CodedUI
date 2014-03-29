@@ -4,6 +4,10 @@
     {
         public static bool Match(string sourceString, string searchPattern, CompareKind compareKind)
         {
+            if (sourceString == null || searchPattern == null)
+                return false;
+
+
             switch (compareKind)
             {
                 case CompareKind.Contains:

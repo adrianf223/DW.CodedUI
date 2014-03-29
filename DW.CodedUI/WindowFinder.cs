@@ -50,22 +50,6 @@ namespace DW.CodedUI
             }
         }
 
-        private static BasicWindow Matches(KeyValuePair<IntPtr, string> window, Predicate<BasicWindow> condition)
-        {
-            try
-            {
-                var automationElement = AutomationElement.FromHandle(window.Key);
-                var basicWindow = new BasicWindow(automationElement);
-                if (basicWindow.IsAvailable && condition(basicWindow))
-                    return basicWindow;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return null;
-        }
-
         public static BasicMessageBox SearchMessageBox(Using use)
         {
             return SearchMessageBox(use, new CombinableAnd());
@@ -73,6 +57,9 @@ namespace DW.CodedUI
 
         public static BasicMessageBox SearchMessageBox(Using use, And settings)
         {
+            var window = Search(use, settings);
+            if (window != null)
+                return new BasicMessageBox(window.AutomationElement);
             return null;
         }
 
@@ -86,6 +73,22 @@ namespace DW.CodedUI
             var window = Search(use, settings);
             if (window != null)
                 return new BasicWindow(window.AutomationElement);
+            return null;
+        }
+
+        private static BasicWindow Matches(KeyValuePair<IntPtr, string> window, Predicate<BasicWindow> condition)
+        {
+            try
+            {
+                var automationElement = AutomationElement.FromHandle(window.Key);
+                var basicWindow = new BasicWindow(automationElement);
+                if (basicWindow.IsAvailable && condition(basicWindow))
+                    return basicWindow;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
             return null;
         }
 
