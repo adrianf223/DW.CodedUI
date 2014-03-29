@@ -11,7 +11,7 @@ namespace DW.CodedUI
             return combinableBy.AutomationId(automationId);
         }
 
-        public static CombinableBy AutomationId(string automationId, StringComparison comparison)
+        public static CombinableBy AutomationId(string automationId, CompareKind comparison)
         {
             var combinableBy = new CombinableBy();
             return combinableBy.AutomationId(automationId, comparison);
@@ -23,7 +23,7 @@ namespace DW.CodedUI
             return combinableBy.Name(name);
         }
 
-        public static CombinableBy Name(string name, StringComparison comparison)
+        public static CombinableBy Name(string name, CompareKind comparison)
         {
             var combinableBy = new CombinableBy();
             return combinableBy.Name(name, comparison);
@@ -35,7 +35,7 @@ namespace DW.CodedUI
             return combinableBy.ClassName(className);
         }
 
-        public static CombinableBy ClassName(string className, StringComparison comparison)
+        public static CombinableBy ClassName(string className, CompareKind comparison)
         {
             var combinableBy = new CombinableBy();
             return combinableBy.ClassName(className, comparison);

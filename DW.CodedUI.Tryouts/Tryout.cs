@@ -15,7 +15,7 @@ namespace DW.CodedUI.Tryouts
             Process.Start(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
             Thread.Sleep(3000);
 
-            var window = WindowFinder.Search(Using.Title("AutomationEle", CompareKind.ContainsIgnoreCase), AndSetting.NoAssert());
+            var window = WindowFinder.Search(Using.Title("AutomationEle"));
             Thread.Sleep(3000);
 
             Assert.AreEqual("AutomationElementFinder", window.Title);
@@ -52,7 +52,7 @@ namespace DW.CodedUI.Tryouts
             Process.Start(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
             Thread.Sleep(3000);
 
-            var window = WindowFinder.Search(Using.Title("AutomationEle"), AndSetting.NoAssert());
+            var window = WindowFinder.Search(Using.Title("AutomationEle"), And.NoAssert());
             Thread.Sleep(3000);
 
             Assert.AreEqual("AutomationElementFinder", window.Title);
@@ -76,7 +76,7 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void UIElementFinder_FindChild_FindsChild()
         {
-            var window = WindowFinder.Search(Using.Title("AutomationEle"), AndSetting.Assert());
+            var window = WindowFinder.Search(Using.Title("AutomationEle"), And.Assert());
             Thread.Sleep(3000);
 
             var basicElement = UI.GetChild(By.Name("Read Siblings"), From.Element(window));
@@ -87,7 +87,7 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void UIElementFinder_FindParent_FindsParent()
         {
-            var window = WindowFinder.Search(Using.Title("AutomationEle"), AndSetting.Assert());
+            var window = WindowFinder.Search(Using.Title("AutomationEle"), And.Assert());
             Thread.Sleep(3000);
 
             var basicElement = UI.GetChild(By.Name("Read Siblings"), From.Element(window));

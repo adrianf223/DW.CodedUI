@@ -65,6 +65,11 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="And.cs" />
+    <Compile Include="AndCondition.cs" />
+    <Compile Include="CombinableAnd.cs" />
+    <Compile Include="CombinableUsing.cs" />
+    <Compile Include="CompareKind.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Properties\CommonMeta.cs" />
     <Compile Include="BasicElements\BasicButton.cs" />
@@ -101,7 +106,9 @@
     <Compile Include="From.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIElementNotFoundException.cs" />
+    <Compile Include="Using.cs" />
     <Compile Include="WindowFinder.cs" />
+    <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />
     <Compile Include="With.cs" />
     <Compile Include="WithCondition.cs" />

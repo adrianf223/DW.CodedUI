@@ -51,6 +51,22 @@ namespace DW.CodedUI
             return this;
         }
 
+        internal override List<WithCondition> GetConditions()
+        {
+            var conditios = new List<WithCondition>();
+            conditios.AddRange(_conditions);
+
+            AdjustTimeoutCondition(conditios);
+            AdjustAssertCondition(conditios);
+
+            return conditios;
+        }
+
+        internal override uint GetTimeout()
+        {
+            return _timeoutMilliseconds;
+        }
+
         private void AdjustTimeoutCondition(List<WithCondition> conditios)
         {
             if (!conditios.Contains(WithCondition.NoTimeout) && !conditios.Contains(WithCondition.Timeout))
@@ -72,22 +88,6 @@ namespace DW.CodedUI
                 conditios.Remove(WithCondition.Assert);
             if (conditios.Contains(WithCondition.Assert))
                 conditios.Remove(WithCondition.NoAssert);
-        }
-
-        internal override List<WithCondition> GetConditions()
-        {
-            var conditios = new List<WithCondition>();
-            conditios.AddRange(_conditions);
-
-            AdjustTimeoutCondition(conditios);
-            AdjustAssertCondition(conditios);
-
-            return conditios;
-        }
-
-        internal override uint GetTimeout()
-        {
-            return _timeoutMilliseconds;
         }
     }
 }

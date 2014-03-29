@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {
@@ -38,10 +39,10 @@ namespace DW.CodedUI
 
         public new CombinableBy AutomationId(string automationId)
         {
-            return AutomationId(automationId, StringComparison.CurrentCulture);
+            return AutomationId(automationId, CompareKind.Exact);
         }
 
-        public new CombinableBy AutomationId(string automationId, StringComparison comparison)
+        public new CombinableBy AutomationId(string automationId, CompareKind comparison)
         {
             if (string.IsNullOrWhiteSpace(automationId))
                 throw new ArgumentException("automationId is null, empty or just whitespaces");
@@ -50,18 +51,18 @@ namespace DW.CodedUI
             {
                 if (element == null)
                     return false;
-                return automationId.Equals(element.Properties.AutomationId, comparison);
+                return StringExtensions.Match(element.Properties.AutomationId, automationId, comparison);
             });
-            _conditionDescriptions.Add(string.Format("element.AutomationId.Equals(\"{0}\", {1})", automationId, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.AutomationId, \"{0}\", {1})", automationId, comparison));
             return this;
         }
 
         public new CombinableBy Name(string name)
         {
-            return Name(name, StringComparison.CurrentCulture);
+            return Name(name, CompareKind.Exact);
         }
 
-        public new CombinableBy Name(string name, StringComparison comparison)
+        public new CombinableBy Name(string name, CompareKind comparison)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("name is null, empty or just whitespaces");
@@ -70,18 +71,18 @@ namespace DW.CodedUI
             {
                 if (element == null)
                     return false;
-                return name.Equals(element.Properties.Name, comparison);
+                return StringExtensions.Match(element.Properties.Name, name, comparison);
             });
-            _conditionDescriptions.Add(string.Format("element.Name.Equals(\"{0}\", {1})", name, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.Name, \"{0}\", {1})", name, comparison));
             return this;
         }
 
         public new CombinableBy ClassName(string className)
         {
-            return ClassName(className, StringComparison.CurrentCulture);
+            return ClassName(className, CompareKind.Exact);
         }
 
-        public new CombinableBy ClassName(string className, StringComparison comparison)
+        public new CombinableBy ClassName(string className, CompareKind comparison)
         {
             if (string.IsNullOrWhiteSpace(className))
                 throw new ArgumentException("className is null, empty or just whitespaces");
@@ -90,9 +91,9 @@ namespace DW.CodedUI
             {
                 if (element == null)
                     return false;
-                return className.Equals(element.Properties.ClassName, comparison);
+                return StringExtensions.Match(element.Properties.ClassName, className, comparison);
             });
-            _conditionDescriptions.Add(string.Format("element.ClassName.Equals(\"{0}\", {1})", className, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.ClassName, \"{0}\", {1})", className, comparison));
             return this;
         }
 

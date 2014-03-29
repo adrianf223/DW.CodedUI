@@ -5,7 +5,7 @@ namespace DW.CodedUI
 {
     public class UIElementNotFoundException : Exception
     {
-        public UIElementNotFoundException(By @by, bool useTimeout, TimeSpan timeout, bool multiply)
+        public UIElementNotFoundException(By by, bool useTimeout, TimeSpan timeout, bool multiply)
             : base(BuildMessage(by, useTimeout, timeout, multiply))
         {
         }
