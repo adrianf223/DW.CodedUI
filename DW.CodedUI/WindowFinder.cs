@@ -76,6 +76,32 @@ namespace DW.CodedUI
             return null;
         }
 
+        public static BasicSaveFileDialog SearchSaveFileDialog(Using use)
+        {
+            return SearchSaveFileDialog(use, new CombinableAnd());
+        }
+
+        public static BasicSaveFileDialog SearchSaveFileDialog(Using use, And settings)
+        {
+            var window = Search(use, settings);
+            if (window != null)
+                return new BasicSaveFileDialog(window.AutomationElement);
+            return null;
+        }
+
+        public static BasicBrowseFolderDialog SearchBrowseFolderDialog(Using use)
+        {
+            return SearchBrowseFolderDialog(use, new CombinableAnd());
+        }
+
+        public static BasicBrowseFolderDialog SearchBrowseFolderDialog(Using use, And settings)
+        {
+            var window = Search(use, settings);
+            if (window != null)
+                return new BasicBrowseFolderDialog(window.AutomationElement);
+            return null;
+        }
+
         private static BasicWindow Matches(KeyValuePair<IntPtr, string> window, Predicate<BasicWindow> condition)
         {
             try

@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="And.cs" />
     <Compile Include="AndCondition.cs" />
+    <Compile Include="BasicElements\BasicBrowseFolderDialog.cs" />
+    <Compile Include="BasicElements\BasicSaveFileDialog.cs" />
     <Compile Include="CombinableAnd.cs" />
     <Compile Include="CombinableUsing.cs" />
     <Compile Include="CompareKind.cs" />

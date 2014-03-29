@@ -61,22 +61,22 @@ namespace DW.CodedUI.BasicElements
 
         public BasicTreeView ToolBar
         {
-            get { return UI.GetChild<BasicTreeView>(By.AutomationId("FolderBandModuleInner").And.Condition(e => Equals(e.Properties.ControlType, ControlType.ToolBar)), From.Element(this)); }
+            get { return UI.GetChild<BasicTreeView>(By.AutomationId("FolderBandModuleInner"), From.Element(this)); }
         }
 
         public BasicTreeView ChangeViewButton
         {
-            get { return UI.GetChild<BasicTreeView>(By.AutomationId("ViewControl").And.Condition(e => Equals(e.Properties.ControlType, ControlType.SplitButton)), From.Element(this)); }
+            get { return UI.GetChild<BasicTreeView>(By.AutomationId("ViewControl"), From.Element(this)); }
         }
 
         public BasicTreeView ShowPreviewButton
         {
-            get { return UI.GetChild<BasicTreeView>(By.AutomationId("PreviewButton").And.Condition(e => Equals(e.Properties.ControlType, ControlType.CheckBox)), From.Element(this)); }
+            get { return UI.GetChild<BasicTreeView>(By.AutomationId("PreviewButton"), From.Element(this)); }
         }
 
         public BasicTreeView HelpButton
         {
-            get { return UI.GetChild<BasicTreeView>(By.AutomationId("HelpButton").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this)); }
+            get { return UI.GetChild<BasicTreeView>(By.AutomationId("HelpButton"), From.Element(this)); }
         }
     }
 }

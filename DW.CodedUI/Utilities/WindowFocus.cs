@@ -11,14 +11,9 @@ namespace DW.CodedUI.Utilities
             WinApi.SetForegroundWindow((IntPtr)messageBox.Properties.NativeWindowHandle);
         }
 
-        public static void BringOnTop(BasicWindow window)
+        public static void BringOnTop(BasicWindow window) // Includes dialogs
         {
             WinApi.SetForegroundWindow((IntPtr)window.AutomationElement.Current.NativeWindowHandle);
-        }
-
-        public static void BringOnTop(BasicOpenFileDialog openFileDialog)
-        {
-            WinApi.SetForegroundWindow((IntPtr)openFileDialog.AutomationElement.Current.NativeWindowHandle);
         }
     }
 }

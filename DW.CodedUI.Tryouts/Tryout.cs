@@ -76,7 +76,7 @@ namespace DW.CodedUI.Tryouts
         {
             Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
 
-            var window = WindowFinder.SearchOpenFileDialog(Using.Title("Öffnen"));
+            var window = WindowFinder.SearchBrowseFolderDialog(Using.Title("Öffnen"));
 
             MouseEx.Click(window.CloseButton);
         }
