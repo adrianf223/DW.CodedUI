@@ -8,12 +8,17 @@ namespace DW.CodedUI.Utilities
     {
         public static void BringOnTop(BasicMessageBox messageBox)
         {
-            WinApi.SetForegroundWindow(new IntPtr(messageBox.Properties.NativeWindowHandle));
+            WinApi.SetForegroundWindow((IntPtr)messageBox.Properties.NativeWindowHandle);
         }
 
         public static void BringOnTop(BasicWindow window)
         {
             WinApi.SetForegroundWindow((IntPtr)window.AutomationElement.Current.NativeWindowHandle);
+        }
+
+        public static void BringOnTop(BasicOpenFileDialog openFileDialog)
+        {
+            WinApi.SetForegroundWindow((IntPtr)openFileDialog.AutomationElement.Current.NativeWindowHandle);
         }
     }
 }

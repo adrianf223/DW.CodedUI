@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms.VisualStyles;
 using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -68,6 +69,16 @@ namespace DW.CodedUI.Tryouts
 
             messageBox = WindowFinder.SearchMessageBox(Using.Title("asd"));
             MouseEx.Click(messageBox.AbortButton);
+        }
+
+        [TestMethod]
+        public void Method_TestCondition_ExpectedResult2()
+        {
+            Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
+
+            var window = WindowFinder.SearchOpenFileDialog(Using.Title("Öffnen"));
+
+            MouseEx.Click(window.CloseButton);
         }
 
         [TestMethod]

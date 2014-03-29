@@ -63,16 +63,16 @@ namespace DW.CodedUI
             return null;
         }
 
-        public static BasicWindow SearchOpenFileDialog(Using use)
+        public static BasicOpenFileDialog SearchOpenFileDialog(Using use)
         {
             return SearchOpenFileDialog(use, new CombinableAnd());
         }
 
-        public static BasicWindow SearchOpenFileDialog(Using use, And settings)
+        public static BasicOpenFileDialog SearchOpenFileDialog(Using use, And settings)
         {
             var window = Search(use, settings);
             if (window != null)
-                return new BasicWindow(window.AutomationElement);
+                return new BasicOpenFileDialog(window.AutomationElement);
             return null;
         }
 
