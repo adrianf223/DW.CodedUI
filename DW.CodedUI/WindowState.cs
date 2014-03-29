@@ -1,4 +1,4 @@
-namespace DW.CodedUI.Application
+namespace DW.CodedUI
 {
     public enum WindowState
     {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
-using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {

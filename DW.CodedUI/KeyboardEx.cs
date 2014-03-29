@@ -2,7 +2,7 @@ using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
-namespace DW.CodedUI.Interaction
+namespace DW.CodedUI
 {
     public static class KeyboardEx
     {

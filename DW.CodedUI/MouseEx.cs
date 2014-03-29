@@ -5,7 +5,7 @@ using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
 
-namespace DW.CodedUI.Interaction
+namespace DW.CodedUI
 {
     public static class MouseEx
     {

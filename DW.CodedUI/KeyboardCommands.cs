@@ -1,4 +1,4 @@
-﻿namespace DW.CodedUI.Interaction
+﻿namespace DW.CodedUI
 {
     public static class KeyboardCommands
     {

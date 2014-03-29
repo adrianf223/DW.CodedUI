@@ -1,7 +1,7 @@
 ﻿using System;
 using DW.CodedUI.BasicElements;
 
-namespace DW.CodedUI.UITree
+namespace DW.CodedUI
 {
     public class From
     {

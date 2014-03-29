@@ -1,7 +1,7 @@
 using DW.CodedUI.BasicElements;
 using System.Drawing;
 
-namespace DW.CodedUI.Interaction
+namespace DW.CodedUI
 {
     public class At
     {

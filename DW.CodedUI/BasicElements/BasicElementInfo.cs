@@ -6,18 +6,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    // TODO: Adjust obsolet text
+    [Obsolete("Methods in this object are not supported anymore. ")]
     public class BasicElementInfo : INotifyPropertyChanged
     {
+        [Obsolete]
         public AutomationElement AutomationElement { get; private set; }
 
+        [Obsolete]
         public List<BasicElementInfo> Children { get; private set; }
 
+        [Obsolete]
         public BasicElementInfo(AutomationElement element)
         {
             AutomationElement = element;
             Children = new List<BasicElementInfo>();
         }
 
+        [Obsolete]
         public override string ToString()
         {
             if (!IsAvailable)
@@ -34,6 +40,7 @@ namespace DW.CodedUI.BasicElements
             return string.Format("{0} [{1}]", name, automationId);
         }
 
+        [Obsolete]
         public bool HasAutomationId
         {
             get
@@ -45,6 +52,7 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        [Obsolete]
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -57,6 +65,7 @@ namespace DW.CodedUI.BasicElements
 
         private bool _isSelected;
 
+        [Obsolete]
         public bool IsAvailable
         {
             get
@@ -75,6 +84,7 @@ namespace DW.CodedUI.BasicElements
 
         #region NotifyPropertyChanged
 
+        [Obsolete]
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged<T>(Expression<Func<T>> property)

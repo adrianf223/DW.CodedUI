@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Windows.Automation;
-using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {

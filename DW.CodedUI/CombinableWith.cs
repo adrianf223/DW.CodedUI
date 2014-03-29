@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 
-namespace DW.CodedUI.UITree
+namespace DW.CodedUI
 {
     public class CombinableWith : With
     {
-        private readonly List<WithConditions> _conditions;
+        private readonly List<WithCondition> _conditions;
         private uint _timeoutMilliseconds;
 
         internal CombinableWith()
         {
-            _conditions = new List<WithConditions>();
+            _conditions = new List<WithCondition>();
         }
 
         public CombinableWith And
@@ -21,60 +21,62 @@ namespace DW.CodedUI.UITree
         {
             _timeoutMilliseconds = milliseconds;
             if (milliseconds == 0)
+            {
+                _conditions.Remove(WithCondition.Timeout);
                 return NoTimeout();
-            
-            if (!_conditions.Contains(WithConditions.Timeout))
-                _conditions.Add(WithConditions.Timeout);
+            }
+            if (!_conditions.Contains(WithCondition.Timeout))
+                _conditions.Add(WithCondition.Timeout);
             return this;
         }
 
         public new CombinableWith NoTimeout()
         {
-            if (!_conditions.Contains(WithConditions.NoTimeout))
-                _conditions.Add(WithConditions.NoTimeout);
+            if (!_conditions.Contains(WithCondition.NoTimeout))
+                _conditions.Add(WithCondition.NoTimeout);
             return this;
         }
 
         public new CombinableWith Assert()
         {
-            if (!_conditions.Contains(WithConditions.Assert))
-                _conditions.Add(WithConditions.Assert);
+            if (!_conditions.Contains(WithCondition.Assert))
+                _conditions.Add(WithCondition.Assert);
             return this;
         }
 
         public new CombinableWith NoAssert()
         {
-            if (!_conditions.Contains(WithConditions.NoAssert))
-                _conditions.Add(WithConditions.NoAssert);
+            if (!_conditions.Contains(WithCondition.NoAssert))
+                _conditions.Add(WithCondition.NoAssert);
             return this;
         }
 
-        private void AdjustTimeoutCondition(List<WithConditions> conditios)
+        private void AdjustTimeoutCondition(List<WithCondition> conditios)
         {
-            if (!conditios.Contains(WithConditions.NoTimeout) && !conditios.Contains(WithConditions.Timeout))
+            if (!conditios.Contains(WithCondition.NoTimeout) && !conditios.Contains(WithCondition.Timeout))
             {
-                conditios.Add(WithConditions.Timeout);
+                conditios.Add(WithCondition.Timeout);
                 _timeoutMilliseconds = 10000;
             }
-            if (conditios.Contains(WithConditions.NoTimeout))
-                conditios.Remove(WithConditions.Timeout);
-            if (conditios.Contains(WithConditions.Timeout))
-                conditios.Remove(WithConditions.NoTimeout);
+            if (conditios.Contains(WithCondition.NoTimeout))
+                conditios.Remove(WithCondition.Timeout);
+            if (conditios.Contains(WithCondition.Timeout))
+                conditios.Remove(WithCondition.NoTimeout);
         }
 
-        private void AdjustAssertCondition(List<WithConditions> conditios)
+        private void AdjustAssertCondition(List<WithCondition> conditios)
         {
-            if (!conditios.Contains(WithConditions.NoAssert) && !conditios.Contains(WithConditions.Assert))
-                conditios.Add(WithConditions.Assert);
-            if (conditios.Contains(WithConditions.NoAssert))
-                conditios.Remove(WithConditions.Assert);
-            if (conditios.Contains(WithConditions.Assert))
-                conditios.Remove(WithConditions.NoAssert);
+            if (!conditios.Contains(WithCondition.NoAssert) && !conditios.Contains(WithCondition.Assert))
+                conditios.Add(WithCondition.Assert);
+            if (conditios.Contains(WithCondition.NoAssert))
+                conditios.Remove(WithCondition.Assert);
+            if (conditios.Contains(WithCondition.Assert))
+                conditios.Remove(WithCondition.NoAssert);
         }
 
-        internal override List<WithConditions> GetConditions()
+        internal override List<WithCondition> GetConditions()
         {
-            var conditios = new List<WithConditions>();
+            var conditios = new List<WithCondition>();
             conditios.AddRange(_conditions);
 
             AdjustTimeoutCondition(conditios);

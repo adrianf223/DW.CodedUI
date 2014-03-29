@@ -1,8 +1,6 @@
-﻿using System.Threading;
-using DW.CodedUI.Application;
+﻿using System.Diagnostics;
+using System.Threading;
 using DW.CodedUI.BasicElements;
-using DW.CodedUI.Interaction;
-using DW.CodedUI.UITree;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,9 +12,10 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void ApplicationFactory_StartMinimizeMaximizeAndClose()
         {
-            ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
+            Process.Start(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
             Thread.Sleep(3000);
-            var window = WindowFinder.Search("AutomationEle");
+
+            var window = WindowFinder.Search(Using.Title("AutomationEle", CompareKind.ContainsIgnoreCase), AndSetting.NoAssert());
             Thread.Sleep(3000);
 
             Assert.AreEqual("AutomationElementFinder", window.Title);
@@ -50,10 +49,10 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void WindowFinder_StartMinimizeMaximizeAndClose()
         {
-            ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
+            Process.Start(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
             Thread.Sleep(3000);
-            
-            var window = WindowFinder.Search("AutomationEle");
+
+            var window = WindowFinder.Search(Using.Title("AutomationEle"), AndSetting.NoAssert());
             Thread.Sleep(3000);
 
             Assert.AreEqual("AutomationElementFinder", window.Title);
@@ -77,7 +76,7 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void UIElementFinder_FindChild_FindsChild()
         {
-            var window = WindowFinder.Search("AutomationEle");
+            var window = WindowFinder.Search(Using.Title("AutomationEle"), AndSetting.Assert());
             Thread.Sleep(3000);
 
             var basicElement = UI.GetChild(By.Name("Read Siblings"), From.Element(window));
@@ -88,7 +87,7 @@ namespace DW.CodedUI.Tryouts
         [TestMethod]
         public void UIElementFinder_FindParent_FindsParent()
         {
-            var window = WindowFinder.Search("AutomationEle");
+            var window = WindowFinder.Search(Using.Title("AutomationEle"), AndSetting.Assert());
             Thread.Sleep(3000);
 
             var basicElement = UI.GetChild(By.Name("Read Siblings"), From.Element(window));

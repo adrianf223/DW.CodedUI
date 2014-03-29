@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Automation;
-using DW.CodedUI.UITree;
 using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
@@ -27,6 +25,11 @@ namespace DW.CodedUI.BasicElements
         public AutomationElement.AutomationElementInformation Properties
         {
             get { return AutomationElement.Current; }
+        }
+
+        public string AutomationId
+        {
+            get { return Properties.AutomationId; }
         }
 
         public string Name
@@ -117,6 +120,22 @@ namespace DW.CodedUI.BasicElements
                     return false;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            if (!IsAvailable)
+                return "<N.A.>";
+
+            var name = AutomationElement.Current.Name;
+            if (string.IsNullOrWhiteSpace(name))
+                name = "<no name>";
+
+            var automationId = AutomationElement.Current.AutomationId;
+            if (string.IsNullOrWhiteSpace(automationId))
+                return name;
+
+            return string.Format("{0} [{1}]", name, automationId);
         }
     }
 }

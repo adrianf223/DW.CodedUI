@@ -1,6 +1,6 @@
-﻿namespace DW.CodedUI.UITree
+﻿namespace DW.CodedUI
 {
-    public enum WithConditions
+    public enum WithCondition
     {
         Timeout,
         NoTimeout,

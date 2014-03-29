@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DW.CodedUI.BasicElements;
 
-namespace DW.CodedUI.UITree
+namespace DW.CodedUI
 {
     public class CombinableBy : By
     {

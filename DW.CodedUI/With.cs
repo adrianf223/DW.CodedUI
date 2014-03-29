@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DW.CodedUI.UITree
+namespace DW.CodedUI
 {
     public abstract class With
     {
@@ -28,7 +28,7 @@ namespace DW.CodedUI.UITree
             return combinableWith.NoAssert();
         }
 
-        internal abstract List<WithConditions> GetConditions();
+        internal abstract List<WithCondition> GetConditions();
         internal abstract uint GetTimeout();
     }
 }

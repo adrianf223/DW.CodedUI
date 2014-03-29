@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 
-namespace DW.CodedUI.UITree
+namespace DW.CodedUI
 {
     public static class UI
     {
@@ -37,9 +37,9 @@ namespace DW.CodedUI.UITree
             var sourceElement = from.GetSourceElement();
 
             var settings = with.GetConditions();
-            var useTimeout = settings.Contains(WithConditions.Timeout);
+            var useTimeout = settings.Contains(WithCondition.Timeout);
             var timeout = with.GetTimeout();
-            var assertResult = settings.Contains(WithConditions.Assert);
+            var assertResult = settings.Contains(WithCondition.Assert);
 
             var watch = new Stopwatch();
             watch.Start();
@@ -48,7 +48,7 @@ namespace DW.CodedUI.UITree
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new UIElementNotFoundException(@by, useTimeout, watch.Elapsed);
+                        throw new UIElementNotFoundException(by, useTimeout, watch.Elapsed, false);
                     return null;
                 }
 
@@ -102,9 +102,9 @@ namespace DW.CodedUI.UITree
             var sourceElement = from.GetSourceElement();
 
             var settings = with.GetConditions();
-            var useTimeout = settings.Contains(WithConditions.Timeout);
+            var useTimeout = settings.Contains(WithCondition.Timeout);
             var timeout = with.GetTimeout();
-            var assertResult = settings.Contains(WithConditions.Assert);
+            var assertResult = settings.Contains(WithCondition.Assert);
 
             var foundItems = new List<TControl>();
             var watch = new Stopwatch();
@@ -187,9 +187,9 @@ namespace DW.CodedUI.UITree
             var sourceElement = from.GetSourceElement();
 
             var settings = with.GetConditions();
-            var useTimeout = settings.Contains(WithConditions.Timeout);
+            var useTimeout = settings.Contains(WithCondition.Timeout);
             var timeout = with.GetTimeout();
-            var assertResult = settings.Contains(WithConditions.Assert);
+            var assertResult = settings.Contains(WithCondition.Assert);
 
             var watch = new Stopwatch();
             watch.Start();
@@ -198,7 +198,7 @@ namespace DW.CodedUI.UITree
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new UIElementNotFoundException(@by, useTimeout, watch.Elapsed);
+                        throw new UIElementNotFoundException(by, useTimeout, watch.Elapsed, false);
                     return null;
                 }
 
@@ -223,27 +223,6 @@ namespace DW.CodedUI.UITree
         }
 
         #endregion GetParent
-
-        #region GetFullUITree
-
-        public static BasicElementInfo GetFullUITree(AutomationElement element)
-        {
-            var rootElementInfo = new BasicElementInfo(element);
-            Read(rootElementInfo);
-            return rootElementInfo;
-        }
-
-        private static void Read(BasicElementInfo rootElement)
-        {
-            foreach (var child in GetChildren(rootElement.AutomationElement))
-            {
-                var childElementInfo = new BasicElementInfo(child);
-                rootElement.Children.Add(childElementInfo);
-                Read(childElementInfo);
-            }
-        }
-
-        #endregion GetFullUITree
 
         private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
         {

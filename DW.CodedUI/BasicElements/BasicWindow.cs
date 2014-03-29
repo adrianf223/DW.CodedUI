@@ -5,9 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Automation;
-using DW.CodedUI.Application;
 using DW.CodedUI.Internal;
-using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -124,6 +122,16 @@ namespace DW.CodedUI.BasicElements
                 placement.length = Marshal.SizeOf(placement);
                 WinApi.GetWindowPlacement((IntPtr)AutomationElement.Current.NativeWindowHandle, ref placement);
                 return placement.showCmd;
+            }
+        }
+
+        public Process OwningProcess
+        {
+            get
+            {
+                uint processId = 0;
+                WinApi.GetWindowThreadProcessId((IntPtr)AutomationElement.Current.NativeWindowHandle, out processId);
+                return Process.GetProcessById((int)processId);
             }
         }
 

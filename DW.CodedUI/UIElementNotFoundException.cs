@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace DW.CodedUI.UITree
+namespace DW.CodedUI
 {
     public class UIElementNotFoundException : Exception
     {
