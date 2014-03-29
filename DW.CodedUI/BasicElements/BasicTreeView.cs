@@ -48,22 +48,11 @@ namespace DW.CodedUI.BasicElements
 
         public UnsafeMethods Unsafe { get; private set; }
 
-        // TODO: No item is selected
-        //public BasicTreeViewItem SelectedItem
-        //{
-        //    get
-        //    {
-        //        var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
-        //        var element = pattern.Current.GetSelection().FirstOrDefault();
-        //        return element != null ? new BasicTreeViewItem(element) : null;
-        //    }
-        //}
-
         public IEnumerable<BasicTreeViewItem> Items
         {
             get
             {
-                return BasicElementFinder.FindChildrenByClassName<BasicTreeViewItem>(AutomationElement, "TreeViewItem");
+                return UI.GetChildren<BasicTreeViewItem>(By.ClassName("TreeViewItem"), From.Element(this));
             }
         }
 

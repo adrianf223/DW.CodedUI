@@ -73,16 +73,17 @@ namespace DW.CodedUI.BasicElements
             {
                 Unsafe.Expand();
                 Unsafe.Collapse();
-                return BasicElementFinder.FindChildrenByClassName<BasicComboBoxItem>(AutomationElement, "ListBoxItem");
+                return UI.GetChildren<BasicComboBoxItem>(By.ClassName("ListBoxItem"), From.Element(this));
             }
         }
 
-        public BasicComboBoxItem FindChildByCondition(Func<BasicComboBoxItem, bool> condition)
+        // TODO: Renew?
+        public BasicComboBoxItem FindChildByCondition(Predicate<BasicComboBoxItem> condition)
         {
             Unsafe.Expand();
 
-            var automationElementCondition = new Func<AutomationElement, bool>(element => condition.Invoke(new BasicComboBoxItem(element)));
-            var item = BasicElementFinder.FindChildByCondition<BasicComboBoxItem>(AutomationElement, automationElementCondition);
+            var automationElementCondition = new Predicate<BasicElement>(element => condition.Invoke(new BasicComboBoxItem(element.AutomationElement)));
+            var item = UI.GetChild<BasicComboBoxItem>(By.Condition(automationElementCondition), From.Element(this));
             if (item != null)
                 return item;
 
@@ -92,7 +93,7 @@ namespace DW.CodedUI.BasicElements
             while (scrollPattern.Current.VerticalScrollPercent < 100)
             {
                 scrollPattern.ScrollVertical(ScrollAmount.LargeIncrement);
-                item = BasicElementFinder.FindChildByCondition<BasicComboBoxItem>(AutomationElement, automationElementCondition);
+                item = UI.GetChild<BasicComboBoxItem>(By.Condition(automationElementCondition), From.Element(this));
                 if (item != null)
                     return item;
             }

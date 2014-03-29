@@ -98,13 +98,13 @@ namespace AutomationElementFinder
                 if (element.Current.ProcessId == _currentProcessId)
                     return null;
 
-                items.Add(BasicElementFinder.GetFullUITree(element));
+                items.Add(UI.GetFullUITree(element));
                 if (!ReadFullTree)
                     return items;
 
                 TreeElements.Clear();
                 var toppestParent = GetParent(element);
-                var tree = BasicElementFinder.GetFullUITree(toppestParent);
+                var tree = UI.GetFullUITree(toppestParent);
                 foreach (var treeItem in GetAllElementsByPosition(tree, position))
                     TreeElements.Add(treeItem);
             }

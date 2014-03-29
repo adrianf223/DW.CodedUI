@@ -3,6 +3,7 @@ using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    // TODO: Check that no automation gets duplicated (BasicComboBox)
     public class BasicOpenFileDialog : BasicWindow
     {
         public BasicOpenFileDialog(AutomationElement automationElement)
@@ -12,52 +13,52 @@ namespace DW.CodedUI.BasicElements
 
         public BasicComboBox InputComboBox
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicComboBox>(this, "1148"); }
+            get { return UI.GetChild<BasicComboBox>(By.AutomationId("1148"), From.Element(this)); }
         }
 
         public BasicElement BreadCrumbBar
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicComboBox>(this, "41477"); }
+            get { return UI.GetChild<BasicComboBox>(By.AutomationId("41477"), From.Element(this)); }
         }
 
         public BasicElement BreadCrumbTextBox
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicComboBox>(this, "1001"); }
+            get { return UI.GetChild<BasicComboBox>(By.AutomationId("1001"), From.Element(this)); }
         }
 
         public BasicComboBox FilterComboBox
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicComboBox>(this, "1136"); }
+            get { return UI.GetChild<BasicComboBox>(By.AutomationId("1136"), From.Element(this)); }
         }
 
         public BasicButton CancelButton
         {
-            get { return BasicElementFinder.FindChildByCondition<BasicButton>(this, element => element.Current.AutomationId == "2" && Equals(element.Current.ControlType, ControlType.Button)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("2").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this)); }
         }
 
         public BasicButton OpenButton
         {
-            get { return BasicElementFinder.FindChildByCondition<BasicButton>(this, element => element.Current.AutomationId == "1" && Equals(element.Current.ControlType, ControlType.Button)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("1").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this)); }
         }
 
         public BasicList FilesList
         {
-            get { return BasicElementFinder.FindChildByCondition<BasicList>(this, element => Equals(element.Current.ControlType, ControlType.List)); }
+            get { return UI.GetChild<BasicList>(By.Condition(e => Equals(e.Properties.ControlType, ControlType.List)), From.Element(this)); }
         }
 
         public BasicEdit SearchTextBox
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicEdit>(this, "SearchEditBox"); }
+            get { return UI.GetChild<BasicEdit>(By.AutomationId("SearchEditBox"), From.Element(this)); }
         }
 
         public BasicButton SearchButton
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "SearchBoxSearchButton"); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("SearchBoxSearchButton"), From.Element(this)); }
         }
 
         public BasicTreeView FolderTree
         {
-            get { return BasicElementFinder.FindChildByCondition<BasicTreeView>(this, element => element.Current.AutomationId == "100" && Equals(element.Current.ControlType, ControlType.Tree)); }
+            get { return UI.GetChild<BasicTreeView>(By.AutomationId("100").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Tree)), From.Element(this)); }
         }
     }
 }

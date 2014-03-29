@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Automation;
@@ -116,11 +117,6 @@ namespace DW.CodedUI.BasicElements
                     return false;
                 }
             }
-        }
-
-        public TControl Get<TControl>(string element) where TControl : BasicElement
-        {
-            return BasicElementFinder.FindChildByAutomationId<TControl>(this, element);
         }
     }
 }

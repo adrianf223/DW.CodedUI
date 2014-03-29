@@ -6,11 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Automation;
-using System.Windows.Forms.VisualStyles;
 using DW.CodedUI.Application;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.UITree
 {

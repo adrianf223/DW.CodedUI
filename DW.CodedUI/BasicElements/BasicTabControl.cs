@@ -26,8 +26,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                
-                return BasicElementFinder.FindChildrenByClassName<BasicTabItem>(AutomationElement, "TabItem");
+                return UI.GetChildren<BasicTabItem>(By.ClassName("TabItem"), From.Element(this));
             }
         }
     }

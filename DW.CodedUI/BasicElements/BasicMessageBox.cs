@@ -17,14 +17,14 @@ namespace DW.CodedUI.BasicElements
 
         public BasicElement Icon
         {
-            get { return BasicElementFinder.FindChildByAutomationId(this, "20"); }
+            get { return UI.GetChild(By.AutomationId("20"), From.Element(this)); }
         }
 
         public string Text
         {
             get
             {
-                var textElement = BasicElementFinder.FindChildByAutomationId<BasicText>(this, "65535");
+                var textElement = UI.GetChild<BasicText>(By.AutomationId("65535"), From.Element(this));
                 if (textElement == null)
                     return string.Empty;
                 return textElement.Text;
@@ -33,22 +33,22 @@ namespace DW.CodedUI.BasicElements
 
         public BasicButton OKButton
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "1"); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("1"), From.Element(this)); }
         }
 
         public BasicButton CancelButton
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "2"); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("2"), From.Element(this)); }
         }
 
         public BasicButton YesButton
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "6"); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("6"), From.Element(this)); }
         }
 
         public BasicButton NoButton
         {
-            get { return BasicElementFinder.FindChildByAutomationId<BasicButton>(this, "7"); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("7"), From.Element(this)); }
         }
     }
 }

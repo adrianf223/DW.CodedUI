@@ -15,7 +15,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                return BasicElementFinder.FindChildrenByClassName<BasicMenuItem>(AutomationElement, "MenuItem");
+                return UI.GetChildren<BasicMenuItem>(By.ClassName("MenuItem"), From.Element(this));
             }
         }
     }

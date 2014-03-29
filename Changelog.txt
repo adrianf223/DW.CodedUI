@@ -1,0 +1,6 @@
+
+
+2014-03-16    2.0.0.0    Initialize public assembly
+
+Version denotation:
+<Major> . <Incompatible Changes and new Features> . <Bugfixes and other corrections> . <Visual Studio Version>

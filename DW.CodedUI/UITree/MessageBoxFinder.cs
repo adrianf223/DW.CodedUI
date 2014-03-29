@@ -2,7 +2,6 @@ using System;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.UITree
 {

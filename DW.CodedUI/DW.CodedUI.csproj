@@ -68,6 +68,7 @@
     <Compile Include="Application\ApplicationFactory.cs" />
     <Compile Include="Application\WindowSearchCondition.cs" />
     <Compile Include="Application\WindowState.cs" />
+    <Compile Include="Properties\CommonMeta.cs" />
     <Compile Include="BasicElements\BasicButton.cs" />
     <Compile Include="BasicElements\BasicCheckBox.cs" />
     <Compile Include="BasicElements\BasicComboBox.cs" />
@@ -97,9 +98,17 @@
     <Compile Include="Interaction\MouseEx.cs" />
     <Compile Include="Internal\WinApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="By.cs" />
+    <Compile Include="CombinableBy.cs" />
+    <Compile Include="CombinableWith.cs" />
+    <Compile Include="From.cs" />
     <Compile Include="UITree\BasicElementFinder.cs" />
     <Compile Include="UITree\MessageBoxFinder.cs" />
+    <Compile Include="UI.cs" />
+    <Compile Include="UIElementNotFoundException.cs" />
     <Compile Include="UITree\WindowFinder.cs" />
+    <Compile Include="With.cs" />
+    <Compile Include="WithConditions.cs" />
     <Compile Include="Utilities\ColorDetector.cs" />
     <Compile Include="Utilities\Highlighter.cs">
       <SubType>Form</SubType>

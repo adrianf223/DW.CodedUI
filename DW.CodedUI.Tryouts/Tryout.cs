@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using DW.CodedUI.Application;
+using DW.CodedUI.BasicElements;
 using DW.CodedUI.Interaction;
 using DW.CodedUI.UITree;
 using Microsoft.VisualStudio.TestTools.UITesting;
@@ -18,24 +19,32 @@ namespace DW.CodedUI.Tryouts
             var window = WindowFinder.Search("AutomationEle");
             Thread.Sleep(3000);
 
-            Assert.AreEqual("AutomationElementFinder", app.Title);
+            Assert.AreEqual("AutomationElementFinder", window.Title);
 
-            MouseEx.Click(window.TitleBar);
-            Thread.Sleep(3000);
+            var minimizeButton = UI.GetChild<BasicButton>(By.Name("blobb").And.AutomationId("Minimieren"), From.Element(window));
+            minimizeButton = UI.GetChild<BasicButton>(By.Name("Minimieren"), From.Element(window), With.NoAssert().And.NoTimeout());
+            minimizeButton = UI.GetChild<BasicButton>(By.Name("Minimieren"), From.Element(window), With.Timeout(3000).And.NoAssert());
+            minimizeButton = UI.GetChild<BasicButton>(By.Name("Minimieren"), From.Element(window), With.Timeout(3000));
+            minimizeButton = UI.GetChild<BasicButton>(By.Name("Minimieren"), From.Element(window), With.Assert().Timeout(1000));
 
-            MouseEx.Click(window.MaximizeButton);
-            Thread.Sleep(3000);
+            MouseEx.Click(minimizeButton);
 
-            MouseEx.Click(window.RestoreButton);
-            Thread.Sleep(3000);
+            //MouseEx.Click(window.TitleBar);
+            //Thread.Sleep(3000);
 
-            MouseEx.Click(window.MinimizeButton);
-            Thread.Sleep(3000);
+            //MouseEx.Click(window.MaximizeButton);
+            //Thread.Sleep(3000);
 
-            window.Unsafe.Normalize();
-            Thread.Sleep(3000);
+            //MouseEx.Click(window.RestoreButton);
+            //Thread.Sleep(3000);
 
-            MouseEx.Click(window.CloseButton);
+            //MouseEx.Click(window.MinimizeButton);
+            //Thread.Sleep(3000);
+
+            //window.Unsafe.Normalize();
+            //Thread.Sleep(3000);
+
+            //MouseEx.Click(window.CloseButton);
         }
 
         [TestMethod]
@@ -43,6 +52,7 @@ namespace DW.CodedUI.Tryouts
         {
             ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
             Thread.Sleep(3000);
+            
             var window = WindowFinder.Search("AutomationEle");
             Thread.Sleep(3000);
 
@@ -53,10 +63,8 @@ namespace DW.CodedUI.Tryouts
 
             MouseEx.Click(window.MaximizeButton);
             Thread.Sleep(3000);
-
             MouseEx.Click(window.RestoreButton);
             Thread.Sleep(3000);
-
             MouseEx.Click(window.MinimizeButton);
             Thread.Sleep(3000);
 
@@ -64,6 +72,29 @@ namespace DW.CodedUI.Tryouts
             Thread.Sleep(3000);
 
             MouseEx.Click(window.CloseButton);
+        }
+
+        [TestMethod]
+        public void UIElementFinder_FindChild_FindsChild()
+        {
+            var window = WindowFinder.Search("AutomationEle");
+            Thread.Sleep(3000);
+
+            var basicElement = UI.GetChild(By.Name("Read Siblings"), From.Element(window));
+
+            MouseEx.Click(basicElement);
+        }
+
+        [TestMethod]
+        public void UIElementFinder_FindParent_FindsParent()
+        {
+            var window = WindowFinder.Search("AutomationEle");
+            Thread.Sleep(3000);
+
+            var basicElement = UI.GetChild(By.Name("Read Siblings"), From.Element(window));
+            var parent = UI.GetParent<BasicWindow>(By.Name("AutomationElementFinder"), From.Element(basicElement));
+
+            MouseEx.Click(parent);
         }
     }
 }

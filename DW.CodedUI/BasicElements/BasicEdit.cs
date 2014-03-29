@@ -69,46 +69,10 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                object pattern;
-                if (AutomationElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern))
-                    return ((ValuePattern)pattern).Current.IsReadOnly;
-                throw new NotSupportedException(string.Format("The '{0}' does not support to set the value with the unsafe method.", AutomationElement.Current.ClassName));
+                var pattern = (ValuePattern)AutomationElement.GetCurrentPattern(ValuePattern.Pattern);
+                return pattern.Current.IsReadOnly;
             }
         }
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange[] GetSelection
-        //{
-        //    get
-        //    {
-        //        var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //        return pattern.GetSelection();
-        //    }
-        //}
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange[] GetVisibleRanges
-        //{
-        //    get
-        //    {
-        //        var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //        return pattern.GetVisibleRanges();
-        //    }
-        //}
-
-        // TODO: Put into BasicTextPatternRange and pass BasicElement
-        //public TextPatternRange RangeFromChild(AutomationElement automationElemen)
-        //{
-        //    var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //    return pattern.RangeFromChild(automationElement);
-        //}
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange RangeFromPoint(Point screenLocation)
-        //{
-        //    var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //    return pattern.RangeFromPoint(screenLocation);
-        //}
 
         public SupportedTextSelection SupportedTextSelection
         {
@@ -118,16 +82,6 @@ namespace DW.CodedUI.BasicElements
                 return pattern.SupportedTextSelection;
             }
         }
-
-        // TODO: Put into BasicTextPatternRange
-        //public TextPatternRange DocumentRange
-        //{
-        //    get
-        //    {
-        //        var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-        //        return pattern.DocumentRange;
-        //    }
-        //}
 
         public double HorizontalScrollPercent
         {

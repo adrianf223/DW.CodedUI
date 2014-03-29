@@ -72,16 +72,14 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                if (AutomationElement.Current.ClassName == "ListBox")
-                    return BasicElementFinder.FindChildrenByClassName<BasicListItem>(AutomationElement, "ListBoxItem");
-                return BasicElementFinder.FindChildrenByClassName<BasicListItem>(AutomationElement, "ListViewItem");
+                return UI.GetChildren<BasicListItem>(By.ClassName("ListBoxItem").Or.ClassName("ListViewItem"), From.Element(this));
             }
         }
 
-        public BasicListItem FindChildByCondition(Func<BasicListItem, bool> condition)
+        public BasicListItem FindChildByCondition(Predicate<BasicListItem> condition)
         {
-            var automationElementCondition = new Func<AutomationElement, bool>(element => condition.Invoke(new BasicListItem(element)));
-            var item = BasicElementFinder.FindChildByCondition<BasicListItem>(AutomationElement, automationElementCondition);
+            var automationElementCondition = new Predicate<BasicElement>(element => condition.Invoke(new BasicListItem(element.AutomationElement)));
+            var item = UI.GetChild<BasicListItem>(By.Condition(automationElementCondition), From.Element(this));
             if (item != null)
                 return item;
             if (VerticalScrollPercent == -1)
@@ -89,7 +87,7 @@ namespace DW.CodedUI.BasicElements
             while (VerticalScrollPercent < 100)
             {
                 Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
-                item = BasicElementFinder.FindChildByCondition<BasicListItem>(AutomationElement, automationElementCondition);
+                item = UI.GetChild<BasicListItem>(By.Condition(automationElementCondition), From.Element(this));
                 if (item != null)
                     return item;
             }
@@ -173,7 +171,7 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        public BasicElement GetItem(int row, int column) // TODO: Try to put into specific BasicElement
+        public BasicElement GetItem(int row, int column)
         {
             object pattern;
             if (AutomationElement.TryGetCurrentPattern(GridPattern.Pattern, out pattern))
@@ -181,7 +179,7 @@ namespace DW.CodedUI.BasicElements
             throw new NotSupportedException(string.Format("The '{0}' does not support GetItem.", AutomationElement.Current.ClassName));
         }
 
-        public IEnumerable<BasicElement> GetColumnHeaders() // TODO: Put to BasicGridViewColumnHeader[]
+        public IEnumerable<BasicElement> GetColumnHeaders()
         {
             object pattern;
             if (AutomationElement.TryGetCurrentPattern(TablePattern.Pattern, out pattern))

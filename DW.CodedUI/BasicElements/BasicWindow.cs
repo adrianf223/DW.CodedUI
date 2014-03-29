@@ -5,11 +5,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Automation;
-using DW.CodedUI.Interaction;
+using DW.CodedUI.Application;
 using DW.CodedUI.Internal;
 using DW.CodedUI.UITree;
-using DW.CodedUI.Utilities;
-using WindowState = DW.CodedUI.Application.WindowState;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -59,8 +57,8 @@ namespace DW.CodedUI.BasicElements
             {
                 var currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (currentCulture.Name == "de-DE")
-                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Maximieren");
-                return BasicElementFinder.FindChildByName<BasicButton>(this, "Maximize");
+                    return UI.GetChild<BasicButton>(By.Name("Maximieren"), From.Element(this));
+                return UI.GetChild<BasicButton>(By.Name("Maximize"), From.Element(this));
             }
         }
 
@@ -70,8 +68,8 @@ namespace DW.CodedUI.BasicElements
             {
                 var currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (currentCulture.Name == "de-DE")
-                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Wiederherstellen");
-                return BasicElementFinder.FindChildByName<BasicButton>(this, "Restore");
+                    return UI.GetChild<BasicButton>(By.Name("Wiederherstellen"), From.Element(this));
+                return UI.GetChild<BasicButton>(By.Name("Restore"), From.Element(this));
             }
         }
 
@@ -81,8 +79,8 @@ namespace DW.CodedUI.BasicElements
             {
                 var currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (currentCulture.Name == "de-DE")
-                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Minimieren");
-                return BasicElementFinder.FindChildByName<BasicButton>(this, "Minimize");
+                    return UI.GetChild<BasicButton>(By.Name("Minimieren"), From.Element(this));
+                return UI.GetChild<BasicButton>(By.Name("Minimize"), From.Element(this));
             }
         }
 
@@ -92,8 +90,8 @@ namespace DW.CodedUI.BasicElements
             {
                 var currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (currentCulture.Name == "de-DE")
-                    return BasicElementFinder.FindChildByName<BasicButton>(this, "Schließen");
-                return BasicElementFinder.FindChildByName<BasicButton>(this, "Close");
+                    return UI.GetChild<BasicButton>(By.Name("Schließen"), From.Element(this));
+                return UI.GetChild<BasicButton>(By.Name("Close"), From.Element(this));
             }
         }
 
@@ -101,7 +99,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                return BasicElementFinder.FindChildByCondition(this, e => e.Current.ControlType.Equals(ControlType.TitleBar));
+                return UI.GetChild(By.Condition(e => e.Properties.ControlType.Equals(ControlType.TitleBar)), From.Element(this));
             }
         }
 
@@ -139,6 +137,7 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        // TODO: Adjust and test
         public IEnumerable<BasicWindow> GetChildWindows()
         {
             var windows = new List<BasicWindow>();

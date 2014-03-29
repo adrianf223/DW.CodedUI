@@ -78,7 +78,7 @@ namespace DW.CodedUI.BasicElements
             {
                 Unsafe.Expand();
                 Unsafe.Collapse();
-                return BasicElementFinder.FindChildrenByClassName<BasicTreeViewItem>(AutomationElement, "TreeViewItem");
+                return UI.GetChildren<BasicTreeViewItem>(By.ClassName("TreeViewItem"), From.Element(this));
             }
         }
 

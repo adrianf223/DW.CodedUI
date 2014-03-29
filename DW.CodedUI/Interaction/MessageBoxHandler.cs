@@ -6,11 +6,11 @@ using System.Windows.Automation;
 using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Interaction
 {
+    [Obsolete("Methods in this object are not supported anymore. Use the buttons in the 'BasicMessageBox' instead.")]
     public static class MessageBoxHandler
     {
         private const string AutomationId_OK = "1";
@@ -20,36 +20,42 @@ namespace DW.CodedUI.Interaction
         private const string AutomationId_Text = "65535";
 
         private const int ID_Close = 0x10;
-
+        
+        [Obsolete]
         public static void Close(BasicMessageBox messageBox)
         {
             WinApi.SendMessage(new HandleRef(null, new IntPtr(messageBox.Properties.NativeWindowHandle)), ID_Close, IntPtr.Zero, IntPtr.Zero);
         }
 
+        [Obsolete]
         public static void CloseWithOK(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_OK))
                 Close(messageBox);
         }
 
+        [Obsolete]
         public static void CloseWithCancel(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_Cancel))
                 Close(messageBox);
         }
 
+        [Obsolete]
         public static void CloseWithYes(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_Yes))
                 Close(messageBox);
         }
 
+        [Obsolete]
         public static void CloseWithNo(BasicMessageBox messageBox)
         {
             if (!FindAndClick(messageBox, AutomationId_No))
                 Close(messageBox);
         }
 
+        [Obsolete]
         public static void Close(BasicMessageBox messageBox, MessageBoxResult messageBoxResult)
         {
             switch (messageBoxResult)
@@ -72,6 +78,7 @@ namespace DW.CodedUI.Interaction
             }
         }
 
+        [Obsolete]
         public static string GetText(BasicMessageBox messageBox)
         {
             var element = FindMessageBoxElement(messageBox, AutomationId_Text);
