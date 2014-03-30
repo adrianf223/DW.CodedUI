@@ -84,7 +84,7 @@
     <Compile Include="BasicElements\BasicComboBoxItem.cs" />
     <Compile Include="BasicElements\BasicEdit.cs" />
     <Compile Include="BasicElements\BasicElement.cs" />
-    <Compile Include="BasicElements\BasicElementInfo.cs" />
+    <Compile Include="BasicElements\AutomationElementInfo.cs" />
     <Compile Include="BasicElements\BasicExpander.cs" />
     <Compile Include="BasicElements\BasicList.cs" />
     <Compile Include="BasicElements\BasicListItem.cs" />

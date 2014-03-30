@@ -6,24 +6,18 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    // TODO: Adjust obsolet text
-    [Obsolete("Methods in this object are not supported anymore. ")]
-    public class BasicElementInfo : INotifyPropertyChanged
+    public class AutomationElementInfo : INotifyPropertyChanged
     {
-        [Obsolete]
         public AutomationElement AutomationElement { get; private set; }
 
-        [Obsolete]
-        public List<BasicElementInfo> Children { get; private set; }
+        public List<AutomationElementInfo> Children { get; private set; }
 
-        [Obsolete]
-        public BasicElementInfo(AutomationElement element)
+        public AutomationElementInfo(AutomationElement element)
         {
             AutomationElement = element;
-            Children = new List<BasicElementInfo>();
+            Children = new List<AutomationElementInfo>();
         }
 
-        [Obsolete]
         public override string ToString()
         {
             if (!IsAvailable)
@@ -40,7 +34,36 @@ namespace DW.CodedUI.BasicElements
             return string.Format("{0} [{1}]", name, automationId);
         }
 
-        [Obsolete]
+        public string AutomationId
+        {
+            get
+            {
+                if (!IsAvailable)
+                    return "<element is gone>";
+
+                var automationId = AutomationElement.Current.AutomationId;
+                if (string.IsNullOrWhiteSpace(automationId))
+                    return "<no automation id>";
+
+                return automationId;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (!IsAvailable)
+                    return "<element is gone>";
+
+                var name = AutomationElement.Current.Name;
+                if (string.IsNullOrWhiteSpace(name))
+                    return "<no name>";
+
+                return name;
+            }
+        }
+
         public bool HasAutomationId
         {
             get
@@ -52,7 +75,6 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        [Obsolete]
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -65,7 +87,6 @@ namespace DW.CodedUI.BasicElements
 
         private bool _isSelected;
 
-        [Obsolete]
         public bool IsAvailable
         {
             get
@@ -84,7 +105,6 @@ namespace DW.CodedUI.BasicElements
 
         #region NotifyPropertyChanged
 
-        [Obsolete]
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged<T>(Expression<Func<T>> property)
