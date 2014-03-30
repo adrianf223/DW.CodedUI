@@ -102,6 +102,32 @@ namespace DW.CodedUI
             return null;
         }
 
+        public static BasicFontPickerDialog SearchFontPickerDialog(Using use)
+        {
+            return SearchFontPickerDialog(use, new CombinableAnd());
+        }
+
+        public static BasicFontPickerDialog SearchFontPickerDialog(Using use, And settings)
+        {
+            var window = Search(use, settings);
+            if (window != null)
+                return new BasicFontPickerDialog(window.AutomationElement);
+            return null;
+        }
+
+        public static BasicColorPickerDialog SearchColorPickerDialog(Using use)
+        {
+            return SearchColorPickerDialog(use, new CombinableAnd());
+        }
+
+        public static BasicColorPickerDialog SearchColorPickerDialog(Using use, And settings)
+        {
+            var window = Search(use, settings);
+            if (window != null)
+                return new BasicColorPickerDialog(window.AutomationElement);
+            return null;
+        }
+
         private static BasicWindow Matches(KeyValuePair<IntPtr, string> window, Predicate<BasicWindow> condition)
         {
             try
