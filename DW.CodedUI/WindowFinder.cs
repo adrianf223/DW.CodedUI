@@ -128,6 +128,14 @@ namespace DW.CodedUI
             return null;
         }
 
+        public static BasicWindow GetForegroundWindow()
+        {
+            var windowHandle = WinApi.GetForegroundWindow();
+            if (windowHandle == IntPtr.Zero)
+                return null;
+            return new BasicWindow(AutomationElement.FromHandle(windowHandle));
+        }
+
         private static BasicWindow Matches(KeyValuePair<IntPtr, string> window, Predicate<BasicWindow> condition)
         {
             try
