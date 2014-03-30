@@ -1,17 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 
 namespace ElementFinder
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class ShortViewModel : INotifyPropertyChanged
     {
-        public MainViewModel()
+        public ShortViewModel()
         {
             _interactionObserver = new InteractionObserver();
             _interactionObserver.TakeElements += HandleTakeElements;
 
             _elementsCatcher = new ElementsCatcher();
+            _elementsCatcher.QuickSearch = true;
             _elementsCatcher.Catched += HandleCatched;
 
             IsEnabled = true;
@@ -19,6 +21,7 @@ namespace ElementFinder
 
         private readonly InteractionObserver _interactionObserver;
         private readonly ElementsCatcher _elementsCatcher;
+        private Highlighter _highlighter;
 
         public AutomationElementInfo CurrentElement
         {
@@ -40,9 +43,15 @@ namespace ElementFinder
                 NotifyPropertyChanged("IsEnabled");
 
                 if (_isEnabled)
+                {
+                    HighlightElement();
                     _interactionObserver.Start();
+                }
                 else
+                {
+                    CloseHighlight();
                     _interactionObserver.Stop();
+                }
             }
         }
         private bool _isEnabled;
@@ -57,7 +66,7 @@ namespace ElementFinder
             }
         }
         private bool _isSearching;
-        
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
@@ -67,7 +76,27 @@ namespace ElementFinder
         private void HandleCatched(object sender, CatchedElementsEventArgs e)
         {
             CurrentElement = e.AutomationElementInfo;
+
+            HighlightElement();
+
             IsSearching = false;
+        }
+
+        private void HighlightElement()
+        {
+            CloseHighlight();
+
+            if (CurrentElement == null || !CurrentElement.IsAvailable || CurrentElement.AutomationElement.Current.IsOffscreen)
+                return;
+
+            _highlighter = new Highlighter();
+            _highlighter.Highlight(CurrentElement.AutomationElement);
+        }
+
+        private void CloseHighlight()
+        {
+            if (_highlighter != null)
+                _highlighter.Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

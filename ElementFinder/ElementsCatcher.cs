@@ -16,23 +16,46 @@ namespace ElementFinder
             _currentProcessId = Process.GetCurrentProcess().Id;
         }
 
+        private readonly int _currentProcessId;
+        private CancellationTokenSource _cancellationTokenSource;
+        private readonly Dispatcher _dispatcher;
+        private bool _quickSearch;
+
+        public event EventHandler<CatchedElementsEventArgs> Catched;
+
+        public bool QuickSearch
+        {
+            get { return _quickSearch; }
+            set
+            {
+                WaitForTask();
+                _quickSearch = value;
+            }
+        }
+
         public void BeginCatchElements()
         {
-            if (_cancellationTokenSource != null)
-            {
-                _cancellationTokenSource.Cancel();
-                while (_cancellationTokenSource != null)
-                    Thread.Sleep(10);
-            }
+            CancelCurrentTask();
 
             _cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = _cancellationTokenSource.Token;
             Task.Factory.StartNew(() => CatchElements(cancellationToken), cancellationToken);
         }
 
-        private readonly int _currentProcessId;
-        private CancellationTokenSource _cancellationTokenSource;
-        private readonly Dispatcher _dispatcher;
+        private void CancelCurrentTask()
+        {
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                WaitForTask();
+            }
+        }
+
+        private void WaitForTask()
+        {
+            while (_cancellationTokenSource != null)
+                Thread.Sleep(10);
+        }
 
         private void CatchElements(CancellationToken cancellationToken)
         {
@@ -55,7 +78,14 @@ namespace ElementFinder
                 Notify(null);
                 return;
             }
-            Notify(new AutomationElementInfo(element));
+
+            if (_quickSearch)
+            {
+                Notify(new AutomationElementInfo(element));
+                return;
+            }
+            // Search childs
+            // Search siblings?
         }
 
         private void Notify(AutomationElementInfo element)
@@ -63,8 +93,6 @@ namespace ElementFinder
             _cancellationTokenSource = null;
             _dispatcher.Invoke(new Action(() => OnCatched(element)));
         }
-
-        public event EventHandler<CatchedElementsEventArgs> Catched;
 
         private void OnCatched(AutomationElementInfo element)
         {

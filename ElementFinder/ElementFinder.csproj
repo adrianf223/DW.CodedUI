@@ -71,7 +71,8 @@
     <Compile Include="LargeView.xaml.cs">
       <DependentUpon>LargeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainViewModel.cs" />
+    <Compile Include="LargeViewModel.cs" />
+    <Compile Include="ShortViewModel.cs" />
     <Compile Include="ShortView.xaml.cs">
       <DependentUpon>ShortView.xaml</DependentUpon>
     </Compile>

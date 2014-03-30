@@ -8,6 +8,7 @@ namespace ElementFinder
         public LargeView()
         {
             InitializeComponent();
+            DataContext = new LargeViewModel();
         }
 
         public event EventHandler SwitchView;

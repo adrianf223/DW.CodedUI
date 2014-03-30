@@ -20,7 +20,7 @@
 
                 <Thumb DockPanel.Dock="Right" Cursor="SizeWE" Width="8" DragDelta="OnSizeDragDelta" MouseDoubleClick="OnDoubleClick" />
 
-                <ToggleButton Content="Enable" VerticalAlignment="Center" />
+                <ToggleButton Content="Enable" VerticalAlignment="Center" IsChecked="{Binding IsEnabled}" />
 
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
                     <Button Content="^" Click="DoSwitchView" Padding="4,0" />

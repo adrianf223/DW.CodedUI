@@ -10,6 +10,8 @@ namespace ElementFinder
         public ShortView()
         {
             InitializeComponent();
+
+            DataContext = new ShortViewModel();
         }
 
         public event EventHandler SwitchView;
