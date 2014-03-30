@@ -81,7 +81,7 @@ namespace DW.CodedUI.BasicElements
 
         public BasicButton CancelButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId("3").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId("2").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this)); }
         }
 
         public BasicButton ApplyButton

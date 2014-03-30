@@ -50,81 +50,16 @@ namespace DW.CodedUI
             }
         }
 
-        public static BasicMessageBox SearchMessageBox(Using use)
+        public static TWindow Search<TWindow>(Using use) where TWindow : BasicWindowBase
         {
-            return SearchMessageBox(use, new CombinableAnd());
+            return Search<TWindow>(use, new CombinableAnd());
         }
 
-        public static BasicMessageBox SearchMessageBox(Using use, And settings)
+        public static TWindow Search<TWindow>(Using use, And settings) where TWindow : BasicWindowBase
         {
             var window = Search(use, settings);
             if (window != null)
-                return new BasicMessageBox(window.AutomationElement);
-            return null;
-        }
-
-        public static BasicOpenFileDialog SearchOpenFileDialog(Using use)
-        {
-            return SearchOpenFileDialog(use, new CombinableAnd());
-        }
-
-        public static BasicOpenFileDialog SearchOpenFileDialog(Using use, And settings)
-        {
-            var window = Search(use, settings);
-            if (window != null)
-                return new BasicOpenFileDialog(window.AutomationElement);
-            return null;
-        }
-
-        public static BasicSaveFileDialog SearchSaveFileDialog(Using use)
-        {
-            return SearchSaveFileDialog(use, new CombinableAnd());
-        }
-
-        public static BasicSaveFileDialog SearchSaveFileDialog(Using use, And settings)
-        {
-            var window = Search(use, settings);
-            if (window != null)
-                return new BasicSaveFileDialog(window.AutomationElement);
-            return null;
-        }
-
-        public static BasicBrowseFolderDialog SearchBrowseFolderDialog(Using use)
-        {
-            return SearchBrowseFolderDialog(use, new CombinableAnd());
-        }
-
-        public static BasicBrowseFolderDialog SearchBrowseFolderDialog(Using use, And settings)
-        {
-            var window = Search(use, settings);
-            if (window != null)
-                return new BasicBrowseFolderDialog(window.AutomationElement);
-            return null;
-        }
-
-        public static BasicFontPickerDialog SearchFontPickerDialog(Using use)
-        {
-            return SearchFontPickerDialog(use, new CombinableAnd());
-        }
-
-        public static BasicFontPickerDialog SearchFontPickerDialog(Using use, And settings)
-        {
-            var window = Search(use, settings);
-            if (window != null)
-                return new BasicFontPickerDialog(window.AutomationElement);
-            return null;
-        }
-
-        public static BasicColorPickerDialog SearchColorPickerDialog(Using use)
-        {
-            return SearchColorPickerDialog(use, new CombinableAnd());
-        }
-
-        public static BasicColorPickerDialog SearchColorPickerDialog(Using use, And settings)
-        {
-            var window = Search(use, settings);
-            if (window != null)
-                return new BasicColorPickerDialog(window.AutomationElement);
+                return (TWindow)Activator.CreateInstance(typeof(TWindow), window.AutomationElement);
             return null;
         }
 

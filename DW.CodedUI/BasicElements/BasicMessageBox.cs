@@ -2,7 +2,7 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    public class BasicMessageBox : BasicElement
+    public class BasicMessageBox : BasicWindowBase
     {
         public BasicMessageBox(AutomationElement automationElement)
             : base(automationElement)
@@ -18,11 +18,6 @@ namespace DW.CodedUI.BasicElements
         private const string NoButtonId = "7";
         private const string IconId = "20";
         private const string TextId = "65535";
-
-        public string Title
-        {
-            get { return Name; }
-        }
 
         public BasicElement Icon
         {
@@ -44,7 +39,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var okButton = UI.GetChild<BasicButton>(By.AutomationId(OKButtonId), From.Element(this), With.NoAssert());
+                var okButton = UI.GetChild<BasicButton>(By.AutomationId(OKButtonId), From.Element(this), With.NoAssert().NoTimeout());
                 return okButton ?? CancelButton;
             }
         }
