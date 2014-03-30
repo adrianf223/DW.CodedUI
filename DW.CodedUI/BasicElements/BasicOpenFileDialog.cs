@@ -2,7 +2,7 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    public class BasicOpenFileDialog : BasicWindow
+    public class BasicOpenFileDialog : BasicDialog
     {
         public BasicOpenFileDialog(AutomationElement automationElement)
             : base(automationElement)

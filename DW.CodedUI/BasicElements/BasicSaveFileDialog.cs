@@ -2,7 +2,7 @@
 
 namespace DW.CodedUI.BasicElements
 {
-    public class BasicSaveFileDialog : BasicWindow
+    public class BasicSaveFileDialog : BasicDialog
     {
         public BasicSaveFileDialog(AutomationElement element)
             : base(element)

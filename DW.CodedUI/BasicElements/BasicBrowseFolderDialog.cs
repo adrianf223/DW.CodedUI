@@ -2,7 +2,7 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
-    public class BasicBrowseFolderDialog : BasicWindow
+    public class BasicBrowseFolderDialog : BasicDialog
     {
         public BasicBrowseFolderDialog(AutomationElement element)
             : base(element)
