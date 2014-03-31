@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Threading;
+using DW.CodedUI;
 using DW.CodedUI.BasicElements;
 
 namespace ElementFinder
@@ -17,80 +17,46 @@ namespace ElementFinder
         }
 
         private readonly int _currentProcessId;
-        private CancellationTokenSource _cancellationTokenSource;
         private readonly Dispatcher _dispatcher;
-        private bool _quickSearch;
 
         public event EventHandler<CatchedElementsEventArgs> Catched;
 
-        public bool QuickSearch
-        {
-            get { return _quickSearch; }
-            set
-            {
-                WaitForTask();
-                _quickSearch = value;
-            }
-        }
+        public bool QuickSearch { get; set; }
 
         public void BeginCatchElements()
         {
-            CancelCurrentTask();
-
-            _cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = _cancellationTokenSource.Token;
-            Task.Factory.StartNew(() => CatchElements(cancellationToken), cancellationToken);
+            Task.Factory.StartNew(CatchElements);
         }
 
-        private void CancelCurrentTask()
+        private void CatchElements()
         {
-            if (_cancellationTokenSource != null)
+            try
             {
-                _cancellationTokenSource.Cancel();
-                WaitForTask();
+                var position = System.Windows.Forms.Cursor.Position;
+                var element = AutomationElement.FromPoint(position);
+                if (element.Current.ProcessId == _currentProcessId)
+                {
+                    Notify(null);
+                    return;
+                }
+
+                if (QuickSearch)
+                {
+                    Notify(new AutomationElementInfo(element));
+                    return;
+                }
+
+                var tree = UI.GetFullUITree(element);
+                Notify(tree);
             }
-        }
-
-        private void WaitForTask()
-        {
-            while (_cancellationTokenSource != null)
-                Thread.Sleep(10);
-        }
-
-        private void CatchElements(CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
+            catch
             {
                 Notify(null);
-                return;
             }
-
-            var position = System.Windows.Forms.Cursor.Position;
-            var element = AutomationElement.FromPoint(position);
-            if (element.Current.ProcessId == _currentProcessId)
-            {
-                Notify(null);
-                return;
-            }
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                Notify(null);
-                return;
-            }
-
-            if (_quickSearch)
-            {
-                Notify(new AutomationElementInfo(element));
-                return;
-            }
-            // Search childs
-            // Search siblings?
         }
 
         private void Notify(AutomationElementInfo element)
         {
-            _cancellationTokenSource = null;
             _dispatcher.Invoke(new Action(() => OnCatched(element)));
         }
 

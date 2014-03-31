@@ -1,27 +1,32 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 
 namespace ElementFinder
 {
-    public class ShortViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
-        public ShortViewModel()
+        public MainViewModel()
         {
             _interactionObserver = new InteractionObserver();
             _interactionObserver.TakeElements += HandleTakeElements;
 
             _elementsCatcher = new ElementsCatcher();
-            _elementsCatcher.QuickSearch = true;
             _elementsCatcher.Catched += HandleCatched;
 
+            Elements = new ObservableCollection<AutomationElementInfo>();
+
+            QuickSearch = true;
             IsEnabled = true;
         }
 
         private readonly InteractionObserver _interactionObserver;
         private readonly ElementsCatcher _elementsCatcher;
         private Highlighter _highlighter;
+
+        public ObservableCollection<AutomationElementInfo> Elements { get; private set; }
 
         public AutomationElementInfo CurrentElement
         {
@@ -56,6 +61,18 @@ namespace ElementFinder
         }
         private bool _isEnabled;
 
+        public bool QuickSearch
+        {
+            get { return _quickSearch; }
+            set
+            {
+                _quickSearch = value;
+                NotifyPropertyChanged("QuickSearch");
+                _elementsCatcher.QuickSearch = value;
+            }
+        }
+        private bool _quickSearch;
+
         public bool IsSearching
         {
             get { return _isSearching; }
@@ -76,6 +93,8 @@ namespace ElementFinder
         private void HandleCatched(object sender, CatchedElementsEventArgs e)
         {
             CurrentElement = e.AutomationElementInfo;
+            Elements.Clear();
+            Elements.Add(CurrentElement);
 
             HighlightElement();
 

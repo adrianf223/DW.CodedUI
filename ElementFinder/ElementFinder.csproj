@@ -68,16 +68,13 @@
     <Compile Include="CatchedElementsEventArgs.cs" />
     <Compile Include="ElementsCatcher.cs" />
     <Compile Include="InteractionObserver.cs" />
-    <Compile Include="LargeView.xaml.cs">
-      <DependentUpon>LargeView.xaml</DependentUpon>
+    <Compile Include="MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LargeViewModel.cs" />
-    <Compile Include="ShortViewModel.cs" />
-    <Compile Include="ShortView.xaml.cs">
-      <DependentUpon>ShortView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,11 +99,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="LargeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShortView.xaml">
+    <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

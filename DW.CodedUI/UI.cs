@@ -224,6 +224,23 @@ namespace DW.CodedUI
 
         #endregion GetParent
 
+        public static AutomationElementInfo GetFullUITree(AutomationElement element)
+        {
+            var rootElementInfo = new AutomationElementInfo(element);
+            Read(rootElementInfo);
+            return rootElementInfo;
+        }
+
+        private static void Read(AutomationElementInfo rootElement)
+        {
+            foreach (var child in GetChildren(rootElement.AutomationElement))
+            {
+                var childElementInfo = new AutomationElementInfo(child);
+                rootElement.Children.Add(childElementInfo);
+                Read(childElementInfo);
+            }
+        }
+
         private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
         {
             var children = new List<AutomationElement>();
