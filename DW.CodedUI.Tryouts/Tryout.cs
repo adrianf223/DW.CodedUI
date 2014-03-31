@@ -38,7 +38,7 @@ namespace DW.CodedUI.Tryouts
             MouseEx.Click(button);
             var colorPickerDialog = WindowFinder.Search<BasicColorPickerDialog>(Using.Title("Farbe"));
             MouseEx.Click(colorPickerDialog.CancelButton);
-
+            
             MouseEx.Click(window.CloseButton);
         }
 

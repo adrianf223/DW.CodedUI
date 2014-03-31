@@ -137,5 +137,10 @@ namespace DW.CodedUI.BasicElements
 
             return string.Format("{0} [{1}]", name, automationId);
         }
+
+        public CombinableDo Do
+        {
+            get { return new CombinableDo(); }
+        }
     }
 }
