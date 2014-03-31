@@ -9,7 +9,7 @@ namespace DW.CodedUI.Tryouts
     public class Tryout
     {
         [TestMethod]
-        public void Method_TestCondition_ExpectedResult()
+        public void Method_TestCondition_ExpectedResult1()
         {
             Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
             var window = WindowFinder.Search(Using.Title("MainWindow"));
@@ -40,6 +40,12 @@ namespace DW.CodedUI.Tryouts
             MouseEx.Click(colorPickerDialog.CancelButton);
 
             MouseEx.Click(window.CloseButton);
+        }
+
+        [TestMethod]
+        public void Method_TestCondition_ExpectedResult2()
+        {
+            Do.Launch(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe").And.WaitCPUIdle(5);
         }
     }
 }

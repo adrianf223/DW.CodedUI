@@ -74,8 +74,11 @@
     <Compile Include="BasicElements\BasicDialog.cs" />
     <Compile Include="BasicElements\BasicWindowBase.cs" />
     <Compile Include="CombinableAnd.cs" />
+    <Compile Include="CombinableDo.cs" />
     <Compile Include="CombinableUsing.cs" />
     <Compile Include="CompareKind.cs" />
+    <Compile Include="Do.cs" />
+    <Compile Include="ExecutableNotAvailableException.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Properties\CommonMeta.cs" />
     <Compile Include="BasicElements\BasicButton.cs" />
