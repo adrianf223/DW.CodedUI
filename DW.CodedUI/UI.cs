@@ -224,6 +224,8 @@ namespace DW.CodedUI
 
         #endregion GetParent
 
+        #region GetFullUITree
+
         public static AutomationElementInfo GetFullUITree(AutomationElement element)
         {
             var rootElementInfo = new AutomationElementInfo(element);
@@ -240,6 +242,10 @@ namespace DW.CodedUI
                 Read(childElementInfo);
             }
         }
+
+        #endregion GetFullUITree
+
+        #region Internals
 
         private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
         {
@@ -279,5 +285,7 @@ namespace DW.CodedUI
                 return false;
             }
         }
+
+        #endregion Internals
     }
 }

@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="And.cs" />
     <Compile Include="AndCondition.cs" />
+    <Compile Include="BasicElementExtensions.cs" />
     <Compile Include="BasicElements\BasicBrowseFolderDialog.cs" />
     <Compile Include="BasicElements\BasicColorPickerDialog.cs" />
     <Compile Include="BasicElements\BasicFontPickerDialog.cs" />
