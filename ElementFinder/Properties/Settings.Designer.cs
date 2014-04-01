@@ -94,5 +94,17 @@ namespace ElementFinder.Properties {
                 this["Position"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HideEmptyEntries {
+            get {
+                return ((bool)(this["HideEmptyEntries"]));
+            }
+            set {
+                this["HideEmptyEntries"] = value;
+            }
+        }
     }
 }

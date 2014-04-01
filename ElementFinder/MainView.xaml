@@ -69,6 +69,9 @@
                                 <ToolBar>
                                     <ToggleButton Content="Expanded" IsChecked="{Binding ExpandAfterSearch}" x:Name="PART_SearchExpanded" ToolTip="Expand / Collapse All" />
                                 </ToolBar>
+                                <ToolBar>
+                                    <ToggleButton Content="Hide Empty" IsChecked="{Binding HideEmptyEntries}" ToolTip="Shows / Hides empty entries in the properties list" />
+                                </ToolBar>
                             </ToolBarTray>
                             
                             <StatusBar DockPanel.Dock="Bottom">
@@ -82,10 +85,11 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 
-                                <TreeView ItemsSource="{Binding Elements}" SelectedItemChanged="HandleSelectedItemChanged">
+                                <TreeView ItemsSource="{Binding Elements}" SelectedItemChanged="HandleSelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                     <TreeView.ItemContainerStyle>
                                         <Style TargetType="{x:Type TreeViewItem}">
                                             <Setter Property="IsExpanded" Value="{Binding IsChecked, ElementName=PART_SearchExpanded, Mode=OneWay}" />
+                                            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
                                         </Style>
                                     </TreeView.ItemContainerStyle>
                                     <TreeView.ItemTemplate>
@@ -108,6 +112,14 @@
                                 
                                 <GridSplitter Grid.Column="1" ResizeBehavior="PreviousAndNext" Width="4" />
 
+                                <TabControl Grid.Column="2">
+                                    <TabItem Header="AutomationElement" IsSelected="True">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                                            <ElementFinder:PropertiesControl Element="{Binding CurrentElement.AutomationElement}" HideEmptyEntries="{Binding HideEmptyEntries}" />
+                                        </ScrollViewer>
+                                    </TabItem>
+                                </TabControl>
+                                
                                 <ProgressBar Grid.ColumnSpan="3"
                                              IsIndeterminate="True"
                                              Width="200"

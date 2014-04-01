@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using ElementFinder.Properties;
@@ -97,6 +98,17 @@ namespace ElementFinder
         }
         private bool _expandAfterSearch;
 
+        public bool HideEmptyEntries
+        {
+            get { return _hideEmptyEntries; }
+            set
+            {
+                _hideEmptyEntries = value;
+                NotifyPropertyChanged("HideEmptyEntries");
+            }
+        }
+        private bool _hideEmptyEntries;
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
@@ -105,11 +117,17 @@ namespace ElementFinder
 
         private void HandleCatched(object sender, CatchedElementsEventArgs e)
         {
-            CurrentElement = e.AutomationElementInfo;
-            Elements.Clear();
-            Elements.Add(CurrentElement);
-
             IsSearching = false;
+
+            if (e.AutomationElementInfo == null)
+                return;
+
+            Elements.Clear();
+            Elements.Add(e.AutomationElementInfo);
+            CurrentElement = Elements.FirstOrDefault();
+
+            if (CurrentElement != null)
+                CurrentElement.IsSelected = true;
         }
 
         private void HighlightElement()

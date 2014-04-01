@@ -103,6 +103,7 @@ namespace ElementFinder
             mainViewModel.QuickSearch = Settings.Default.QuickSearch;
             mainViewModel.ExpandAfterSearch = Settings.Default.ExpandAfterSearch;
             mainViewModel.IsEnabled = Settings.Default.IsEnabled;
+            mainViewModel.HideEmptyEntries = Settings.Default.HideEmptyEntries;
         }
 
         private void SetPositionAndSize()
@@ -127,6 +128,7 @@ namespace ElementFinder
             Settings.Default.QuickSearch = mainViewModel.QuickSearch;
             Settings.Default.ExpandAfterSearch = mainViewModel.ExpandAfterSearch;
             Settings.Default.IsEnabled = mainViewModel.IsEnabled;
+            Settings.Default.HideEmptyEntries = mainViewModel.HideEmptyEntries;
             Settings.Default.IsShortView = _isShortView;
             if (_isShortView)
                 Settings.Default.Size = new Size((int)Width, (int)_oldHeight);
