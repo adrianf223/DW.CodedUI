@@ -18,7 +18,7 @@ namespace ElementFinder
 
             Elements = new ObservableCollection<AutomationElementInfo>();
 
-            QuickSearch = true;
+            QuickSearch = false;
             IsEnabled = true;
         }
 
@@ -35,6 +35,8 @@ namespace ElementFinder
             {
                 _currentElement = value;
                 NotifyPropertyChanged("CurrentElement");
+
+                HighlightElement();
             }
         }
         private AutomationElementInfo _currentElement;
@@ -95,8 +97,6 @@ namespace ElementFinder
             CurrentElement = e.AutomationElementInfo;
             Elements.Clear();
             Elements.Add(CurrentElement);
-
-            HighlightElement();
 
             IsSearching = false;
         }

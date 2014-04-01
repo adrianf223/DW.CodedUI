@@ -19,17 +19,22 @@
                     <Grid x:Name="SmallView" Visibility="Collapsed">
                         <Border BorderBrush="RosyBrown" BorderThickness="2">
                             <DockPanel>
-                                <Border Width="20" Background="LightGray" />
+                                <Border Width="20" Background="LightSkyBlue" />
 
                                 <TextBlock Text="ElementFinder" VerticalAlignment="Center" Margin="2,0" />
 
                                 <Thumb DockPanel.Dock="Right" Cursor="SizeWE" Width="8" DragDelta="OnSizeDragDelta" />
 
-                                <ToggleButton Content="Enable" VerticalAlignment="Center" IsChecked="{Binding IsEnabled}" />
-
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                                    <Button Content="^" Click="DoSwitchView" Padding="4,0" />
-                                    <Button Content="x" Click="CloseView" Padding="4,0" />
+                                    <ToggleButton Content="e" IsChecked="{Binding IsEnabled}" Padding="4,0" ToolTip="Enable/Disable" />
+                                    <Button Click="DoSwitchView" Padding="4,0" ToolTip="Switch to large view">
+                                        <TextBlock Text="^" RenderTransformOrigin="0.5, 0.5">
+                                            <TextBlock.RenderTransform>
+                                                <RotateTransform Angle="180" />
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Content="x" Click="CloseView" Padding="4,0" ToolTip="Close" />
                                 </StackPanel>
 
                                 <Grid Margin="2" VerticalAlignment="Center">
@@ -40,14 +45,14 @@
                                     </Grid.ColumnDefinitions>
 
                                     <DockPanel>
-                                        <Button Content="c" DockPanel.Dock="Right" Padding="2,0" VerticalAlignment="Center" />
+                                        <Button Content="c" DockPanel.Dock="Right" Padding="2,0" VerticalAlignment="Center" ToolTip="Copy AutomationId" />
                                         <TextBox Text="{Binding CurrentElement.AutomationId, Mode=OneWay}" />
                                     </DockPanel>
 
                                     <GridSplitter Grid.Column="1" Width="2" ResizeBehavior="PreviousAndNext" />
 
                                     <DockPanel Grid.Column="2">
-                                        <Button Content="c" DockPanel.Dock="Right" Padding="2,0" VerticalAlignment="Center" />
+                                        <Button Content="c" DockPanel.Dock="Right" Padding="2,0" VerticalAlignment="Center" ToolTip="Copy Name" />
                                         <TextBox Text="{Binding CurrentElement.Name, Mode=OneWay}" />
                                     </DockPanel>
                                 </Grid>
@@ -62,9 +67,13 @@
                         <DockPanel>
                             <ToolBarTray DockPanel.Dock="Top">
                                 <ToolBar>
-                                    <ToggleButton Content="Quick Search" IsChecked="{Binding QuickSearch}" />
+                                    <ToggleButton Content="Quick Search" IsChecked="{Binding QuickSearch}" ToolTip="Search only for the hovered element" />
                                 </ToolBar>
                             </ToolBarTray>
+                            
+                            <StatusBar DockPanel.Dock="Bottom">
+                                <StatusBarItem Content="Hold down Ctrl-Shift and mouse over elements to select them." />
+                            </StatusBar>
                             
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -73,10 +82,21 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 
-                                <TreeView ItemsSource="{Binding Elements}">
+                                <TreeView ItemsSource="{Binding Elements}" SelectedItemChanged="HandleSelectedItemChanged">
                                     <TreeView.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                            <TextBlock Text="{Binding }" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path x:Name="PART_Check" Fill="DarkBlue" Stretch="Uniform" Data="M 0,3 L 3,7 7,0 3,4 z" Width="16" VerticalAlignment="Center" Margin="0,0,2,0" Visibility="Hidden" />
+                                                <TextBlock Text="{Binding }" />
+                                            </StackPanel>
+                                            <HierarchicalDataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
+                                                    <Setter TargetName="PART_Check" Property="Fill" Value="WhiteSmoke" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding HasAutomationId}" Value="True">
+                                                    <Setter TargetName="PART_Check" Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </HierarchicalDataTemplate.Triggers>
                                         </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
                                 </TreeView>
@@ -94,9 +114,10 @@
                             </Grid>
                             
                         </DockPanel>
-                        
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <Button Content="^" Click="DoSwitchView" Padding="4,0" />
+                            <ToggleButton Content="e" IsChecked="{Binding IsEnabled}" Padding="4,0" ToolTip="Enable/Disable" />
+                            <Button Content="^" Click="DoSwitchView" Padding="4,0" ToolTip="Switch to small view" />
                         </StackPanel>
                     </Grid>
                 </Grid>

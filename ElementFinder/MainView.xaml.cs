@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using ElementFinder.Annotations;
+using DW.CodedUI.BasicElements;
 
 namespace ElementFinder
 {
@@ -13,8 +13,8 @@ namespace ElementFinder
             InitializeComponent();
             DataContext = new MainViewModel();
 
-            ShowSmallView();
             _oldHeight = 600;
+            ShowLargeView();
         }
 
         private double _oldHeight;
@@ -85,6 +85,14 @@ namespace ElementFinder
             var handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void HandleSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var viewModel = (MainViewModel)DataContext;
+            viewModel.CurrentElement = (AutomationElementInfo)e.NewValue;
+            
+            Focus();
         }
     }
 }
