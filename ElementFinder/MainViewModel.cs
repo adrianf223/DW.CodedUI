@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
+using ElementFinder.Properties;
 
 namespace ElementFinder
 {
@@ -18,7 +19,6 @@ namespace ElementFinder
 
             Elements = new ObservableCollection<AutomationElementInfo>();
 
-            QuickSearch = false;
             IsEnabled = true;
         }
 
@@ -96,17 +96,6 @@ namespace ElementFinder
             }
         }
         private bool _expandAfterSearch;
-
-        public bool IsAllExpanded
-        {
-            get { return _isAllExpanded; }
-            set
-            {
-                _isAllExpanded = value;
-                NotifyPropertyChanged("IsAllExpanded");
-            }
-        }
-        private bool _isAllExpanded;
 
         private void HandleTakeElements(object sender, EventArgs e)
         {

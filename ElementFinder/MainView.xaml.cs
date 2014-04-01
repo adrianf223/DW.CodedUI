@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
+using ElementFinder.Properties;
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace ElementFinder
 {
@@ -13,8 +16,7 @@ namespace ElementFinder
             InitializeComponent();
             DataContext = new MainViewModel();
 
-            _oldHeight = 600;
-            ShowLargeView();
+            SetPositionAndSize();
         }
 
         private double _oldHeight;
@@ -89,10 +91,55 @@ namespace ElementFinder
 
         private void HandleSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var viewModel = (MainViewModel)DataContext;
+            var viewModel = GetMainViewModel();
             viewModel.CurrentElement = (AutomationElementInfo)e.NewValue;
-            
+
             Focus();
+        }
+
+        private void HandleLoaded(object sender, RoutedEventArgs e)
+        {
+            var mainViewModel = GetMainViewModel();
+            mainViewModel.QuickSearch = Settings.Default.QuickSearch;
+            mainViewModel.ExpandAfterSearch = Settings.Default.ExpandAfterSearch;
+            mainViewModel.IsEnabled = Settings.Default.IsEnabled;
+        }
+
+        private void SetPositionAndSize()
+        {
+            Height = Settings.Default.Size.Height;
+            _oldHeight = Settings.Default.Size.Height;
+            Width = Settings.Default.Size.Width;
+            if (Settings.Default.IsShortView)
+                ShowSmallView();
+            else
+                ShowLargeView();
+            if (!Settings.Default.Position.IsEmpty)
+            {
+                Left = Settings.Default.Position.X;
+                Top = Settings.Default.Position.Y;
+            }
+        }
+
+        private void HandleClosing(object sender, CancelEventArgs e)
+        {
+            var mainViewModel = GetMainViewModel();
+            Settings.Default.QuickSearch = mainViewModel.QuickSearch;
+            Settings.Default.ExpandAfterSearch = mainViewModel.ExpandAfterSearch;
+            Settings.Default.IsEnabled = mainViewModel.IsEnabled;
+            Settings.Default.IsShortView = _isShortView;
+            if (_isShortView)
+                Settings.Default.Size = new Size((int)Width, (int)_oldHeight);
+            else
+                Settings.Default.Size = new Size((int)Width, (int)Height);
+            Settings.Default.Position = new Point((int)Left, (int)Top);
+
+            Settings.Default.Save();
+        }
+
+        private MainViewModel GetMainViewModel()
+        {
+            return (MainViewModel)DataContext;
         }
     }
 }

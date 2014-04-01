@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ElementFinder="clr-namespace:ElementFinder"
         MouseLeftButtonDown="HandleMouseLeftButtonDown"
+        Loaded="HandleLoaded"
+        Closing="HandleClosing"
         x:Name="MainView"
         WindowStyle="None"
         Title="ElementFinder"
@@ -65,7 +67,7 @@
                                     <ToggleButton Content="Quick Search" IsChecked="{Binding QuickSearch}" ToolTip="Search only for the hovered element" />
                                 </ToolBar>
                                 <ToolBar>
-                                    <ToggleButton Content="Expanded" x:Name="PART_SearchExpanded" ToolTip="Expand / Collapse All" />
+                                    <ToggleButton Content="Expanded" IsChecked="{Binding ExpandAfterSearch}" x:Name="PART_SearchExpanded" ToolTip="Expand / Collapse All" />
                                 </ToolBar>
                             </ToolBarTray>
                             
