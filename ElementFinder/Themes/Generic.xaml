@@ -16,11 +16,32 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type ElementFinder:PropertiesControl}">
+    <Style TargetType="{x:Type ElementFinder:AutomationPropertiesControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ElementFinder:PropertiesControl}">
-                    <ItemsPresenter />
+                <ControlTemplate TargetType="{x:Type ElementFinder:AutomationPropertiesControl}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ElementFinder:BasicPropertiesControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ElementFinder:BasicPropertiesControl}">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
+                            <TextBlock Text="Suggested BasicElement:" Margin="0,0,10,0" />
+                            <TextBlock Text="{TemplateBinding Title}" FontWeight="Bold" />
+                        </StackPanel>
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Black" DockPanel.Dock="Top" Margin="5" />
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

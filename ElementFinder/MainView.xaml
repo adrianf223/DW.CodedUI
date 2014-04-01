@@ -114,9 +114,10 @@
 
                                 <TabControl Grid.Column="2">
                                     <TabItem Header="AutomationElement" IsSelected="True">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                                            <ElementFinder:PropertiesControl Element="{Binding CurrentElement.AutomationElement}" HideEmptyEntries="{Binding HideEmptyEntries}" />
-                                        </ScrollViewer>
+                                        <ElementFinder:AutomationPropertiesControl Element="{Binding CurrentElement.AutomationElement}" HideEmptyEntries="{Binding HideEmptyEntries}" />
+                                    </TabItem>
+                                    <TabItem Header="BasicElement">
+                                        <ElementFinder:BasicPropertiesControl Element="{Binding CurrentElement.AutomationElement}" />
                                     </TabItem>
                                 </TabControl>
                                 

@@ -81,7 +81,7 @@
     <Compile Include="MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PropertiesControl.cs" />
+    <Compile Include="AutomationPropertiesControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
