@@ -86,6 +86,28 @@ namespace ElementFinder
         }
         private bool _isSearching;
 
+        public bool ExpandAfterSearch
+        {
+            get { return _expandAfterSearch; }
+            set
+            {
+                _expandAfterSearch = value;
+                NotifyPropertyChanged("ExpandAfterSearch");
+            }
+        }
+        private bool _expandAfterSearch;
+
+        public bool IsAllExpanded
+        {
+            get { return _isAllExpanded; }
+            set
+            {
+                _isAllExpanded = value;
+                NotifyPropertyChanged("IsAllExpanded");
+            }
+        }
+        private bool _isAllExpanded;
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
