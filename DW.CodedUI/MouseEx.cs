@@ -9,42 +9,72 @@ namespace DW.CodedUI
 {
     public static class MouseEx
     {
-        public static void Click(BasicElement element)
+        public static CombinableDo Click()
         {
-            Click(element, MouseButtons.Left, ModifierKeys.None, null);
+            Mouse.Click();
+            return new CombinableDo();
         }
 
-        public static void Click(BasicElement element, At relativePosition)
+        public static CombinableDo Click(ModifierKeys modifierKeys)
         {
-            Click(element, MouseButtons.Left, ModifierKeys.None, relativePosition);
+            Mouse.Click(modifierKeys);
+            return new CombinableDo();
         }
 
-        public static void Click(BasicElement element, ModifierKeys modifierKeys)
+        public static CombinableDo Click(MouseButtons button)
         {
-            Click(element, MouseButtons.Left, modifierKeys, null);
+            Mouse.Click(button);
+            return new CombinableDo();
         }
 
-        public static void Click(BasicElement element, ModifierKeys modifierKeys, At relativePosition)
+        public static CombinableDo Click(Point screenCoordinate)
         {
-            Click(element, MouseButtons.Left, modifierKeys, relativePosition);
+            Mouse.Click(screenCoordinate);
+            return new CombinableDo();
         }
 
-        public static void Click(BasicElement element, MouseButtons button)
+        public static CombinableDo Click(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinate)
         {
-            Click(element, button, ModifierKeys.None, null);
+            Mouse.Click(button, modifierKeys, screenCoordinate);
+            return new CombinableDo();
         }
 
-        public static void Click(BasicElement element, MouseButtons button, At relativePosition)
+        public static CombinableDo Click(BasicElement element)
         {
-            Click(element, button, ModifierKeys.None, relativePosition);
+            return Click(element, MouseButtons.Left, ModifierKeys.None, null);
         }
 
-        public static void Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
+        public static CombinableDo Click(BasicElement element, At relativePosition)
         {
-            Click(element, button, modifierKeys, null);
+            return Click(element, MouseButtons.Left, ModifierKeys.None, relativePosition);
         }
 
-        public static void Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
+        public static CombinableDo Click(BasicElement element, ModifierKeys modifierKeys)
+        {
+            return Click(element, MouseButtons.Left, modifierKeys, null);
+        }
+
+        public static CombinableDo Click(BasicElement element, ModifierKeys modifierKeys, At relativePosition)
+        {
+            return Click(element, MouseButtons.Left, modifierKeys, relativePosition);
+        }
+
+        public static CombinableDo Click(BasicElement element, MouseButtons button)
+        {
+            return Click(element, button, ModifierKeys.None, null);
+        }
+
+        public static CombinableDo Click(BasicElement element, MouseButtons button, At relativePosition)
+        {
+            return Click(element, button, ModifierKeys.None, relativePosition);
+        }
+
+        public static CombinableDo Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            return Click(element, button, modifierKeys, null);
+        }
+
+        public static CombinableDo Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
             var rect = element.Properties.BoundingRectangle;
 
@@ -55,44 +85,75 @@ namespace DW.CodedUI
                 ClickCentered(element, button, modifierKeys, rect);
             else
                 ClickRelative(element, button, modifierKeys, relativePosition);
+            return new CombinableDo();
         }
 
-        public static void DoubleClick(BasicElement element)
+        public static CombinableDo DoubleClick()
         {
-            DoubleClick(element, MouseButtons.Left, ModifierKeys.None, null);
+            Mouse.DoubleClick();
+            return new CombinableDo();
         }
 
-        public static void DoubleClick(BasicElement element, At relativePosition)
+        public static CombinableDo DoubleClick(ModifierKeys modifierKeys)
         {
-            DoubleClick(element, MouseButtons.Left, ModifierKeys.None, relativePosition);
+            Mouse.DoubleClick(modifierKeys);
+            return new CombinableDo();
         }
 
-        public static void DoubleClick(BasicElement element, ModifierKeys modifierKeys)
+        public static CombinableDo DoubleClick(MouseButtons button)
         {
-            DoubleClick(element, MouseButtons.Left, modifierKeys, null);
+            Mouse.DoubleClick(button);
+            return new CombinableDo();
         }
 
-        public static void DoubleClick(BasicElement element, ModifierKeys modifierKeys, At relativePosition)
+        public static CombinableDo DoubleClick(Point screenCoordinate)
         {
-            DoubleClick(element, MouseButtons.Left, modifierKeys, relativePosition);
+            Mouse.DoubleClick(screenCoordinate);
+            return new CombinableDo();
         }
 
-        public static void DoubleClick(BasicElement element, MouseButtons button)
+        public static CombinableDo DoubleClick(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinates)
         {
-            DoubleClick(element, button, ModifierKeys.None, null);
+            Mouse.DoubleClick(button, modifierKeys, screenCoordinates);
+            return new CombinableDo();
         }
 
-        public static void DoubleClick(BasicElement element, MouseButtons button, At relativePosition)
+        public static CombinableDo DoubleClick(BasicElement element)
         {
-            DoubleClick(element, button, ModifierKeys.None, relativePosition);
+            return DoubleClick(element, MouseButtons.Left, ModifierKeys.None, null);
         }
 
-        public static void DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
+        public static CombinableDo DoubleClick(BasicElement element, At relativePosition)
         {
-            DoubleClick(element, button, modifierKeys, null);
+            return DoubleClick(element, MouseButtons.Left, ModifierKeys.None, relativePosition);
         }
 
-        public static void DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
+        public static CombinableDo DoubleClick(BasicElement element, ModifierKeys modifierKeys)
+        {
+            return DoubleClick(element, MouseButtons.Left, modifierKeys, null);
+        }
+
+        public static CombinableDo DoubleClick(BasicElement element, ModifierKeys modifierKeys, At relativePosition)
+        {
+            return DoubleClick(element, MouseButtons.Left, modifierKeys, relativePosition);
+        }
+
+        public static CombinableDo DoubleClick(BasicElement element, MouseButtons button)
+        {
+            return DoubleClick(element, button, ModifierKeys.None, null);
+        }
+
+        public static CombinableDo DoubleClick(BasicElement element, MouseButtons button, At relativePosition)
+        {
+            return DoubleClick(element, button, ModifierKeys.None, relativePosition);
+        }
+
+        public static CombinableDo DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            return DoubleClick(element, button, modifierKeys, null);
+        }
+
+        public static CombinableDo DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
             var rect = element.Properties.BoundingRectangle;
 
@@ -103,6 +164,7 @@ namespace DW.CodedUI
                 DoubleClickCentered(element, button, modifierKeys, rect);
             else
                 DoubleClickRelative(element, button, modifierKeys, relativePosition);
+            return new CombinableDo();
         }
 
         private static void ClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rectangle rect)
