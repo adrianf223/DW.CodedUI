@@ -106,5 +106,17 @@ namespace ElementFinder.Properties {
                 this["HideEmptyEntries"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoCopyAutomationId {
+            get {
+                return ((bool)(this["AutoCopyAutomationId"]));
+            }
+            set {
+                this["AutoCopyAutomationId"] = value;
+            }
+        }
     }
 }

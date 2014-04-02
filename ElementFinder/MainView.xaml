@@ -71,6 +71,7 @@
                                 </ToolBar>
                                 <ToolBar>
                                     <ToggleButton Content="Hide Empty" IsChecked="{Binding HideEmptyEntries}" ToolTip="Shows / Hides empty entries in the properties list" />
+                                    <ToggleButton Content="Auto Copy ID" IsChecked="{Binding AutoCopyAutomationId}" ToolTip="If the catched UI element has an automation ID, it's copied to the clipboard automatically" />
                                 </ToolBar>
                             </ToolBarTray>
                             

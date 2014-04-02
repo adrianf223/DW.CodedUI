@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using ElementFinder.Properties;
@@ -109,6 +110,17 @@ namespace ElementFinder
         }
         private bool _hideEmptyEntries;
 
+        public bool AutoCopyAutomationId
+        {
+            get { return _autoCopyAutomationId; }
+            set
+            {
+                _autoCopyAutomationId = value;
+                NotifyPropertyChanged("AutoCopyAutomationId");
+            }
+        }
+        private bool _autoCopyAutomationId;
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
@@ -127,7 +139,12 @@ namespace ElementFinder
             CurrentElement = Elements.FirstOrDefault();
 
             if (CurrentElement != null)
+            {
                 CurrentElement.IsSelected = true;
+
+                if (CurrentElement.HasAutomationId)
+                    Clipboard.SetText(CurrentElement.AutomationId);
+            }
         }
 
         private void HighlightElement()

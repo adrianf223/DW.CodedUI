@@ -104,6 +104,7 @@ namespace ElementFinder
             mainViewModel.ExpandAfterSearch = Settings.Default.ExpandAfterSearch;
             mainViewModel.IsEnabled = Settings.Default.IsEnabled;
             mainViewModel.HideEmptyEntries = Settings.Default.HideEmptyEntries;
+            mainViewModel.AutoCopyAutomationId = Settings.Default.AutoCopyAutomationId;
         }
 
         private void SetPositionAndSize()
@@ -129,6 +130,7 @@ namespace ElementFinder
             Settings.Default.ExpandAfterSearch = mainViewModel.ExpandAfterSearch;
             Settings.Default.IsEnabled = mainViewModel.IsEnabled;
             Settings.Default.HideEmptyEntries = mainViewModel.HideEmptyEntries;
+            Settings.Default.AutoCopyAutomationId = mainViewModel.AutoCopyAutomationId;
             Settings.Default.IsShortView = _isShortView;
             if (_isShortView)
                 Settings.Default.Size = new Size((int)Width, (int)_oldHeight);
