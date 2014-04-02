@@ -113,14 +113,7 @@
                                 
                                 <GridSplitter Grid.Column="1" ResizeBehavior="PreviousAndNext" Width="4" />
 
-                                <TabControl Grid.Column="2">
-                                    <TabItem Header="AutomationElement" IsSelected="True">
-                                        <ElementFinder:AutomationPropertiesControl Element="{Binding CurrentElement.AutomationElement}" HideEmptyEntries="{Binding HideEmptyEntries}" />
-                                    </TabItem>
-                                    <TabItem Header="BasicElement">
-                                        <ElementFinder:BasicPropertiesControl Element="{Binding CurrentElement.AutomationElement}" />
-                                    </TabItem>
-                                </TabControl>
+                                <ElementFinder:AutomationPropertiesControl Grid.Column="2" Element="{Binding CurrentElement.AutomationElement}" HideEmptyEntries="{Binding HideEmptyEntries}" />
                                 
                                 <ProgressBar Grid.ColumnSpan="3"
                                              IsIndeterminate="True"
