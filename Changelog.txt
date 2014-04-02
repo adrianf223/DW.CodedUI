@@ -1,6 +1,49 @@
 
 
-2014-03-16    2.0.0.0    Initialize public assembly
+==============================
+Release 2.0.0.X
+==============================
+2014-04-02    ElementFinder: Add possibility to copy the automation id to the clipboard automatically
+2014-04-02    Let the MouseEx and KeyboardEx return the CombinableDo to be able to append additional actions
+2014-04-01    ElementFinder: Automatically select the first element in the tree
+2014-04-01    ElementFinder: Add possibility to hide empty properties
+2014-04-01    ElementFinder: Show item automation properties
+2014-04-01    ElementFinder: Load and save current application settings on close and loading
+2014-04-01    ElementFinder: Adjust style of the CopyableTextBox
+2014-04-01    ElementFinder: Add possibility to copy values from a text box
+2014-04-01    ElementFinder: Add toggle button for expand or collapse all after search
+2014-04-01    ElementFinder: Add window for unhandled exceptions
+2014-04-01    ElementFinder: Highlight the selected element in the elements tree
+2014-04-01    ElementFinder: Add possibility to enable and disable the ElementFinder out of the large view
+2014-04-01    ElementFinder: Show a symbol beside a found element if it has an automation id
+2014-04-01    ElementFinder: Add tooltips to UI elements
+2014-04-01    Add possibility to get children and parents from BasicElements
+2014-03-31    Add possibility to append do actions on basic elements
+2014-03-31    Implement chain-of-actions
+2014-03-31    Implement searching for the full UI tree 
+2014-03-31    ElementFinder: Bring small and large views together in one switchable view
+2014-03-30    ElementFinder: Add possibility to deactivate the element searching
+2014-03-30    ElementFinder: Add highlighting
+2014-03-30    ElementFinder: Implement first simple item search with the new ElementFinder in the ShortView
+2014-03-30    Merge searching for messagebox and dialogs into a generic method of the WindowFinder
+2014-03-30    Remove timeout on searching the single OK button to get rid of the changing automation ID in the windows message box
+2014-03-30    Fix wrong automation ID in BasicFontPickerDialog
+2014-03-30    Bring base object to the windows and dialogs to be used for the window searcher and for eliminating duplicate code
+2014-03-30    Add reading of the foreground window
+2014-03-30    Add search for font picker and color picker dialogs in the WindowSearcher
+2014-03-30    Add BasicColorPickerDialog
+2014-03-30    Let derive the dialogs from BasicDialog because they have not all functionality of BasicWindows
+2014-03-30    Add BasicFontPickerDialog
+2014-03-29    Add BasicSaveFileDialog and BasicBrowseFolderDialog
+2014-03-29    Adjust BasicOpenFileDialog for missing elements and to be more save to find the correct buttons
+2014-03-29    Add functionality to search for message boxes in the WindowFinder
+2014-03-29    Renew the WindowFinder to have the new syntax with much more functionality
+2014-03-29    Replace StringComparison enum by an own CompareKind for the UI object for a better element search
+2014-03-29    Remove MessageBoxHandler, this functionality is inside the BasicMessageBox
+2014-03-29    Replace BasicElementFinder by a newer UI object with much more possibilities
+2014-03-29    Adjust inner structure for 2.0.0.0. Break downgrade compatibility, it will be ensured after 2.0.0.0 or later
+2014-03-16    Take over all objects from 1.0.0.0
+==============================
 
 Version denotation:
 <Major> . <Incompatible Changes and new Features> . <Bugfixes and other corrections> . <Visual Studio Version>
