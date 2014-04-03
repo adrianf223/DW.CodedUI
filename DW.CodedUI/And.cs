@@ -34,8 +34,21 @@ namespace DW.CodedUI
             return combinableAndSetting.InstanceNumber(instanceNumber);
         }
 
+        public static CombinableAnd Interval(uint milliseconds)
+        {
+            var combinableWith = new CombinableAnd();
+            return combinableWith.Interval(milliseconds);
+        }
+
+        public static CombinableAnd NoInterval()
+        {
+            var combinableWith = new CombinableAnd();
+            return combinableWith.NoInterval();
+        }
+
         internal abstract List<AndCondition> GetConditions();
         internal abstract uint GetTimeout();
         internal abstract uint GetInstanceNumber();
+        internal abstract uint GetInterval();
     }
 }

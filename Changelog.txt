@@ -3,6 +3,7 @@
 ==============================
 Release 2.0.0.X
 ==============================
+2014-04-03    Add possibility to define an interval for searching for windows
 2014-04-03    Add possibility to define an interval for waiting of the CPU idle
 2014-04-03    Set the working directory of the proces called by the Do.Launch(*)
 2014-04-03    Add possibility to define an interval for searching of UI elements

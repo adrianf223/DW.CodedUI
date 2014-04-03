@@ -4,14 +4,14 @@ namespace DW.CodedUI
 {
     public class CombinableWith : With
     {
-        private readonly List<WithCondition> _conditions;
-        private uint _timeoutMilliseconds;
-        private uint _interval;
-
         internal CombinableWith()
         {
             _conditions = new List<WithCondition>();
         }
+
+        private readonly List<WithCondition> _conditions;
+        private uint _timeoutMilliseconds;
+        private uint _interval;
 
         public CombinableWith And
         {

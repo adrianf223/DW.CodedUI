@@ -6,6 +6,8 @@ namespace DW.CodedUI
         NoTimeout,
         Instance,
         Assert,
-        NoAssert
+        NoAssert,
+        Interval,
+        NoInterval
     }
 }

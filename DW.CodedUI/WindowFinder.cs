@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
@@ -24,6 +25,8 @@ namespace DW.CodedUI
             var useTimeout = settingsConditions.Contains(AndCondition.Timeout);
             var assertResult = settingsConditions.Contains(AndCondition.Assert);
             var checkInstance = settingsConditions.Contains(AndCondition.Instance);
+            var useInterval = settingsConditions.Contains(AndCondition.Interval);
+            var interval = settings.GetInterval();
 
             var watch = new Stopwatch();
             watch.Start();
@@ -47,6 +50,9 @@ namespace DW.CodedUI
                     if (!checkInstance || ++foundInstance == instanceNumber)
                         return matchingWindow;
                 }
+
+                if (useInterval)
+                    Thread.Sleep((int)interval);
             }
         }
 
