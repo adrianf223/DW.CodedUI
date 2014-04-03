@@ -10,10 +10,10 @@ namespace DW.CodedUI
             return combinableDo.Wait(milliseconds);
         }
 
-        public static CombinableDo WaitCPUIdle(uint mimimumPercent, uint maximumWaitTime = 60000)
+        public static CombinableDo WaitCPUIdle(uint mimimumPercent, uint maximumWaitTime = 60000, uint interval = 1000)
         {
             var combinableDo = new CombinableDo();
-            return combinableDo.WaitCPUIdle(mimimumPercent, maximumWaitTime);
+            return combinableDo.WaitCPUIdle(mimimumPercent, maximumWaitTime, interval);
         }
 
         public static CombinableDo Launch(string path, string arguments = null)

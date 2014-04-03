@@ -31,7 +31,7 @@ namespace DW.CodedUI
             {
                 var processStartInfo = new ProcessStartInfo();
                 processStartInfo.FileName = path;
-                if (arguments != null) 
+                if (arguments != null)
                     processStartInfo.Arguments = arguments;
                 processStartInfo.WorkingDirectory = Path.GetDirectoryName(path);
             }
@@ -43,7 +43,7 @@ namespace DW.CodedUI
             return this;
         }
 
-        public CombinableDo WaitCPUIdle(uint mimimumPercent, uint maximumWaitTime = 60000)
+        public CombinableDo WaitCPUIdle(uint mimimumPercent, uint maximumWaitTime = 60000, uint interval = 1000)
         {
             if (maximumWaitTime == 0)
                 throw new ArgumentOutOfRangeException("The maximumWaitTime (in milliseconds) cannot be 0");
@@ -72,6 +72,9 @@ namespace DW.CodedUI
 
                     if (cpuload.NextValue() < mimimumPercent)
                         return this;
+
+                    if (interval > 0)
+                        Thread.Sleep((int)interval);
                 }
             }
             catch (Exception ex)
