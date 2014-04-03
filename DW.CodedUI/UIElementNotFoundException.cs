@@ -5,12 +5,12 @@ namespace DW.CodedUI
 {
     public class UIElementNotFoundException : Exception
     {
-        public UIElementNotFoundException(By by, bool useTimeout, TimeSpan timeout, bool multiply)
-            : base(BuildMessage(by, useTimeout, timeout, multiply))
+        public UIElementNotFoundException(By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
+            : base(BuildMessage(by, useTimeout, useInterval, intervalTime, timeout, multiply))
         {
         }
 
-        private static string BuildMessage(By by, bool useTimeout, TimeSpan timeout, bool multiply)
+        private static string BuildMessage(By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
         {
             var builder = new StringBuilder();
             if (multiply)
@@ -27,6 +27,13 @@ namespace DW.CodedUI
             }
             else
                 builder.Append("Without timeout");
+            if (useInterval)
+            {
+                builder.Append("With interval: ");
+                builder.Append(intervalTime);
+            }
+            else
+                builder.Append("Without interval");
 
             return builder.ToString();
         }

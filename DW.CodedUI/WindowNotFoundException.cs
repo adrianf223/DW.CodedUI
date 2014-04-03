@@ -5,12 +5,12 @@ namespace DW.CodedUI
 {
     public class WindowNotFoundException : Exception
     {
-        public WindowNotFoundException(Using use, bool useTimeout, TimeSpan timeout)
-            : base(BuildMessage(use, useTimeout, timeout))
+        public WindowNotFoundException(Using use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
+            : base(BuildMessage(use, useTimeout, useInterval, intervalTime, timeout))
         {
         }
 
-        private static string BuildMessage(Using use, bool useTimeout, TimeSpan timeout)
+        private static string BuildMessage(Using use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
         {
             var builder = new StringBuilder();
             builder.AppendLine("The window could not be found.");
@@ -24,6 +24,13 @@ namespace DW.CodedUI
             }
             else
                 builder.Append("Without timeout");
+            if (useInterval)
+            {
+                builder.Append("With interval: ");
+                builder.Append(intervalTime);
+            }
+            else
+                builder.Append("Without interval");
 
             return builder.ToString();
         }

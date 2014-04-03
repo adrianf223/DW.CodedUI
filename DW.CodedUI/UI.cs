@@ -51,7 +51,7 @@ namespace DW.CodedUI
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new UIElementNotFoundException(by, useTimeout, watch.Elapsed, false);
+                        throw new UIElementNotFoundException(by, useTimeout, useInterval, interval, watch.Elapsed, false);
                     return null;
                 }
 
@@ -122,7 +122,7 @@ namespace DW.CodedUI
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new UIElementNotFoundException(by, useTimeout, watch.Elapsed, true);
+                        throw new UIElementNotFoundException(by, useTimeout, useInterval, interval, watch.Elapsed, true);
                     return foundItems;
                 }
 
@@ -211,7 +211,7 @@ namespace DW.CodedUI
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new UIElementNotFoundException(by, useTimeout, watch.Elapsed, false);
+                        throw new UIElementNotFoundException(by, useTimeout, useInterval, interval, watch.Elapsed, false);
                     return null;
                 }
 

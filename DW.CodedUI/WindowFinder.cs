@@ -35,7 +35,7 @@ namespace DW.CodedUI
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new WindowNotFoundException(use, useTimeout, watch.Elapsed);
+                        throw new WindowNotFoundException(use, useTimeout, useInterval, interval, watch.Elapsed);
                     return null;
                 }
 
