@@ -111,6 +111,8 @@ namespace DW.CodedUI
             var useTimeout = settings.Contains(WithCondition.Timeout);
             var timeout = with.GetTimeout();
             var assertResult = settings.Contains(WithCondition.Assert);
+            var useInterval = settings.Contains(WithCondition.Interval);
+            var interval = with.GetInterval();
 
             var foundItems = new List<TControl>();
             var watch = new Stopwatch();
@@ -127,6 +129,9 @@ namespace DW.CodedUI
                 foundItems.AddRange(StartSearchChildren<TControl>(sourceElement, condition));
                 if (foundItems.Any())
                     return foundItems;
+
+                if (useInterval)
+                    Thread.Sleep((int)interval);
             }
         }
 
@@ -196,6 +201,8 @@ namespace DW.CodedUI
             var useTimeout = settings.Contains(WithCondition.Timeout);
             var timeout = with.GetTimeout();
             var assertResult = settings.Contains(WithCondition.Assert);
+            var useInterval = settings.Contains(WithCondition.Interval);
+            var interval = with.GetInterval();
 
             var watch = new Stopwatch();
             watch.Start();
@@ -211,6 +218,9 @@ namespace DW.CodedUI
                 var foundItem = StartSearchParent<TControl>(sourceElement, condition);
                 if (foundItem != null)
                     return foundItem;
+
+                if (useInterval)
+                    Thread.Sleep((int)interval);
             }
         }
 
