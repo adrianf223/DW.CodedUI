@@ -2,8 +2,15 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a MessageBox.
+    /// </summary>
     public class BasicMessageBox : BasicWindowBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicMessageBox" /> class.
+        /// </summary>
+        /// <param name="automationElement">The automation control.</param>
         public BasicMessageBox(AutomationElement automationElement)
             : base(automationElement)
         {
@@ -19,22 +26,32 @@ namespace DW.CodedUI.BasicElements
         private const string IconId = "20";
         private const string TextId = "65535";
 
+        /// <summary>
+        /// The icon shown in the MessageBox if any; otherwise an exception is thrown.
+        /// </summary>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">The MessageBox does not contain an icon.</exception>
         public BasicElement Icon
         {
-            get { return UI.GetChild(By.AutomationId(IconId), From.Element(this)); }
+            get { return UI.GetChild(By.AutomationId(IconId), From.Element(this), With.NoTimeout()); }
         }
 
+        /// <summary>
+        /// Gets the text shown in the MessageBox if any; otherwise an empty string.
+        /// </summary>
         public string Text
         {
             get
             {
-                var textElement = UI.GetChild<BasicText>(By.AutomationId(TextId), From.Element(this));
+                var textElement = UI.GetChild<BasicText>(By.AutomationId(TextId), From.Element(this), With.NoTimeout().NoAssert());
                 if (textElement == null)
                     return string.Empty;
                 return textElement.Text;
             }
         }
 
+        /// <summary>
+        /// Gets the OK Button.
+        /// </summary>
         public BasicButton OKButton
         {
             get
@@ -44,34 +61,52 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the Cancel Button.
+        /// </summary>
         public BasicButton CancelButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId(CancelButtonId), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(CancelButtonId), From.Element(this), With.NoTimeout()); }
         }
 
+        /// <summary>
+        /// Gets the Abort Button.
+        /// </summary>
         public BasicButton AbortButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId(AbortButtonId), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(AbortButtonId), From.Element(this), With.NoTimeout()); }
         }
 
+        /// <summary>
+        /// Gets the Retry Button.
+        /// </summary>
         public BasicButton RetryButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId(RetryButtonId), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(RetryButtonId), From.Element(this), With.NoTimeout()); }
         }
 
+        /// <summary>
+        /// Gets the Ignore Button.
+        /// </summary>
         public BasicButton IgnoreButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId(IgnoreButtonId), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(IgnoreButtonId), From.Element(this), With.NoTimeout()); }
         }
 
+        /// <summary>
+        /// Gets the Yes Button.
+        /// </summary>
         public BasicButton YesButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId(YesButtonId), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(YesButtonId), From.Element(this), With.NoTimeout()); }
         }
 
+        /// <summary>
+        /// Gets the No Button.
+        /// </summary>
         public BasicButton NoButton
         {
-            get { return UI.GetChild<BasicButton>(By.AutomationId(NoButtonId), From.Element(this)); }
+            get { return UI.GetChild<BasicButton>(By.AutomationId(NoButtonId), From.Element(this), With.NoTimeout()); }
         }
     }
 }

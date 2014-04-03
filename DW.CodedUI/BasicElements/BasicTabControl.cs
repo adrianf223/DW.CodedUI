@@ -4,13 +4,23 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a TabControl.
+    /// </summary>
     public class BasicTabControl : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicTabControl" /> class
+        /// </summary>
+        /// <param name="automationElement">The automation control.</param>
         public BasicTabControl(AutomationElement automationElement)
             : base(automationElement)
         {
         }
 
+        /// <summary>
+        /// Gets the selected tab item if any; otherwise null.
+        /// </summary>
         public BasicTabItem SelectedItem
         {
             get
@@ -21,6 +31,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all available tab items.
+        /// </summary>
         public IEnumerable<BasicTabItem> Items
         {
             get
