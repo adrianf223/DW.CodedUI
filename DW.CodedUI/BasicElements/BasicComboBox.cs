@@ -5,14 +5,24 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ComboBox.
+    /// </summary>
     public class BasicComboBox : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicComboBox" /> class
+        /// </summary>
+        /// <param name="automationElement">The automation control.</param>
         public BasicComboBox(AutomationElement automationElement)
             : base(automationElement)
         {
             Unsafe = new UnsafeMethods(automationElement);
         }
 
+        /// <summary>
+        /// Contains unsafe methods for interact with the control directly.
+        /// </summary>
         public class UnsafeMethods
         {
             private readonly AutomationElement _automationElement;
@@ -22,18 +32,28 @@ namespace DW.CodedUI.BasicElements
                 _automationElement = automationElement;
             }
 
+            /// <summary>
+            /// Expands the ComboBox.
+            /// </summary>
             public void Expand()
             {
                 var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
                 pattern.Expand();
             }
 
+            /// <summary>
+            /// Collapses the ComboBox.
+            /// </summary>
             public void Collapse()
             {
                 var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
                 pattern.Collapse();
             }
 
+            /// <summary>
+            /// Sets the value if the ComboBox is editable.
+            /// </summary>
+            /// <param name="value">The value to set.</param>
             public void SetValue(string value)
             {
                 object valuePattern;
@@ -41,12 +61,20 @@ namespace DW.CodedUI.BasicElements
                     ((ValuePattern)valuePattern).SetValue(value);
             }
 
+            /// <summary>
+            /// Sets the vertical scroll position.
+            /// </summary>
+            /// <param name="verticalPercent">The percentual value to set.</param>
             public void SetScrollPercent(double verticalPercent)
             {
                 var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 pattern.SetScrollPercent(ScrollPattern.NoScroll, verticalPercent);
             }
 
+            /// <summary>
+            /// Scrolls up or down; Small is just like arrow up/down; Large is like page up/down.
+            /// </summary>
+            /// <param name="amount">The amount of lines to scroll</param>
             public void ScrollVertical(ScrollAmount amount)
             {
                 var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
@@ -54,8 +82,14 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets access to unsafe methods.
+        /// </summary>
         public UnsafeMethods Unsafe { get; private set; }
 
+        /// <summary>
+        /// Gets the selected item if any; otherwise null.
+        /// </summary>
         public BasicComboBoxItem SelectedItem
         {
             get
@@ -66,6 +100,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all created items. In WPF child elements gets created first if the ComboBox has been opened once.
+        /// </summary>
         public IEnumerable<BasicComboBoxItem> Items
         {
             get
@@ -76,7 +113,11 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        // TODO: Renew?
+        /// <summary>
+        /// Tries to find a ComboBoxItem by the given condition. It scrolls down automatically if needed.
+        /// </summary>
+        /// <param name="condition">The condition to check on every child control.</param>
+        /// <returns>The first found child element if any; otherwise null.</returns>
         public BasicComboBoxItem FindChildByCondition(Predicate<BasicComboBoxItem> condition)
         {
             Unsafe.Expand();
@@ -100,6 +141,9 @@ namespace DW.CodedUI.BasicElements
             return null;
         }
 
+        /// <summary>
+        /// Gets the text from the selected child if set; otherwise the written text.
+        /// </summary>
         public string Text
         {
             get
@@ -113,6 +157,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates if the ComboBox is readonly or not.
+        /// </summary>
         public bool IsReadOnly
         {
             get
@@ -124,6 +171,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates if the ComboBox is expanded or not.
+        /// </summary>
         public bool IsExpanded
         {
             get
@@ -133,6 +183,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the current vertical scroll position; -1 if nothing has to scroll.
+        /// </summary>
         public double VerticalScrollPercent
         {
             get
@@ -142,6 +195,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the current vertical view size in percent.
+        /// </summary>
         public double VerticalViewSize
         {
             get
@@ -151,6 +207,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates if the drop down content can scroll vertically.
+        /// </summary>
         public bool VerticallyScrollable
         {
             get

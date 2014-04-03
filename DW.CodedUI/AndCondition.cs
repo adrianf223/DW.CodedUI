@@ -1,6 +1,6 @@
 namespace DW.CodedUI
 {
-    public enum AndCondition
+    internal enum AndCondition
     {
         Timeout,
         NoTimeout,

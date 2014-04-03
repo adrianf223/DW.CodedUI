@@ -6,18 +6,36 @@ using System.Windows.Automation;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents information about an UI control.
+    /// </summary>
+    /// <remarks>This object is intended to be used in the ElementFinder.</remarks>
     public class AutomationElementInfo : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Gets the automation control.
+        /// </summary>
         public AutomationElement AutomationElement { get; private set; }
 
+        /// <summary>
+        /// Gets all available child controls.
+        /// </summary>
         public List<AutomationElementInfo> Children { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.AutomationElementInfo" /> class
+        /// </summary>
+        /// <param name="element">The automation control.</param>
         public AutomationElementInfo(AutomationElement element)
         {
             AutomationElement = element;
             Children = new List<AutomationElementInfo>();
         }
 
+        /// <summary>
+        /// Provides a good visible feedback of the control.
+        /// </summary>
+        /// <returns>A good name of the control with the automation ID if any.</returns>
         public override string ToString()
         {
             if (!IsAvailable)
@@ -34,6 +52,9 @@ namespace DW.CodedUI.BasicElements
             return string.Format("{0} [{1}]", name, automationId);
         }
 
+        /// <summary>
+        /// Gets the automation ID of the control if available; otherwise "&lt;no automation id&gt;" or "&lt;element is gone&gt;". Consider using <see cref="DW.CodedUI.BasicElements.AutomationElementInfo.HasAutomationId" />.
+        /// </summary>
         public string AutomationId
         {
             get
@@ -49,6 +70,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the name of the control if available; otherwise "&lt;no aname&gt;" or "&lt;element is gone&gt;".
+        /// </summary>
         public string Name
         {
             get
@@ -64,6 +88,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicated if the control has an automation id.
+        /// </summary>
         public bool HasAutomationId
         {
             get
@@ -75,6 +102,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value that indicates of the element is selected.
+        /// </summary>
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -87,6 +117,9 @@ namespace DW.CodedUI.BasicElements
 
         private bool _isSelected;
 
+        /// <summary>
+        /// Gets a value that indicates of the the control is still available.
+        /// </summary>
         public bool IsAvailable
         {
             get
@@ -103,8 +136,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        #region NotifyPropertyChanged
-
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged<T>(Expression<Func<T>> property)
@@ -116,7 +150,5 @@ namespace DW.CodedUI.BasicElements
                 handler(this, new PropertyChangedEventArgs(memberExpression.Member.Name));
             }
         }
-
-        #endregion NotifyPropertyChanged
     }
 }
