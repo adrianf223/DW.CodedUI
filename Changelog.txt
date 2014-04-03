@@ -3,6 +3,7 @@
 ==============================
 Release 2.0.0.X
 ==============================
+2014-04-03    Set the working directory of the proces called by the Do.Launch(*)
 2014-04-03    Add possibility to define an interval for searching of UI elements
 2014-04-02    ElementFinder: Add possibility to copy the automation id to the clipboard automatically
 2014-04-02    Let the MouseEx and KeyboardEx return the CombinableDo to be able to append additional actions

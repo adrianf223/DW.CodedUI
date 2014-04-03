@@ -24,15 +24,16 @@ namespace DW.CodedUI
 
         public CombinableDo Launch(string path, string arguments = null)
         {
-            if (!File.Exists(path))
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
                 throw new ExecutableNotAvailableException(path);
 
             try
             {
-                if (arguments == null)
-                    Process.Start(path);
-                else
-                    Process.Start(path, arguments);
+                var processStartInfo = new ProcessStartInfo();
+                processStartInfo.FileName = path;
+                if (arguments != null) 
+                    processStartInfo.Arguments = arguments;
+                processStartInfo.WorkingDirectory = Path.GetDirectoryName(path);
             }
             catch (Exception ex)
             {
