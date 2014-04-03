@@ -3,8 +3,15 @@ using System.Text;
 
 namespace DW.CodedUI
 {
+    /// <summary>
+    /// Represents errors that occur during launching an executable.
+    /// </summary>
     public class ExecutableNotAvailableException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.ExecutableNotAvailableException" /> class.
+        /// </summary>
+        /// <param name="path">The path of the executable to start.</param>
         public ExecutableNotAvailableException(string path)
             : base(BuildMessage(path))
         {
