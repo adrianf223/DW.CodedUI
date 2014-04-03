@@ -67,7 +67,7 @@ namespace DW.CodedUI
 
         public new CombinableWith NoInterval()
         {
-            if (!_conditions.Contains(WithCondition.NoIntervl))
+            if (!_conditions.Contains(WithCondition.NoInterval))
                 _conditions.Add(WithCondition.NoInterval);
             return this;
         }
@@ -91,7 +91,7 @@ namespace DW.CodedUI
 
         internal override uint GetInterval()
         {
-            return _intervall;
+            return _interval;
         }
 
         private void AdjustTimeoutCondition(List<WithCondition> conditios)
