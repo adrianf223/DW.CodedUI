@@ -47,5 +47,15 @@ namespace DW.CodedUI.Tryouts
         {
             Do.Launch(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe").And.WaitCPUIdle(5);
         }
+
+        [TestMethod]
+        public void Method_TestCondition_ExpectedResult3()
+        {
+            Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
+            var window = WindowFinder.Search(Using.Title("MainWindow"));
+
+            var button = UI.GetChild(By.AutomationId("demo"), From.Element(window), With.NoInterval());
+            MouseEx.Click(button);
+        }
     }
 }

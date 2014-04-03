@@ -6,6 +6,7 @@ namespace DW.CodedUI
     {
         private readonly List<WithCondition> _conditions;
         private uint _timeoutMilliseconds;
+        private uint _interval;
 
         internal CombinableWith()
         {
@@ -51,6 +52,26 @@ namespace DW.CodedUI
             return this;
         }
 
+        public new CombinableWith Interval(uint milliseconds)
+        {
+            _interval = milliseconds;
+            if (milliseconds == 0)
+            {
+                _conditions.Remove(WithCondition.Interval);
+                return NoInterval();
+            }
+            if (!_conditions.Contains(WithCondition.Interval))
+                _conditions.Add(WithCondition.Interval);
+            return this;
+        }
+
+        public new CombinableWith NoInterval()
+        {
+            if (!_conditions.Contains(WithCondition.NoIntervl))
+                _conditions.Add(WithCondition.NoInterval);
+            return this;
+        }
+
         internal override List<WithCondition> GetConditions()
         {
             var conditios = new List<WithCondition>();
@@ -58,6 +79,7 @@ namespace DW.CodedUI
 
             AdjustTimeoutCondition(conditios);
             AdjustAssertCondition(conditios);
+            AdjustIntervalCondition(conditios);
 
             return conditios;
         }
@@ -65,6 +87,11 @@ namespace DW.CodedUI
         internal override uint GetTimeout()
         {
             return _timeoutMilliseconds;
+        }
+
+        internal override uint GetInterval()
+        {
+            return _intervall;
         }
 
         private void AdjustTimeoutCondition(List<WithCondition> conditios)
@@ -88,6 +115,16 @@ namespace DW.CodedUI
                 conditios.Remove(WithCondition.Assert);
             if (conditios.Contains(WithCondition.Assert))
                 conditios.Remove(WithCondition.NoAssert);
+        }
+
+        private void AdjustIntervalCondition(List<WithCondition> conditios)
+        {
+            if (!conditios.Contains(WithCondition.NoInterval) && !conditios.Contains(WithCondition.Interval))
+                conditios.Add(WithCondition.NoInterval);
+            if (conditios.Contains(WithCondition.NoInterval))
+                conditios.Remove(WithCondition.Interval);
+            if (conditios.Contains(WithCondition.Interval))
+                conditios.Remove(WithCondition.NoInterval);
         }
     }
 }

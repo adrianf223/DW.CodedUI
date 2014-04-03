@@ -6,5 +6,7 @@
         NoTimeout,
         Assert,
         NoAssert,
+        Interval,
+        NoInterval
     }
 }

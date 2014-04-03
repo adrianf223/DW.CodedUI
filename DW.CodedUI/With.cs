@@ -28,7 +28,20 @@ namespace DW.CodedUI
             return combinableWith.NoAssert();
         }
 
+        public static CombinableWith Interval(uint milliseconds)
+        {
+            var combinableWith = new CombinableWith();
+            return combinableWith.Interval(milliseconds);
+        }
+
+        public static CombinableWith NoInterval()
+        {
+            var combinableWith = new CombinableWith();
+            return combinableWith.NoInterval();
+        }
+
         internal abstract List<WithCondition> GetConditions();
         internal abstract uint GetTimeout();
+        internal abstract uint GetInterval();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 
@@ -40,6 +41,8 @@ namespace DW.CodedUI
             var useTimeout = settings.Contains(WithCondition.Timeout);
             var timeout = with.GetTimeout();
             var assertResult = settings.Contains(WithCondition.Assert);
+            var useInterval = settings.Contains(WithCondition.Interval);
+            var interval = with.GetInterval();
 
             var watch = new Stopwatch();
             watch.Start();
@@ -55,6 +58,9 @@ namespace DW.CodedUI
                 var foundItem = StartSearchChild<TControl>(sourceElement, condition);
                 if (foundItem != null)
                     return foundItem;
+
+                if (useInterval)
+                    Thread.Sleep((int)interval);
             }
         }
 
