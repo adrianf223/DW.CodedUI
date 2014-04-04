@@ -2,18 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
-using DW.CodedUI.UITree;
 
 namespace DW.CodedUI.BasicElements
 {
+    /// <summary>
+    /// Represents a ListBox or ListView.
+    /// </summary>
     public class BasicList : BasicElement
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicList" /> class.
+        /// </summary>
+        /// <param name="automationElement">The automation control.</param>
         public BasicList(AutomationElement automationElement)
             : base(automationElement)
         {
             Unsafe = new UnsafeMethods(automationElement);
         }
 
+        /// <summary>
+        /// Contains unsafe methods for interact with the control directly.
+        /// </summary>
         public class UnsafeMethods
         {
             private readonly AutomationElement _automationElement;
@@ -23,24 +32,42 @@ namespace DW.CodedUI.BasicElements
                 _automationElement = automationElement;
             }
 
+            /// <summary>
+            /// Scrolls inside the visible range; Small is just like arrow up/down; Large is like page up/down.
+            /// </summary>
+            /// <param name="horizontalAmount">The amount of characters to scroll.</param>
+            /// <param name="verticalAmount">The amount of lines to scroll.</param>
             public void Scroll(ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
             {
                 var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 pattern.Scroll(horizontalAmount, verticalAmount);
             }
 
+            /// <summary>
+            /// Scrolls inside the visible range horizontal; Small is just like arrow up/down; Large is like page up/down.
+            /// </summary>
+            /// <param name="amount">The amount of characters to scroll.</param>
             public void ScrollHorizontal(ScrollAmount amount)
             {
                 var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 pattern.ScrollHorizontal(amount);
             }
 
+            /// <summary>
+            /// Scrolls inside the visible range vertical; Small is just like arrow up/down; Large is like page up/down.
+            /// </summary>
+            /// <param name="amount">The amount of lines to scroll.</param>
             public void ScrollVertical(ScrollAmount amount)
             {
                 var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 pattern.ScrollVertical(amount);
             }
 
+            /// <summary>
+            /// Sets the horizontal and vertical scroll position in percent.
+            /// </summary>
+            /// <param name="horizontalPercent">The horizontal percentual value to set.</param>
+            /// <param name="verticalPercent">The vertical percentual value to set.</param>
             public void SetScrollPercent(double horizontalPercent, double verticalPercent)
             {
                 var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
@@ -48,8 +75,14 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets access to unsafe methods.
+        /// </summary>
         public UnsafeMethods Unsafe { get; private set; }
 
+        /// <summary>
+        /// Gets a value that indicates if the ListBox/ListView allows multi selection or not.
+        /// </summary>
         public bool CanMultiSelect
         {
             get
@@ -59,6 +92,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the selected ListViewItems\ListBoxItems.
+        /// </summary>
         public IEnumerable<BasicListItem> SelectedItems
         {
             get
@@ -68,20 +104,26 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets all available ListViewItems\ListBoxItems. In WPF by default list items gets created first as soon they became visible.
+        /// </summary>
         public IEnumerable<BasicListItem> Items
         {
             get
             {
-                if (AutomationElement.Current.ClassName == "ListBox")
-                    return BasicElementFinder.FindChildrenByClassName<BasicListItem>(AutomationElement, "ListBoxItem");
-                return BasicElementFinder.FindChildrenByClassName<BasicListItem>(AutomationElement, "ListViewItem");
+                return UI.GetChildren<BasicListItem>(By.ClassName("ListBoxItem").Or.ClassName("ListViewItem"), From.Element(this));
             }
         }
 
-        public BasicListItem FindChildByCondition(Func<BasicListItem, bool> condition)
+        /// <summary>
+        /// Tries to find a ListBoxItem/ListViewItem by the given condition. It scrolls down automatically if needed.
+        /// </summary>
+        /// <param name="condition">The condition to check on every child control.</param>
+        /// <returns>The first found child element if any; otherwise null.</returns>
+        public BasicListItem FindChildByCondition(Predicate<BasicListItem> condition)
         {
-            var automationElementCondition = new Func<AutomationElement, bool>(element => condition.Invoke(new BasicListItem(element)));
-            var item = BasicElementFinder.FindChildByCondition<BasicListItem>(AutomationElement, automationElementCondition);
+            var automationElementCondition = new Predicate<BasicElement>(element => condition.Invoke(new BasicListItem(element.AutomationElement)));
+            var item = UI.GetChild<BasicListItem>(By.Condition(automationElementCondition), From.Element(this));
             if (item != null)
                 return item;
             if (VerticalScrollPercent == -1)
@@ -89,7 +131,7 @@ namespace DW.CodedUI.BasicElements
             while (VerticalScrollPercent < 100)
             {
                 Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
-                item = BasicElementFinder.FindChildByCondition<BasicListItem>(AutomationElement, automationElementCondition);
+                item = UI.GetChild<BasicListItem>(By.Condition(automationElementCondition), From.Element(this));
                 if (item != null)
                     return item;
             }
@@ -97,6 +139,9 @@ namespace DW.CodedUI.BasicElements
             return null;
         }
 
+        /// <summary>
+        /// Gets the current vertical scroll position; -1 if nothing has to scroll.
+        /// </summary>
         public double HorizontalScrollPercent
         {
             get
@@ -106,6 +151,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the current horizontal view size in percent.
+        /// </summary>
         public double HorizontalViewSize
         {
             get
@@ -115,6 +163,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets a valuie that indicates if the ListBox/ListView can scroll horizontally.
+        /// </summary>
         public bool HorizontallyScrollable
         {
             get
@@ -124,6 +175,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the current vertical scroll position; -1 if nothing has to scroll.
+        /// </summary>
         public double VerticalScrollPercent
         {
             get
@@ -133,6 +187,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the current vertical view size in percent.
+        /// </summary>
         public double VerticalViewSize
         {
             get
@@ -142,6 +199,9 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates if the ListBox\ListView can scroll vertically.
+        /// </summary>
         public bool VerticallyScrollable
         {
             get
@@ -151,6 +211,11 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the amount of columns.
+        /// </summary>
+        /// <remarks>Not supported for a ListBox.</remarks>
+        /// <exception cref="System.NotSupportedException">The element does not support ColumnCount.</exception>
         public int ColumnCount
         {
             get
@@ -162,6 +227,11 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
+        /// <summary>
+        /// Gets the amount of rows.
+        /// </summary>
+        /// <remarks>Not supported for a ListBox.</remarks>
+        /// <exception cref="System.NotSupportedException">The element does not support RowCount.</exception>
         public int RowCount
         {
             get
@@ -173,7 +243,15 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        public BasicElement GetItem(int row, int column) // TODO: Try to put into specific BasicElement
+        /// <summary>
+        /// Returns the BasicElement from the cell.
+        /// </summary>
+        /// <param name="row">The item row.</param>
+        /// <param name="column">The item column.</param>
+        /// <returns>The BasicElement.</returns>
+        /// <remarks>Not supported for a ListBox.</remarks>
+        /// <exception cref="System.NotSupportedException">The element does not support GetItem.</exception>
+        public BasicElement GetItem(int row, int column)
         {
             object pattern;
             if (AutomationElement.TryGetCurrentPattern(GridPattern.Pattern, out pattern))
@@ -181,7 +259,13 @@ namespace DW.CodedUI.BasicElements
             throw new NotSupportedException(string.Format("The '{0}' does not support GetItem.", AutomationElement.Current.ClassName));
         }
 
-        public IEnumerable<BasicElement> GetColumnHeaders() // TODO: Put to BasicGridViewColumnHeader[]
+        /// <summary>
+        /// Returns the column headers of the ListView.
+        /// </summary>
+        /// <returns>The column headers.</returns>
+        /// <remarks>Not supported for a ListBox.</remarks>
+        /// <exception cref="System.NotSupportedException">The element does not support GetColumnHeaders.</exception>
+        public IEnumerable<BasicElement> GetColumnHeaders()
         {
             object pattern;
             if (AutomationElement.TryGetCurrentPattern(TablePattern.Pattern, out pattern))

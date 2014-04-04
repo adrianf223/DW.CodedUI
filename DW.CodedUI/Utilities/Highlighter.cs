@@ -5,16 +5,26 @@ using DW.CodedUI.Internal;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Shows you an colored border on a UI control.
+    /// </summary>
     public class Highlighter : Form
     {
         private Panel _mainPanel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.Utilities" /> class.
+        /// </summary>
         public Highlighter()
         {
             InitializeComponent();
             Hide();
         }
 
+        /// <summary>
+        /// Highlight the given control.
+        /// </summary>
+        /// <param name="element">The control to highlight.</param>
         public void Highlight(AutomationElement element)
         {
             Highlight(new Rectangle((int)element.Current.BoundingRectangle.Left,
@@ -23,6 +33,10 @@ namespace DW.CodedUI.Utilities
                                     (int)element.Current.BoundingRectangle.Height));
         }
 
+        /// <summary>
+        /// Highlight the given region.
+        /// </summary>
+        /// <param name="region">The region to highlight.</param>
         public void Highlight(Rectangle region)
         {
             Bounds = new Rectangle(2, 2, 2, 2);

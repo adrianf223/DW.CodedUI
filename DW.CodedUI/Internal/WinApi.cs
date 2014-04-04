@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using DW.CodedUI.Application;
 
 namespace DW.CodedUI.Internal
 {
