@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace DW.CodedUI
 {
+    /// <summary>
+    /// Defines all possibile settings to be used by searching for UI elements. See <see cref="DW.CodedUI.UI" />.
+    /// </summary>
     public class CombinableWith : With
     {
         internal CombinableWith()
@@ -13,11 +16,19 @@ namespace DW.CodedUI
         private uint _timeoutMilliseconds;
         private uint _interval;
 
+        /// <summary>
+        /// Gets a combinable With to be able to append additional conditions.
+        /// </summary>
         public CombinableWith And
         {
             get { return this; }
         }
 
+        /// <summary>
+        /// The UI element should be searched again and again as long this timeout is not elapsed.
+        /// </summary>
+        /// <param name="milliseconds">The timeout in milliseconds.</param>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
         public new CombinableWith Timeout(uint milliseconds)
         {
             _timeoutMilliseconds = milliseconds;
@@ -31,6 +42,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The UI element should be searched just once.
+        /// </summary>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
         public new CombinableWith NoTimeout()
         {
             if (!_conditions.Contains(WithCondition.NoTimeout))
@@ -38,6 +53,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// If the UI element is not found an exception has to be thrown.
+        /// </summary>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
         public new CombinableWith Assert()
         {
             if (!_conditions.Contains(WithCondition.Assert))
@@ -45,6 +64,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// If the UI element is not found no exception has to be thrown. In this case the Search returns null.
+        /// </summary>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
         public new CombinableWith NoAssert()
         {
             if (!_conditions.Contains(WithCondition.NoAssert))
@@ -52,6 +75,11 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The UI is searching for UI elements again and again as soon the timeout is not ellapsed. This defines the wait time beween each search run.
+        /// </summary>
+        /// <param name="milliseconds">The wait time in milliseconds between the searches</param>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
         public new CombinableWith Interval(uint milliseconds)
         {
             _interval = milliseconds;
@@ -65,6 +93,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The UI is searching for windows again and again as soon the timeout is not ellapsed. This defines that there is no wait time between each search run.
+        /// </summary>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
         public new CombinableWith NoInterval()
         {
             if (!_conditions.Contains(WithCondition.NoInterval))

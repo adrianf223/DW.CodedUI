@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace DW.CodedUI
 {
+    /// <summary>
+    /// Defines all possibile settings to be used by searching for windows. See <see cref="DW.CodedUI.WindowFinder" />.
+    /// </summary>
     public class CombinableAnd : And
     {
         internal CombinableAnd()
@@ -9,16 +12,24 @@ namespace DW.CodedUI
             _conditions = new List<AndCondition>();
         }
 
-        private List<AndCondition> _conditions;
+        private readonly List<AndCondition> _conditions;
         private uint _timeoutMilliseconds;
         private uint _instanceNumber;
         private uint _interval;
 
+        /// <summary>
+        /// Gets a combinable And to be able to append additional settings.
+        /// </summary>
         public CombinableAnd And
         {
             get { return this; }
         }
 
+        /// <summary>
+        /// The window should be searched again and again as long this timeout is not elapsed.
+        /// </summary>
+        /// <param name="milliseconds">The timeout in milliseconds.</param>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd Timeout(uint milliseconds)
         {
             _timeoutMilliseconds = milliseconds;
@@ -27,6 +38,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The window should be searched just once.
+        /// </summary>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd NoTimeout()
         {
             if (!_conditions.Contains(AndCondition.NoTimeout))
@@ -34,6 +49,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// If the window is not found an exception has to be thrown.
+        /// </summary>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd Assert()
         {
             if (!_conditions.Contains(AndCondition.Assert))
@@ -41,6 +60,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// If the window is not found no exception has to be thrown. In this case the Search returns null.
+        /// </summary>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd NoAssert()
         {
             if (!_conditions.Contains(AndCondition.NoAssert))
@@ -48,6 +71,11 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// If multiple windows got found the N. window get returned.
+        /// </summary>
+        /// <param name="instanceNumber">The instance number N.</param>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd InstanceNumber(uint instanceNumber)
         {
             _instanceNumber = instanceNumber;
@@ -58,6 +86,11 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The WindowFinder is searching for windows again and again as soon the timeout is not ellapsed. This defines the wait time beween each search run.
+        /// </summary>
+        /// <param name="milliseconds">The wait time in milliseconds between the searches</param>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd Interval(uint milliseconds)
         {
             _interval = milliseconds;
@@ -71,6 +104,10 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The WindowFinder is searching for windows again and again as soon the timeout is not ellapsed. This defines that there is no wait time between each search run.
+        /// </summary>
+        /// <returns>A combinable And to be able to append additional settings.</returns>
         public new CombinableAnd NoInterval()
         {
             if (!_conditions.Contains(AndCondition.NoInterval))
