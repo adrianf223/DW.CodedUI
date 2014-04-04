@@ -1,7 +1,5 @@
-﻿using System.Threading;
-using DW.CodedUI.Application;
-using DW.CodedUI.Interaction;
-using DW.CodedUI.UITree;
+﻿using System.Diagnostics;
+using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,59 +9,53 @@ namespace DW.CodedUI.Tryouts
     public class Tryout
     {
         [TestMethod]
-        public void ApplicationFactory_StartMinimizeMaximizeAndClose()
+        public void Method_TestCondition_ExpectedResult1()
         {
-            ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
-            Thread.Sleep(3000);
-            var window = WindowFinder.Search("AutomationEle");
-            Thread.Sleep(3000);
+            Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
+            var window = WindowFinder.Search(Using.Title("MainWindow"));
 
-            Assert.AreEqual("AutomationElementFinder", window.Title);
+            var button = UI.GetChild(By.AutomationId("1001"), From.Element(window));
+            MouseEx.Click(button);
+            var messageBox = WindowFinder.Search<BasicMessageBox>(Using.Title("title"));
+            MouseEx.Click(messageBox.OKButton);
 
-            MouseEx.Click(window.TitleBar);
-            Thread.Sleep(3000);
+            button = UI.GetChild(By.AutomationId("1002"), From.Element(window));
+            MouseEx.Click(button);
+            var openfileDialog = WindowFinder.Search<BasicOpenFileDialog>(Using.Title("Öffnen"));
+            MouseEx.Click(openfileDialog.CancelButton);
 
-            MouseEx.Click(window.MaximizeButton);
-            Thread.Sleep(3000);
+            button = UI.GetChild(By.AutomationId("1003"), From.Element(window));
+            MouseEx.Click(button);
+            var saveFileDialog = WindowFinder.Search<BasicSaveFileDialog>(Using.Title("Speichern"));
+            MouseEx.Click(saveFileDialog.CancelButton);
 
-            MouseEx.Click(window.RestoreButton);
-            Thread.Sleep(3000);
+            button = UI.GetChild(By.AutomationId("1004"), From.Element(window));
+            MouseEx.Click(button);
+            var fontPickerDialog = WindowFinder.Search<BasicFontPickerDialog>(Using.Title("Schriftart"));
+            MouseEx.Click(fontPickerDialog.CancelButton);
 
-            MouseEx.Click(window.MinimizeButton);
-            Thread.Sleep(3000);
-
-            window.Unsafe.Normalize();
-            Thread.Sleep(3000);
-
+            button = UI.GetChild(By.AutomationId("1005"), From.Element(window));
+            MouseEx.Click(button);
+            var colorPickerDialog = WindowFinder.Search<BasicColorPickerDialog>(Using.Title("Farbe"));
+            MouseEx.Click(colorPickerDialog.CancelButton);
+            
             MouseEx.Click(window.CloseButton);
         }
 
         [TestMethod]
-        public void WindowFinder_StartMinimizeMaximizeAndClose()
+        public void Method_TestCondition_ExpectedResult2()
         {
-            ApplicationFactory.Launch(@"D:\Public Sources\DW.CodedUI\bin\AutomationElementFinder.exe");
-            Thread.Sleep(3000);
-            var window = WindowFinder.Search("AutomationEle");
-            Thread.Sleep(3000);
+            Do.Launch(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe").And.WaitCPUIdle(5);
+        }
 
-            Assert.AreEqual("AutomationElementFinder", window.Title);
+        [TestMethod]
+        public void Method_TestCondition_ExpectedResult3()
+        {
+            Process.Start(@"D:\Sources\Playground\WpfApplication31\WpfApplication31\bin\Debug\WpfApplication31.exe");
+            var window = WindowFinder.Search(Using.Title("MainWindow"));
 
-            MouseEx.Click(window.TitleBar);
-            Thread.Sleep(3000);
-
-            MouseEx.Click(window.MaximizeButton);
-            Thread.Sleep(3000);
-
-            MouseEx.Click(window.RestoreButton);
-            Thread.Sleep(3000);
-
-            MouseEx.Click(window.MinimizeButton);
-            Thread.Sleep(3000);
-
-            window.Unsafe.Normalize();
-            Thread.Sleep(3000);
-
-            MouseEx.Click(window.CloseButton);
+            var button = UI.GetChild(By.AutomationId("demo"), From.Element(window), With.NoInterval());
+            MouseEx.Click(button);
         }
     }
 }
