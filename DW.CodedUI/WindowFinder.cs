@@ -26,7 +26,7 @@ namespace DW.CodedUI
         }
 
         /// <summary>
-        /// Searches for a window by the given conditions and settings.
+        /// Searches for a window by the given conditions and settings. If not disabled And.Assert().And.Timeout(10000) gets appended.
         /// </summary>
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>
         /// <param name="settings">Defines the settings to be used while searching.</param>
@@ -85,7 +85,7 @@ namespace DW.CodedUI
         }
 
         /// <summary>
-        /// Searches for window kinds like Window, MessageBox or system dialogs.
+        /// Searches for window kinds like Window, MessageBox or system dialogs. If not disabled And.Assert().And.Timeout(10000) gets appended.
         /// </summary>
         /// <typeparam name="TWindow">The type of window to be created.</typeparam>
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>

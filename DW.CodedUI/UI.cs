@@ -8,25 +8,60 @@ using DW.CodedUI.BasicElements;
 
 namespace DW.CodedUI
 {
+    /// <summary>
+    /// Brings possibilities to search for UI element in the application surface started from a specific UI element.
+    /// </summary>
     public static class UI
     {
         #region GetChild
         
+        /// <summary>
+        /// Searches for a given child element with the passed By conditions. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to search for.</typeparam>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <returns>The found control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static TControl GetChild<TControl>(By by, From from) where TControl : BasicElement
         {
             return StartSearchChild<TControl>(by, from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Searches for a given child element with the passed By conditions and With settings. If not disabled With.Timeout(10000).And.Assert() gets appended.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to search for.</typeparam>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>The found control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
         public static TControl GetChild<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             return StartSearchChild<TControl>(by, from, with);
         }
 
+        /// <summary>
+        /// Searches for a given child element with the passed By conditions. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <returns>The found control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static BasicElement GetChild(By by, From from)
         {
             return StartSearchChild<BasicElement>(by, from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Searches for a given child element with the passed By conditions and With settings. If not disabled With.Timeout(10000).And.Assert() gets appended.
+        /// </summary>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>The found control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
         public static BasicElement GetChild(By by, From from, With with)
         {
             return StartSearchChild<BasicElement>(by, from, with);
@@ -82,21 +117,53 @@ namespace DW.CodedUI
 
         #region GetChildren
 
+        /// <summary>
+        /// Returns all child elements which passes the By conditions. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element types to search for.</typeparam>
+        /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <returns>A list of found child elements if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found.</exception>
         public static IEnumerable<TControl> GetChildren<TControl>(By by, From from) where TControl : BasicElement
         {
             return StartSearchChildren<TControl>(by, from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Returns all child elements which passes the By conditions and With settings. If not disabled With.Timeout(10000).And.Assert() gets appended.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element types to search for.</typeparam>
+        /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>A list of found child elements if any; otherwise an exception if it is not disabled. If it is disabled an empty list gets returned.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found. (If not disabled.)</exception>
         public static IEnumerable<TControl> GetChildren<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             return StartSearchChildren<TControl>(by, from, with);
         }
 
+        /// <summary>
+        /// Returns all child elements which passes the By conditions. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <returns>A list of found child elements if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found.</exception>
         public static IEnumerable<BasicElement> GetChildren(By by, From from)
         {
             return StartSearchChildren<BasicElement>(by, from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Returns all child elements which passes the By conditions and With settings. If not disabled With.Timeout(10000).And.Assert() gets appended.
+        /// </summary>
+        /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
+        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>A list of found child elements if any; otherwise an exception if it is not disabled. If it is disabled an empty list gets returned.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found. (If not disabled.)</exception>
         public static IEnumerable<BasicElement> GetChildren(By by, From from, With with)
         {
             return StartSearchChildren<BasicElement>(by, from, with);
@@ -152,41 +219,101 @@ namespace DW.CodedUI
 
         #region GetParent
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static BasicElement GetParent(From from)
         {
             return StartSearchParent<BasicElement>(By.Condition(e => true), from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. If not disabled With.Assert().And.Timeout(10000) gets appended.
+        /// </summary>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>The found parent control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
         public static BasicElement GetParent(From from, With with)
         {
             return StartSearchParent<BasicElement>(By.Condition(e => true), from, with);
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to search for.</typeparam>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static TControl GetParent<TControl>(From from) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(By.Condition(e => true), from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to search for.</typeparam>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static TControl GetParent<TControl>(From from, With with) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(By.Condition(e => true), from, with);
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static BasicElement GetParent(By by, From from)
         {
             return StartSearchParent<BasicElement>(by, from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static BasicElement GetParent(By by, From from, With with)
         {
             return StartSearchParent<BasicElement>(by, from, with);
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to search for.</typeparam>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static TControl GetParent<TControl>(By by, From from) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(by, from, new CombinableWith());
         }
 
+        /// <summary>
+        /// Returns the parent element of the given source. By default With.Assert().And.Timeout(10000) is in use.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to search for.</typeparam>
+        /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
+        /// <param name="from">The source from where to start reading the parent elements.</param>
+        /// <param name="with">The settings to be used while searching.</param>
+        /// <returns>The available parent control if any; otherwise an exception.</returns>
+        /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         public static TControl GetParent<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(by, from, with);
@@ -242,6 +369,12 @@ namespace DW.CodedUI
 
         #region GetFullUITree
 
+        /// <summary>
+        /// Returns a tree if information objects which shows the whole application tree.
+        /// </summary>
+        /// <param name="element">The parent object from which all child elements have to be read.</param>
+        /// <returns>The given element as an information object wich all its childs as a tree.</returns>
+        /// <remarks>This object is intended to be used in the ElementFinder.</remarks>
         public static AutomationElementInfo GetFullUITree(AutomationElement element)
         {
             var rootElementInfo = new AutomationElementInfo(element);

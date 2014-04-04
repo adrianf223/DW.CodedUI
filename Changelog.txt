@@ -3,6 +3,7 @@
 ==============================
 Release 2.0.0.X
 ==============================
+2014-04-04    Add documentations
 2014-04-03    Write usage of the interval in exceptions as well
 2014-04-03    Add possibility to define an interval for searching for windows
 2014-04-03    Add possibility to define an interval for waiting of the CPU idle
