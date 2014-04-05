@@ -111,7 +111,7 @@ namespace DW.CodedUI.BasicElements
             set
             {
                 _isSelected = value;
-                NotifyPropertyChanged(() => IsSelected);
+                NotifyPropertyChanged("IsSelected");
             }
         }
 
@@ -141,14 +141,11 @@ namespace DW.CodedUI.BasicElements
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+        private void NotifyPropertyChanged(string property)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null)
-            {
-                var memberExpression = property.Body as MemberExpression;
-                handler(this, new PropertyChangedEventArgs(memberExpression.Member.Name));
-            }
+                handler(this, new PropertyChangedEventArgs(property));
         }
     }
 }
