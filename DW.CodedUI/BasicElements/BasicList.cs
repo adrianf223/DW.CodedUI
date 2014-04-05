@@ -116,30 +116,6 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Tries to find a ListBoxItem/ListViewItem by the given condition. It scrolls down automatically if needed.
-        /// </summary>
-        /// <param name="condition">The condition to check on every child control.</param>
-        /// <returns>The first found child element if any; otherwise null.</returns>
-        public BasicListItem FindChildByCondition(Predicate<BasicListItem> condition)
-        {
-            var automationElementCondition = new Predicate<BasicElement>(element => condition.Invoke(new BasicListItem(element.AutomationElement)));
-            var item = UI.GetChild<BasicListItem>(By.Condition(automationElementCondition), From.Element(this));
-            if (item != null)
-                return item;
-            if (VerticalScrollPercent == -1)
-                return null;
-            while (VerticalScrollPercent < 100)
-            {
-                Unsafe.ScrollVertical(ScrollAmount.LargeIncrement);
-                item = UI.GetChild<BasicListItem>(By.Condition(automationElementCondition), From.Element(this));
-                if (item != null)
-                    return item;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Gets the current vertical scroll position; -1 if nothing has to scroll.
         /// </summary>
         public double HorizontalScrollPercent

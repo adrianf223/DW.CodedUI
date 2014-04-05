@@ -114,34 +114,6 @@ namespace DW.CodedUI.BasicElements
         }
 
         /// <summary>
-        /// Tries to find a ComboBoxItem by the given condition. It scrolls down automatically if needed.
-        /// </summary>
-        /// <param name="condition">The condition to check on every child control.</param>
-        /// <returns>The first found child element if any; otherwise null.</returns>
-        public BasicComboBoxItem FindChildByCondition(Predicate<BasicComboBoxItem> condition)
-        {
-            Unsafe.Expand();
-
-            var automationElementCondition = new Predicate<BasicElement>(element => condition.Invoke(new BasicComboBoxItem(element.AutomationElement)));
-            var item = UI.GetChild<BasicComboBoxItem>(By.Condition(automationElementCondition), From.Element(this));
-            if (item != null)
-                return item;
-
-            var scrollPattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
-            if (scrollPattern.Current.VerticalScrollPercent == -1)
-                return null;
-            while (scrollPattern.Current.VerticalScrollPercent < 100)
-            {
-                scrollPattern.ScrollVertical(ScrollAmount.LargeIncrement);
-                item = UI.GetChild<BasicComboBoxItem>(By.Condition(automationElementCondition), From.Element(this));
-                if (item != null)
-                    return item;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Gets the text from the selected child if set; otherwise the written text.
         /// </summary>
         public string Text
