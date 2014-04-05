@@ -103,6 +103,7 @@ namespace DW.CodedUI
                 if (arguments != null)
                     processStartInfo.Arguments = arguments;
                 processStartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+                Process.Start(processStartInfo);
             }
             catch (Exception ex)
             {
