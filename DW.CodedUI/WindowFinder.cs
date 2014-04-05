@@ -48,13 +48,6 @@ namespace DW.CodedUI
             watch.Start();
             while (true)
             {
-                if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
-                {
-                    if (assertResult)
-                        throw new WindowNotFoundException(use, useTimeout, useInterval, interval, watch.Elapsed);
-                    return null;
-                }
-
                 var foundInstance = 0;
                 var windows = GetAllWindows();
                 foreach (var window in windows)
@@ -65,6 +58,13 @@ namespace DW.CodedUI
 
                     if (!checkInstance || ++foundInstance == instanceNumber)
                         return matchingWindow;
+                }
+
+                if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
+                {
+                    if (assertResult)
+                        throw new WindowNotFoundException(use, useTimeout, useInterval, interval, watch.Elapsed);
+                    return null;
                 }
 
                 if (useInterval)
