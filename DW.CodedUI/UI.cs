@@ -14,7 +14,7 @@ namespace DW.CodedUI
     public static class UI
     {
         #region GetChild
-        
+
         /// <summary>
         /// Searches for a given child element with the passed By conditions. By default With.Assert().And.Timeout(10000) is in use.
         /// </summary>
@@ -83,16 +83,16 @@ namespace DW.CodedUI
             watch.Start();
             while (true)
             {
+                var foundItem = StartSearchChild<TControl>(sourceElement, condition);
+                if (foundItem != null)
+                    return foundItem;
+
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
                         throw new UIElementNotFoundException(by, useTimeout, useInterval, interval, watch.Elapsed, false);
                     return null;
                 }
-
-                var foundItem = StartSearchChild<TControl>(sourceElement, condition);
-                if (foundItem != null)
-                    return foundItem;
 
                 if (useInterval)
                     Thread.Sleep((int)interval);
@@ -186,16 +186,16 @@ namespace DW.CodedUI
             watch.Start();
             while (true)
             {
+                foundItems.AddRange(StartSearchChildren<TControl>(sourceElement, condition));
+                if (foundItems.Any())
+                    return foundItems;
+
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
                         throw new UIElementNotFoundException(by, useTimeout, useInterval, interval, watch.Elapsed, true);
                     return foundItems;
                 }
-
-                foundItems.AddRange(StartSearchChildren<TControl>(sourceElement, condition));
-                if (foundItems.Any())
-                    return foundItems;
 
                 if (useInterval)
                     Thread.Sleep((int)interval);
@@ -335,16 +335,16 @@ namespace DW.CodedUI
             watch.Start();
             while (true)
             {
+                var foundItem = StartSearchParent<TControl>(sourceElement, condition);
+                if (foundItem != null)
+                    return foundItem;
+
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
                         throw new UIElementNotFoundException(by, useTimeout, useInterval, interval, watch.Elapsed, false);
                     return null;
                 }
-
-                var foundItem = StartSearchParent<TControl>(sourceElement, condition);
-                if (foundItem != null)
-                    return foundItem;
 
                 if (useInterval)
                     Thread.Sleep((int)interval);
