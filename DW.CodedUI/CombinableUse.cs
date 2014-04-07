@@ -9,9 +9,9 @@ namespace DW.CodedUI
     /// <summary>
     /// Defines all possibile conditions to be used by searching for windows. See <see cref="DW.CodedUI.WindowFinder" />.
     /// </summary>
-    public class CombinableUsing : Using
+    public class CombinableUse : Use
     {
-        internal CombinableUsing()
+        internal CombinableUse()
         {
             _conditions = new List<Predicate<BasicWindow>>();
             _conditionDescriptions = new List<string>();
@@ -22,10 +22,10 @@ namespace DW.CodedUI
         private bool _isAndCondition;
 
         /// <summary>
-        /// Gets the instance of a combinable Using to be able to append additional conditions. By using this all conditions has to match.
+        /// Gets the instance of a combinable Use to be able to append additional conditions. By using this all conditions has to match.
         /// </summary>
         /// <remarks>If 'And' and 'Or' is in use, all conditions will be combined by the last used.</remarks>
-        public CombinableUsing And
+        public CombinableUse And
         {
             get
             {
@@ -35,10 +35,10 @@ namespace DW.CodedUI
         }
 
         /// <summary>
-        /// Gets the instance of a combinable Using to be able to append additional conditions. By using this just one of the condition has to match.
+        /// Gets the instance of a combinable Use to be able to append additional conditions. By using this just one of the condition has to match.
         /// </summary>
         /// <remarks>If 'And' and 'Or' is in use, all conditions will be combined by the last used.</remarks>
-        public CombinableUsing Or
+        public CombinableUse Or
         {
             get
             {
@@ -51,8 +51,8 @@ namespace DW.CodedUI
         /// Starts searching for windows by its title. By default the CompareKind.ContainsIgnoreCase will be use.
         /// </summary>
         /// <param name="title">The window title to search for.</param>
-        /// <returns>A combinable Using to be able to append additional conditions.</returns>
-        public new CombinableUsing Title(string title)
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse Title(string title)
         {
             return Title(title, CompareKind.ContainsIgnoreCase);
         }
@@ -62,11 +62,11 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="title">The window title to search for.</param>
         /// <param name="comparison">The comparison kind how the window title will be compared.</param>
-        /// <returns>A combinable Using to be able to append additional conditions.</returns>
-        public new CombinableUsing Title(string title, CompareKind comparison)
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse Title(string title, CompareKind comparison)
         {
             _conditions.Add(window => StringExtensions.Match(window.Title, title, comparison));
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.Title, \"{0}\", {1})", title, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.Title, \"{0}\", CompareKind.{1})", title, comparison));
 
             return this;
         }
@@ -75,8 +75,8 @@ namespace DW.CodedUI
         /// Starts searching for windows by its process name. By default the CompareKind.ContainsIgnoreCase will be use.
         /// </summary>
         /// <param name="name">The process name to search for.</param>
-        /// <returns>A combinable Using to be able to append additional conditions.</returns>
-        public new CombinableUsing Process(string name)
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse Process(string name)
         {
             return Process(name, CompareKind.ContainsIgnoreCase);
         }
@@ -86,11 +86,11 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="name">The process name to search for.</param>
         /// <param name="comparison">The comparison kind how the window title will be compared.</param>
-        /// <returns>A combinable Using to be able to append additional conditions.</returns>
-        public new CombinableUsing Process(string name, CompareKind comparison)
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse Process(string name, CompareKind comparison)
         {
             _conditions.Add(window => StringExtensions.Match(window.OwningProcess.ProcessName, name, comparison));
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.OwningProcess.ProcessName, \"{0}\", {1})", name, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.OwningProcess.ProcessName, \"{0}\", CompareKind.{1})", name, comparison));
             return this;
         }
 
@@ -98,8 +98,8 @@ namespace DW.CodedUI
         /// Starts searching for windows by a custom condition.
         /// </summary>
         /// <param name="condition">The window condition to be used for compare.</param>
-        /// <returns>A combinable Using to be able to append additional conditions.</returns>
-        public new CombinableUsing Condition(Predicate<BasicWindow> condition)
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse Condition(Predicate<BasicWindow> condition)
         {
             _conditions.Add(condition);
             _conditionDescriptions.Add("condition(element)");
