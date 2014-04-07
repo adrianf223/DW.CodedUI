@@ -15,15 +15,15 @@ namespace DW.CodedUI
         public ExecutableNotAvailableException(string path)
             : base(BuildMessage(path))
         {
-            
         }
 
         private static string BuildMessage(string path)
         {
             var builder = new StringBuilder();
             builder.AppendLine("Cannot start the process because the file is not there.");
-            builder.AppendLine();
+            builder.AppendLine("Assembly:");
             builder.AppendLine(path);
+            builder.AppendLine();
             return builder.ToString();
         }
     }

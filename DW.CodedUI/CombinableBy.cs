@@ -77,7 +77,7 @@ namespace DW.CodedUI
                     return false;
                 return StringExtensions.Match(element.Properties.AutomationId, automationId, comparison);
             });
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.AutomationId, \"{0}\", {1})", automationId, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.AutomationId, \"{0}\", CompareKind.{1})", automationId, comparison));
             return this;
         }
 
@@ -110,7 +110,7 @@ namespace DW.CodedUI
                     return false;
                 return StringExtensions.Match(element.Properties.Name, name, comparison);
             });
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.Name, \"{0}\", {1})", name, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.Name, \"{0}\", CompareKind.{1})", name, comparison));
             return this;
         }
 
@@ -143,7 +143,7 @@ namespace DW.CodedUI
                     return false;
                 return StringExtensions.Match(element.Properties.ClassName, className, comparison);
             });
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.ClassName, \"{0}\", {1})", className, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(element.Properties.ClassName, \"{0}\", CompareKind.{1})", className, comparison));
             return this;
         }
 

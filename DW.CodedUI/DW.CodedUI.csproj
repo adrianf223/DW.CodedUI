@@ -77,7 +77,7 @@
     <Compile Include="BasicElements\BasicWindowBase.cs" />
     <Compile Include="CombinableAnd.cs" />
     <Compile Include="CombinableDo.cs" />
-    <Compile Include="CombinableUsing.cs" />
+    <Compile Include="CombinableUse.cs" />
     <Compile Include="CompareKind.cs" />
     <Compile Include="Do.cs" />
     <Compile Include="ExecutableNotAvailableException.cs" />
@@ -117,7 +117,7 @@
     <Compile Include="From.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIElementNotFoundException.cs" />
-    <Compile Include="Using.cs" />
+    <Compile Include="Use.cs" />
     <Compile Include="WindowFinder.cs" />
     <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />
