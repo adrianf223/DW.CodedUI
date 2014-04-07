@@ -21,5 +21,29 @@ namespace DW.CodedUI.Tests.Internal
 
             Assert.IsFalse(matches);
         }
+
+        [TestMethod]
+        public void Match_WithContainsAndItReallyContains_ReturnsTrue()
+        {
+            var matches = StringExtensions.Match("Hans", "ns", CompareKind.Contains);
+
+            Assert.IsTrue(matches);
+        }
+
+        [TestMethod]
+        public void Match_WithContainsButDoesNotContain_ReturnsFalse()
+        {
+            var matches = StringExtensions.Match("Hans", "fri", CompareKind.Contains);
+
+            Assert.IsFalse(matches);
+        }
+
+        [TestMethod]
+        public void Match_WithContainsAndItReallyContainsButInWrongCase_ReturnsFalse()
+        {
+            var matches = StringExtensions.Match("Hans", "Ns", CompareKind.Contains);
+
+            Assert.IsFalse(matches);
+        }
     }
 }
