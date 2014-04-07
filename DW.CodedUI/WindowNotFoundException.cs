@@ -26,23 +26,19 @@ namespace DW.CodedUI
             var builder = new StringBuilder();
             builder.AppendLine("The window could not be found.");
             builder.AppendLine();
+            builder.AppendLine("Condition(s):");
             builder.AppendLine(use.GetConditionDescription());
             builder.AppendLine();
+            builder.AppendLine("Settings:");
             if (useTimeout)
-            {
-                builder.Append("With timeout: ");
-                builder.Append(timeout);
-            }
+                builder.AppendLine("* With timeout: " + timeout);
             else
-                builder.Append("Without timeout");
+                builder.AppendLine("* Without timeout");
             if (useInterval)
-            {
-                builder.Append("With interval: ");
-                builder.Append(intervalTime);
-            }
+                builder.AppendLine("* With interval: " + intervalTime);
             else
-                builder.Append("Without interval");
-
+                builder.AppendLine("* Without interval");
+            builder.AppendLine();
             return builder.ToString();
         }
     }

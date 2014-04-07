@@ -66,7 +66,7 @@ namespace DW.CodedUI
         public new CombinableUsing Title(string title, CompareKind comparison)
         {
             _conditions.Add(window => StringExtensions.Match(window.Title, title, comparison));
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.Title, \"{0}\", {1})", title, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.Title, \"{0}\", CompareKind.{1})", title, comparison));
 
             return this;
         }
@@ -90,7 +90,7 @@ namespace DW.CodedUI
         public new CombinableUsing Process(string name, CompareKind comparison)
         {
             _conditions.Add(window => StringExtensions.Match(window.OwningProcess.ProcessName, name, comparison));
-            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.OwningProcess.ProcessName, \"{0}\", {1})", name, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.OwningProcess.ProcessName, \"{0}\", CompareKind.{1})", name, comparison));
             return this;
         }
 

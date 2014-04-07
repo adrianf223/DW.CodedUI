@@ -25,28 +25,21 @@ namespace DW.CodedUI
         private static string BuildMessage(By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
         {
             var builder = new StringBuilder();
-            if (multiply)
-                builder.AppendLine("No UI element could be found.");
-            else
-                builder.AppendLine("The UI element could not be found.");
+            builder.AppendLine(multiply ? "No UI element could be found." : "The UI element could not be found.");
             builder.AppendLine();
+            builder.AppendLine("Condition(s):");
             builder.AppendLine(by.GetConditionDescription());
             builder.AppendLine();
+            builder.AppendLine("Settings:");
             if (useTimeout)
-            {
-                builder.Append("With timeout: ");
-                builder.Append(timeout);
-            }
+                builder.AppendLine("* With timeout: " + timeout);
             else
-                builder.Append("Without timeout");
+                builder.AppendLine("* Without timeout");
             if (useInterval)
-            {
-                builder.Append("With interval: ");
-                builder.Append(intervalTime);
-            }
+                builder.AppendLine("* With interval: " + intervalTime);
             else
-                builder.Append("Without interval");
-
+                builder.AppendLine("* Without interval");
+            builder.AppendLine();
             return builder.ToString();
         }
     }
