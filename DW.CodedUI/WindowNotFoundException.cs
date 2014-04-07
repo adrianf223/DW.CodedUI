@@ -16,12 +16,12 @@ namespace DW.CodedUI
         /// <param name="useInterval">A value that indicates if an interval was used.</param>
         /// <param name="intervalTime">The time used in the interval.</param>
         /// <param name="timeout">The elapsed search time.</param>
-        public WindowNotFoundException(Using use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
+        public WindowNotFoundException(Use use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
             : base(BuildMessage(use, useTimeout, useInterval, intervalTime, timeout))
         {
         }
 
-        private static string BuildMessage(Using use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
+        private static string BuildMessage(Use use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
         {
             var builder = new StringBuilder();
             builder.AppendLine("The window could not be found.");

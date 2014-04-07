@@ -3,6 +3,7 @@
 ==============================
 Release 2.0.0.X
 ==============================
+2014-04-07    Rename "Using" by "Use"
 2014-04-07    Adjust error output
 2014-04-05    Remove methods to search for children in the BasicList and BasicCombobox themself, they was not working stable enough
 2014-04-05    If no timeout was set, the UI and WindowFinder search methods was return too fast even a result would be able to return
