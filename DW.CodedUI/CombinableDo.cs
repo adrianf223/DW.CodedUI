@@ -13,7 +13,7 @@ namespace DW.CodedUI
 #if TRIAL
         static CombinableDo()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

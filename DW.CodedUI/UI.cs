@@ -16,7 +16,7 @@ namespace DW.CodedUI
 #if TRIAL
         static UI()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

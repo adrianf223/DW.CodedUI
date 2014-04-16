@@ -14,7 +14,7 @@ namespace DW.CodedUI
 #if TRIAL
         static CombinableBy()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

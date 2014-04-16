@@ -14,7 +14,7 @@ namespace DW.CodedUI.Utilities
 #if TRIAL
         static ColorDetector()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

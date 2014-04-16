@@ -10,7 +10,7 @@ namespace DW.CodedUI.BasicElements
 #if TRIAL
         static BasicCheckBox()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

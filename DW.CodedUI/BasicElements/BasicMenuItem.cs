@@ -11,7 +11,7 @@ namespace DW.CodedUI.BasicElements
 #if TRIAL
         static BasicMenuItem()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

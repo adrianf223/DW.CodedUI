@@ -12,7 +12,7 @@ namespace DW.CodedUI.Utilities
 #if TRIAL
         static WindowFocus()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

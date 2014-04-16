@@ -8,7 +8,7 @@
 #if TRIAL
         static KeyboardCommands()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

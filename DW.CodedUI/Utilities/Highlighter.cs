@@ -13,7 +13,7 @@ namespace DW.CodedUI.Utilities
 #if TRIAL
         static Highlighter()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

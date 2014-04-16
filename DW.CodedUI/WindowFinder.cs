@@ -17,7 +17,7 @@ namespace DW.CodedUI
 #if TRIAL
         static WindowFinder()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 

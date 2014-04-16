@@ -13,7 +13,7 @@ namespace DW.CodedUI.BasicElements
 #if TRIAL
         static BasicComboBox()
         {
-            License1.LicenseChecker.Validate();
+            License1.License.Display();
         }
 #endif
 
