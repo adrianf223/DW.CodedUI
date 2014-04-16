@@ -7,6 +7,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicToggleButton : BasicElement
     {
+#if TRIAL
+        static BasicToggleButton()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicToggleButton" /> class.
         /// </summary>

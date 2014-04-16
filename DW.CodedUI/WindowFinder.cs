@@ -14,6 +14,13 @@ namespace DW.CodedUI
     /// </summary>
     public static class WindowFinder
     {
+#if TRIAL
+        static WindowFinder()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Searches for a window by the given conditions. Default settings are And.Assert().And.Timeout(10000).
         /// </summary>

@@ -8,6 +8,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicEdit : BasicElement
     {
+#if TRIAL
+        static BasicEdit()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicEdit" /> class.
         /// </summary>

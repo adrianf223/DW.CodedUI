@@ -10,6 +10,13 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableDo
     {
+#if TRIAL
+        static CombinableDo()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         internal CombinableDo()
         {
         }

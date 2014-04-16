@@ -11,6 +11,13 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableUse : Use
     {
+#if TRIAL
+        static CombinableUse()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         internal CombinableUse()
         {
             _conditions = new List<Predicate<BasicWindow>>();

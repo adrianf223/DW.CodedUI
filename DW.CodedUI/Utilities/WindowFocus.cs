@@ -9,6 +9,13 @@ namespace DW.CodedUI.Utilities
     /// </summary>
     public static class WindowFocus
     {
+#if TRIAL
+        static WindowFocus()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Brings the given window on top.
         /// </summary>

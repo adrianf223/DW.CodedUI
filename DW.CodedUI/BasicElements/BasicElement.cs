@@ -11,6 +11,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicElement
     {
+#if TRIAL
+        static BasicElement()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         private Highlighter _highlighter;
 
         /// <summary>

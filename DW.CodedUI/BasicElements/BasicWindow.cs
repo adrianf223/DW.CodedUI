@@ -13,6 +13,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicWindow : BasicWindowBase
     {
+#if TRIAL
+        static BasicWindow()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicWindow" /> class
         /// </summary>

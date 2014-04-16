@@ -8,6 +8,13 @@ namespace DW.CodedUI
     /// </summary>
     public class ExecutableNotAvailableException : Exception
     {
+#if TRIAL
+        static ExecutableNotAvailableException()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.ExecutableNotAvailableException" /> class.
         /// </summary>

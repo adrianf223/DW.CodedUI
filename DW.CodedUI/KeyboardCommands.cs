@@ -5,6 +5,13 @@
     /// </summary>
     public static class KeyboardCommands
     {
+#if TRIAL
+        static KeyboardCommands()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// The backspace key.
         /// </summary>

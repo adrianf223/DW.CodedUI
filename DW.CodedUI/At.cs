@@ -8,6 +8,13 @@ namespace DW.CodedUI
     /// </summary>
     public class At
     {
+#if TRIAL
+        static At()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         private double? _left;
         private double? _top;
         private double? _right;

@@ -13,6 +13,13 @@ namespace DW.CodedUI
     /// </summary>
     public static class UI
     {
+#if TRIAL
+        static UI()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         #region GetChild
 
         /// <summary>

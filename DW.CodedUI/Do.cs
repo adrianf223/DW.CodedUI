@@ -7,6 +7,13 @@ namespace DW.CodedUI
     /// </summary>
     public static class Do
     {
+#if TRIAL
+        static Do()
+        {
+            License1.LicenseChecker.Validate();
+        }
+#endif
+
         /// <summary>
         /// Waits the given time.
         /// </summary>
