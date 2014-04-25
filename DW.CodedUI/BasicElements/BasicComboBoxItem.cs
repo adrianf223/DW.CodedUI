@@ -7,6 +7,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicComboBoxItem : BasicElement
     {
+#if TRIAL
+        static BasicComboBoxItem()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicComboBoxItem" /> class.
         /// </summary>

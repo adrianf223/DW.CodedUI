@@ -7,6 +7,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicColorPickerDialog : BasicWindow
     {
+#if TRIAL
+        static BasicColorPickerDialog()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicColorPickerDialog" /> class
         /// </summary>

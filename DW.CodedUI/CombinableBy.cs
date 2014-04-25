@@ -11,6 +11,13 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableBy : By
     {
+#if TRIAL
+        static CombinableBy()
+        {
+            License1.License.Display();
+        }
+#endif
+
         internal CombinableBy()
         {
             _conditions = new List<Predicate<BasicElement>>();

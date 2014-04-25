@@ -8,6 +8,13 @@ namespace DW.CodedUI
     /// </summary>
     public abstract class Use
     {
+#if TRIAL
+        static Use()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Starts searching for windows by its title. By default the CompareKind.ContainsIgnoreCase will be use.
         /// </summary>
