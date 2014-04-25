@@ -7,6 +7,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicButton : BasicElement
     {
+#if TRIAL
+        static BasicButton()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicButton" /> class.
         /// </summary>

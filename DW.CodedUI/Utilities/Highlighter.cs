@@ -10,6 +10,13 @@ namespace DW.CodedUI.Utilities
     /// </summary>
     public class Highlighter : Form
     {
+#if TRIAL
+        static Highlighter()
+        {
+            License1.License.Display();
+        }
+#endif
+
         private Panel _mainPanel;
 
         /// <summary>

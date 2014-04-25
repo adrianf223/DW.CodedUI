@@ -7,6 +7,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicOpenFileDialog : BasicDialog
     {
+#if TRIAL
+        static BasicOpenFileDialog()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicOpenFileDialog" /> class.
         /// </summary>

@@ -11,6 +11,13 @@ namespace DW.CodedUI.Utilities
     /// </summary>
     public static class ColorDetector
     {
+#if TRIAL
+        static ColorDetector()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Gets the color of a BasicElement on a specific relative position
         /// </summary>

@@ -10,6 +10,13 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicDialog : BasicWindowBase
     {
+#if TRIAL
+        static BasicDialog()
+        {
+            License1.License.Display();
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicWindow" /> class.
         /// </summary>
