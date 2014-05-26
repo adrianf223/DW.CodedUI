@@ -88,10 +88,9 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (currentCulture.Name == "de-DE")
-                    return UI.GetChild<BasicButton>(By.Name("Maximieren"), From.Element(this), With.NoTimeout().NoAssert());
-                return UI.GetChild<BasicButton>(By.Name("Maximize"), From.Element(this), With.NoTimeout().NoAssert());
+                var maximizeButtonName1 = SystemStrings.GetString(SystemStrings.MaximizeButton);
+                var maximizeButtonName2 = SystemStrings.GetString(SystemStrings.IncreaseButton);
+                return UI.GetChild<BasicButton>(By.Name(maximizeButtonName1).Or.Name(maximizeButtonName2), From.Element(this), With.NoTimeout().NoAssert());
             }
         }
 
@@ -103,10 +102,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (currentCulture.Name == "de-DE")
-                    return UI.GetChild<BasicButton>(By.Name("Wiederherstellen"), From.Element(this), With.NoTimeout().NoAssert());
-                return UI.GetChild<BasicButton>(By.Name("Restore"), From.Element(this), With.NoTimeout().NoAssert());
+                var normalizeButtonName = SystemStrings.GetString(SystemStrings.DecreaseButton);
+                return UI.GetChild<BasicButton>(By.Name(normalizeButtonName), From.Element(this), With.NoTimeout().NoAssert());
             }
         }
 
@@ -118,10 +115,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (currentCulture.Name == "de-DE")
-                    return UI.GetChild<BasicButton>(By.Name("Minimieren"), From.Element(this), With.NoTimeout().NoAssert());
-                return UI.GetChild<BasicButton>(By.Name("Minimize"), From.Element(this), With.NoTimeout().NoAssert());
+                var minimizeButtonName = SystemStrings.GetString(SystemStrings.MinimizeButton);
+                return UI.GetChild<BasicButton>(By.Name(minimizeButtonName), From.Element(this), With.NoTimeout().NoAssert());
             }
         }
 

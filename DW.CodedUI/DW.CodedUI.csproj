@@ -90,6 +90,7 @@
       <DependentUpon>License.xaml</DependentUpon>
     </Compile>
     <Compile Include="Internal\StringExtensions.cs" />
+    <Compile Include="Internal\SystemStrings.cs" />
     <Compile Include="Properties\CommonMeta.cs" />
     <Compile Include="BasicElements\BasicButton.cs" />
     <Compile Include="BasicElements\BasicCheckBox.cs" />

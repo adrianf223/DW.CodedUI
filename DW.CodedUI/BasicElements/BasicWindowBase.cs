@@ -36,10 +36,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (currentCulture.Name == "de-DE")
-                    return UI.GetChild<BasicButton>(By.Name("Schließen"), From.Element(this), With.NoTimeout());
-                return UI.GetChild<BasicButton>(By.Name("Close"), From.Element(this), With.NoTimeout());
+                var closeButtonName = SystemStrings.GetString(SystemStrings.CloseButton);
+                return UI.GetChild<BasicButton>(By.Name(closeButtonName), From.Element(this), With.NoTimeout());
             }
         }
 

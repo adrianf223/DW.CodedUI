@@ -1,6 +1,11 @@
 
 
 ==============================
+Release 2.*
+==============================
+2014-05-26    Add support for all .net available languages for the window buttons
+
+==============================
 Release 2.0.0.X
 ==============================
 2014-04-07    Rename "Using" by "Use"
