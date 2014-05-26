@@ -73,6 +73,9 @@
                                     <ToggleButton Content="Hide Empty" IsChecked="{Binding HideEmptyEntries}" ToolTip="Shows / Hides empty entries in the properties list" />
                                     <ToggleButton Content="Auto Copy ID" IsChecked="{Binding AutoCopyAutomationId}" ToolTip="If the catched UI element has an automation ID, it's copied to the clipboard automatically" />
                                 </ToolBar>
+                                <ToolBar>
+                                    <Button Content="Clear" Click="ClearPane" ToolTip="Clears all current displayed elements" />
+                                </ToolBar>
                             </ToolBarTray>
                             
                             <StatusBar DockPanel.Dock="Bottom">

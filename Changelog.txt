@@ -3,6 +3,7 @@
 ==============================
 Release 2.*
 ==============================
+2014-05-26    Add clear button to remove all visible elements in the ElementFinder
 2014-05-26    Add support for all .net available languages for the window buttons
 
 ==============================

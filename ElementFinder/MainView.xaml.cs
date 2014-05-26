@@ -145,5 +145,11 @@ namespace ElementFinder
         {
             return (MainViewModel)DataContext;
         }
+
+        private void ClearPane(object sender, RoutedEventArgs e)
+        {
+            GetMainViewModel().CurrentElement = null;
+            GetMainViewModel().Elements.Clear();
+        }
     }
 }
