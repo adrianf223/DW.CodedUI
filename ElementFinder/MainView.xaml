@@ -29,7 +29,7 @@
                                 <Thumb DockPanel.Dock="Right" Cursor="SizeWE" Width="8" DragDelta="OnSizeDragDelta" />
 
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                                    <ToggleButton Content="e" IsChecked="{Binding IsEnabled}" Padding="4,0" ToolTip="Enable / Disable" />
+                                    <ElementFinder:ToggleSlider IsChecked="{Binding IsEnabled}" />
                                     <Button Click="DoSwitchView" Padding="4,0" ToolTip="Switch to large view">
                                         <TextBlock Text="^" RenderTransformOrigin="0.5, 0.5">
                                             <TextBlock.RenderTransform>
@@ -131,7 +131,7 @@
                         </DockPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <ToggleButton Content="e" IsChecked="{Binding IsEnabled}" Padding="4,0" ToolTip="Enable / Disable" />
+                            <ElementFinder:ToggleSlider IsChecked="{Binding IsEnabled}" />
                             <Button Content="^" Click="DoSwitchView" Padding="4,0" ToolTip="Switch to small view" />
                         </StackPanel>
                     </Grid>

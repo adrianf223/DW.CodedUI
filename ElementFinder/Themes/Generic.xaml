@@ -47,4 +47,39 @@
         </Setter>
     </Style>
     
+
+    <Style TargetType="{x:Type ElementFinder:ToggleSlider}">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border BorderBrush="Brown" BorderThickness="1" x:Name="PART_Section" ToolTip="Deactivated; Click to activate" Background="White">
+                        <DockPanel>
+                            <Border Width="10" BorderThickness="1" BorderBrush="Gray" x:Name="PART_Slider" DockPanel.Dock="Left">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="Gray" />
+                                        <GradientStop Color="AliceBlue" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <TextBlock Text="0" x:Name="PART_State" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,0" />
+
+                            <Grid />
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="PART_Section" Property="Background" Value="LightGreen" />
+                            <Setter TargetName="PART_Slider" Property="DockPanel.Dock" Value="Right" />
+                            <Setter TargetName="PART_State" Property="Text" Value="1" />
+                            <Setter TargetName="PART_State" Property="DockPanel.Dock" Value="Left" />
+                            <Setter TargetName="PART_Section" Property="ToolTip" Value="Activated; Click to Deactivate" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

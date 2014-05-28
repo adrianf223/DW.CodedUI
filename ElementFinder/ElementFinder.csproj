@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Property.cs" />
+    <Compile Include="ToggleSlider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationPropertiesControl.cs" />
