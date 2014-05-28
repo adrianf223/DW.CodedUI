@@ -27,6 +27,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="element">The element to start the UI search from.</param>
         /// <returns>Instance of the From to be used in the <see cref="DW.CodedUI.UI" /> object.</returns>
+        /// <exception cref="System.ArgumentNullException">element is null.</exception>
         public static From Element(BasicElement element)
         {
             if (element == null)

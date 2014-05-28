@@ -91,6 +91,16 @@ namespace DW.CodedUI
         }
 
         /// <summary>
+        /// Starts the search for the UI element which has the keyboard focus.
+        /// </summary>
+        /// <returns>A combinable By to be able to append additional conditions.</returns>
+        public static CombinableBy Focus()
+        {
+            var combinableBy = new CombinableBy();
+            return combinableBy.Focus();
+        }
+
+        /// <summary>
         /// Starts the search for the UI element by a custom condition.
         /// </summary>
         /// <param name="condition">The condition to be called for each item to find a matching UI element.</param>
