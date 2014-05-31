@@ -47,6 +47,18 @@ namespace DW.CodedUI
             return new From(new BasicElement(desktopElement));
         }
 
+        /// <summary>
+        /// The UI element search has to start from the last found window.
+        /// </summary>
+        /// <returns>Instance of the From to be used in the <see cref="DW.CodedUI.UI" /> object.</returns>
+        public static From LastWindow()
+        {
+            if (ElementsContainer.LastWindow == null)
+                throw new MissingWindowException(true);
+
+            return new From(ElementsContainer.LastWindow);
+        }
+
         internal BasicElement GetSourceElement()
         {
             return _sourceElement;

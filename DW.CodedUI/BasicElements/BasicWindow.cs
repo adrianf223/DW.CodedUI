@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Internal;
 
@@ -28,6 +27,9 @@ namespace DW.CodedUI.BasicElements
             : base(automationElement)
         {
             Unsafe = new UnsafeMethods(automationElement);
+
+            if (automationElement != null)
+                ElementsContainer.LastWindow = this;
         }
 
         /// <summary>

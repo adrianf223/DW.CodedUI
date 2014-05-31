@@ -3,6 +3,7 @@
 ==============================
 Release 2.*
 ==============================
+2014-05-31    Add possibility to start UI element search from the last found window
 2014-05-31    Add possibility to start UI element search from the desktop
 2014-05-28    Add possibility to search for UI elements which has the keyboard focus
 2014-05-28    Use a toggle slider for a better visualization of the enabled and disabled state of the ElementFinder
