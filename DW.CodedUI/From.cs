@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 
 namespace DW.CodedUI
@@ -34,6 +35,16 @@ namespace DW.CodedUI
                 throw new ArgumentNullException("element");
 
             return new From(element);
+        }
+
+        /// <summary>
+        /// The UI element search has to start from the desktop.
+        /// </summary>
+        /// <returns>Instance of the From to be used in the <see cref="DW.CodedUI.UI" /> object.</returns>
+        public static From Desktop()
+        {
+            var desktopElement = AutomationElement.RootElement;
+            return new From(new BasicElement(desktopElement));
         }
 
         internal BasicElement GetSourceElement()
