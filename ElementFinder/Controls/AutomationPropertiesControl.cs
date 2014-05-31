@@ -2,7 +2,7 @@
 using System.Windows.Automation;
 using System.Windows.Controls;
 
-namespace ElementFinder
+namespace ElementFinder.Controls
 {
     public class AutomationPropertiesControl : ItemsControl
     {

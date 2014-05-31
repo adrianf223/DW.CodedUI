@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace ElementFinder
+namespace ElementFinder.Controls
 {
     public class CopyableTextBox : TextBox
     {

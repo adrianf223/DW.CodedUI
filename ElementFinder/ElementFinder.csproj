@@ -77,22 +77,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CatchedElementsEventArgs.cs" />
-    <Compile Include="CopyableTextBox.cs" />
-    <Compile Include="ElementsCatcher.cs" />
-    <Compile Include="ExceptionWindow.xaml.cs">
+    <Compile Include="BL\CatchedElementsEventArgs.cs" />
+    <Compile Include="BL\ElementsCatcher.cs" />
+    <Compile Include="BL\InteractionObserver.cs" />
+    <Compile Include="Controls\AutomationPropertiesControl.cs" />
+    <Compile Include="Controls\CopyableTextBox.cs" />
+    <Compile Include="Controls\Property.cs" />
+    <Compile Include="Controls\ToggleSlider.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\ExceptionWindow.xaml.cs">
       <DependentUpon>ExceptionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InteractionObserver.cs" />
-    <Compile Include="MainView.xaml.cs">
+    <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainViewModel.cs" />
-    <Compile Include="Property.cs" />
-    <Compile Include="ToggleSlider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomationPropertiesControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,15 +110,15 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ExceptionWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ExceptionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -134,6 +134,9 @@
       <Project>{d0c60d0d-7cd0-422e-b0a5-5031602fb73a}</Project>
       <Name>DW.CodedUI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Shortcuts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

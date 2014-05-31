@@ -1,4 +1,4 @@
-﻿<Window x:Class="ElementFinder.ExceptionWindow"
+﻿<Window x:Class="ElementFinder.Views.ExceptionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Unhandled Exception"

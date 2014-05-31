@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace ElementFinder
+namespace ElementFinder.Controls
 {
     public class ToggleSlider : ToggleButton
     {

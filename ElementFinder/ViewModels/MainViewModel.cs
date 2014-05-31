@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
-using ElementFinder.Properties;
+using ElementFinder.BL;
 
-namespace ElementFinder
+namespace ElementFinder.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {

@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace ElementFinder
+namespace ElementFinder.BL
 {
     public class InteractionObserver
     {
