@@ -25,9 +25,9 @@ namespace DW.CodedUI
 
         private static string BuildMessage(bool lastWindow)
         {
-            //if (lastWindow)
-            return "There is no last window available; Either no WindowFinder.Search was run successfully or no BasicWindow got created with an existing item.";
-            //return "The MainWindow could not be determined";
+            if (lastWindow)
+                return "There is no last window available; Either no WindowFinder.Search was run successfully or no BasicWindow got created with an existing item.";
+            return "The MainWindow could not be determined. Either there is no last window or the process under test does not have a main window handle. The last window is set if a WindowFinder.Search was run successfully or a BasicWindow got created with an existing item.";
         }
     }
 }

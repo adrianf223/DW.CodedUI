@@ -59,6 +59,23 @@ namespace DW.CodedUI
             return new From(ElementsContainer.LastWindow);
         }
 
+        /// <summary>
+        /// The UI element search has to start from the main window of the current application.
+        /// </summary>
+        /// <returns>Instance of the From to be used in the <see cref="DW.CodedUI.UI" /> object.</returns>
+        /// <remarks>The current process is determined by the last found window.</remarks>
+        public static From MainWindow()
+        {
+            if (ElementsContainer.LastWindow == null)
+                throw new MissingWindowException(false);
+
+            var mainWindowHandle = ElementsContainer.LastWindow.OwningProcess.MainWindowHandle;
+            if (mainWindowHandle == IntPtr.Zero)
+                throw new MissingWindowException(false);
+            
+            return new From(new BasicElement(AutomationElement.FromHandle(mainWindowHandle)));
+        }
+
         internal BasicElement GetSourceElement()
         {
             return _sourceElement;
