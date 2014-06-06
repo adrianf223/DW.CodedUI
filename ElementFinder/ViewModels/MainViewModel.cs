@@ -3,9 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using ElementFinder.BL;
+using ElementFinder.Shortcuts;
 
 namespace ElementFinder.ViewModels
 {
@@ -21,14 +23,28 @@ namespace ElementFinder.ViewModels
 
             Elements = new ObservableCollection<AutomationElementInfo>();
 
+            _shortcutsCollector = new ShortcutsCollector();
+            SetShortcuts();
+
+            _shortcutsCollector.Start();
+
             IsEnabled = true;
         }
 
         private readonly InteractionObserver _interactionObserver;
         private readonly ElementsCatcher _elementsCatcher;
         private Highlighter _highlighter;
+        private ShortcutsCollector _shortcutsCollector;
 
         public ObservableCollection<AutomationElementInfo> Elements { get; private set; }
+
+        private void SetShortcuts()
+        {
+            _shortcutsCollector.SetShortcuts
+                (
+                    new Shortcut(() => IsEnabled = !IsEnabled, () => { }, Key.LeftCtrl, Key.E)
+                );
+        }
 
         public AutomationElementInfo CurrentElement
         {

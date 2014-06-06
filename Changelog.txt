@@ -3,6 +3,7 @@
 ==============================
 Release 2.*
 ==============================
+2014-06-06    Listen for system key CTRL+E to enable and disable the ElementFinder
 2014-05-31    Add possibility to start UI element search from the main window of the current to test process
 2014-05-31    Add possibility to start UI element search from the last found window
 2014-05-31    Add possibility to start UI element search from the desktop

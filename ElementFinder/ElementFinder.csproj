@@ -84,6 +84,7 @@
     <Compile Include="Controls\CopyableTextBox.cs" />
     <Compile Include="Controls\Property.cs" />
     <Compile Include="Controls\ToggleSlider.cs" />
+    <Compile Include="Shortcuts\Shortcut.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\ExceptionWindow.xaml.cs">
       <DependentUpon>ExceptionWindow.xaml</DependentUpon>
@@ -135,9 +136,7 @@
       <Name>DW.CodedUI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Shortcuts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
