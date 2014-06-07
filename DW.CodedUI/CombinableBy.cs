@@ -155,6 +155,22 @@ namespace DW.CodedUI
         }
 
         /// <summary>
+        /// Starts the search for the UI element which has the keyboard focus.
+        /// </summary>
+        /// <returns>A combinable By to be able to append additional conditions.</returns>
+        public new CombinableBy Focus()
+        {
+            _conditions.Add(element =>
+            {
+                if (element == null)
+                    return false;
+                return element.Properties.HasKeyboardFocus;
+            });
+            _conditionDescriptions.Add(string.Format("element.Properties.HasKeyboardFocus == true"));
+            return this;
+        }
+
+        /// <summary>
         /// Starts the search for the UI element by a custom condition.
         /// </summary>
         /// <param name="condition">The condition to be called for each item to find a matching UI element.</param>

@@ -7,7 +7,7 @@ using System.Windows.Threading;
 using DW.CodedUI;
 using DW.CodedUI.BasicElements;
 
-namespace ElementFinder
+namespace ElementFinder.BL
 {
     public class ElementsCatcher
     {

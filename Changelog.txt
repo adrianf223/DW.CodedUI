@@ -1,6 +1,18 @@
 
 
 ==============================
+Release 2.*
+==============================
+2014-06-06    Listen for system key CTRL+E to enable and disable the ElementFinder
+2014-05-31    Add possibility to start UI element search from the main window of the current to test process
+2014-05-31    Add possibility to start UI element search from the last found window
+2014-05-31    Add possibility to start UI element search from the desktop
+2014-05-28    Add possibility to search for UI elements which has the keyboard focus
+2014-05-28    Use a toggle slider for a better visualization of the enabled and disabled state of the ElementFinder
+2014-05-26    Add clear button to remove all visible elements in the ElementFinder
+2014-05-26    Add support for all .net available languages for the window buttons
+
+==============================
 Release 2.0.0.X
 ==============================
 2014-04-07    Rename "Using" by "Use"

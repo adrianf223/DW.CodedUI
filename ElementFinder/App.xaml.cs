@@ -1,4 +1,5 @@
 ﻿using System.Windows.Threading;
+using ElementFinder.Views;
 
 namespace ElementFinder
 {

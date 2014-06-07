@@ -4,14 +4,15 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using ElementFinder.Properties;
+using ElementFinder.ViewModels;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
-namespace ElementFinder
+namespace ElementFinder.Views
 {
-    public partial class LargeView : INotifyPropertyChanged
+    public partial class MainView : INotifyPropertyChanged
     {
-        public LargeView()
+        public MainView()
         {
             InitializeComponent();
             DataContext = new MainViewModel();
@@ -144,6 +145,12 @@ namespace ElementFinder
         private MainViewModel GetMainViewModel()
         {
             return (MainViewModel)DataContext;
+        }
+
+        private void ClearPane(object sender, RoutedEventArgs e)
+        {
+            GetMainViewModel().CurrentElement = null;
+            GetMainViewModel().Elements.Clear();
         }
     }
 }

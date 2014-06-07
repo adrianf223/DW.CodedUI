@@ -1,7 +1,7 @@
 ﻿using System;
 using DW.CodedUI.BasicElements;
 
-namespace ElementFinder
+namespace ElementFinder.BL
 {
     public class CatchedElementsEventArgs : EventArgs
     {

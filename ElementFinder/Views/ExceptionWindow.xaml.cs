@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows;
 
-namespace ElementFinder
+namespace ElementFinder.Views
 {
     public partial class ExceptionWindow
     {
