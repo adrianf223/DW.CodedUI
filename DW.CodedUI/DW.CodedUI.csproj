@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D527ED2E-E812-478D-B5FF-C896B91DF344}</ProjectGuid>
+    <ProjectGuid>{AE8A6C77-5D3F-414C-B484-F8B44706AA70}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DW.CodedUI</RootNamespace>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\</OutputPath>
-    <DefineConstants>TRACE;TRIAL</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -53,6 +53,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
@@ -62,6 +64,10 @@
       <Visible>False</Visible>
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="my-libraries.pfx" />
+  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="And.cs" />
     <Compile Include="AndCondition.cs" />
@@ -99,22 +105,28 @@
     <Compile Include="CombinableAnd.cs" />
     <Compile Include="CombinableBy.cs" />
     <Compile Include="CombinableDo.cs" />
-    <Compile Include="CombinableUsing.cs" />
+    <Compile Include="CombinableUse.cs" />
     <Compile Include="CombinableWith.cs" />
     <Compile Include="CompareKind.cs" />
     <Compile Include="Do.cs" />
+    <Compile Include="ElementsContainer.cs" />
     <Compile Include="ExecutableNotAvailableException.cs" />
     <Compile Include="From.cs" />
+    <Compile Include="Internal\License.xaml.cs">
+      <DependentUpon>License.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Internal\StringExtensions.cs" />
+    <Compile Include="Internal\SystemStrings.cs" />
     <Compile Include="Internal\WinApi.cs" />
     <Compile Include="KeyboardCommands.cs" />
     <Compile Include="KeyboardEx.cs" />
+    <Compile Include="MissingWindowException.cs" />
     <Compile Include="MouseEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommonMeta.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIElementNotFoundException.cs" />
-    <Compile Include="Using.cs" />
+    <Compile Include="Use.cs" />
     <Compile Include="Utilities\ColorDetector.cs" />
     <Compile Include="Utilities\Highlighter.cs">
       <SubType>Form</SubType>
@@ -126,9 +138,14 @@
     <Compile Include="With.cs" />
     <Compile Include="WithCondition.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="my-libraries.pfx" />
+    <Page Include="Internal\License.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Internal\Logo.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
