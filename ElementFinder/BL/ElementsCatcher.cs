@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Threading;
 using DW.CodedUI;
@@ -33,7 +34,7 @@ namespace ElementFinder.BL
             try
             {
                 var position = System.Windows.Forms.Cursor.Position;
-                var element = AutomationElement.FromPoint(position);
+                var element = AutomationElement.FromPoint(new Point(position.X, position.Y));
                 if (element.Current.ProcessId == _currentProcessId)
                 {
                     Notify(null);

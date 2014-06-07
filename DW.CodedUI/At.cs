@@ -1,5 +1,7 @@
+using System.Windows;
 using DW.CodedUI.BasicElements;
 using System.Drawing;
+using Point = System.Drawing.Point;
 
 namespace DW.CodedUI
 {
@@ -122,7 +124,7 @@ namespace DW.CodedUI
             return new Point((int)x, (int)y);
         }
 
-        private double CalculateX(Rectangle rect)
+        private double CalculateX(Rect rect)
         {
             var x = 0.0;
             if (_left == null && _right == null)
@@ -134,7 +136,7 @@ namespace DW.CodedUI
             return x + rect.Left;
         }
 
-        private double CalculateY(Rectangle rect)
+        private double CalculateY(Rect rect)
         {
             var y = 0.0;
             if (_top == null && _bottom == null)
