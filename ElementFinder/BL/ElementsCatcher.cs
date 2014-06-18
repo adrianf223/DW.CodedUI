@@ -34,7 +34,7 @@ namespace ElementFinder.BL
             try
             {
                 var position = System.Windows.Forms.Cursor.Position;
-                var element = AutomationElement.FromPoint(new Point(position.X, position.Y));
+                var element = AutomationElement.FromPoint(position);
                 if (element.Current.ProcessId == _currentProcessId)
                 {
                     Notify(null);

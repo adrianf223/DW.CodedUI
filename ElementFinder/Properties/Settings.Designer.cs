@@ -8,113 +8,141 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ElementFinder.Properties {
-    
-    
+namespace ElementFinder.Properties
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool QuickSearch {
-            get {
+        public bool QuickSearch
+        {
+            get
+            {
                 return ((bool)(this["QuickSearch"]));
             }
-            set {
+            set
+            {
                 this["QuickSearch"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ExpandAfterSearch {
-            get {
+        public bool ExpandAfterSearch
+        {
+            get
+            {
                 return ((bool)(this["ExpandAfterSearch"]));
             }
-            set {
+            set
+            {
                 this["ExpandAfterSearch"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool IsEnabled {
-            get {
+        public bool IsEnabled
+        {
+            get
+            {
                 return ((bool)(this["IsEnabled"]));
             }
-            set {
+            set
+            {
                 this["IsEnabled"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsShortView {
-            get {
+        public bool IsShortView
+        {
+            get
+            {
                 return ((bool)(this["IsShortView"]));
             }
-            set {
+            set
+            {
                 this["IsShortView"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("800, 600")]
-        public global::System.Drawing.Size Size {
-            get {
+        public global::System.Drawing.Size Size
+        {
+            get
+            {
                 return ((global::System.Drawing.Size)(this["Size"]));
             }
-            set {
+            set
+            {
                 this["Size"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point Position {
-            get {
+        public global::System.Drawing.Point Position
+        {
+            get
+            {
                 return ((global::System.Drawing.Point)(this["Position"]));
             }
-            set {
+            set
+            {
                 this["Position"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool HideEmptyEntries {
-            get {
+        public bool HideEmptyEntries
+        {
+            get
+            {
                 return ((bool)(this["HideEmptyEntries"]));
             }
-            set {
+            set
+            {
                 this["HideEmptyEntries"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoCopyAutomationId {
-            get {
+        public bool AutoCopyAutomationId
+        {
+            get
+            {
                 return ((bool)(this["AutoCopyAutomationId"]));
             }
-            set {
+            set
+            {
                 this["AutoCopyAutomationId"] = value;
             }
         }

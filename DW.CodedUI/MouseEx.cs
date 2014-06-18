@@ -168,7 +168,7 @@ namespace DW.CodedUI
         {
             var rect = element.Properties.BoundingRectangle;
 
-            if (rect == Rect.Empty)
+            if (rect == Rectangle.Empty)
                 throw new InvalidOperationException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
 
             if (relativePosition == null)
@@ -325,7 +325,7 @@ namespace DW.CodedUI
         {
             var rect = element.Properties.BoundingRectangle;
 
-            if (rect == Rect.Empty)
+            if (rect == Rectangle.Empty)
                 throw new InvalidOperationException("The control cannot be double clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
 
             if (relativePosition == null)
@@ -335,11 +335,11 @@ namespace DW.CodedUI
             return new CombinableDo();
         }
 
-        private static void ClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rect rect)
+        private static void ClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rectangle rect)
         {
-            System.Windows.Point point;
+            Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
-                Mouse.Click(button, modifierKeys, new Point((int)point.X, (int)point.Y));
+                Mouse.Click(button, modifierKeys, point);
             else
             {
                 var x = rect.Left + (rect.Width / 2.0);
@@ -354,11 +354,11 @@ namespace DW.CodedUI
             Mouse.Click(button, modifierKeys, position);
         }
 
-        private static void DoubleClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rect rect)
+        private static void DoubleClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rectangle rect)
         {
-            System.Windows.Point point;
+            Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
-                Mouse.DoubleClick(button, modifierKeys, new Point((int)point.X, (int)point.Y));
+                Mouse.DoubleClick(button, modifierKeys, point);
             else
             {
                 var x = rect.Left + (rect.Width / 2.0);

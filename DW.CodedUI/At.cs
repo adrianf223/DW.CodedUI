@@ -124,7 +124,7 @@ namespace DW.CodedUI
             return new Point((int)x, (int)y);
         }
 
-        private double CalculateX(Rect rect)
+        private double CalculateX(Rectangle rect)
         {
             var x = 0.0;
             if (_left == null && _right == null)
@@ -136,7 +136,7 @@ namespace DW.CodedUI
             return x + rect.Left;
         }
 
-        private double CalculateY(Rect rect)
+        private double CalculateY(Rectangle rect)
         {
             var y = 0.0;
             if (_top == null && _bottom == null)
