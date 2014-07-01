@@ -35,7 +35,8 @@ namespace ElementFinder.BL
             {
                 var position = System.Windows.Forms.Cursor.Position;
                 var element = AutomationElement.FromPoint(position);
-                if (element.Current.ProcessId == _currentProcessId)
+                if (element.Current.ProcessId == _currentProcessId ||
+                    IsInVisualStudio(element.Current.ProcessId))
                 {
                     Notify(null);
                     return;
@@ -54,6 +55,12 @@ namespace ElementFinder.BL
             {
                 Notify(null);
             }
+        }
+
+        private bool IsInVisualStudio(int processId)
+        {
+            var process = Process.GetProcessById(processId);
+            return process.ProcessName.Contains("devenv");
         }
 
         private void Notify(AutomationElementInfo element)
