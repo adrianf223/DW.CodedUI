@@ -35,5 +35,8 @@
     <Setting Name="BlacklistedProcesses" Type="System.String" Scope="User">
       <Value Profile="(Default)">devenv,explorer,notepad,word,excel,outlook</Value>
     </Setting>
+    <Setting Name="TopMostHighlighter" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -107,6 +107,7 @@ namespace ElementFinder.Views
             mainViewModel.HideEmptyEntries = Settings.Default.HideEmptyEntries;
             mainViewModel.AutoCopyAutomationId = Settings.Default.AutoCopyAutomationId;
             mainViewModel.TopMost = Settings.Default.TopMost;
+            mainViewModel.TopMostHighlighter = Settings.Default.TopMostHighlighter;
             mainViewModel.LeftColumnWidth = new GridLength(Settings.Default.LeftColumnWidth);
         }
 
@@ -135,6 +136,7 @@ namespace ElementFinder.Views
             Settings.Default.HideEmptyEntries = mainViewModel.HideEmptyEntries;
             Settings.Default.AutoCopyAutomationId = mainViewModel.AutoCopyAutomationId;
             Settings.Default.TopMost = mainViewModel.TopMost;
+            Settings.Default.TopMostHighlighter = mainViewModel.TopMostHighlighter;
             Settings.Default.LeftColumnWidth = mainViewModel.LeftColumnWidth.Value;
             Settings.Default.IsShortView = _isShortView;
             if (_isShortView)

@@ -159,6 +159,20 @@ namespace ElementFinder.ViewModels
         }
         private bool _topMost;
 
+        public bool TopMostHighlighter
+        {
+            get { return _topMostHighlighter; }
+            set
+            {
+                _topMostHighlighter = value;
+                NotifyPropertyChanged("TopMostHighlighter");
+
+                if (_highlighter != null)
+                    _highlighter.TopMost = value;
+            }
+        }
+        private bool _topMostHighlighter;
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
@@ -193,13 +207,17 @@ namespace ElementFinder.ViewModels
                 return;
 
             _highlighter = new Highlighter();
+            _highlighter.TopMost = TopMostHighlighter;
             _highlighter.Highlight(CurrentElement.AutomationElement);
         }
 
         private void CloseHighlight()
         {
             if (_highlighter != null)
+            {
                 _highlighter.Close();
+                _highlighter = null;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

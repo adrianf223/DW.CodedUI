@@ -66,18 +66,17 @@
                             <ToolBarTray DockPanel.Dock="Top">
                                 <ToolBar>
                                     <ToggleButton Content="Quick Search" IsChecked="{Binding QuickSearch}" ToolTip="Search only for the hovered element" />
-                                </ToolBar>
-                                <ToolBar>
+                                    <Separator />
                                     <ToggleButton Content="Expanded" IsChecked="{Binding ExpandAfterSearch}" x:Name="PART_SearchExpanded" ToolTip="Expand / Collapse All" />
-                                </ToolBar>
-                                <ToolBar>
+                                    <Separator />
                                     <ToggleButton Content="Hide Empty" IsChecked="{Binding HideEmptyEntries}" ToolTip="Shows / Hides empty entries in the properties list" />
+                                    <Separator />
                                     <ToggleButton Content="Auto Copy ID" IsChecked="{Binding AutoCopyAutomationId}" ToolTip="If the catched UI element has an automation ID, it's copied to the clipboard automatically" />
-                                </ToolBar>
-                                <ToolBar>
+                                    <Separator />
                                     <ToggleButton Content="TopMost" IsChecked="{Binding TopMost}" ToolTip="If checked the ElementFinder is always on top" />
-                                </ToolBar>
-                                <ToolBar>
+                                    <Separator />
+                                    <ToggleButton Content="TopMost Highlighter" IsChecked="{Binding TopMostHighlighter}" ToolTip="If checked the element highlight is always on top" />
+                                    <Separator />
                                     <Button Content="Clear" Click="ClearPane" ToolTip="Clears all current displayed elements" />
                                 </ToolBar>
                             </ToolBarTray>
