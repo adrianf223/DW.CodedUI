@@ -137,6 +137,17 @@ namespace ElementFinder.ViewModels
         }
         private bool _autoCopyAutomationId;
 
+        public bool TopMost
+        {
+            get { return _topMost; }
+            set
+            {
+                _topMost = value;
+                NotifyPropertyChanged("TopMost");
+            }
+        }
+        private bool _topMost;
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;

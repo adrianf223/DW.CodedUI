@@ -1,12 +1,12 @@
 ﻿<Window x:Class="ElementFinder.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ElementFinder="clr-namespace:ElementFinder"
         xmlns:Controls="clr-namespace:ElementFinder.Controls"
         MouseLeftButtonDown="HandleMouseLeftButtonDown"
         Loaded="HandleLoaded"
         Closing="HandleClosing"
         x:Name="MainUI"
+        Topmost="{Binding TopMost}"
         WindowStyle="None"
         Title="ElementFinder"
         ResizeMode="NoResize"
@@ -73,6 +73,9 @@
                                 <ToolBar>
                                     <ToggleButton Content="Hide Empty" IsChecked="{Binding HideEmptyEntries}" ToolTip="Shows / Hides empty entries in the properties list" />
                                     <ToggleButton Content="Auto Copy ID" IsChecked="{Binding AutoCopyAutomationId}" ToolTip="If the catched UI element has an automation ID, it's copied to the clipboard automatically" />
+                                </ToolBar>
+                                <ToolBar>
+                                    <ToggleButton Content="TopMost" IsChecked="{Binding TopMost}" ToolTip="If checked the ElementFinder is always on top" />
                                 </ToolBar>
                                 <ToolBar>
                                     <Button Content="Clear" Click="ClearPane" ToolTip="Clears all current displayed elements" />

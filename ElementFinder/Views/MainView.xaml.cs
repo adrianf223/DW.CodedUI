@@ -106,6 +106,7 @@ namespace ElementFinder.Views
             mainViewModel.IsEnabled = Settings.Default.IsEnabled;
             mainViewModel.HideEmptyEntries = Settings.Default.HideEmptyEntries;
             mainViewModel.AutoCopyAutomationId = Settings.Default.AutoCopyAutomationId;
+            mainViewModel.TopMost = Settings.Default.TopMost;
         }
 
         private void SetPositionAndSize()
@@ -132,6 +133,7 @@ namespace ElementFinder.Views
             Settings.Default.IsEnabled = mainViewModel.IsEnabled;
             Settings.Default.HideEmptyEntries = mainViewModel.HideEmptyEntries;
             Settings.Default.AutoCopyAutomationId = mainViewModel.AutoCopyAutomationId;
+            Settings.Default.TopMost = mainViewModel.TopMost;
             Settings.Default.IsShortView = _isShortView;
             if (_isShortView)
                 Settings.Default.Size = new Size((int)Width, (int)_oldHeight);
