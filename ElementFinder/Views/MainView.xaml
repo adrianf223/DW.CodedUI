@@ -44,7 +44,7 @@
                                 <Grid Margin="2" VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition MinWidth="50" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="2" />
                                         <ColumnDefinition MinWidth="50" />
                                     </Grid.ColumnDefinitions>
 
@@ -88,9 +88,9 @@
                             
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="{Binding LeftColumnWidth, Mode=TwoWay}" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 
                                 <TreeView ItemsSource="{Binding Elements}" SelectedItemChanged="HandleSelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

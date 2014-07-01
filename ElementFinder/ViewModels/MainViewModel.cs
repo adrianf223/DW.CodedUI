@@ -104,6 +104,17 @@ namespace ElementFinder.ViewModels
         }
         private bool _isSearching;
 
+        public GridLength LeftColumnWidth
+        {
+            get { return _leftColumnWidth; }
+            set
+            {
+                _leftColumnWidth = value;
+                NotifyPropertyChanged("LeftColumnWidth");
+            }
+        }
+        private GridLength _leftColumnWidth;
+
         public bool ExpandAfterSearch
         {
             get { return _expandAfterSearch; }

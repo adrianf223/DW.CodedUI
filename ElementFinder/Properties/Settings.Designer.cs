@@ -130,5 +130,17 @@ namespace ElementFinder.Properties {
                 this["TopMost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public double LeftColumnWidth {
+            get {
+                return ((double)(this["LeftColumnWidth"]));
+            }
+            set {
+                this["LeftColumnWidth"] = value;
+            }
+        }
     }
 }
