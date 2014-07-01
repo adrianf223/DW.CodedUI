@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
+using System.Windows.Documents;
 using System.Windows.Threading;
 using DW.CodedUI;
 using DW.CodedUI.BasicElements;
+using ElementFinder.Properties;
 
 namespace ElementFinder.BL
 {
@@ -15,8 +19,11 @@ namespace ElementFinder.BL
         {
             _dispatcher = Dispatcher.CurrentDispatcher;
             _currentProcessId = Process.GetCurrentProcess().Id;
+
+            _blackListesProcesses = new List<string>(Settings.Default.BlacklistedProcesses.Split(',').Select(i => i.ToLower()));
         }
 
+        private List<string> _blackListesProcesses;
         private readonly int _currentProcessId;
         private readonly Dispatcher _dispatcher;
 
@@ -36,7 +43,7 @@ namespace ElementFinder.BL
                 var position = System.Windows.Forms.Cursor.Position;
                 var element = AutomationElement.FromPoint(position);
                 if (element.Current.ProcessId == _currentProcessId ||
-                    IsInVisualStudio(element.Current.ProcessId))
+                    IsBlackListed(element.Current.ProcessId))
                 {
                     Notify(null);
                     return;
@@ -57,10 +64,10 @@ namespace ElementFinder.BL
             }
         }
 
-        private bool IsInVisualStudio(int processId)
+        private bool IsBlackListed(int processId)
         {
-            var process = Process.GetProcessById(processId);
-            return process.ProcessName.Contains("devenv");
+            var processName = Process.GetProcessById(processId).ProcessName.ToLower();
+            return _blackListesProcesses.Any(processName.Contains);
         }
 
         private void Notify(AutomationElementInfo element)

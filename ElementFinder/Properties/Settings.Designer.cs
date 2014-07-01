@@ -142,5 +142,17 @@ namespace ElementFinder.Properties {
                 this["LeftColumnWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("devenv,explorer,notepad,word,excel,outlook")]
+        public string BlacklistedProcesses {
+            get {
+                return ((string)(this["BlacklistedProcesses"]));
+            }
+            set {
+                this["BlacklistedProcesses"] = value;
+            }
+        }
     }
 }
