@@ -102,13 +102,10 @@
                                     <TreeView.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                                             <StackPanel Orientation="Horizontal">
-                                                <Path x:Name="PART_Check" Fill="DarkBlue" Stretch="Uniform" Data="M 0,3 L 3,7 7,0 3,4 z" Width="16" VerticalAlignment="Center" Margin="0,0,2,0" Visibility="Hidden" />
+                                                <Path x:Name="PART_Check" Fill="Black" Stretch="Uniform" Data="M 0,3 L 3,7 7,0 3,4 z" Width="16" VerticalAlignment="Center" Margin="0,0,2,0" Visibility="Hidden" />
                                                 <TextBlock Text="{Binding }" />
                                             </StackPanel>
                                             <HierarchicalDataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
-                                                    <Setter TargetName="PART_Check" Property="Fill" Value="WhiteSmoke" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding HasAutomationId}" Value="True">
                                                     <Setter TargetName="PART_Check" Property="Visibility" Value="Visible" />
                                                 </DataTrigger>
