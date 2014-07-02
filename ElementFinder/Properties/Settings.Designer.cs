@@ -133,7 +133,7 @@ namespace ElementFinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("230")]
         public double LeftColumnWidth {
             get {
                 return ((double)(this["LeftColumnWidth"]));
