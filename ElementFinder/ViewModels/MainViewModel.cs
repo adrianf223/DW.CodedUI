@@ -25,8 +25,10 @@ namespace ElementFinder.ViewModels
 
             _shortcutsCollector = new ShortcutsCollector();
             SetShortcuts();
-
             _shortcutsCollector.Start();
+
+            _positionObserver = new PositionObserver();
+            NoticeHighlightPosition = true;
 
             IsEnabled = true;
         }
@@ -34,7 +36,8 @@ namespace ElementFinder.ViewModels
         private readonly InteractionObserver _interactionObserver;
         private readonly ElementsCatcher _elementsCatcher;
         private Highlighter _highlighter;
-        private ShortcutsCollector _shortcutsCollector;
+        private readonly ShortcutsCollector _shortcutsCollector;
+        private readonly PositionObserver _positionObserver;
 
         public ObservableCollection<AutomationElementInfo> Elements { get; private set; }
 
@@ -173,6 +176,22 @@ namespace ElementFinder.ViewModels
         }
         private bool _topMostHighlighter;
 
+        public bool NoticeHighlightPosition
+        {
+            get { return _noticeHighlightPosition; }
+            set
+            {
+                _noticeHighlightPosition = value;
+                NotifyPropertyChanged("NoticeHighlightPosition");
+
+                if (value)
+                    StartHighlightPositionObserver();
+                else
+                    StopHighlightPositionObserver();
+            }
+        }
+        private bool _noticeHighlightPosition;
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
@@ -209,6 +228,8 @@ namespace ElementFinder.ViewModels
             _highlighter = new Highlighter();
             _highlighter.TopMost = TopMostHighlighter;
             _highlighter.Highlight(CurrentElement.AutomationElement);
+
+            StartHighlightPositionObserver();
         }
 
         private void CloseHighlight()
@@ -217,7 +238,25 @@ namespace ElementFinder.ViewModels
             {
                 _highlighter.Close();
                 _highlighter = null;
+
+                StopHighlightPositionObserver();
             }
+        }
+
+        private void StartHighlightPositionObserver()
+        {
+            if (CurrentElement == null ||
+                !CurrentElement.IsAvailable ||
+                CurrentElement.AutomationElement.Current.IsOffscreen ||
+                !NoticeHighlightPosition)
+                return;
+
+            _positionObserver.Start(_highlighter, CurrentElement);
+        }
+
+        private void StopHighlightPositionObserver()
+        {
+            _positionObserver.Stop();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

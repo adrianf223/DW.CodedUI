@@ -166,5 +166,17 @@ namespace ElementFinder.Properties {
                 this["TopMostHighlighter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NoticeHighlightPosition {
+            get {
+                return ((bool)(this["NoticeHighlightPosition"]));
+            }
+            set {
+                this["NoticeHighlightPosition"] = value;
+            }
+        }
     }
 }

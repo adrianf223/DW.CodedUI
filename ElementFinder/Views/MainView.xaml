@@ -77,6 +77,8 @@
                                     <Separator />
                                     <ToggleButton Content="TopMost Highlighter" IsChecked="{Binding TopMostHighlighter}" ToolTip="If checked the element highlight is always on top" />
                                     <Separator />
+                                    <ToggleButton Content="Keep Highlighter Position" IsChecked="{Binding NoticeHighlightPosition}" ToolTip="If checked position of the element highligter will be kept up to date" />
+                                    <Separator />
                                     <Button Content="Clear" Click="ClearPane" ToolTip="Clears all current displayed elements" />
                                 </ToolBar>
                             </ToolBarTray>

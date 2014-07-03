@@ -109,6 +109,7 @@ namespace ElementFinder.Views
             mainViewModel.TopMost = Settings.Default.TopMost;
             mainViewModel.TopMostHighlighter = Settings.Default.TopMostHighlighter;
             mainViewModel.LeftColumnWidth = new GridLength(Settings.Default.LeftColumnWidth);
+            mainViewModel.NoticeHighlightPosition = Settings.Default.NoticeHighlightPosition;
         }
 
         private void SetPositionAndSize()
@@ -139,6 +140,7 @@ namespace ElementFinder.Views
             Settings.Default.TopMostHighlighter = mainViewModel.TopMostHighlighter;
             Settings.Default.LeftColumnWidth = mainViewModel.LeftColumnWidth.Value;
             Settings.Default.IsShortView = _isShortView;
+            Settings.Default.NoticeHighlightPosition = mainViewModel.NoticeHighlightPosition;
             if (_isShortView)
                 Settings.Default.Size = new Size((int)Width, (int)_oldHeight);
             else
