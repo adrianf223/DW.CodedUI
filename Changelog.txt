@@ -3,14 +3,23 @@
 ==============================
 Release 2.*
 ==============================
+2014-07-04    ElementFinder: Add ElementObserver to detect if an element disappears to close the highlighter automatically
+2014-07-03    ElementFinder: Add possibility to keep element highlighter position and size up to date
+2014-07-02    ElementFinder: Change default value of the LeftColumnWidth from 50 to 230
+2014-07-01    ElementFinder: Add possibility to define the ElementFinder TopMost or not
+              ElementFinder: Remember and restore the width of the left column
+              ElementFinder: Ignore Visual Studio process
+              ElementFinder: Add blacklisted applications
+              ElementFinder: Add possibility to define the element highlight as topmost or non topmost
+              ElementFinder: The marks if the element has an automation id or not will never become white anymore
 2014-06-06    ElementFinder: Listen for system key CTRL+E to enable and disable
-2014-05-31    Add possibility to start UI element search from the main window of the current to test process
-              Add possibility to start UI element search from the last found window
-              Add possibility to start UI element search from the desktop
-2014-05-28    Add possibility to search for UI elements which has the keyboard focus
+2014-05-31    From: Add possibility to start UI element search from the main window of the current to test process
+              From: Add possibility to start UI element search from the last found window
+              From: Add possibility to start UI element search from the desktop
+2014-05-28    By: Add possibility to search for UI elements which has the keyboard focus
               ElementFinder: Use a toggle slider for a better visualization of the enabled and disabled state
 2014-05-26    ElementFinder: Add clear button to remove all visible elements
-              Add support for all .net available languages for the window buttons
+              BasicWindow: Add support for all .net available languages for the window buttons like minimize, maximize and close
 
 ==============================
 Release 2.0.0.X
