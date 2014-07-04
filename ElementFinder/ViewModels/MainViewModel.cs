@@ -27,8 +27,9 @@ namespace ElementFinder.ViewModels
             SetShortcuts();
             _shortcutsCollector.Start();
 
-            _positionObserver = new PositionObserver();
-            NoticeHighlightPosition = true;
+            _elementObserver = new ElementObserver();
+            _elementObserver.ElementDied += HandleElementDied;
+            _positionObserver = new PositionObserver(_elementObserver);
 
             IsEnabled = true;
         }
@@ -38,6 +39,7 @@ namespace ElementFinder.ViewModels
         private Highlighter _highlighter;
         private readonly ShortcutsCollector _shortcutsCollector;
         private readonly PositionObserver _positionObserver;
+        private readonly ElementObserver _elementObserver;
 
         public ObservableCollection<AutomationElementInfo> Elements { get; private set; }
 
@@ -57,6 +59,10 @@ namespace ElementFinder.ViewModels
                 _currentElement = value;
                 NotifyPropertyChanged("CurrentElement");
 
+                if (_currentElement == null)
+                    _elementObserver.Stop();
+                else
+                    _elementObserver.Start(CurrentElement);
                 HighlightElement();
             }
         }
@@ -176,6 +182,11 @@ namespace ElementFinder.ViewModels
         }
         private bool _topMostHighlighter;
 
+        private void HandleElementDied(object sender, EventArgs e)
+        {
+            CloseHighlight();
+        }
+
         public bool NoticeHighlightPosition
         {
             get { return _noticeHighlightPosition; }
@@ -222,7 +233,7 @@ namespace ElementFinder.ViewModels
         {
             CloseHighlight();
 
-            if (CurrentElement == null || !CurrentElement.IsAvailable || CurrentElement.AutomationElement.Current.IsOffscreen)
+            if (!_elementObserver.IsUsable())
                 return;
 
             _highlighter = new Highlighter();

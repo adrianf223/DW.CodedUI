@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BL\CatchedElementsEventArgs.cs" />
+    <Compile Include="BL\ElementObserver.cs" />
     <Compile Include="BL\ElementsCatcher.cs" />
     <Compile Include="BL\InteractionObserver.cs" />
     <Compile Include="BL\PositionObserver.cs" />

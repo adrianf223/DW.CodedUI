@@ -8,8 +8,9 @@ namespace ElementFinder.BL
 {
     public class PositionObserver
     {
-        public PositionObserver()
+        public PositionObserver(ElementObserver elementObserver)
         {
+            _elementObserver = elementObserver;
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(0.5);
             _timer.Tick += OnTimerTick;
@@ -17,13 +18,13 @@ namespace ElementFinder.BL
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            if (_element == null || !_element.IsAvailable)
+            if (!_elementObserver.IsAlive())
             {
                 _timer.Stop();
                 return;
             }
-                
-            if (_element.AutomationElement.Current.IsOffscreen)
+
+            if (!_elementObserver.IsUsable())
                 return;
 
             var rectangle = new Rectangle(_element.AutomationElement.Current.BoundingRectangle.Left,
@@ -34,6 +35,7 @@ namespace ElementFinder.BL
             _highlighter.Bounds = rectangle;
         }
 
+        private readonly ElementObserver _elementObserver;
         private readonly DispatcherTimer _timer;
         private Highlighter _highlighter;
         private AutomationElementInfo _element;
