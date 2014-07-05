@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +10,7 @@ using ElementFinder.Shortcuts;
 
 namespace ElementFinder.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ObservableObject
     {
         public MainViewModel()
         {
@@ -34,12 +33,12 @@ namespace ElementFinder.ViewModels
             IsEnabled = true;
         }
 
+        private readonly ElementObserver _elementObserver;
         private readonly InteractionObserver _interactionObserver;
+        private readonly PositionObserver _positionObserver;
         private readonly ElementsCatcher _elementsCatcher;
         private Highlighter _highlighter;
         private readonly ShortcutsCollector _shortcutsCollector;
-        private readonly PositionObserver _positionObserver;
-        private readonly ElementObserver _elementObserver;
 
         public ObservableCollection<AutomationElementInfo> Elements { get; private set; }
 
@@ -51,6 +50,8 @@ namespace ElementFinder.ViewModels
                 );
         }
 
+        #region Properties
+
         public AutomationElementInfo CurrentElement
         {
             get { return _currentElement; }
@@ -59,11 +60,10 @@ namespace ElementFinder.ViewModels
                 _currentElement = value;
                 NotifyPropertyChanged("CurrentElement");
 
-                if (_currentElement == null)
-                    _elementObserver.Stop();
+                if (_currentElement != null)
+                    CurrentElementSet();
                 else
-                    _elementObserver.Start(CurrentElement);
-                HighlightElement();
+                    CurrentElementRemoved();
             }
         }
         private AutomationElementInfo _currentElement;
@@ -77,15 +77,9 @@ namespace ElementFinder.ViewModels
                 NotifyPropertyChanged("IsEnabled");
 
                 if (_isEnabled)
-                {
-                    HighlightElement();
-                    _interactionObserver.Start();
-                }
+                    EnableElementFinder();
                 else
-                {
-                    CloseHighlight();
-                    _interactionObserver.Stop();
-                }
+                    DisableElementFinder();
             }
         }
         private bool _isEnabled;
@@ -97,7 +91,8 @@ namespace ElementFinder.ViewModels
             {
                 _quickSearch = value;
                 NotifyPropertyChanged("QuickSearch");
-                _elementsCatcher.QuickSearch = value;
+
+                SetQuickSearch(value);
             }
         }
         private bool _quickSearch;
@@ -176,16 +171,10 @@ namespace ElementFinder.ViewModels
                 _topMostHighlighter = value;
                 NotifyPropertyChanged("TopMostHighlighter");
 
-                if (_highlighter != null)
-                    _highlighter.TopMost = value;
+                SetTopMostHighlighter(_topMostHighlighter);
             }
         }
         private bool _topMostHighlighter;
-
-        private void HandleElementDied(object sender, EventArgs e)
-        {
-            CloseHighlight();
-        }
 
         public bool NoticeHighlightPosition
         {
@@ -195,7 +184,7 @@ namespace ElementFinder.ViewModels
                 _noticeHighlightPosition = value;
                 NotifyPropertyChanged("NoticeHighlightPosition");
 
-                if (value)
+                if (_noticeHighlightPosition)
                     StartHighlightPositionObserver();
                 else
                     StopHighlightPositionObserver();
@@ -203,10 +192,67 @@ namespace ElementFinder.ViewModels
         }
         private bool _noticeHighlightPosition;
 
+        #endregion Properties
+
+        private void CurrentElementSet()
+        {
+            _elementObserver.Start(CurrentElement);
+            _positionObserver.Start(_highlighter, CurrentElement);
+
+            HighlightElement();
+        }
+
+        private void CurrentElementRemoved()
+        {
+            _elementObserver.Stop();
+            _positionObserver.Stop();
+
+            CloseHighlight();
+        }
+
+        private void EnableElementFinder()
+        {
+            _interactionObserver.Start();
+
+            CurrentElement = CurrentElement;
+        }
+
+        private void DisableElementFinder()
+        {
+            CurrentElementRemoved();
+        }
+
+        private void SetQuickSearch(bool isQuickSearch)
+        {
+            _elementsCatcher.QuickSearch = isQuickSearch;
+        }
+        
+        private void SetTopMostHighlighter(bool isToTopMost)
+        {
+            if (_highlighter != null)
+                _highlighter.TopMost = isToTopMost;
+        }
+
+        private void HandleElementDied(object sender, EventArgs e)
+        {
+            CurrentElementRemoved();
+        }
+
         private void HandleTakeElements(object sender, EventArgs e)
         {
             IsSearching = true;
             _elementsCatcher.BeginCatchElements();
+        }
+
+        private void StartHighlightPositionObserver()
+        {
+            if (_elementObserver.IsUsable() && NoticeHighlightPosition)
+                _positionObserver.Start(_highlighter, CurrentElement);
+        }
+
+        private void StopHighlightPositionObserver()
+        {
+            _positionObserver.Stop();
         }
 
         private void HandleCatched(object sender, CatchedElementsEventArgs e)
@@ -220,13 +266,12 @@ namespace ElementFinder.ViewModels
             Elements.Add(e.AutomationElementInfo);
             CurrentElement = Elements.FirstOrDefault();
 
-            if (CurrentElement != null)
-            {
-                CurrentElement.IsSelected = true;
+            if (!_elementObserver.IsUsable())
+                return;
 
-                if (CurrentElement.HasAutomationId)
-                    Clipboard.SetText(CurrentElement.AutomationId);
-            }
+            CurrentElement.IsSelected = true;
+            if (CurrentElement.HasAutomationId)
+                Clipboard.SetText(CurrentElement.AutomationId);
         }
 
         private void HighlightElement()
@@ -252,31 +297,6 @@ namespace ElementFinder.ViewModels
 
                 StopHighlightPositionObserver();
             }
-        }
-
-        private void StartHighlightPositionObserver()
-        {
-            if (CurrentElement == null ||
-                !CurrentElement.IsAvailable ||
-                CurrentElement.AutomationElement.Current.IsOffscreen ||
-                !NoticeHighlightPosition)
-                return;
-
-            _positionObserver.Start(_highlighter, CurrentElement);
-        }
-
-        private void StopHighlightPositionObserver()
-        {
-            _positionObserver.Stop();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string property)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(property));
         }
     }
 }
