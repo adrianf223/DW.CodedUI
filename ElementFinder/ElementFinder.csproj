@@ -71,9 +71,13 @@
     <Compile Include="BL\InteractionObserver.cs" />
     <Compile Include="BL\PositionObserver.cs" />
     <Compile Include="Controls\AutomationPropertiesControl.cs" />
+    <Compile Include="Controls\CloseButton.cs" />
     <Compile Include="Controls\CopyableTextBox.cs" />
+    <Compile Include="Controls\CopyButton.cs" />
     <Compile Include="Controls\Property.cs" />
+    <Compile Include="Controls\ResizeThumb.cs" />
     <Compile Include="Controls\ToggleSlider.cs" />
+    <Compile Include="Controls\ViewChangeButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shortcuts\Shortcut.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

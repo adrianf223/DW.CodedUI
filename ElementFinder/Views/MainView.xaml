@@ -27,21 +27,15 @@
 
                                 <TextBlock Text="ElementFinder" VerticalAlignment="Center" Margin="2,0" />
 
-                                <Thumb DockPanel.Dock="Right" Cursor="SizeWE" Width="8" DragDelta="OnSizeDragDelta" />
+                                <Controls:ResizeThumb DockPanel.Dock="Right" Width="8" DragDelta="OnSizeDragDelta" />
 
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="2,0">
                                     <Controls:ToggleSlider IsChecked="{Binding IsEnabled}" />
-                                    <Button Click="DoSwitchView" Padding="4,0" ToolTip="Switch to large view">
-                                        <TextBlock Text="^" RenderTransformOrigin="0.5, 0.5">
-                                            <TextBlock.RenderTransform>
-                                                <RotateTransform Angle="180" />
-                                            </TextBlock.RenderTransform>
-                                        </TextBlock>
-                                    </Button>
-                                    <Button Content="x" Click="CloseView" Padding="4,0" ToolTip="Close" />
+                                    <Controls:ViewChangeButton Click="DoSwitchView" Padding="4,0" ToolTip="Switch to large view" IsMinimized="True" />
+                                    <Controls:CloseButton Click="CloseView" Padding="4,0" ToolTip="Close" />
                                 </StackPanel>
 
-                                <Grid Margin="2" VerticalAlignment="Center">
+                                <Grid Margin="0,2" VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition MinWidth="50" />
                                         <ColumnDefinition Width="2" />
@@ -134,7 +128,7 @@
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
                             <Controls:ToggleSlider IsChecked="{Binding IsEnabled}" />
-                            <Button Content="^" Click="DoSwitchView" Padding="4,0" ToolTip="Switch to small view" />
+                            <Controls:ViewChangeButton Click="DoSwitchView" Padding="4,0" ToolTip="Switch to small view" />
                         </StackPanel>
                     </Grid>
                 </Grid>
