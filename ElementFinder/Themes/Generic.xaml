@@ -178,4 +178,71 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type Controls:ShortcutTextBox}">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:ShortcutTextBox}">
+                    <Border BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                        <DockPanel>
+                            <Button Content="X" DockPanel.Dock="Right" x:Name="PART_ClearButton" />
+                            <TextBox Text="{TemplateBinding Text}" x:Name="Part_TextBox" IsReadOnly="True" ToolTip="Click in the box and press the keys you want to use as a shortcut" />
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="BorderBrush" Value="Brown" />
+                        </Trigger>
+                        <Trigger Property="HasResetButton" Value="False">
+                            <Setter TargetName="PART_ClearButton" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Controls:TitledItemsControl}" BasedOn="{StaticResource {x:Type ItemsControl}}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+        <Setter Property="VerticalTitleAlignments" Value="Center" />
+        <Setter Property="HorizontalTitleAlignments" Value="Left" />
+        <Setter Property="TitleMargins" Value="5,0" />
+        <Setter Property="HorizontalContentAlignments" Value="Stretch" />
+        <Setter Property="VerticalContentAlignments" Value="Center" />
+        <Setter Property="ContentMargins" Value="0,2" />
+    </Style>
+
+    <Style TargetType="{x:Type Controls:TitledItem}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="VerticalTitleAlignment" Value="{Binding VerticalTitleAlignments, RelativeSource={RelativeSource AncestorType={x:Type Controls:TitledItemsControl}}}" />
+        <Setter Property="HorizontalTitleAlignment" Value="{Binding HorizontalTitleAlignments, RelativeSource={RelativeSource AncestorType={x:Type Controls:TitledItemsControl}}}" />
+        <Setter Property="TitleMargin" Value="{Binding TitleMargins, RelativeSource={RelativeSource AncestorType={x:Type Controls:TitledItemsControl}}}" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignments, RelativeSource={RelativeSource AncestorType={x:Type Controls:TitledItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignments, RelativeSource={RelativeSource AncestorType={x:Type Controls:TitledItemsControl}}}" />
+        <Setter Property="ContentMargin" Value="{Binding ContentMargins, RelativeSource={RelativeSource AncestorType={x:Type Controls:TitledItemsControl}}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:TitledItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="title" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter ContentSource="Title"
+                                          VerticalAlignment="{TemplateBinding VerticalTitleAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
+                                          Margin="{TemplateBinding TitleMargin}" />
+
+                        <ContentPresenter Grid.Column="1"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding ContentMargin}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

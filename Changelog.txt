@@ -3,6 +3,7 @@
 ==============================
 Release 2.*
 ==============================
+2014-07-06    Add behavior shortcuts and let the user change them
 2014-07-05    ElementFinder: Style controls
 2014-07-04    ElementFinder: Add ElementObserver to detect if an element disappears to close the highlighter automatically
 2014-07-03    ElementFinder: Add possibility to keep element highlighter position and size up to date

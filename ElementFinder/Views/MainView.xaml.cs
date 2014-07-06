@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -17,21 +18,32 @@ namespace ElementFinder.Views
             InitializeComponent();
             DataContext = new MainViewModel();
 
+            GetViewModel().ToggleView += OnToggleView;
+
             SetPositionAndSize();
         }
 
+        private void OnToggleView(object sender, EventArgs eventArgs)
+        {
+            if (IsShortView)
+                ShowLargeView();
+            else
+                ShowSmallView();
+        }
+
         private double _oldHeight;
-        private bool _isShortView;
 
         public bool IsShortView
         {
             get { return _isShortView; }
-            private set
+            set
             {
                 _isShortView = value;
                 OnPropertyChanged("IsShortView");
             }
         }
+        private bool _isShortView;
+
 
         private void DoSwitchView(object sender, RoutedEventArgs e)
         {
@@ -92,7 +104,7 @@ namespace ElementFinder.Views
 
         private void HandleSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var viewModel = GetMainViewModel();
+            var viewModel = GetViewModel();
             viewModel.CurrentElement = (AutomationElementInfo)e.NewValue;
 
             Focus();
@@ -100,7 +112,7 @@ namespace ElementFinder.Views
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
         {
-            var mainViewModel = GetMainViewModel();
+            var mainViewModel = GetViewModel();
             mainViewModel.QuickSearch = Settings.Default.QuickSearch;
             mainViewModel.ExpandAfterSearch = Settings.Default.ExpandAfterSearch;
             mainViewModel.IsEnabled = Settings.Default.IsEnabled;
@@ -130,7 +142,7 @@ namespace ElementFinder.Views
 
         private void HandleClosing(object sender, CancelEventArgs e)
         {
-            var mainViewModel = GetMainViewModel();
+            var mainViewModel = GetViewModel();
             Settings.Default.QuickSearch = mainViewModel.QuickSearch;
             Settings.Default.ExpandAfterSearch = mainViewModel.ExpandAfterSearch;
             Settings.Default.IsEnabled = mainViewModel.IsEnabled;
@@ -139,9 +151,9 @@ namespace ElementFinder.Views
             Settings.Default.TopMost = mainViewModel.TopMost;
             Settings.Default.TopMostHighlighter = mainViewModel.TopMostHighlighter;
             Settings.Default.LeftColumnWidth = mainViewModel.LeftColumnWidth.Value;
-            Settings.Default.IsShortView = _isShortView;
+            Settings.Default.IsShortView = IsShortView;
             Settings.Default.NoticeHighlightPosition = mainViewModel.NoticeHighlightPosition;
-            if (_isShortView)
+            if (IsShortView)
                 Settings.Default.Size = new Size((int)Width, (int)_oldHeight);
             else
                 Settings.Default.Size = new Size((int)Width, (int)Height);
@@ -150,15 +162,41 @@ namespace ElementFinder.Views
             Settings.Default.Save();
         }
 
-        private MainViewModel GetMainViewModel()
+        private MainViewModel GetViewModel()
         {
             return (MainViewModel)DataContext;
         }
 
         private void ClearPane(object sender, RoutedEventArgs e)
         {
-            GetMainViewModel().CurrentElement = null;
-            GetMainViewModel().Elements.Clear();
+            GetViewModel().CurrentElement = null;
+            GetViewModel().Elements.Clear();
+        }
+
+        private void ShowSettings(object sender, RoutedEventArgs e)
+        {
+            var mainViewModel = GetViewModel();
+            mainViewModel.StopShortcuts();
+
+            var viewModel = new SettingsViewModel();
+            var window = new SettingsView();
+            window.Owner = this;
+            window.DataContext = viewModel;
+            viewModel.Load();
+
+            if (window.ShowDialog() == true)
+            {
+                mainViewModel.QuickSearch = Settings.Default.QuickSearch;
+                mainViewModel.ExpandAfterSearch = Settings.Default.ExpandAfterSearch;
+                mainViewModel.HideEmptyEntries = Settings.Default.HideEmptyEntries;
+                mainViewModel.AutoCopyAutomationId = Settings.Default.AutoCopyAutomationId;
+                mainViewModel.TopMost = Settings.Default.TopMost;
+                mainViewModel.TopMostHighlighter = Settings.Default.TopMostHighlighter;
+                mainViewModel.NoticeHighlightPosition = Settings.Default.NoticeHighlightPosition;
+                mainViewModel.UpdateInteractionObserver();
+            }
+
+            mainViewModel.StartShortcuts();
         }
     }
 }

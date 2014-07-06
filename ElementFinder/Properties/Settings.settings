@@ -41,5 +41,20 @@
     <Setting Name="NoticeHighlightPosition" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="EnableDisableShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LeftCtrl + E</Value>
+    </Setting>
+    <Setting Name="CopyAutomationIdShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LeftCtrl + LeftShift + C</Value>
+    </Setting>
+    <Setting Name="BringOnTopShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LeftCtrl + LeftShift + T</Value>
+    </Setting>
+    <Setting Name="ToggleViewShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LeftCtrl + V</Value>
+    </Setting>
+    <Setting Name="WatchForElementsShortcut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LeftCtrl + LeftShift</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

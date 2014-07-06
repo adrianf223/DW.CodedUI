@@ -178,5 +178,65 @@ namespace ElementFinder.Properties {
                 this["NoticeHighlightPosition"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftCtrl + E")]
+        public string EnableDisableShortcut {
+            get {
+                return ((string)(this["EnableDisableShortcut"]));
+            }
+            set {
+                this["EnableDisableShortcut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftCtrl + LeftShift + C")]
+        public string CopyAutomationIdShortcut {
+            get {
+                return ((string)(this["CopyAutomationIdShortcut"]));
+            }
+            set {
+                this["CopyAutomationIdShortcut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftCtrl + LeftShift + T")]
+        public string BringOnTopShortcut {
+            get {
+                return ((string)(this["BringOnTopShortcut"]));
+            }
+            set {
+                this["BringOnTopShortcut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftCtrl + V")]
+        public string ToggleViewShortcut {
+            get {
+                return ((string)(this["ToggleViewShortcut"]));
+            }
+            set {
+                this["ToggleViewShortcut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LeftCtrl + LeftShift")]
+        public string WatchForElementsShortcut {
+            get {
+                return ((string)(this["WatchForElementsShortcut"]));
+            }
+            set {
+                this["WatchForElementsShortcut"] = value;
+            }
+        }
     }
 }

@@ -76,12 +76,20 @@
     <Compile Include="Controls\CopyButton.cs" />
     <Compile Include="Controls\Property.cs" />
     <Compile Include="Controls\ResizeThumb.cs" />
+    <Compile Include="Controls\ShortcutTextBox.cs" />
+    <Compile Include="Controls\TitledItem.cs" />
+    <Compile Include="Controls\TitledItemsControl.cs" />
     <Compile Include="Controls\ToggleSlider.cs" />
     <Compile Include="Controls\ViewChangeButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shortcuts\GlobalShortcut.cs" />
+    <Compile Include="Shortcuts\IShortcut.cs" />
     <Compile Include="Shortcuts\Shortcut.cs" />
+    <Compile Include="Shortcuts\ShortcutActor.cs" />
+    <Compile Include="Shortcuts\ShortcutsCollector.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ObservableObject.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\ExceptionWindow.xaml.cs">
       <DependentUpon>ExceptionWindow.xaml</DependentUpon>
     </Compile>
@@ -95,6 +103,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -106,6 +117,10 @@
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

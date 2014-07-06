@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using ElementFinder.BL;
@@ -14,6 +13,8 @@ namespace ElementFinder.ViewModels
     {
         public MainViewModel()
         {
+            _shortcutActor = new ShortcutActor(this);
+
             _interactionObserver = new InteractionObserver();
             _interactionObserver.TakeElements += HandleTakeElements;
 
@@ -22,10 +23,6 @@ namespace ElementFinder.ViewModels
 
             Elements = new ObservableCollection<AutomationElementInfo>();
 
-            _shortcutsCollector = new ShortcutsCollector();
-            SetShortcuts();
-            _shortcutsCollector.Start();
-
             _elementObserver = new ElementObserver();
             _elementObserver.ElementDied += HandleElementDied;
             _positionObserver = new PositionObserver(_elementObserver);
@@ -33,22 +30,23 @@ namespace ElementFinder.ViewModels
             IsEnabled = true;
         }
 
+        private readonly ShortcutActor _shortcutActor;
         private readonly ElementObserver _elementObserver;
         private readonly InteractionObserver _interactionObserver;
         private readonly PositionObserver _positionObserver;
         private readonly ElementsCatcher _elementsCatcher;
         private Highlighter _highlighter;
-        private readonly ShortcutsCollector _shortcutsCollector;
+
+        public event EventHandler ToggleView;
+
+        public void OnToggleView()
+        {
+            var handler = ToggleView;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
 
         public ObservableCollection<AutomationElementInfo> Elements { get; private set; }
-
-        private void SetShortcuts()
-        {
-            _shortcutsCollector.SetShortcuts
-                (
-                    new Shortcut(() => IsEnabled = !IsEnabled, () => { }, Key.LeftCtrl, Key.E)
-                );
-        }
 
         #region Properties
 
@@ -219,6 +217,8 @@ namespace ElementFinder.ViewModels
 
         private void DisableElementFinder()
         {
+            _interactionObserver.Stop();
+
             CurrentElementRemoved();
         }
 
@@ -266,12 +266,13 @@ namespace ElementFinder.ViewModels
             Elements.Add(e.AutomationElementInfo);
             CurrentElement = Elements.FirstOrDefault();
 
-            if (!_elementObserver.IsUsable())
+            if (!_elementObserver.IsAlive())
                 return;
 
             CurrentElement.IsSelected = true;
-            if (CurrentElement.HasAutomationId)
-                Clipboard.SetText(CurrentElement.AutomationId);
+
+            if (AutoCopyAutomationId)
+                CopyAutomationId();
         }
 
         private void HighlightElement()
@@ -297,6 +298,28 @@ namespace ElementFinder.ViewModels
 
                 StopHighlightPositionObserver();
             }
+        }
+
+        public void StopShortcuts()
+        {
+            _shortcutActor.StopShortcuts();
+        }
+
+        public void StartShortcuts()
+        {
+            _shortcutActor.Refresh();
+            _shortcutActor.StartShortcuts();
+        }
+
+        public void CopyAutomationId()
+        {
+            if (_elementObserver.IsAlive() && CurrentElement.HasAutomationId)
+                Clipboard.SetText(CurrentElement.AutomationId);
+        }
+
+        public void UpdateInteractionObserver()
+        {
+            _interactionObserver.UpdateShortcut();
         }
     }
 }
