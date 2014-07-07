@@ -74,6 +74,7 @@
     <Compile Include="BL\InteractionObserver.cs" />
     <Compile Include="BL\PositionObserver.cs" />
     <Compile Include="Controls\AutomationPropertiesControl.cs" />
+    <Compile Include="Controls\BasicElementSuggestor.cs" />
     <Compile Include="Controls\CloseButton.cs" />
     <Compile Include="Controls\CopyableTextBox.cs" />
     <Compile Include="Controls\CopyButton.cs" />

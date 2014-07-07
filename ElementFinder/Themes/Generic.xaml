@@ -245,4 +245,37 @@
         </Setter>
     </Style>
 
+
+    <Style TargetType="{x:Type Controls:BasicElementSuggestor}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:BasicElementSuggestor}">
+                    <DockPanel Margin="10">
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="{Binding SuggestedBasicElementTitle, RelativeSource={RelativeSource TemplatedParent}}"
+                                   HorizontalAlignment="Center"
+                                   Foreground="SteelBlue"
+                                   FontSize="14" />
+                        
+                        <Button x:Name="PART_TryButton" Content="Read Properties" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Center" />
+                        
+                        <Grid>
+                            <ListBox ItemsSource="{Binding Properties, RelativeSource={RelativeSource TemplatedParent}}" IsHitTestVisible="False">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" Padding="4" Width="150" />
+                                            <TextBlock Text="=" Padding="4" />
+                                            <Label Content="{Binding Value}" Padding="4" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            
+                        </Grid>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
