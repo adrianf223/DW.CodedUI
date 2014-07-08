@@ -145,7 +145,7 @@ namespace ElementFinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("devenv,explorer,notepad,word,excel,outlook")]
+        [global::System.Configuration.DefaultSettingValueAttribute("devenv, Explorer, Notepad, Word, Excel, Outlook")]
         public string BlacklistedProcesses {
             get {
                 return ((string)(this["BlacklistedProcesses"]));

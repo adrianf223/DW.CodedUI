@@ -33,7 +33,7 @@
       <Value Profile="(Default)">230</Value>
     </Setting>
     <Setting Name="BlacklistedProcesses" Type="System.String" Scope="User">
-      <Value Profile="(Default)">devenv,explorer,notepad,word,excel,outlook</Value>
+      <Value Profile="(Default)">devenv, Explorer, Notepad, Word, Excel, Outlook</Value>
     </Setting>
     <Setting Name="TopMostHighlighter" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

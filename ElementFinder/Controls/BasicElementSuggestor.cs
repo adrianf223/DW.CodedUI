@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
@@ -60,6 +59,15 @@ namespace ElementFinder.Controls
         public static readonly DependencyProperty PropertiesProperty =
             DependencyProperty.Register("Properties", typeof(IEnumerable<Property>), typeof(BasicElementSuggestor), new PropertyMetadata(default(IEnumerable<Property>)));
 
+        public string Message
+        {
+            get { return (string)GetValue(MessageProperty); }
+            set { SetValue(MessageProperty, value); }
+        }
+
+        public static readonly DependencyProperty MessageProperty =
+            DependencyProperty.Register("Message", typeof(string), typeof(BasicElementSuggestor), new PropertyMetadata(default(string)));
+
         private static void OnAutomationElementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = (BasicElementSuggestor)d;
@@ -115,20 +123,40 @@ namespace ElementFinder.Controls
             if (SuggestedBasicElement == null)
                 return;
 
-            var properties = SuggestedBasicElement.GetType().GetProperties();
-            var propertyItems = new List<Property>();
-            foreach (var property in properties)
+            try
             {
-                var name = property.Name;
+                Message = string.Empty;
+                Properties = null;
 
-                if (name == "Unsafe" || name == "SupportedPatterns" || name == "Do" || name == "Properties")
-                    continue;
+                if (!SuggestedBasicElement.IsAvailable)
+                {
+                    Message = "Element is not available anymore.";
+                    return;
+                }
 
-                var value = property.GetValue(SuggestedBasicElement, null);
-                propertyItems.Add(new Property { Name = property.Name, Value = value });
+                var properties = SuggestedBasicElement.GetType().GetProperties();
+                var propertyItems = new List<Property>();
+                foreach (var property in properties)
+                {
+                    var name = property.Name;
+
+                    if (name == "Unsafe" || name == "SupportedPatterns" || name == "Do" || name == "Properties" || name == "AutomationElement")
+                        continue;
+
+                    var value = property.GetValue(SuggestedBasicElement, null);
+                    propertyItems.Add(new Property {Name = property.Name, Value = value});
+                }
+
+                Properties = propertyItems;
             }
-
-            Properties = propertyItems;
+            catch (Exception ex)
+            {
+                Message = string.Format("Error: {0} ({1})", ex.Message, ex.GetType());
+            }
+            catch
+            {
+                Message = "Unknown error";
+            }
         }
     }
 }

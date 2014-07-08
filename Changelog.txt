@@ -3,7 +3,10 @@
 ==============================
 Release 2.*
 ==============================
+2014-07-08    ElementFinder: Add possibility to change the application blacklist; 
 2014-07-07    ElementFinder: Add tab to show a suggested basic element
+              ElementFinder: Add reading BasicElement properties; 
+              ElementFinder: Add notification to the bottom of the suggest page; 
 2014-07-06    ElementFinder: Add behavior shortcuts and let the user change them
 2014-07-05    ElementFinder: Style controls
 2014-07-04    ElementFinder: Add ElementObserver to detect if an element disappears to close the highlighter automatically

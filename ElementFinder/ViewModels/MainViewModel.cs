@@ -321,5 +321,10 @@ namespace ElementFinder.ViewModels
         {
             _interactionObserver.UpdateShortcut();
         }
+
+        public void UpdateElementsCatcher()
+        {
+            _elementsCatcher.UpdateBlacklist();
+        }
     }
 }

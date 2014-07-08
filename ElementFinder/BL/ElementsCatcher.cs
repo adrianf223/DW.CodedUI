@@ -20,7 +20,7 @@ namespace ElementFinder.BL
             _dispatcher = Dispatcher.CurrentDispatcher;
             _currentProcessId = Process.GetCurrentProcess().Id;
 
-            _blackListesProcesses = new List<string>(Settings.Default.BlacklistedProcesses.Split(',').Select(i => i.ToLower()));
+            UpdateBlacklist();
         }
 
         private List<string> _blackListesProcesses;
@@ -80,6 +80,11 @@ namespace ElementFinder.BL
             var handler = Catched;
             if (handler != null)
                 handler(this, new CatchedElementsEventArgs(element));
+        }
+
+        public void UpdateBlacklist()
+        {
+            _blackListesProcesses = new List<string>(Settings.Default.BlacklistedProcesses.Split(',').Select(i => i.Trim().ToLower()));
         }
     }
 }

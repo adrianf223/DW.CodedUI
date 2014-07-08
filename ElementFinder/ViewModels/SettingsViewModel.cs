@@ -136,6 +136,17 @@ namespace ElementFinder.ViewModels
         }
         private string _watchForElementsShortcut;
 
+        public string BlacklistedProcesses
+        {
+            get { return _blacklistedProcesses; }
+            set
+            {
+                _blacklistedProcesses = value;
+                NotifyPropertyChanged("BlacklistedProcesses");
+            }
+        }
+        private string _blacklistedProcesses;
+
         public void Load()
         {
             QuickSearch = Settings.Default.QuickSearch;
@@ -151,6 +162,8 @@ namespace ElementFinder.ViewModels
             BringOnTopShortcut = Settings.Default.BringOnTopShortcut;
             ToggleViewShortcut = Settings.Default.ToggleViewShortcut;
             WatchForElementsShortcut = Settings.Default.WatchForElementsShortcut;
+
+            BlacklistedProcesses = Settings.Default.BlacklistedProcesses;
         }
 
         public void Save()
@@ -168,6 +181,8 @@ namespace ElementFinder.ViewModels
             Settings.Default.BringOnTopShortcut = BringOnTopShortcut;
             Settings.Default.ToggleViewShortcut = ToggleViewShortcut;
             Settings.Default.WatchForElementsShortcut = WatchForElementsShortcut;
+
+            Settings.Default.BlacklistedProcesses = BlacklistedProcesses;
 
             Settings.Default.Save();
         }

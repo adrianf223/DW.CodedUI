@@ -257,6 +257,12 @@
                                    Foreground="SteelBlue"
                                    FontSize="14" />
                         
+                        <TextBlock DockPanel.Dock="Bottom"
+                                   Background="Wheat"
+                                   Padding="5,2"
+                                   Text="It might be that the element will be changed anyhow or if the element is gone an exception dialog appears."
+                                   TextWrapping="Wrap" />
+                        
                         <Button x:Name="PART_TryButton" Content="Read Properties" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Center" />
                         
                         <Grid>
@@ -271,7 +277,8 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            
+
+                            <TextBlock Text="{Binding Message, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Grid>
                     </DockPanel>
                 </ControlTemplate>

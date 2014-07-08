@@ -194,6 +194,7 @@ namespace ElementFinder.Views
                 mainViewModel.TopMostHighlighter = Settings.Default.TopMostHighlighter;
                 mainViewModel.NoticeHighlightPosition = Settings.Default.NoticeHighlightPosition;
                 mainViewModel.UpdateInteractionObserver();
+                mainViewModel.UpdateElementsCatcher();
             }
 
             mainViewModel.StartShortcuts();

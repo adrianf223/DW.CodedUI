@@ -55,6 +55,12 @@
                             </Controls:TitledItem.Title>
                             <Controls:ShortcutTextBox Text="{Binding BringOnTopShortcut, Mode=TwoWay}" />
                         </Controls:TitledItem>
+                        <Controls:TitledItem>
+                            <Controls:TitledItem.Title>
+                                <TextBlock Text="BLacklist Processes" ToolTip="Comma separated list of process names which elements never should be catched" />
+                            </Controls:TitledItem.Title>
+                            <TextBox Text="{Binding BlacklistedProcesses, Mode=TwoWay}" />
+                        </Controls:TitledItem>
                     </Controls:TitledItemsControl>
                 </ScrollViewer>
             </TabItem>
