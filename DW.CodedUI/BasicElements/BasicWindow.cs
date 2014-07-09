@@ -29,7 +29,7 @@ namespace DW.CodedUI.BasicElements
             Unsafe = new UnsafeMethods(automationElement);
 
             if (automationElement != null)
-                ElementsContainer.LastWindow = this;
+                CodedUIEnvironment.LastWindow = this;
         }
 
         /// <summary>

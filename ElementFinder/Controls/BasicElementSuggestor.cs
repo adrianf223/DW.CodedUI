@@ -153,10 +153,6 @@ namespace ElementFinder.Controls
             {
                 Message = string.Format("Error: {0} ({1})", ex.Message, ex.GetType());
             }
-            catch
-            {
-                Message = "Unknown error";
-            }
         }
     }
 }

@@ -53,10 +53,10 @@ namespace DW.CodedUI
         /// <returns>Instance of the From to be used in the <see cref="DW.CodedUI.UI" /> object.</returns>
         public static From LastWindow()
         {
-            if (ElementsContainer.LastWindow == null)
+            if (CodedUIEnvironment.LastWindow == null)
                 throw new MissingWindowException(true);
 
-            return new From(ElementsContainer.LastWindow);
+            return new From(CodedUIEnvironment.LastWindow);
         }
 
         /// <summary>
@@ -66,10 +66,10 @@ namespace DW.CodedUI
         /// <remarks>The current process is determined by the last found window.</remarks>
         public static From MainWindow()
         {
-            if (ElementsContainer.LastWindow == null)
+            if (CodedUIEnvironment.LastWindow == null)
                 throw new MissingWindowException(false);
 
-            var mainWindowHandle = ElementsContainer.LastWindow.OwningProcess.MainWindowHandle;
+            var mainWindowHandle = CodedUIEnvironment.LastWindow.OwningProcess.MainWindowHandle;
             if (mainWindowHandle == IntPtr.Zero)
                 throw new MissingWindowException(false);
             

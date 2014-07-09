@@ -3,6 +3,8 @@
 ==============================
 Release 2.*
 ==============================
+2014-07-09    DynamicSleep: Add DynamicSleep
+              CodedUIEnvironment: Add CodedUIEnvironment object for global coded UI settings
 2014-07-08    ElementFinder: Add possibility to change the application blacklist; 
 2014-07-07    ElementFinder: Add tab to show a suggested basic element
               ElementFinder: Add reading BasicElement properties; 
