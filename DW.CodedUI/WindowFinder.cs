@@ -27,6 +27,7 @@ namespace DW.CodedUI
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>
         /// <returns>The found window if any; otherwise an exception is shown.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
+        /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicWindow Search(Use use)
         {
             return Search(use, new CombinableAnd());
@@ -39,6 +40,7 @@ namespace DW.CodedUI
         /// <param name="settings">Defines the settings to be used while searching.</param>
         /// <returns>The found window if any; otherwise an exception as long its not disabled by And.NoAssert(). If its disabled the return is null.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found. (If not disabled.)</exception>
+        /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicWindow Search(Use use, And settings)
         {
             var condition = use.GetCondition();
@@ -86,6 +88,7 @@ namespace DW.CodedUI
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>
         /// <returns>The found window if any; otherwise an exception is shown.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
+        /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TWindow Search<TWindow>(Use use) where TWindow : BasicWindowBase
         {
             return Search<TWindow>(use, new CombinableAnd());
@@ -99,6 +102,7 @@ namespace DW.CodedUI
         /// <param name="settings">Defines the settings to be used while searching.</param>
         /// <returns>The found window if any; otherwise an exception as long its not disabled by And.NoAssert(). If its disabled the return is null.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found. (If not disabled.)</exception>
+        /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TWindow Search<TWindow>(Use use, And settings) where TWindow : BasicWindowBase
         {
             var window = Search(use, settings);

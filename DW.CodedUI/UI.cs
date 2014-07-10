@@ -30,6 +30,7 @@ namespace DW.CodedUI
         /// <param name="from">The source where the start of the UI element has to start from.</param>
         /// <returns>The found control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TControl GetChild<TControl>(By by, From from) where TControl : BasicElement
         {
             return StartSearchChild<TControl>(by, from, new CombinableWith());
@@ -44,6 +45,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The found control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TControl GetChild<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             return StartSearchChild<TControl>(by, from, with);
@@ -56,6 +58,7 @@ namespace DW.CodedUI
         /// <param name="from">The source where the start of the UI element has to start from.</param>
         /// <returns>The found control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicElement GetChild(By by, From from)
         {
             return StartSearchChild<BasicElement>(by, from, new CombinableWith());
@@ -69,6 +72,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The found control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicElement GetChild(By by, From from, With with)
         {
             return StartSearchChild<BasicElement>(by, from, with);
@@ -132,6 +136,7 @@ namespace DW.CodedUI
         /// <param name="from">The source where the start of the UI element has to start from.</param>
         /// <returns>A list of found child elements if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static IEnumerable<TControl> GetChildren<TControl>(By by, From from) where TControl : BasicElement
         {
             return StartSearchChildren<TControl>(by, from, new CombinableWith());
@@ -146,6 +151,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>A list of found child elements if any; otherwise an exception if it is not disabled. If it is disabled an empty list gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found. (If not disabled.)</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static IEnumerable<TControl> GetChildren<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             return StartSearchChildren<TControl>(by, from, with);
@@ -158,6 +164,7 @@ namespace DW.CodedUI
         /// <param name="from">The source where the start of the UI element has to start from.</param>
         /// <returns>A list of found child elements if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static IEnumerable<BasicElement> GetChildren(By by, From from)
         {
             return StartSearchChildren<BasicElement>(by, from, new CombinableWith());
@@ -171,6 +178,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>A list of found child elements if any; otherwise an exception if it is not disabled. If it is disabled an empty list gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found. (If not disabled.)</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static IEnumerable<BasicElement> GetChildren(By by, From from, With with)
         {
             return StartSearchChildren<BasicElement>(by, from, with);
@@ -232,6 +240,7 @@ namespace DW.CodedUI
         /// <param name="from">The source from where to start reading the parent elements.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicElement GetParent(From from)
         {
             return StartSearchParent<BasicElement>(By.Condition(e => true), from, new CombinableWith());
@@ -244,6 +253,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The found parent control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicElement GetParent(From from, With with)
         {
             return StartSearchParent<BasicElement>(By.Condition(e => true), from, with);
@@ -256,6 +266,7 @@ namespace DW.CodedUI
         /// <param name="from">The source from where to start reading the parent elements.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TControl GetParent<TControl>(From from) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(By.Condition(e => true), from, new CombinableWith());
@@ -269,6 +280,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TControl GetParent<TControl>(From from, With with) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(By.Condition(e => true), from, with);
@@ -281,6 +293,7 @@ namespace DW.CodedUI
         /// <param name="from">The source from where to start reading the parent elements.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicElement GetParent(By by, From from)
         {
             return StartSearchParent<BasicElement>(by, from, new CombinableWith());
@@ -294,6 +307,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicElement GetParent(By by, From from, With with)
         {
             return StartSearchParent<BasicElement>(by, from, with);
@@ -307,6 +321,7 @@ namespace DW.CodedUI
         /// <param name="from">The source from where to start reading the parent elements.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TControl GetParent<TControl>(By by, From from) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(by, from, new CombinableWith());
@@ -321,6 +336,7 @@ namespace DW.CodedUI
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The available parent control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
+        /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TControl GetParent<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             return StartSearchParent<TControl>(by, from, with);

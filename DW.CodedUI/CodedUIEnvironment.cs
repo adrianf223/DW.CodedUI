@@ -37,32 +37,32 @@ namespace DW.CodedUI
             }
 
             /// <summary>
-            /// Gets or sets the  default time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait()" />.
+            /// Gets or sets the  default time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait()" />. The default value is <see cref="DW.CodedUI.Utilities.Time.Medium" />.
             /// </summary>
             public Time Default { get; set; }
 
             /// <summary>
-            /// Gets or sets the very short time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />.
+            /// Gets or sets the very short time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />. The default value is 500 milliseconds.
             /// </summary>
             public int VeryShort { get; set; }
 
             /// <summary>
-            /// Gets or sets the short time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />.
+            /// Gets or sets the short time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />. The default value is 1000 milliseconds.
             /// </summary>
             public int Short { get; set; }
 
             /// <summary>
-            /// Gets or sets the medium time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />.
+            /// Gets or sets the medium time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />. The default value is 1500 milliseconds.
             /// </summary>
             public int Medium { get; set; }
 
             /// <summary>
-            /// Gets or sets the long time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />.
+            /// Gets or sets the long time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />. The default value is 2000 milliseconds.
             /// </summary>
             public int Long { get; set; }
 
             /// <summary>
-            /// Gets or sets the very long time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />.
+            /// Gets or sets the very long time to be used in the <see cref="DW.CodedUI.Utilities.DynamicSleep.Wait(Time)" />. The default value is 2500 milliseconds.
             /// </summary>
             public int VeryLong { get; set; }
         }
@@ -77,32 +77,32 @@ namespace DW.CodedUI
                 TimeoutTime = 10000;
                 IntervalTime = 200;
                 Timeout = InExclude.With;
-                Assert = InExclude.Without;
+                Assert = InExclude.With;
                 Interval = InExclude.Without;
             }
 
             /// <summary>
-            /// Gets or sets a value that indicates the timeout in milliseconds to be used in the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> if Timeout is set to InExclude.With.
+            /// Gets or sets a value that indicates the timeout in milliseconds to be used in the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> if Timeout is set to InExclude.With. The default is 10000 milliseconds.
             /// </summary>
             public uint TimeoutTime { get; set; }
 
             /// <summary>
-            /// Gets or sets a value that indicates the interval in milliseconds to be used in the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> if Interval is set to InExclude.With.
+            /// Gets or sets a value that indicates the interval in milliseconds to be used in the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> if Interval is set to InExclude.With. The default is 200 milliseconds.
             /// </summary>
             public uint IntervalTime { get; set; }
 
             /// <summary>
-            /// Gets or sets a value that indicates if the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> has a Timeout on default or not.
+            /// Gets or sets a value that indicates if the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> has a Timeout on default or not. The default is <see cref="DW.CodedUI.Utilities.InExclude.With" />.
             /// </summary>
             public InExclude Timeout { get; set; }
 
             /// <summary>
-            /// Gets or sets a value that indicates if the default settings of the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> will assert the search result or not.
+            /// Gets or sets a value that indicates if the default settings of the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> will assert the search result or not. The default is <see cref="DW.CodedUI.Utilities.InExclude.With" />.
             /// </summary>
             public InExclude Assert { get; set; }
 
             /// <summary>
-            /// Gets or sets a value that indicates if if the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> has a Intervall on default or not.
+            /// Gets or sets a value that indicates if if the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> has a Intervall on default or not. The default is <see cref="DW.CodedUI.Utilities.InExclude.Without" />.
             /// </summary>
             public InExclude Interval { get; set; }
         }
