@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {

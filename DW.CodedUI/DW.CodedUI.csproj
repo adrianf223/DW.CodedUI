@@ -68,7 +68,6 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="And.cs" />
-    <Compile Include="AndCondition.cs" />
     <Compile Include="At.cs" />
     <Compile Include="BasicElementExtensions.cs" />
     <Compile Include="BasicElements\AutomationElementInfo.cs" />
@@ -108,6 +107,10 @@
     <Compile Include="CombinableWith.cs" />
     <Compile Include="CompareKind.cs" />
     <Compile Include="Do.cs" />
+    <Compile Include="Internal\AndCondition.cs" />
+    <Compile Include="Internal\IsCondition.cs" />
+    <Compile Include="Internal\WithCondition.cs" />
+    <Compile Include="Is.cs" />
     <Compile Include="Utilities\DynamicSleep.cs" />
     <Compile Include="ExecutableNotAvailableException.cs" />
     <Compile Include="From.cs" />
@@ -137,7 +140,6 @@
     <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />
     <Compile Include="With.cs" />
-    <Compile Include="WithCondition.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Internal\License.xaml">

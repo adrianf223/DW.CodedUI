@@ -1,4 +1,4 @@
-﻿namespace DW.CodedUI
+namespace DW.CodedUI.Internal
 {
     internal enum WithCondition
     {

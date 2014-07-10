@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DW.CodedUI.Internal;
 using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI
