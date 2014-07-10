@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI
 {
@@ -113,14 +114,14 @@ namespace DW.CodedUI
 
         internal override List<WithCondition> GetConditions()
         {
-            var conditios = new List<WithCondition>();
-            conditios.AddRange(_conditions);
+            var conditions = new List<WithCondition>();
+            conditions.AddRange(_conditions);
 
-            AdjustTimeoutCondition(conditios);
-            AdjustAssertCondition(conditios);
-            AdjustIntervalCondition(conditios);
+            AdjustTimeoutCondition(conditions);
+            AdjustAssertCondition(conditions);
+            AdjustIntervalCondition(conditions);
 
-            return conditios;
+            return conditions;
         }
 
         internal override uint GetTimeout()
@@ -133,37 +134,40 @@ namespace DW.CodedUI
             return _interval;
         }
 
-        private void AdjustTimeoutCondition(List<WithCondition> conditios)
+        private void AdjustTimeoutCondition(List<WithCondition> conditions)
         {
-            if (!conditios.Contains(WithCondition.NoTimeout) && !conditios.Contains(WithCondition.Timeout))
+            if (!conditions.Contains(WithCondition.NoTimeout) && !conditions.Contains(WithCondition.Timeout))
             {
-                conditios.Add(WithCondition.Timeout);
-                _timeoutMilliseconds = 10000;
+                conditions.Add(CodedUIEnvironment.DefaultSettings.Timeout == InExclude.With ? WithCondition.Timeout : WithCondition.NoTimeout);
+                _timeoutMilliseconds = CodedUIEnvironment.DefaultSettings.TimeoutTime;
             }
-            if (conditios.Contains(WithCondition.NoTimeout))
-                conditios.Remove(WithCondition.Timeout);
-            if (conditios.Contains(WithCondition.Timeout))
-                conditios.Remove(WithCondition.NoTimeout);
+            if (conditions.Contains(WithCondition.NoTimeout))
+                conditions.Remove(WithCondition.Timeout);
+            if (conditions.Contains(WithCondition.Timeout))
+                conditions.Remove(WithCondition.NoTimeout);
         }
 
-        private void AdjustAssertCondition(List<WithCondition> conditios)
+        private void AdjustAssertCondition(List<WithCondition> conditions)
         {
-            if (!conditios.Contains(WithCondition.NoAssert) && !conditios.Contains(WithCondition.Assert))
-                conditios.Add(WithCondition.Assert);
-            if (conditios.Contains(WithCondition.NoAssert))
-                conditios.Remove(WithCondition.Assert);
-            if (conditios.Contains(WithCondition.Assert))
-                conditios.Remove(WithCondition.NoAssert);
+            if (!conditions.Contains(WithCondition.NoAssert) && !conditions.Contains(WithCondition.Assert))
+                conditions.Add(CodedUIEnvironment.DefaultSettings.Assert == InExclude.With ? WithCondition.Assert : WithCondition.NoAssert);
+            if (conditions.Contains(WithCondition.NoAssert))
+                conditions.Remove(WithCondition.Assert);
+            if (conditions.Contains(WithCondition.Assert))
+                conditions.Remove(WithCondition.NoAssert);
         }
 
-        private void AdjustIntervalCondition(List<WithCondition> conditios)
+        private void AdjustIntervalCondition(List<WithCondition> conditions)
         {
-            if (!conditios.Contains(WithCondition.NoInterval) && !conditios.Contains(WithCondition.Interval))
-                conditios.Add(WithCondition.NoInterval);
-            if (conditios.Contains(WithCondition.NoInterval))
-                conditios.Remove(WithCondition.Interval);
-            if (conditios.Contains(WithCondition.Interval))
-                conditios.Remove(WithCondition.NoInterval);
+            if (!conditions.Contains(WithCondition.NoInterval) && !conditions.Contains(WithCondition.Interval))
+            {
+                conditions.Add(CodedUIEnvironment.DefaultSettings.Interval == InExclude.With ? WithCondition.Interval : WithCondition.NoInterval);
+                _interval = CodedUIEnvironment.DefaultSettings.IntervalTime;
+            }
+            if (conditions.Contains(WithCondition.NoInterval))
+                conditions.Remove(WithCondition.Interval);
+            if (conditions.Contains(WithCondition.Interval))
+                conditions.Remove(WithCondition.NoInterval);
         }
     }
 }

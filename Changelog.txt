@@ -3,6 +3,7 @@
 ==============================
 Release 2.*
 ==============================
+2014-07-10    CodedUIEnvironment: Add settings for defaults in CombinableAnd and CombinableWith
 2014-07-09    DynamicSleep: Add DynamicSleep
               CodedUIEnvironment: Add CodedUIEnvironment object for global coded UI settings
 2014-07-08    ElementFinder: Add possibility to change the application blacklist; 
