@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Windows;
 using System.Windows.Automation;
+using System.Windows.Interop;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
 using AndCondition = DW.CodedUI.Internal.AndCondition;
@@ -43,7 +47,7 @@ namespace DW.CodedUI
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
         public static BasicWindow Search(Use use, Is @is)
         {
-            return Search(use, new Is(), new CombinableAnd());
+            return Search(use, @is, new CombinableAnd());
         }
 
         /// <summary>
@@ -232,12 +236,11 @@ namespace DW.CodedUI
 
         private static bool IsParentOf(BasicWindow parentWindow, BasicWindow potentialChildWindow)
         {
-            foreach (var childWindow in parentWindow.GetChildWindows())
-            {
-                if (childWindow.Properties.NativeWindowHandle == potentialChildWindow.Properties.NativeWindowHandle)
-                    return true;
-            }
-            return false;
+            var childHandle = (IntPtr)potentialChildWindow.Properties.NativeWindowHandle;
+            var parentHandle = (IntPtr)parentWindow.Properties.NativeWindowHandle;
+
+            var foundHandle = WinApi.GetWindow(childHandle, WinApi.GetWindowFlags.GW_OWNER);
+            return parentHandle == foundHandle;
         }
 
         private static Dictionary<IntPtr, string> GetAllWindows()

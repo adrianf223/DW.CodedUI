@@ -73,6 +73,9 @@ namespace DW.CodedUI.Internal
         [DllImport("user32.dll")]
         internal static extern IntPtr GetForegroundWindow();
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetWindow(IntPtr hWnd, GetWindowFlags uFlags);
+
         internal const int ID_Close = 0x10;
 
         internal const uint WS_DISABLED = 0x8000000;
@@ -92,6 +95,17 @@ namespace DW.CodedUI.Internal
             Restore = 9,
             ShowDefault = 10,
             ForceMinimize = 11
+        }
+
+        internal enum GetWindowFlags : uint
+        {
+            GW_HWNDFIRST = 0,
+            GW_HWNDLAST = 1,
+            GW_HWNDNEXT = 2,
+            GW_HWNDPREV = 3,
+            GW_OWNER = 4,
+            GW_CHILD = 5,
+            GW_ENABLEDPOPUP = 6
         }
 
         [Serializable]

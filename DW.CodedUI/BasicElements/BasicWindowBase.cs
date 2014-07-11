@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
-using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.Internal;
 
