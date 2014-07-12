@@ -215,6 +215,7 @@ namespace DW.CodedUI
             return false;
         }
 
+        // TODO: Test
         private static bool IsChildOf(BasicWindow potentialChildWindow, BasicWindow parentWindow)
         {
             return IsParentOf(parentWindow, potentialChildWindow);
@@ -234,13 +235,13 @@ namespace DW.CodedUI
             return element != null;
         }
 
+        // TODO: Test
         private static bool IsParentOf(BasicWindow parentWindow, BasicWindow potentialChildWindow)
         {
-            var childHandle = (IntPtr)potentialChildWindow.Properties.NativeWindowHandle;
-            var parentHandle = (IntPtr)parentWindow.Properties.NativeWindowHandle;
+            var parentHandle = parentWindow.Properties.NativeWindowHandle;
+            var childParentWindow = potentialChildWindow.GetParentWindow();
 
-            var foundHandle = WinApi.GetWindow(childHandle, WinApi.GetWindowFlags.GW_OWNER);
-            return parentHandle == foundHandle;
+            return parentHandle == childParentWindow.Properties.NativeWindowHandle;
         }
 
         private static Dictionary<IntPtr, string> GetAllWindows()

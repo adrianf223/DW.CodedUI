@@ -92,5 +92,17 @@ namespace DW.CodedUI.BasicElements
                 return !isDisabled;
             }
         }
+
+        // TODO: Test
+        public BasicWindow GetParentWindow()
+        {
+            var thisHandle = (IntPtr)Properties.NativeWindowHandle;
+            var ownerHandle = WinApi.GetWindow(thisHandle, WinApi.GetWindowFlags.GW_OWNER);
+
+            if (ownerHandle != IntPtr.Zero)
+                return new BasicWindow(AutomationElement.FromHandle(ownerHandle));
+
+            return null;
+        }
     }
 }

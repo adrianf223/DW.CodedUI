@@ -3,6 +3,7 @@
 ==============================
 Release 2.*
 ==============================
+2014-07-12    BasicWindowBase: Add possibility to get the parent window of another window
 2014-07-11    WindowFinder: Fix missing usage of the Is parameter
               WindowFinder: Use different WinAPI method to determine the child and parent relationship
 2014-07-10    CodedUIEnvironment: Add settings for defaults in CombinableAnd and CombinableWith
