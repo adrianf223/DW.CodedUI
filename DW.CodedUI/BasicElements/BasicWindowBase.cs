@@ -94,7 +94,12 @@ namespace DW.CodedUI.BasicElements
         }
 
         // TODO: Test
-        public BasicWindow GetParentWindow()
+        /// <summary>
+        /// Gets the parent (owner) window if any.
+        /// </summary>
+        /// <param name="assert">Indicates if an exception has to be thrown if the window has no parent (owner).</param>
+        /// <returns>The parent (owner) window if any; otherwise null.</returns>
+        public BasicWindow GetParentWindow(bool assert = true)
         {
             var thisHandle = (IntPtr)Properties.NativeWindowHandle;
             var ownerHandle = WinApi.GetWindow(thisHandle, WinApi.GetWindowFlags.GW_OWNER);
@@ -102,6 +107,8 @@ namespace DW.CodedUI.BasicElements
             if (ownerHandle != IntPtr.Zero)
                 return new BasicWindow(AutomationElement.FromHandle(ownerHandle));
 
+            if (assert)
+                throw new Exception(string.Format("The current window '{0}' has no parent window.", Title));
             return null;
         }
     }

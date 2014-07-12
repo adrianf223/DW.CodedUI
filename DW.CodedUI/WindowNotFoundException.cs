@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {
@@ -23,12 +24,13 @@ namespace DW.CodedUI
         /// <param name="useInterval">A value that indicates if an interval was used.</param>
         /// <param name="intervalTime">The time used in the interval.</param>
         /// <param name="timeout">The elapsed search time.</param>
-        public WindowNotFoundException(Use use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
-            : base(BuildMessage(use, useTimeout, useInterval, intervalTime, timeout))
+        /// <param name="is">The relationship to another object.</param>
+        public WindowNotFoundException(Use use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, Is @is)
+            : base(BuildMessage(use, useTimeout, useInterval, intervalTime, timeout, @is))
         {
         }
 
-        private static string BuildMessage(Use use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout)
+        private static string BuildMessage(Use use, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, Is @is)
         {
             var builder = new StringBuilder();
             builder.AppendLine("The window could not be found.");
@@ -45,6 +47,23 @@ namespace DW.CodedUI
                 builder.AppendLine("* With interval: " + intervalTime);
             else
                 builder.AppendLine("* Without interval");
+            switch (@is.GetCondition())
+            {
+                case IsCondition.ChildOf:
+                    builder.AppendLine("* Is child of another window");
+                    break;
+                case IsCondition.MainWindow:
+                    builder.AppendLine("* Is main window");
+                    break;
+                case IsCondition.Nothing:
+                    break;
+                case IsCondition.OwnerOf:
+                    builder.AppendLine("* Is owner of an element");
+                    break;
+                case IsCondition.ParentOf:
+                    builder.AppendLine("* Is parent of another window");
+                    break;
+            }
             builder.AppendLine();
             return builder.ToString();
         }

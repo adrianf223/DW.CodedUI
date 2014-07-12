@@ -101,7 +101,7 @@ namespace DW.CodedUI
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
                     if (assertResult)
-                        throw new WindowNotFoundException(use, useTimeout, useInterval, interval, watch.Elapsed);
+                        throw new WindowNotFoundException(use, useTimeout, useInterval, interval, watch.Elapsed, @is);
                     return null;
                 }
 
@@ -239,7 +239,7 @@ namespace DW.CodedUI
         private static bool IsParentOf(BasicWindow parentWindow, BasicWindow potentialChildWindow)
         {
             var parentHandle = parentWindow.Properties.NativeWindowHandle;
-            var childParentWindow = potentialChildWindow.GetParentWindow();
+            var childParentWindow = potentialChildWindow.GetParentWindow(false);
 
             return parentHandle == childParentWindow.Properties.NativeWindowHandle;
         }
