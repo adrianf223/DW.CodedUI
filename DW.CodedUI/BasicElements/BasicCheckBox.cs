@@ -7,13 +7,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicCheckBox : BasicElement
     {
-#if TRIAL
-        static BasicCheckBox()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicCheckBox" /> class.
         /// </summary>

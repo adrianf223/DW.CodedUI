@@ -8,13 +8,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicMenu : BasicElement
     {
-#if TRIAL
-        static BasicMenu()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicMenu" /> class
         /// </summary>

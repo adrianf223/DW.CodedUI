@@ -8,13 +8,6 @@ namespace DW.CodedUI
     /// </summary>
     public abstract class And
     {
-#if TRIAL
-        static And()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// The window should be searched again and again as long this timeout is not elapsed.
         /// </summary>

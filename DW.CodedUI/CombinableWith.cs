@@ -9,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableWith : With
     {
-#if TRIAL
-        static CombinableWith()
-        {
-            License1.License.Display();
-        }
-#endif
-
         internal CombinableWith()
         {
             _conditions = new List<WithCondition>();

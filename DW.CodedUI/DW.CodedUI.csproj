@@ -63,7 +63,6 @@
       <Link>Interop.UIAutomationClient.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Internal\Logo.PNG" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -114,9 +113,6 @@
     <Compile Include="Utilities\DynamicSleep.cs" />
     <Compile Include="ExecutableNotAvailableException.cs" />
     <Compile Include="From.cs" />
-    <Compile Include="Internal\License.xaml.cs">
-      <DependentUpon>License.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Internal\SystemStrings.cs" />
     <Compile Include="Internal\WinApi.cs" />
@@ -140,12 +136,6 @@
     <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />
     <Compile Include="With.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Internal\License.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public class WindowNotFoundException : Exception
     {
-#if TRIAL
-        static WindowNotFoundException()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.WindowNotFoundException" /> class.
         /// </summary>

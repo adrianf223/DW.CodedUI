@@ -7,13 +7,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicBrowseFolderDialog : BasicDialog
     {
-#if TRIAL
-        static BasicBrowseFolderDialog()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicBrowseFolderDialog" /> class.
         /// </summary>

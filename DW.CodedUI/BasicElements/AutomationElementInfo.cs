@@ -10,13 +10,6 @@ namespace DW.CodedUI.BasicElements
     /// <remarks>This object is intended to be used in the ElementFinder.</remarks>
     public class AutomationElementInfo : INotifyPropertyChanged
     {
-#if TRIAL
-        static AutomationElementInfo()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Gets the automation control.
         /// </summary>

@@ -9,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public static class KeyboardEx
     {
-#if TRIAL
-        static KeyboardEx()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Gets or sets the time to wait between sending keystrokes to the application.
         /// </summary>

@@ -7,13 +7,6 @@ namespace DW.CodedUI.Utilities
     /// </summary>
     public static class DynamicSleep
     {
-#if TRIAL
-        static DynamicSleep()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Suspends the current thread for a specified time in milliseconds. The time can be adjusted in the <see cref="DW.CodedUI.CodedUIEnvironment.SleepSettings" />.Default.
         /// </summary>

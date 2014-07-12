@@ -1,4 +1,3 @@
-using System.Windows;
 using DW.CodedUI.BasicElements;
 using System.Drawing;
 using Point = System.Drawing.Point;
@@ -10,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public class At
     {
-#if TRIAL
-        static At()
-        {
-            License1.License.Display();
-        }
-#endif
-
         private double? _left;
         private double? _top;
         private double? _right;

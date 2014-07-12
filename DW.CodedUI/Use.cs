@@ -8,13 +8,6 @@ namespace DW.CodedUI
     /// </summary>
     public abstract class Use
     {
-#if TRIAL
-        static Use()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Starts searching for windows by its title. By default the CompareKind.ContainsIgnoreCase will be use.
         /// </summary>
@@ -70,6 +63,17 @@ namespace DW.CodedUI
         {
             var combinableUse = new CombinableUse();
             return combinableUse.Condition(condition);
+        }
+
+        /// <summary>
+        /// Starts searching for a window which contains the given element.
+        /// </summary>
+        /// <param name="element">The element to start the window search for.</param>
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public static CombinableUse ContainingElement(BasicElement element)
+        {
+            var combinableUse = new CombinableUse();
+            return combinableUse.ContainingElement(element);
         }
 
         internal abstract Predicate<BasicWindow> GetCondition();

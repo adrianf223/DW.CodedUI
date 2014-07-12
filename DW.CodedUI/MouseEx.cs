@@ -13,13 +13,6 @@ namespace DW.CodedUI
     /// </summary>
     public static class MouseEx
     {
-#if TRIAL
-        static MouseEx()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Executes a mouse click.
         /// </summary>

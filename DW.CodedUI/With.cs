@@ -8,13 +8,6 @@ namespace DW.CodedUI
     /// </summary>
     public abstract class With
     {
-#if TRIAL
-        static With()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// The UI element should be searched again and again as long this timeout is not elapsed.
         /// </summary>

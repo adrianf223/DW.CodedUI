@@ -7,13 +7,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicRadioButton : BasicElement
     {
-#if TRIAL
-        static BasicRadioButton()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicRadioButton" /> class.
         /// </summary>

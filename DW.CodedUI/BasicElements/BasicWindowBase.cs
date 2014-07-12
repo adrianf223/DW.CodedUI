@@ -11,13 +11,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public abstract class BasicWindowBase : BasicElement
     {
-#if TRIAL
-        static BasicWindowBase()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicWindow" /> class.
         /// </summary>
@@ -93,7 +86,6 @@ namespace DW.CodedUI.BasicElements
             }
         }
 
-        // TODO: Test
         /// <summary>
         /// Gets the parent (owner) window if any.
         /// </summary>

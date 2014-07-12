@@ -11,13 +11,6 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableUse : Use
     {
-#if TRIAL
-        static CombinableUse()
-        {
-            License1.License.Display();
-        }
-#endif
-
         internal CombinableUse()
         {
             _conditions = new List<Predicate<BasicWindow>>();
@@ -110,6 +103,19 @@ namespace DW.CodedUI
         {
             _conditions.Add(condition);
             _conditionDescriptions.Add("condition(element)");
+            return this;
+        }
+
+        /// <summary>
+        /// Starts searching for a window which contains the given element.
+        /// </summary>
+        /// <param name="element">The element to start the window search for.</param>
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse ContainingElement(BasicElement element)
+        {
+            var condition = new Predicate<BasicWindow>(w => WindowFinder.IsOwnerOf(w, element));
+            _conditions.Add(condition);
+            _conditionDescriptions.Add("WindowFinder.IsOwnerOf(window, element)");
             return this;
         }
 

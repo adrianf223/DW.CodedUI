@@ -9,13 +9,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicTabControl : BasicElement
     {
-#if TRIAL
-        static BasicTabControl()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicTabControl" /> class
         /// </summary>

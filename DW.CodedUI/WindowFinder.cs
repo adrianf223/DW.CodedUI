@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Windows;
 using System.Windows.Automation;
-using System.Windows.Interop;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
 using AndCondition = DW.CodedUI.Internal.AndCondition;
@@ -19,13 +15,6 @@ namespace DW.CodedUI
     /// </summary>
     public static class WindowFinder
     {
-#if TRIAL
-        static WindowFinder()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Searches for a window by the given conditions. Default settings are And.Assert().And.Timeout(10000).
         /// </summary>
@@ -35,7 +24,7 @@ namespace DW.CodedUI
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicWindow Search(Use use)
         {
-            return Search(use, new CombinableAnd());
+            return Search(use, new Is(), new CombinableAnd());
         }
 
         /// <summary>
@@ -215,7 +204,6 @@ namespace DW.CodedUI
             return false;
         }
 
-        // TODO: Test
         private static bool IsChildOf(BasicWindow potentialChildWindow, BasicWindow parentWindow)
         {
             return IsParentOf(parentWindow, potentialChildWindow);
@@ -227,7 +215,7 @@ namespace DW.CodedUI
             return mainWindow.Properties.NativeWindowHandle == window.Properties.NativeWindowHandle;
         }
 
-        private static bool IsOwnerOf(BasicWindow window, BasicElement potentialChildElement)
+        internal static bool IsOwnerOf(BasicWindow window, BasicElement potentialChildElement)
         {
             var condition = By.Condition(e => e.Properties.NativeWindowHandle == window.Properties.NativeWindowHandle);
             var settings = With.NoAssert().And.NoTimeout();
@@ -235,7 +223,6 @@ namespace DW.CodedUI
             return element != null;
         }
 
-        // TODO: Test
         private static bool IsParentOf(BasicWindow parentWindow, BasicWindow potentialChildWindow)
         {
             var parentHandle = parentWindow.Properties.NativeWindowHandle;

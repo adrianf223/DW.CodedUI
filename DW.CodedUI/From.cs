@@ -9,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public class From
     {
-#if TRIAL
-        static From()
-        {
-            License1.License.Display();
-        }
-#endif
-
         private readonly BasicElement _sourceElement;
 
         private From(BasicElement sourceElement)

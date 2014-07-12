@@ -8,13 +8,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicTreeView : BasicElement
     {
-#if TRIAL
-        static BasicTreeView()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicTreeView" /> class.
         /// </summary>

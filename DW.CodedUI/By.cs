@@ -8,13 +8,6 @@ namespace DW.CodedUI
     /// </summary>
     public abstract class By
     {
-#if TRIAL
-        static By()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Starts the search for the UI element by the automation ID. By default CompareKind.Exact will be used.
         /// </summary>

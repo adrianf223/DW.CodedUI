@@ -7,13 +7,6 @@ namespace DW.CodedUI.BasicElements
     /// </summary>
     public class BasicListItem : BasicElement
     {
-#if TRIAL
-        static BasicListItem()
-        {
-            License1.License.Display();
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicListItem" /> class
         /// </summary>

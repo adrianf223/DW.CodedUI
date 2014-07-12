@@ -9,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public class Is
     {
-#if TRIAL
-        static Is()
-        {
-            License1.License.Display();
-        }
-#endif
-
         private readonly IsCondition _condition;
         private readonly BasicWindow _window;
         private readonly BasicElement _element;

@@ -9,13 +9,6 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableAnd : And
     {
-#if TRIAL
-        static CombinableAnd()
-        {
-            License1.License.Display();
-        }
-#endif
-
         internal CombinableAnd()
         {
             _conditions = new List<AndCondition>();

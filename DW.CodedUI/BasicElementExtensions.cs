@@ -8,13 +8,6 @@ namespace DW.CodedUI
     /// </summary>
     public static class BasicElementExtensions
     {
-#if TRIAL
-        static BasicElementExtensions()
-        {
-            License1.License.Display();
-        }
-#endif
-
         #region GetChild
 
         /// <summary>
