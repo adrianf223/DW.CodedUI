@@ -52,9 +52,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo PressModifierKeys(BasicElement control, ModifierKeys keys)
         {
-            control.AutomationElement.SetFocus();
-            Keyboard.PressModifierKeys(keys);
-            return new CombinableDo();
+            return Do.Action(() =>
+            {
+                control.AutomationElement.SetFocus();
+                Keyboard.PressModifierKeys(keys);
+            });
         }
 
         /// <summary>
@@ -65,9 +67,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo ReleaseModifierKeys(BasicElement control, ModifierKeys keys)
         {
-            control.AutomationElement.SetFocus();
-            Keyboard.ReleaseModifierKeys(keys);
-            return new CombinableDo();
+            return Do.Action(() =>
+            {
+                control.AutomationElement.SetFocus();
+                Keyboard.ReleaseModifierKeys(keys);
+            });
         }
 
         /// <summary>
@@ -91,9 +95,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(BasicElement control, string text, ModifierKeys modifierKeys)
         {
-            control.AutomationElement.SetFocus();
-            Keyboard.SendKeys(text, modifierKeys);
-            return new CombinableDo();
+            return Do.Action(() =>
+            {
+                control.AutomationElement.SetFocus();
+                Keyboard.SendKeys(text, modifierKeys);
+            });
         }
 
         /// <summary>
@@ -103,8 +109,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo PressModifierKeys(ModifierKeys keys)
         {
-            Keyboard.PressModifierKeys(keys);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.PressModifierKeys(keys));
         }
 
         /// <summary>
@@ -114,8 +119,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo ReleaseModifierKeys(ModifierKeys keys)
         {
-            Keyboard.ReleaseModifierKeys(keys);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.ReleaseModifierKeys(keys));
         }
 
         /// <summary>
@@ -125,8 +129,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text)
         {
-            Keyboard.SendKeys(text);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.SendKeys(text));
         }
 
         /// <summary>
@@ -137,8 +140,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, bool isEncoded)
         {
-            Keyboard.SendKeys(text, isEncoded);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.SendKeys(text, isEncoded));
         }
 
         /// <summary>
@@ -149,8 +151,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys)
         {
-            Keyboard.SendKeys(text, modifierKeys);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.SendKeys(text, modifierKeys));
         }
 
         /// <summary>
@@ -162,8 +163,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys, bool isEncoded)
         {
-            Keyboard.SendKeys(text, modifierKeys, isEncoded);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.SendKeys(text, modifierKeys, isEncoded));
         }
 
         /// <summary>
@@ -176,8 +176,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys, bool isEncoded, bool isUnicode)
         {
-            Keyboard.SendKeys(text, modifierKeys, isEncoded, isUnicode);
-            return new CombinableDo();
+            return Do.Action(() => Keyboard.SendKeys(text, modifierKeys, isEncoded, isUnicode));
         }
     }
 }

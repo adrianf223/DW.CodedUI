@@ -45,8 +45,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click()
         {
-            Mouse.Click();
-            return new CombinableDo();
+            return Do.Action(Mouse.Click);
         }
 
         /// <summary>
@@ -56,8 +55,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(ModifierKeys modifierKeys)
         {
-            Mouse.Click(modifierKeys);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.Click(modifierKeys));
         }
 
         /// <summary>
@@ -67,8 +65,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(MouseButtons button)
         {
-            Mouse.Click(button);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.Click(button));
         }
 
         /// <summary>
@@ -78,8 +75,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(Point screenCoordinate)
         {
-            Mouse.Click(screenCoordinate);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.Click(screenCoordinate));
         }
 
         /// <summary>
@@ -91,8 +87,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinate)
         {
-            Mouse.Click(button, modifierKeys, screenCoordinate);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.Click(button, modifierKeys, screenCoordinate));
         }
 
         /// <summary>
@@ -102,7 +97,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element)
         {
-            return Click(element, MouseButtons.Left, ModifierKeys.None, null);
+            return Do.Action(() => Click(element, MouseButtons.Left, ModifierKeys.None, null));
         }
 
         /// <summary>
@@ -113,7 +108,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions</returns>
         public static CombinableDo Click(BasicElement element, At relativePosition)
         {
-            return Click(element, MouseButtons.Left, ModifierKeys.None, relativePosition);
+            return Do.Action(() => Click(element, MouseButtons.Left, ModifierKeys.None, relativePosition));
         }
 
         /// <summary>
@@ -124,7 +119,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element, ModifierKeys modifierKeys)
         {
-            return Click(element, MouseButtons.Left, modifierKeys, null);
+            return Do.Action(() => Click(element, MouseButtons.Left, modifierKeys, null));
         }
 
         /// <summary>
@@ -136,7 +131,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element, ModifierKeys modifierKeys, At relativePosition)
         {
-            return Click(element, MouseButtons.Left, modifierKeys, relativePosition);
+            return Do.Action(() => Click(element, MouseButtons.Left, modifierKeys, relativePosition));
         }
 
         /// <summary>
@@ -147,7 +142,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element, MouseButtons button)
         {
-            return Click(element, button, ModifierKeys.None, null);
+            return Do.Action(() => Click(element, button, ModifierKeys.None, null));
         }
 
         /// <summary>
@@ -159,7 +154,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element, MouseButtons button, At relativePosition)
         {
-            return Click(element, button, ModifierKeys.None, relativePosition);
+            return Do.Action(() => Click(element, button, ModifierKeys.None, relativePosition));
         }
 
         /// <summary>
@@ -171,7 +166,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
-            return Click(element, button, modifierKeys, null);
+            return Do.Action(() => Click(element, button, modifierKeys, null));
         }
 
         /// <summary>
@@ -184,16 +179,19 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
-            var rect = element.Properties.BoundingRectangle;
+            return Do.Action(() =>
+            {
+                var rect = element.Properties.BoundingRectangle;
 
-            if (rect == Rectangle.Empty)
-                throw new InvalidOperationException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
+                if (rect == Rectangle.Empty)
+                    throw new InvalidOperationException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
 
-            if (relativePosition == null)
-                ClickCentered(element, button, modifierKeys, rect);
-            else
-                ClickRelative(element, button, modifierKeys, relativePosition);
-            return new CombinableDo();
+                if (relativePosition == null)
+                    ClickCentered(element, button, modifierKeys, rect);
+                else
+                    ClickRelative(element, button, modifierKeys, relativePosition);
+
+            });
         }
 
         /// <summary>
@@ -202,8 +200,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick()
         {
-            Mouse.DoubleClick();
-            return new CombinableDo();
+            return Do.Action(Mouse.DoubleClick);
         }
 
         /// <summary>
@@ -213,8 +210,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(ModifierKeys modifierKeys)
         {
-            Mouse.DoubleClick(modifierKeys);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.DoubleClick(modifierKeys));
         }
 
         /// <summary>
@@ -224,8 +220,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(MouseButtons button)
         {
-            Mouse.DoubleClick(button);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.DoubleClick(button));
         }
 
         /// <summary>
@@ -235,8 +230,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(Point screenCoordinate)
         {
-            Mouse.DoubleClick(screenCoordinate);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.DoubleClick(screenCoordinate));
         }
 
         /// <summary>
@@ -248,8 +242,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinate)
         {
-            Mouse.DoubleClick(button, modifierKeys, screenCoordinate);
-            return new CombinableDo();
+            return Do.Action(() => Mouse.DoubleClick(button, modifierKeys, screenCoordinate));
         }
 
         /// <summary>
@@ -259,7 +252,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element)
         {
-            return DoubleClick(element, MouseButtons.Left, ModifierKeys.None, null);
+            return Do.Action(() => DoubleClick(element, MouseButtons.Left, ModifierKeys.None, null));
         }
 
         /// <summary>
@@ -270,7 +263,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions</returns>
         public static CombinableDo DoubleClick(BasicElement element, At relativePosition)
         {
-            return DoubleClick(element, MouseButtons.Left, ModifierKeys.None, relativePosition);
+            return Do.Action(() => DoubleClick(element, MouseButtons.Left, ModifierKeys.None, relativePosition));
         }
 
         /// <summary>
@@ -281,7 +274,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element, ModifierKeys modifierKeys)
         {
-            return DoubleClick(element, MouseButtons.Left, modifierKeys, null);
+            return Do.Action(() => DoubleClick(element, MouseButtons.Left, modifierKeys, null));
         }
 
         /// <summary>
@@ -293,7 +286,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element, ModifierKeys modifierKeys, At relativePosition)
         {
-            return DoubleClick(element, MouseButtons.Left, modifierKeys, relativePosition);
+            return Do.Action(() => DoubleClick(element, MouseButtons.Left, modifierKeys, relativePosition));
         }
 
         /// <summary>
@@ -304,7 +297,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element, MouseButtons button)
         {
-            return DoubleClick(element, button, ModifierKeys.None, null);
+            return Do.Action(() => DoubleClick(element, button, ModifierKeys.None, null));
         }
 
         /// <summary>
@@ -316,7 +309,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element, MouseButtons button, At relativePosition)
         {
-            return DoubleClick(element, button, ModifierKeys.None, relativePosition);
+            return Do.Action(() => DoubleClick(element, button, ModifierKeys.None, relativePosition));
         }
 
         /// <summary>
@@ -328,7 +321,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys)
         {
-            return DoubleClick(element, button, modifierKeys, null);
+            return Do.Action(() => DoubleClick(element, button, modifierKeys, null));
         }
 
         /// <summary>
@@ -341,16 +334,18 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
-            var rect = element.Properties.BoundingRectangle;
+            return Do.Action(() =>
+            {
+                var rect = element.Properties.BoundingRectangle;
 
-            if (rect == Rectangle.Empty)
-                throw new InvalidOperationException("The control cannot be double clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
+                if (rect == Rectangle.Empty)
+                    throw new InvalidOperationException("The control cannot be double clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
 
-            if (relativePosition == null)
-                DoubleClickCentered(element, button, modifierKeys, rect);
-            else
-                DoubleClickRelative(element, button, modifierKeys, relativePosition);
-            return new CombinableDo();
+                if (relativePosition == null)
+                    DoubleClickCentered(element, button, modifierKeys, rect);
+                else
+                    DoubleClickRelative(element, button, modifierKeys, relativePosition);
+            });
         }
 
         private static void ClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rectangle rect)

@@ -36,8 +36,17 @@ namespace DW.CodedUI
     /// </summary>
     public class CombinableDo
     {
+        private DoAction _doAction;
+        private Action _currentAction;
+        private readonly CombinableDo _previousDo;
+        
         internal CombinableDo()
         {
+        }
+
+        internal CombinableDo(CombinableDo previousDo)
+        {
+            _previousDo = previousDo;
         }
 
         /// <summary>
@@ -55,8 +64,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public CombinableDo Wait(uint milliseconds)
         {
-            Thread.Sleep((int)milliseconds);
-            return this;
+            _doAction = DoAction.Action;
+            _currentAction = () => Thread.Sleep((int)milliseconds);
+
+            Execute();
+            return new CombinableDo();
         }
 
         /// <summary>
@@ -77,36 +89,43 @@ namespace DW.CodedUI
             if (mimimumPercent == 0)
                 throw new ArgumentOutOfRangeException("A minimum CPU load of 0 percent is unrealistic. A normal CPU idle is about 1-2%. For a normal run its OK to wait for 25% or lower.");
 
-            try
+            _doAction = DoAction.Action;
+            _currentAction = () =>
             {
-                var cpuload = new PerformanceCounter();
-                cpuload.CategoryName = "Processor";
-                cpuload.CounterName = "% Processor Time";
-                cpuload.InstanceName = "_Total";
-
-                cpuload.NextValue();
-                cpuload.NextValue();
-                cpuload.NextValue();
-                cpuload.NextValue();
-
-                var watch = new Stopwatch();
-                watch.Start();
-                while (true)
+                try
                 {
-                    if (watch.Elapsed.TotalMilliseconds >= maximumWaitTime)
-                        return this;
+                    var cpuload = new PerformanceCounter();
+                    cpuload.CategoryName = "Processor";
+                    cpuload.CounterName = "% Processor Time";
+                    cpuload.InstanceName = "_Total";
 
-                    if (cpuload.NextValue() < mimimumPercent)
-                        return this;
+                    cpuload.NextValue();
+                    cpuload.NextValue();
+                    cpuload.NextValue();
+                    cpuload.NextValue();
 
-                    if (interval > 0)
-                        Thread.Sleep((int)interval);
+                    var watch = new Stopwatch();
+                    watch.Start();
+                    while (true)
+                    {
+                        if (watch.Elapsed.TotalMilliseconds >= maximumWaitTime)
+                            return;
+
+                        if (cpuload.NextValue() < mimimumPercent)
+                            return;
+
+                        if (interval > 0)
+                            Thread.Sleep((int) interval);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Cannot meassure the current CPU load. See inner exception.", ex);
-            }
+                catch (Exception ex)
+                {
+                    throw new Exception("Cannot meassure the current CPU load. See inner exception.", ex);
+                }
+            };
+
+            Execute();
+            return new CombinableDo();
         }
 
         /// <summary>
@@ -122,21 +141,26 @@ namespace DW.CodedUI
             if (!File.Exists(path))
                 throw new ExecutableNotAvailableException(path);
 
-            try
+            _doAction = DoAction.Action;
+            _currentAction = () =>
             {
-                var processStartInfo = new ProcessStartInfo();
-                processStartInfo.FileName = path;
-                if (arguments != null)
-                    processStartInfo.Arguments = arguments;
-                processStartInfo.WorkingDirectory = Path.GetDirectoryName(path);
-                Process.Start(processStartInfo);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Cannot launch the application. See inner exception.", ex);
-            }
+                try
+                {
+                    var processStartInfo = new ProcessStartInfo();
+                    processStartInfo.FileName = path;
+                    if (arguments != null)
+                        processStartInfo.Arguments = arguments;
+                    processStartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+                    Process.Start(processStartInfo);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Cannot launch the application. See inner exception.", ex);
+                }
+            };
 
-            return this;
+            Execute();
+            return new CombinableDo();
         }
 
         /// <summary>
@@ -147,15 +171,57 @@ namespace DW.CodedUI
         /// <exception cref="System.Exception">Cannot invoke the given action.</exception>
         public CombinableDo Action(Action action)
         {
-            try
+            _doAction = DoAction.Action;
+            _currentAction = () =>
             {
-                action();
-            }
-            catch (Exception ex)
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Cannot invoke the given action. See inner exception.", ex);
+                }
+            };
+
+            Execute();
+            return new CombinableDo(this);
+        }
+
+        /// <summary>
+        /// Repeats the previous actions the given times.
+        /// </summary>
+        /// <param name="amount">The amount of repeats.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        /// <remarks>The amount is additional to the calls before. That means Do.Action(() =&gt; { }).Repeat(2); will result in 3 action calls.</remarks>
+        public CombinableDo Repeat(uint amount)
+        {
+            _currentAction = null;
+            _doAction = DoAction.Repeat;
+
+            for (int i = 0; i < amount; i++)
             {
-                throw new Exception("Cannot invoke the given action. See inner exception.", ex);
+                var previousDo = _previousDo;
+                while (previousDo != null && previousDo._doAction != DoAction.Repeat)
+                {
+                    previousDo._currentAction();
+                    previousDo = previousDo._previousDo;
+                }
             }
-            return this;
+
+            return new CombinableDo(this);
+        }
+
+        private void Execute()
+        {
+            if (_currentAction != null)
+                _currentAction();
+        }
+
+        private enum DoAction
+        {
+            Action,
+            Repeat
         }
     }
 }

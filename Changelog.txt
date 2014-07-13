@@ -4,6 +4,7 @@
 Release 2.*
 ==============================
 2014-07-13    BasicWindowBase: Implement Equals with use of the NativeWindowHandle
+              Do: Add possibility to repeat Do actions
 2014-07-12    BasicWindowBase: Add possibility to get the parent window of another window
               BasicWindowBase: Add possibility to throw an exception if the parent window is not available
 2014-07-11    WindowFinder: Fix missing usage of the Is parameter
