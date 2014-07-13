@@ -238,7 +238,7 @@ namespace DW.CodedUI
         private static bool IsMainWindow(BasicWindow window)
         {
             var mainWindow = new BasicWindow(AutomationElement.FromHandle(window.OwningProcess.MainWindowHandle));
-            return mainWindow.Properties.NativeWindowHandle == window.Properties.NativeWindowHandle;
+            return window.Equals(mainWindow);
         }
 
         internal static bool IsOwnerOf(BasicWindow window, BasicElement potentialChildElement)
@@ -251,10 +251,9 @@ namespace DW.CodedUI
 
         private static bool IsParentOf(BasicWindow parentWindow, BasicWindow potentialChildWindow)
         {
-            var parentHandle = parentWindow.Properties.NativeWindowHandle;
             var childParentWindow = potentialChildWindow.GetParentWindow(false);
 
-            return parentHandle == childParentWindow.Properties.NativeWindowHandle;
+            return parentWindow.Equals(childParentWindow);
         }
 
         private static Dictionary<IntPtr, string> GetAllWindows()

@@ -129,5 +129,28 @@ namespace DW.CodedUI.BasicElements
                 throw new Exception(string.Format("The current window '{0}' has no parent window.", Title));
             return null;
         }
+
+        /// <summary>
+        /// Checks if the given object is the same window by comparing the window handle.
+        /// </summary>
+        /// <param name="obj">The other object.</param>
+        /// <returns>True if the given object is a BasicWindowBase with the same NativeWindowHandle; otherwise false.</returns>
+        public override bool Equals(object obj)
+        {
+            var otherWindow = obj as BasicWindowBase;
+            if (otherWindow == null)
+                return false;
+
+            return Properties.NativeWindowHandle == otherWindow.Properties.NativeWindowHandle;
+        }
+
+        /// <summary>
+        /// Returns a hashcode which represents this window object. The NativeWindowHandle will be used.
+        /// </summary>
+        /// <returns>The hashcode which represents this window.</returns>
+        public override int GetHashCode()
+        {
+            return Properties.NativeWindowHandle.GetHashCode();
+        }
     }
 }
