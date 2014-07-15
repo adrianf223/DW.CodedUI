@@ -24,6 +24,7 @@ THE SOFTWARE
 */
 #endregion License
 
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace DW.CodedUI.BasicElements.Data
@@ -35,6 +36,7 @@ namespace DW.CodedUI.BasicElements.Data
     {
         internal BasicElementData()
         {
+            Children = new List<BasicElementData>();
         }
 
         /// <summary>
@@ -66,5 +68,10 @@ namespace DW.CodedUI.BasicElements.Data
         /// Gets the process ID which the elements belongs to.
         /// </summary>
         public int ProcessId { get; internal set; }
+
+        /// <summary>
+        /// Gets the child elements of the current element. This will be filled by use the <see cref="DW.CodedUI.UI.GetFullUITreeData" />.
+        /// </summary>
+        public IEnumerable<BasicElementData> Children { get; set; }
     }
 }

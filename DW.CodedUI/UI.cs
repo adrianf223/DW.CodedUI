@@ -31,6 +31,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.BasicElements.Data;
 using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
@@ -413,11 +414,10 @@ namespace DW.CodedUI
         #region GetFullUITree
 
         /// <summary>
-        /// Returns a tree if information objects which shows the whole application tree.
+        /// Returns a tree of information objects which shows the whole tree below the given object.
         /// </summary>
         /// <param name="element">The parent object from which all child elements have to be read.</param>
-        /// <returns>The given element as an information object wich all its childs as a tree.</returns>
-        /// <remarks>This object is intended to be used in the ElementFinder.</remarks>
+        /// <returns>The given element as an information object wich all its children in a tree.</returns>
         public static AutomationElementInfo GetFullUITree(AutomationElement element)
         {
             var rootElementInfo = new AutomationElementInfo(element);
@@ -432,6 +432,29 @@ namespace DW.CodedUI
                 var childElementInfo = new AutomationElementInfo(child);
                 rootElement.Children.Add(childElementInfo);
                 Read(childElementInfo);
+            }
+        }
+
+        /// <summary>
+        /// Returns a tree of data objects which are a shadow copy of each element at the call time.
+        /// </summary>
+        /// <param name="element">The parent object from which all child element data have to be read.</param>
+        /// <returns>The given element as an shadow copy wich all its children in a tree.</returns>
+        public static BasicElementData GetFullUITreeData(BasicElement element)
+        {
+            var data = element.GetDataCopy();
+            Read(element, data);
+            return data;
+        }
+
+        private static void Read(BasicElement rootElement, BasicElementData data)
+        {
+            foreach (var child in GetChildren(rootElement.AutomationElement))
+            {
+                var element = new BasicElement(child);
+                var elementData = element.GetDataCopy();
+                ((List<BasicElementData>)data.Children).Add(elementData);
+                Read(element, elementData);
             }
         }
 

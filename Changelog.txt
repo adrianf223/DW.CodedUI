@@ -4,6 +4,7 @@
 Release 2.*
 ==============================
 2014-07-15    BasicElements: Add possibility to make a shadow copy of each basic element
+              UI: Add possibility to read the full UI tree as a shadow copy
 2014-07-13    BasicWindowBase: Implement Equals with use of the NativeWindowHandle
               Do: Add possibility to repeat Do actions
 2014-07-12    BasicWindowBase: Add possibility to get the parent window of another window
