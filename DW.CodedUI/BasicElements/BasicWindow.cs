@@ -174,6 +174,18 @@ namespace DW.CodedUI.BasicElements
             foreach (ProcessThread thread in process.Threads)
                 WinApi.EnumThreadWindows((uint)thread.Id, filter, IntPtr.Zero);
 
+            for (var i = 0; i < windows.Count; ++i)
+            {
+                var window = windows[i];
+                var parentWindow = window.GetParentWindow(false);
+                
+                if (parentWindow == null || !Equals(parentWindow))
+                {
+                    windows.Remove(window);
+                    --i;
+                }
+            }
+
             return windows;
         }
 
