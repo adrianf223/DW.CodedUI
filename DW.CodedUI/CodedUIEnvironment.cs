@@ -44,6 +44,10 @@ namespace DW.CodedUI
         /// Holds global settings to be used at runtime in the <see cref="DW.CodedUI.Utilities.DynamicSleep" />.
         /// </summary>
         public static SleepSettingsHolder SleepSettings { get; private set; }
+
+        /// <summary>
+        /// Holds the global default settings to be used at runtime in the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" />.
+        /// </summary>
         public static DefaultSettingsHolder DefaultSettings { get; private set; }
 
         /// <summary>

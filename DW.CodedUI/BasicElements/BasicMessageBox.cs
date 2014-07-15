@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -133,6 +134,76 @@ namespace DW.CodedUI.BasicElements
         public BasicButton NoButton
         {
             get { return UI.GetChild<BasicButton>(By.AutomationId(NoButtonId), From.Element(this), With.NoTimeout()); }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicMessageBoxData GetDataCopy()
+        {
+            var data = new BasicMessageBoxData();
+            FillData(data);
+
+            data.Icon = GetSafeData(() =>
+            {
+                if (Icon == null)
+                    return null;
+                return Icon.GetDataCopy();
+            });
+
+            data.Text = GetSafeData(() => Text);
+
+            data.OKButton = GetSafeData(() =>
+            {
+                if (OKButton == null)
+                    return null;
+                return OKButton.GetDataCopy();
+            });
+
+            data.CancelButton = GetSafeData(() =>
+            {
+                if (CancelButton == null)
+                    return null;
+                return CancelButton.GetDataCopy();
+            });
+
+            data.AbortButton = GetSafeData(() =>
+            {
+                if (AbortButton == null)
+                    return null;
+                return AbortButton.GetDataCopy();
+            });
+
+            data.RetryButton = GetSafeData(() =>
+            {
+                if (RetryButton == null)
+                    return null;
+                return RetryButton.GetDataCopy();
+            });
+
+            data.IgnoreButton = GetSafeData(() =>
+            {
+                if (IgnoreButton == null)
+                    return null;
+                return IgnoreButton.GetDataCopy();
+            });
+
+            data.YesButton = GetSafeData(() =>
+            {
+                if (YesButton == null)
+                    return null;
+                return YesButton.GetDataCopy();
+            });
+
+            data.NoButton = GetSafeData(() =>
+            {
+                if (NoButton == null)
+                    return null;
+                return NoButton.GetDataCopy();
+            });
+
+            return data;
         }
     }
 }

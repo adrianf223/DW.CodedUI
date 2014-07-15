@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -88,6 +89,19 @@ namespace DW.CodedUI.BasicElements
         public string Text
         {
             get { return Name; }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicCheckBoxData GetDataCopy()
+        {
+            var data = new BasicCheckBoxData();
+            FillData(data);
+            data.Text = GetSafeData(() => Text);
+            data.IsChecked = GetSafeData(() => IsChecked);
+            return data;
         }
     }
 }

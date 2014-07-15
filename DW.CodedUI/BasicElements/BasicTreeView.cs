@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -185,6 +186,30 @@ namespace DW.CodedUI.BasicElements
                 var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 return pattern.Current.VerticallyScrollable;
             }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicTreeViewData GetDataCopy()
+        {
+            var data = new BasicTreeViewData();
+            FillData(data);
+
+            var items = new List<BasicTreeViewItemData>();
+            data.Items = items;
+            try
+            {
+                foreach (var item in Items)
+                {
+                    if (item != null)
+                        items.Add(item.GetDataCopy());
+                }
+            }
+            catch { }
+
+            return data;
         }
     }
 }

@@ -24,7 +24,9 @@ THE SOFTWARE
 */
 #endregion License
 
+using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -80,6 +82,53 @@ namespace DW.CodedUI.BasicElements
         public BasicTreeView FolderTree
         {
             get { return UI.GetChild<BasicTreeView>(By.AutomationId("100").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Tree)), From.Element(this), With.NoTimeout()); }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicBrowseFolderDialogData GetDataCopy()
+        {
+            var data = new BasicBrowseFolderDialogData();
+            FillData(data);
+
+            data.DescriptionText = GetSafeData(() =>
+            {
+                if (DescriptionText == null)
+                    return null;
+                return DescriptionText.GetDataCopy();
+            });
+
+            data.NewFolderButton = GetSafeData(() =>
+            {
+                if (NewFolderButton == null)
+                    return null;
+                return NewFolderButton.GetDataCopy();
+            });
+
+            data.OKButton = GetSafeData(() =>
+            {
+                if (OKButton == null)
+                    return null;
+                return OKButton.GetDataCopy();
+            });
+
+            data.CancelButton = GetSafeData(() =>
+            {
+                if (CancelButton == null)
+                    return null;
+                return CancelButton.GetDataCopy();
+            });
+
+            data.FolderTree = GetSafeData(() =>
+            {
+                if (FolderTree == null)
+                    return null;
+                return FolderTree.GetDataCopy();
+            });
+            
+            return data;
         }
     }
 }

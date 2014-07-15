@@ -24,43 +24,32 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Data;
+using System.Collections.Generic;
 
-namespace DW.CodedUI.BasicElements
+namespace DW.CodedUI.BasicElements.Data
 {
     /// <summary>
-    /// Represents a TextBlock or Label.
+    /// Represents the data of a <see cref="DW.CodedUI.BasicElements.BasicMenuItem" /> at the time of the call <see cref="DW.CodedUI.BasicElements.BasicMenuItem.GetDataCopy()" />.
     /// </summary>
-    public class BasicText : BasicElement
+    public class BasicMenuItemData : BasicElementData
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicText" /> class.
-        /// </summary>
-        /// <param name="automationElement">The automation control.</param>
-        public BasicText(AutomationElement automationElement)
-            : base(automationElement)
+        internal BasicMenuItemData()
         {
         }
 
         /// <summary>
-        /// Gets the text written in the TextBlock/Label.
+        /// Gets a value that indicates if the MenuItem is expanded or not.
         /// </summary>
-        public string Text
-        {
-            get { return Name; }
-        }
+        public bool IsExpanded { get; internal set; }
 
         /// <summary>
-        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// Gets all available MenuItems. In WPF normally the child items gets created first when they became visible.
         /// </summary>
-        /// <returns>A shadow copy of the current element.</returns>
-        public new BasicTextData GetDataCopy()
-        {
-            var data = new BasicTextData();
-            FillData(data);
-            data.Text = GetSafeData(() => Text);
-            return data;
-        }
+        public IEnumerable<BasicMenuItemData> Items { get; internal set; }
+
+        /// <summary>
+        /// Gets the text written in the MenuItem.
+        /// </summary>
+        public string Text { get; internal set; }
     }
 }

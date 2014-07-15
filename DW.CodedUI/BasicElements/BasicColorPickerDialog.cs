@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -160,6 +161,123 @@ namespace DW.CodedUI.BasicElements
         public BasicButton HelpButton
         {
             get { return UI.GetChild<BasicButton>(By.AutomationId("1038").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this), With.NoTimeout()); }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicColorPickerDialogData GetDataCopy()
+        {
+            var data = new BasicColorPickerDialogData();
+            FillData(data);
+
+            data.ColorsSection = GetSafeData(() =>
+            {
+                if (ColorsSection == null)
+                    return null;
+                return ColorsSection.GetDataCopy();
+            });
+
+            data.DefineColorsButton = GetSafeData(() =>
+            {
+                if (DefineColorsButton == null)
+                    return null;
+                return DefineColorsButton.GetDataCopy();
+            });
+
+            data.ColorPickSection = GetSafeData(() =>
+            {
+                if (ColorPickSection == null)
+                    return null;
+                return ColorPickSection.GetDataCopy();
+            });
+
+            data.ColorGradientSection = GetSafeData(() =>
+            {
+                if (ColorGradientSection == null)
+                    return null;
+                return ColorGradientSection.GetDataCopy();
+            });
+
+            data.ColorDisplaySection = GetSafeData(() =>
+            {
+                if (ColorDisplaySection == null)
+                    return null;
+                return ColorDisplaySection.GetDataCopy();
+            });
+
+            data.ColorShadeTextBox = GetSafeData(() =>
+            {
+                if (ColorShadeTextBox == null)
+                    return null;
+                return ColorShadeTextBox.GetDataCopy();
+            });
+
+            data.ColorChromaTextBox = GetSafeData(() =>
+            {
+                if (ColorChromaTextBox == null)
+                    return null;
+                return ColorChromaTextBox.GetDataCopy();
+            });
+
+            data.ColorBrightnessTextBox = GetSafeData(() =>
+            {
+                if (ColorBrightnessTextBox == null)
+                    return null;
+                return ColorBrightnessTextBox.GetDataCopy();
+            });
+
+            data.RedTextBox = GetSafeData(() =>
+            {
+                if (RedTextBox == null)
+                    return null;
+                return RedTextBox.GetDataCopy();
+            });
+
+            data.GreenTextBox = GetSafeData(() =>
+            {
+                if (GreenTextBox == null)
+                    return null;
+                return GreenTextBox.GetDataCopy();
+            });
+
+            data.BlueTextBox = GetSafeData(() =>
+            {
+                if (BlueTextBox == null)
+                    return null;
+                return BlueTextBox.GetDataCopy();
+            });
+
+            data.ApplyColorButton = GetSafeData(() =>
+            {
+                if (ApplyColorButton == null)
+                    return null;
+                return ApplyColorButton.GetDataCopy();
+            });
+
+            data.OKButton = GetSafeData(() =>
+            {
+                if (OKButton == null)
+                    return null;
+                return OKButton.GetDataCopy();
+            });
+
+            data.CancelButton = GetSafeData(() =>
+            {
+                if (CancelButton == null)
+                    return null;
+                return CancelButton.GetDataCopy();
+            });
+
+            data.HelpButton = GetSafeData(() =>
+            {
+                if (HelpButton == null)
+                    return null;
+                return HelpButton.GetDataCopy();
+            });
+
+            return data;
         }
     }
 }

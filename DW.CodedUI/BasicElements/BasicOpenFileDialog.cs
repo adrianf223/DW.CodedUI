@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -152,6 +153,116 @@ namespace DW.CodedUI.BasicElements
         public BasicButton HelpButton
         {
             get { return UI.GetChild<BasicButton>(By.AutomationId("HelpButton"), From.Element(this), With.NoTimeout()); }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicOpenFileDialogData GetDataCopy()
+        {
+            var data = new BasicOpenFileDialogData();
+            FillData(data);
+
+            data.InputComboBox = GetSafeData(() =>
+            {
+                if (InputComboBox == null)
+                    return null;
+                return InputComboBox.GetDataCopy();
+            });
+
+            data.BreadCrumbBar = GetSafeData(() =>
+            {
+                if (BreadCrumbBar == null)
+                    return null;
+                return BreadCrumbBar.GetDataCopy();
+            });
+
+            data.BreadCrumbTextBox = GetSafeData(() =>
+            {
+                if (BreadCrumbTextBox == null)
+                    return null;
+                return BreadCrumbTextBox.GetDataCopy();
+            });
+
+            data.FilterComboBox = GetSafeData(() =>
+            {
+                if (FilterComboBox == null)
+                    return null;
+                return FilterComboBox.GetDataCopy();
+            });
+
+            data.CancelButton = GetSafeData(() =>
+            {
+                if (CancelButton == null)
+                    return null;
+                return CancelButton.GetDataCopy();
+            });
+
+            data.OpenButton = GetSafeData(() =>
+            {
+                if (OpenButton == null)
+                    return null;
+                return OpenButton.GetDataCopy();
+            });
+
+            data.FilesList = GetSafeData(() =>
+            {
+                if (FilesList == null)
+                    return null;
+                return FilesList.GetDataCopy();
+            });
+
+            data.SearchTextBox = GetSafeData(() =>
+            {
+                if (SearchTextBox == null)
+                    return null;
+                return SearchTextBox.GetDataCopy();
+            });
+
+            data.SearchButton = GetSafeData(() =>
+            {
+                if (SearchButton == null)
+                    return null;
+                return SearchButton.GetDataCopy();
+            });
+
+            data.FolderTree = GetSafeData(() =>
+            {
+                if (FolderTree == null)
+                    return null;
+                return FolderTree.GetDataCopy();
+            });
+
+            data.ToolBar = GetSafeData(() =>
+            {
+                if (ToolBar == null)
+                    return null;
+                return ToolBar.GetDataCopy();
+            });
+
+            data.ChangeViewButton = GetSafeData(() =>
+            {
+                if (ChangeViewButton == null)
+                    return null;
+                return ChangeViewButton.GetDataCopy();
+            });
+
+            data.ShowPreviewButton = GetSafeData(() =>
+            {
+                if (ShowPreviewButton == null)
+                    return null;
+                return ShowPreviewButton.GetDataCopy();
+            });
+
+            data.HelpButton = GetSafeData(() =>
+            {
+                if (HelpButton == null)
+                    return null;
+                return HelpButton.GetDataCopy();
+            });
+
+            return data;
         }
     }
 }

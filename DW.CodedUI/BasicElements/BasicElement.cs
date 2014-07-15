@@ -26,8 +26,10 @@ THE SOFTWARE
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
@@ -240,6 +242,49 @@ namespace DW.CodedUI.BasicElements
         public CombinableDo Do
         {
             get { return new CombinableDo(); }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public BasicElementData GetDataCopy()
+        {
+            var data = new BasicElementData();
+            FillData(data);
+            return data;
+        }
+
+        /// <summary>
+        /// Fills the given BasicElementData object with the properties of the BasicElement.
+        /// </summary>
+        /// <param name="data">The BasicElementData to fill.</param>
+        protected void FillData(BasicElementData data)
+        {
+            data.AutomationId = GetSafeData(() => Properties.AutomationId);
+            data.Name = GetSafeData(() => Properties.Name);
+            data.BoundingRectangle = GetSafeData(() => Properties.BoundingRectangle);
+            data.ClassName = GetSafeData(() => Properties.ClassName);
+            data.NativeWindowHandle = GetSafeData(() => Properties.NativeWindowHandle);
+            data.ProcessId = GetSafeData(() => Properties.ProcessId);
+        }
+
+        /// <summary>
+        /// Tries to reload the given data. default(T) if it crashes.
+        /// </summary>
+        /// <typeparam name="T">The type of the property to read.</typeparam>
+        /// <param name="data">The function to read the property.</param>
+        /// <returns>The property data; default(T) if it crashes.</returns>
+        protected T GetSafeData<T>(Func<T> data)
+        {
+            try
+            {
+                return data();
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
     }
 }

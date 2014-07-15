@@ -24,43 +24,22 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Data;
+using System.Collections.Generic;
 
-namespace DW.CodedUI.BasicElements
+namespace DW.CodedUI.BasicElements.Data
 {
     /// <summary>
-    /// Represents a TextBlock or Label.
+    /// Represents the data of a <see cref="DW.CodedUI.BasicElements.BasicTreeView" /> at the time of the call <see cref="DW.CodedUI.BasicElements.BasicTreeView.GetDataCopy()" />.
     /// </summary>
-    public class BasicText : BasicElement
+    public class BasicTreeViewData : BasicElementData
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicText" /> class.
-        /// </summary>
-        /// <param name="automationElement">The automation control.</param>
-        public BasicText(AutomationElement automationElement)
-            : base(automationElement)
+        internal BasicTreeViewData()
         {
         }
 
         /// <summary>
-        /// Gets the text written in the TextBlock/Label.
+        /// Gets all available child TreeViewItems. In WPF normally all child items get created first as soon they became visible.
         /// </summary>
-        public string Text
-        {
-            get { return Name; }
-        }
-
-        /// <summary>
-        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
-        /// </summary>
-        /// <returns>A shadow copy of the current element.</returns>
-        public new BasicTextData GetDataCopy()
-        {
-            var data = new BasicTextData();
-            FillData(data);
-            data.Text = GetSafeData(() => Text);
-            return data;
-        }
+        public IEnumerable<BasicTreeViewItemData> Items { get; internal set; }
     }
 }

@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -273,6 +274,45 @@ namespace DW.CodedUI.BasicElements
             if (AutomationElement.TryGetCurrentPattern(TablePattern.Pattern, out pattern))
                 return ((TablePattern) pattern).Current.GetColumnHeaders().Select(i => new BasicElement(i));
             throw new NotSupportedException(string.Format("The '{0}' does not support GetColumnHeaders.", AutomationElement.Current.ClassName));
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicListData GetDataCopy()
+        {
+            var data = new BasicListData();
+            FillData(data);
+            data.CanMultiSelect = GetSafeData(() => CanMultiSelect);
+
+            var selectedItems = new List<BasicListItemData>();
+            data.SelectedItems = selectedItems;
+            try
+            {
+                foreach (var item in Items)
+                {
+                    if (item != null)
+                        selectedItems.Add(item.GetDataCopy());
+                }
+            }
+            catch { }
+
+            var items = new List<BasicListItemData>();
+            data.Items = items;
+            try
+            {
+                foreach (var item in Items)
+                {
+                    if (item != null)
+                        items.Add(item.GetDataCopy());
+                }
+            }
+            catch { }
+
+            data.ColumnCount = GetSafeData(() => ColumnCount);
+            data.RowCount = GetSafeData(() => RowCount);
+            return data;
         }
     }
 }

@@ -33,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\DW.CodedUI.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.UIAutomationClient">
@@ -97,6 +98,31 @@
     <Compile Include="BasicElements\BasicTreeViewItem.cs" />
     <Compile Include="BasicElements\BasicWindow.cs" />
     <Compile Include="BasicElements\BasicWindowBase.cs" />
+    <Compile Include="BasicElements\Data\BasicBrowseFolderDialogData.cs" />
+    <Compile Include="BasicElements\Data\BasicButtonData.cs" />
+    <Compile Include="BasicElements\Data\BasicCheckBoxData.cs" />
+    <Compile Include="BasicElements\Data\BasicColorPickerDialogData.cs" />
+    <Compile Include="BasicElements\Data\BasicComboBoxData.cs" />
+    <Compile Include="BasicElements\Data\BasicComboBoxItemData.cs" />
+    <Compile Include="BasicElements\Data\BasicEditData.cs" />
+    <Compile Include="BasicElements\Data\BasicElementData.cs" />
+    <Compile Include="BasicElements\Data\BasicExpanderData.cs" />
+    <Compile Include="BasicElements\Data\BasicFontPickerDialogData.cs" />
+    <Compile Include="BasicElements\Data\BasicListData.cs" />
+    <Compile Include="BasicElements\Data\BasicListItemData.cs" />
+    <Compile Include="BasicElements\Data\BasicMenuData.cs" />
+    <Compile Include="BasicElements\Data\BasicMenuItemData.cs" />
+    <Compile Include="BasicElements\Data\BasicMessageBoxData.cs" />
+    <Compile Include="BasicElements\Data\BasicOpenFileDialogData.cs" />
+    <Compile Include="BasicElements\Data\BasicRadioButtonData.cs" />
+    <Compile Include="BasicElements\Data\BasicSaveFileDialogData.cs" />
+    <Compile Include="BasicElements\Data\BasicTabControlData.cs" />
+    <Compile Include="BasicElements\Data\BasicTabItemData.cs" />
+    <Compile Include="BasicElements\Data\BasicTextData.cs" />
+    <Compile Include="BasicElements\Data\BasicToggleButtonData.cs" />
+    <Compile Include="BasicElements\Data\BasicTreeViewData.cs" />
+    <Compile Include="BasicElements\Data\BasicTreeViewItemData.cs" />
+    <Compile Include="BasicElements\Data\BasicWindowData.cs" />
     <Compile Include="By.cs" />
     <Compile Include="CodedUIEnvironment.cs" />
     <Compile Include="CombinableAnd.cs" />

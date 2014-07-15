@@ -73,8 +73,6 @@ namespace ElementFinder.Controls
 
         private void ReadProperties()
         {
-            // TODO: Put to separate thread
-
             Items.Clear();
             if (Element == null || !IsAvailable(Element))
                 return;

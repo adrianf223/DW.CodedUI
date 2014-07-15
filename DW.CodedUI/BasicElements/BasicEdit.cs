@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -226,6 +227,19 @@ namespace DW.CodedUI.BasicElements
                 var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 return pattern.Current.VerticallyScrollable;
             }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicEditData GetDataCopy()
+        {
+            var data = new BasicEditData();
+            FillData(data);
+            data.Text = GetSafeData(() => Text);
+            data.IsReadOnly = GetSafeData(() => IsReadOnly);
+            return data;
         }
     }
 }

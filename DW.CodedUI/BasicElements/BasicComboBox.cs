@@ -27,7 +27,10 @@ THE SOFTWARE
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Automation;
+using System.Windows.Documents;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -215,6 +218,37 @@ namespace DW.CodedUI.BasicElements
                 var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
                 return pattern.Current.VerticallyScrollable;
             }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicComboBoxData GetDataCopy()
+        {
+            var data = new BasicComboBoxData();
+            FillData(data);
+            data.SelectedItem = GetSafeData(() =>
+            {
+                if (SelectedItem == null)
+                    return null;
+                return SelectedItem.GetDataCopy();
+            });
+            var items = new List<BasicComboBoxItemData>();
+            data.Items = items;
+            try
+            {
+                foreach (var item in Items)
+                {
+                    if (item != null)
+                        items.Add(item.GetDataCopy());
+                }
+            }
+            catch { }
+            data.Text = GetSafeData(() => Text);
+            data.IsReadOnly = GetSafeData(() => IsReadOnly);
+            data.IsExpanded = GetSafeData(() => IsExpanded);
+            return data;
         }
     }
 }

@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -76,6 +77,18 @@ namespace DW.CodedUI.BasicElements
         public string Text
         {
             get { return Name; }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicButtonData GetDataCopy()
+        {
+            var data = new BasicButtonData();
+            FillData(data);
+            data.Text = GetSafeData(() => Text);
+            return data;
         }
     }
 }

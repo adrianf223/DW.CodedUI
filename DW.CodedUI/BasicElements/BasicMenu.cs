@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Collections.Generic;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -52,6 +53,28 @@ namespace DW.CodedUI.BasicElements
             {
                 return UI.GetChildren<BasicMenuItem>(By.ClassName("MenuItem"), From.Element(this));
             }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicMenuData GetDataCopy()
+        {
+            var data = new BasicMenuData();
+            FillData(data);
+            var items = new List<BasicMenuItemData>();
+            data.Items = items;
+            try
+            {
+                foreach (var item in Items)
+                {
+                    if (item != null)
+                        items.Add(item.GetDataCopy());
+                }
+            }
+            catch { }
+            return data;
         }
     }
 }

@@ -24,43 +24,26 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Data;
-
-namespace DW.CodedUI.BasicElements
+namespace DW.CodedUI.BasicElements.Data
 {
     /// <summary>
-    /// Represents a TextBlock or Label.
+    /// Represents the data of a <see cref="DW.CodedUI.BasicElements.BasicEdit" /> at the time of the call <see cref="DW.CodedUI.BasicElements.BasicEdit.GetDataCopy()" />.
     /// </summary>
-    public class BasicText : BasicElement
+    public class BasicEditData : BasicElementData
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicText" /> class.
-        /// </summary>
-        /// <param name="automationElement">The automation control.</param>
-        public BasicText(AutomationElement automationElement)
-            : base(automationElement)
+        internal BasicEditData()
         {
         }
 
         /// <summary>
-        /// Gets the text written in the TextBlock/Label.
+        /// Gets the written text in the [Rich]TextBox.
         /// </summary>
-        public string Text
-        {
-            get { return Name; }
-        }
+        public string Text { get; internal set; }
 
         /// <summary>
-        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// Gets a value that indicates if the [Rich]TextBox is read only or not.
         /// </summary>
-        /// <returns>A shadow copy of the current element.</returns>
-        public new BasicTextData GetDataCopy()
-        {
-            var data = new BasicTextData();
-            FillData(data);
-            data.Text = GetSafeData(() => Text);
-            return data;
-        }
+        /// <remarks>Not supported for a RichTextBox.</remarks>
+        public bool IsReadOnly { get; internal set; }
     }
 }

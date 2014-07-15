@@ -1,4 +1,4 @@
-#region License
+﻿#region License
 /*
 The MIT License (MIT)
 
@@ -24,43 +24,47 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Data;
+using System.Drawing;
 
-namespace DW.CodedUI.BasicElements
+namespace DW.CodedUI.BasicElements.Data
 {
     /// <summary>
-    /// Represents a TextBlock or Label.
+    /// Represents the data of a <see cref="DW.CodedUI.BasicElements.BasicElement" /> at the time of the call <see cref="DW.CodedUI.BasicElements.BasicElement.GetDataCopy()" />.
     /// </summary>
-    public class BasicText : BasicElement
+    public class BasicElementData
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicText" /> class.
-        /// </summary>
-        /// <param name="automationElement">The automation control.</param>
-        public BasicText(AutomationElement automationElement)
-            : base(automationElement)
+        internal BasicElementData()
         {
         }
 
         /// <summary>
-        /// Gets the text written in the TextBlock/Label.
+        /// Gets the automation ID.
         /// </summary>
-        public string Text
-        {
-            get { return Name; }
-        }
+        public string AutomationId { get; internal set; }
 
         /// <summary>
-        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// Gets the name.
         /// </summary>
-        /// <returns>A shadow copy of the current element.</returns>
-        public new BasicTextData GetDataCopy()
-        {
-            var data = new BasicTextData();
-            FillData(data);
-            data.Text = GetSafeData(() => Text);
-            return data;
-        }
+        public string Name { get; internal set; }
+
+        /// <summary>
+        /// Gets the position and size.
+        /// </summary>
+        public Rectangle BoundingRectangle { get; internal set; }
+
+        /// <summary>
+        /// Gets the class name.
+        /// </summary>
+        public string ClassName { get; internal set; }
+
+        /// <summary>
+        /// Gets the window handle if any; otherwise 0.
+        /// </summary>
+        public int NativeWindowHandle { get; internal set; }
+
+        /// <summary>
+        /// Gets the process ID which the elements belongs to.
+        /// </summary>
+        public int ProcessId { get; internal set; }
     }
 }

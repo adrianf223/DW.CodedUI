@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 using DW.CodedUI.Internal;
 
 namespace DW.CodedUI.BasicElements
@@ -174,6 +175,18 @@ namespace DW.CodedUI.BasicElements
                 WinApi.EnumThreadWindows((uint)thread.Id, filter, IntPtr.Zero);
 
             return windows;
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicWindowData GetDataCopy()
+        {
+            var data = new BasicWindowData();
+            FillData(data);
+            data.Title = GetSafeData(() => Title);
+            return data;
         }
     }
 }

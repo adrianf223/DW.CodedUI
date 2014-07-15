@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Windows.Automation;
+using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -185,6 +186,137 @@ namespace DW.CodedUI.BasicElements
         public BasicButton HelpButton
         {
             get { return UI.GetChild<BasicButton>(By.AutomationId("1038").And.Condition(e => Equals(e.Properties.ControlType, ControlType.Button)), From.Element(this)); }
+        }
+
+        /// <summary>
+        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
+        /// </summary>
+        /// <returns>A shadow copy of the current element.</returns>
+        public new BasicFontPickerDialogData GetDataCopy()
+        {
+            var data = new BasicFontPickerDialogData();
+            FillData(data);
+
+            data.FontNameSection = GetSafeData(() =>
+            {
+                if (FontNameSection == null)
+                    return null;
+                return FontNameSection.GetDataCopy();
+            });
+
+            data.FontNameTextBox = GetSafeData(() =>
+            {
+                if (FontNameTextBox == null)
+                    return null;
+                return FontNameTextBox.GetDataCopy();
+            });
+
+            data.FontNameList = GetSafeData(() =>
+            {
+                if (FontNameList == null)
+                    return null;
+                return FontNameList.GetDataCopy();
+            });
+
+            data.FontStyleSection = GetSafeData(() =>
+            {
+                if (FontStyleSection == null)
+                    return null;
+                return FontStyleSection.GetDataCopy();
+            });
+
+            data.FontStyleTextBox = GetSafeData(() =>
+            {
+                if (FontStyleTextBox == null)
+                    return null;
+                return FontStyleTextBox.GetDataCopy();
+            });
+
+            data.FontStyleList = GetSafeData(() =>
+            {
+                if (FontStyleList == null)
+                    return null;
+                return FontStyleList.GetDataCopy();
+            });
+
+            data.FontSizeSection = GetSafeData(() =>
+            {
+                if (FontSizeSection == null)
+                    return null;
+                return FontSizeSection.GetDataCopy();
+            });
+
+            data.FontSizeTextBox = GetSafeData(() =>
+            {
+                if (FontSizeTextBox == null)
+                    return null;
+                return FontSizeTextBox.GetDataCopy();
+            });
+
+            data.FontSizeList = GetSafeData(() =>
+            {
+                if (FontSizeList == null)
+                    return null;
+                return FontSizeList.GetDataCopy();
+            });
+
+            data.LineThroughCheckBox = GetSafeData(() =>
+            {
+                if (LineThroughCheckBox == null)
+                    return null;
+                return LineThroughCheckBox.GetDataCopy();
+            });
+
+            data.UnderlineCheckBox = GetSafeData(() =>
+            {
+                if (UnderlineCheckBox == null)
+                    return null;
+                return UnderlineCheckBox.GetDataCopy();
+            });
+
+            data.FontColorComboBox = GetSafeData(() =>
+            {
+                if (FontColorComboBox == null)
+                    return null;
+                return FontColorComboBox.GetDataCopy();
+            });
+
+            data.ScriptComboBox = GetSafeData(() =>
+            {
+                if (ScriptComboBox == null)
+                    return null;
+                return ScriptComboBox.GetDataCopy();
+            });
+
+            data.OKButton = GetSafeData(() =>
+            {
+                if (OKButton == null)
+                    return null;
+                return OKButton.GetDataCopy();
+            });
+
+            data.CancelButton = GetSafeData(() =>
+            {
+                if (CancelButton == null)
+                    return null;
+                return CancelButton.GetDataCopy();
+            });
+
+            data.ApplyButton = GetSafeData(() =>
+            {
+                if (ApplyButton == null)
+                    return null;
+                return ApplyButton.GetDataCopy();
+            });
+
+            data.HelpButton = GetSafeData(() =>
+            {
+                if (HelpButton == null)
+                    return null;
+                return HelpButton.GetDataCopy();
+            });
+
+            return data;
         }
     }
 }

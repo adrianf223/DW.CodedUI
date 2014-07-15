@@ -24,43 +24,20 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Windows.Automation;
-using DW.CodedUI.BasicElements.Data;
-
-namespace DW.CodedUI.BasicElements
+namespace DW.CodedUI.BasicElements.Data
 {
     /// <summary>
-    /// Represents a TextBlock or Label.
+    /// Represents the data of a <see cref="DW.CodedUI.BasicElements.BasicWindow" /> at the time of the call <see cref="DW.CodedUI.BasicElements.BasicWindow.GetDataCopy()" />.
     /// </summary>
-    public class BasicText : BasicElement
+    public class BasicWindowData : BasicElementData
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DW.CodedUI.BasicElements.BasicText" /> class.
-        /// </summary>
-        /// <param name="automationElement">The automation control.</param>
-        public BasicText(AutomationElement automationElement)
-            : base(automationElement)
+        internal BasicWindowData()
         {
         }
 
         /// <summary>
-        /// Gets the text written in the TextBlock/Label.
+        /// Gets the title of the window.
         /// </summary>
-        public string Text
-        {
-            get { return Name; }
-        }
-
-        /// <summary>
-        /// Make a shadow copy of the element at the current state which stays available even the element is gone.
-        /// </summary>
-        /// <returns>A shadow copy of the current element.</returns>
-        public new BasicTextData GetDataCopy()
-        {
-            var data = new BasicTextData();
-            FillData(data);
-            data.Text = GetSafeData(() => Text);
-            return data;
-        }
+        public string Title { get; internal set; }
     }
 }
