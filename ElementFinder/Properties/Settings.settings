@@ -45,13 +45,13 @@
       <Value Profile="(Default)">LeftCtrl + E</Value>
     </Setting>
     <Setting Name="CopyAutomationIdShortcut" Type="System.String" Scope="User">
-      <Value Profile="(Default)">LeftCtrl + LeftShift + C</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BringOnTopShortcut" Type="System.String" Scope="User">
-      <Value Profile="(Default)">LeftCtrl + LeftShift + T</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ToggleViewShortcut" Type="System.String" Scope="User">
-      <Value Profile="(Default)">LeftCtrl + V</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WatchForElementsShortcut" Type="System.String" Scope="User">
       <Value Profile="(Default)">LeftCtrl + LeftShift</Value>
