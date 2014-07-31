@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.4.0.X
+==============================
+2014-07-31    Update project to .net 4.5.1
+
+
+==============================
 Release 2.2.0.X
 ==============================
 2014-07-15    BasicElements: Add possibility to make a shadow copy of each basic element
