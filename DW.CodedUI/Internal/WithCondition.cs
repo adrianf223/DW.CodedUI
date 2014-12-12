@@ -33,6 +33,7 @@ namespace DW.CodedUI.Internal
         Assert,
         NoAssert,
         Interval,
-        NoInterval
+        NoInterval,
+        ReadyToUse
     }
 }

@@ -132,6 +132,17 @@ namespace DW.CodedUI
             return this;
         }
 
+        /// <summary>
+        /// The UI element has to be visible and enabled.
+        /// </summary>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
+        public new CombinableWith ReadyToUse()
+        {
+            if (!_conditions.Contains(WithCondition.ReadyToUse))
+                _conditions.Add(WithCondition.ReadyToUse);
+            return this;
+        }
+
         internal override List<WithCondition> GetConditions()
         {
             var conditions = new List<WithCondition>();

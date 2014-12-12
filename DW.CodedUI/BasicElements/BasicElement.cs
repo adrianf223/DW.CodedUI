@@ -129,7 +129,7 @@ namespace DW.CodedUI.BasicElements
         /// <param name="waitCycle">The interval for check the IsEnabled state.</param>
         public void WaitForControlEnabled(TimeSpan timeout, TimeSpan waitCycle)
         {
-            WaitForCondition(timeout, waitCycle, () => !Properties.IsEnabled);
+            WaitForCondition(timeout, waitCycle, e => !e.Properties.IsEnabled);
         }
 
         /// <summary>
@@ -158,14 +158,14 @@ namespace DW.CodedUI.BasicElements
         /// <param name="waitCycle">The interval for check the IsVisible state.</param>
         public void WaitForControlVisible(TimeSpan timeout, TimeSpan waitCycle)
         {
-            WaitForCondition(timeout, waitCycle, () => Properties.IsOffscreen);
+            WaitForCondition(timeout, waitCycle, e => e.Properties.IsOffscreen);
         }
 
-        private void WaitForCondition(TimeSpan timeout, TimeSpan waitCycle, Func<bool> condition)
+        internal void WaitForCondition(TimeSpan timeout, TimeSpan waitCycle, Func<BasicElement, bool> condition)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            while (condition())
+            while (condition(this))
             {
                 Thread.Sleep(waitCycle);
                 if (stopwatch.Elapsed >= timeout)

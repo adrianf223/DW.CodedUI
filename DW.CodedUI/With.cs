@@ -96,6 +96,16 @@ namespace DW.CodedUI
             return combinableWith.NoInterval();
         }
 
+        /// <summary>
+        /// The UI element has to be visible and enabled.
+        /// </summary>
+        /// <returns>A combinable With to be able to append additional conditions.</returns>
+        public static CombinableWith ReadyToUse()
+        {
+            var combinableWith = new CombinableWith();
+            return combinableWith.ReadyToUse();
+        }
+
         internal abstract List<WithCondition> GetConditions();
         internal abstract uint GetTimeout();
         internal abstract uint GetInterval();

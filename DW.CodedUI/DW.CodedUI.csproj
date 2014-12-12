@@ -139,6 +139,7 @@
     <Compile Include="Properties\CommonMeta.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UIElementNotFoundException.cs" />
+    <Compile Include="UIElementNotReadyException.cs" />
     <Compile Include="Use.cs" />
     <Compile Include="Utilities\ColorDetector.cs" />
     <Compile Include="Utilities\DynamicSleep.cs" />

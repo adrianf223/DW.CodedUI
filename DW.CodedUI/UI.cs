@@ -110,6 +110,7 @@ namespace DW.CodedUI
             var assertResult = settings.Contains(WithCondition.Assert);
             var useInterval = settings.Contains(WithCondition.Interval);
             var interval = with.GetInterval();
+            var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
             var watch = new Stopwatch();
             watch.Start();
@@ -117,7 +118,12 @@ namespace DW.CodedUI
             {
                 var foundItem = StartSearchChild<TControl>(sourceElement, condition);
                 if (foundItem != null)
-                    return foundItem;
+                {
+                    if (!needsToBeReady)
+                        return foundItem;
+
+                    return ReturnIfReady(assertResult, by, useTimeout, useInterval, timeout, watch, interval, false, foundItem);
+                }
 
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
@@ -216,6 +222,7 @@ namespace DW.CodedUI
             var assertResult = settings.Contains(WithCondition.Assert);
             var useInterval = settings.Contains(WithCondition.Interval);
             var interval = with.GetInterval();
+            var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
             var foundItems = new List<TControl>();
             var watch = new Stopwatch();
@@ -224,7 +231,21 @@ namespace DW.CodedUI
             {
                 foundItems.AddRange(StartSearchChildren<TControl>(sourceElement, condition));
                 if (foundItems.Any())
-                    return foundItems;
+                {
+                    if (!needsToBeReady)
+                        return foundItems;
+
+                    for (var i = 0; i < foundItems.Count; ++i)
+                    {
+                        var foundItem = foundItems[i];
+                        var readyElement = ReturnIfReady(assertResult, by, useTimeout, useInterval, timeout, watch, interval, true, foundItem);
+                        if (readyElement == null)
+                        {
+                            foundItems.RemoveAt(i);
+                            --i;
+                        }
+                    }
+                }
 
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
@@ -374,6 +395,7 @@ namespace DW.CodedUI
             var assertResult = settings.Contains(WithCondition.Assert);
             var useInterval = settings.Contains(WithCondition.Interval);
             var interval = with.GetInterval();
+            var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
             var watch = new Stopwatch();
             watch.Start();
@@ -381,7 +403,12 @@ namespace DW.CodedUI
             {
                 var foundItem = StartSearchParent<TControl>(sourceElement, condition);
                 if (foundItem != null)
-                    return foundItem;
+                {
+                    if (!needsToBeReady)
+                        return foundItem;
+
+                    return ReturnIfReady(assertResult, by, useTimeout, useInterval, timeout, watch, interval, false, foundItem);
+                }
 
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
                 {
@@ -499,6 +526,22 @@ namespace DW.CodedUI
             {
                 return false;
             }
+        }
+
+        private static TControl ReturnIfReady<TControl>(bool assertResult, By @by, bool useTimeout, bool useInterval, uint timeout, Stopwatch watch, uint interval, bool multiply, TControl foundItem) where TControl : BasicElement
+        {
+            var timeLeft = TimeSpan.FromMilliseconds(timeout - watch.Elapsed.TotalMilliseconds);
+            var readyInterval = TimeSpan.FromMilliseconds(interval);
+            
+            foundItem.WaitForCondition(timeLeft, readyInterval, e => !e.IsEnabled || !e.IsVisible);
+            
+            if (!foundItem.IsEnabled || !foundItem.IsVisible)
+            {
+                if (assertResult)
+                    throw new UIElementNotReadyException(foundItem.IsEnabled, foundItem.IsVisible, by, useTimeout, useInterval, interval, watch.Elapsed, multiply);
+                return null;
+            }
+            return foundItem;
         }
 
         #endregion Internals
