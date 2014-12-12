@@ -3,6 +3,7 @@
 ==============================
 Release 2.4.0.X
 ==============================
+2014-12-12    WindowFinder: Add WrongSetupException to be thrown if an assembly is missing which prevents CodedUI to run
 2014-07-31    Update project to .net 4.5.1
 
 

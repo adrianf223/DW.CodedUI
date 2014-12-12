@@ -152,6 +152,7 @@
     <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />
     <Compile Include="With.cs" />
+    <Compile Include="WrongSetupException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\PublicAssemblies\Interop.UIAutomationClient.dll">

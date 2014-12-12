@@ -27,6 +27,7 @@ THE SOFTWARE
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Automation;
@@ -47,6 +48,7 @@ namespace DW.CodedUI
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>
         /// <returns>The found window if any; otherwise an exception is shown.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicWindow Search(Use use)
         {
@@ -60,6 +62,7 @@ namespace DW.CodedUI
         /// <param name="is">Defines the relation of the window to another object.</param>
         /// <returns>The found window if any; otherwise an exception is shown.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         public static BasicWindow Search(Use use, Is @is)
         {
             return Search(use, @is, new CombinableAnd());
@@ -72,6 +75,7 @@ namespace DW.CodedUI
         /// <param name="settings">Defines the settings to be used while searching.</param>
         /// <returns>The found window if any; otherwise an exception as long its not disabled by And.NoAssert(). If its disabled the return is null.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found. (If not disabled.)</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static BasicWindow Search(Use use, And settings)
         {
@@ -84,7 +88,9 @@ namespace DW.CodedUI
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>
         /// <param name="is">Defines the relation of the window to another object.</param>
         /// <param name="settings">Defines the settings to be used while searching.</param>
-        /// <returns></returns>
+        /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found. (If not disabled.)</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
+        /// <returns>The found window if any; otherwise an exception as long its not disabled by And.NoAssert(). If its disabled the return is null.</returns>
         public static BasicWindow Search(Use use, Is @is, And settings)
         {
             var condition = use.GetCondition();
@@ -132,6 +138,7 @@ namespace DW.CodedUI
         /// <param name="use">Defines the conditions to be used for searching for a window.</param>
         /// <returns>The found window if any; otherwise an exception is shown.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TWindow Search<TWindow>(Use use) where TWindow : BasicWindowBase
         {
@@ -146,6 +153,7 @@ namespace DW.CodedUI
         /// <param name="is">Defines the relation of the window to another object.</param>
         /// <returns>The found window if any; otherwise an exception is shown.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found.</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TWindow Search<TWindow>(Use use, Is @is) where TWindow : BasicWindowBase
         {
@@ -160,6 +168,7 @@ namespace DW.CodedUI
         /// <param name="settings">Defines the settings to be used while searching.</param>
         /// <returns>The found window if any; otherwise an exception as long its not disabled by And.NoAssert(). If its disabled the return is null.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found. (If not disabled.)</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TWindow Search<TWindow>(Use use, And settings) where TWindow : BasicWindowBase
         {
@@ -175,6 +184,7 @@ namespace DW.CodedUI
         /// <param name="settings">Defines the settings to be used while searching.</param>
         /// <returns>The found window if any; otherwise an exception as long its not disabled by And.NoAssert(). If its disabled the return is null.</returns>
         /// <exception cref="DW.CodedUI.WindowNotFoundException">The window could not be found. (If not disabled.)</exception>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         /// <remarks>To change the default And settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
         public static TWindow Search<TWindow>(Use use, Is @is, And settings) where TWindow : BasicWindowBase
         {
@@ -188,12 +198,20 @@ namespace DW.CodedUI
         /// Gets the window which is actually in the foreground.
         /// </summary>
         /// <returns>The found window if any; otherwise null.</returns>
+        /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         public static BasicWindow GetForegroundWindow()
         {
             var windowHandle = WinApi.GetForegroundWindow();
             if (windowHandle == IntPtr.Zero)
                 return null;
-            return new BasicWindow(AutomationElement.FromHandle(windowHandle));
+            try
+            {
+                return new BasicWindow(AutomationElement.FromHandle(windowHandle));
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new WrongSetupException(ex);
+            }
         }
 
         private static BasicWindow Matches(KeyValuePair<IntPtr, string> window, Predicate<BasicWindow> condition, Is @is)
@@ -204,6 +222,10 @@ namespace DW.CodedUI
                 var basicWindow = new BasicWindow(automationElement);
                 if (basicWindow.IsAvailable && condition(basicWindow) && RelationMatches(basicWindow, @is))
                     return basicWindow;
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new WrongSetupException(ex);
             }
             catch (Exception)
             {
