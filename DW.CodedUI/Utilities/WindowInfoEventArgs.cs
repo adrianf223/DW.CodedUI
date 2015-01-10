@@ -28,11 +28,17 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
-    public sealed class WindowInfoEventArgs : EventArgs
+    /// <summary>
+    /// Holds the <see cref="DW.CodedUI.Utilities.WindowInfo" /> object for events in the <see cref="DW.CodedUI.Utilities.WindowListener" />.
+    /// </summary>
+    public class WindowInfoEventArgs : EventArgs
     {
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" />.
+        /// </summary>
         public WindowInfo WindowInfo { get; private set; }
 
-        public WindowInfoEventArgs(WindowInfo windowInfo)
+        internal WindowInfoEventArgs(WindowInfo windowInfo)
         {
             WindowInfo = windowInfo;
         }

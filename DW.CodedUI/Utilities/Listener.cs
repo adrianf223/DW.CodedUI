@@ -30,12 +30,19 @@ using System.Windows.Threading;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Brings possibilities to let run actions continiously by a timer.
+    /// </summary>
     public abstract class Listener
     {
+        /// <summary>
+        /// Gets or sets the check to be executed on each timer tick.
+        /// </summary>
         protected readonly List<Action> _checks;
-        private DispatcherTimer _timer;
 
-        public Listener()
+        private readonly DispatcherTimer _timer;
+
+        internal Listener()
         {
             _checks = new List<Action>();
             _timer = new DispatcherTimer();
@@ -43,12 +50,18 @@ namespace DW.CodedUI.Utilities
             _timer.Tick += TimerOnTick;
         }
 
+        /// <summary>
+        /// Starts the timer which runs all checks on each tick.
+        /// </summary>
         public virtual void Start()
         {
             if (!_timer.IsEnabled)
                 _timer.Start();
         }
 
+        /// <summary>
+        /// Stops the timer.
+        /// </summary>
         public virtual void Stop()
         {
             _timer.Stop();
@@ -61,6 +74,9 @@ namespace DW.CodedUI.Utilities
             ChecksOver();
         }
 
+        /// <summary>
+        /// Called when all checks are executed.
+        /// </summary>
         protected virtual void ChecksOver()
         {
         }

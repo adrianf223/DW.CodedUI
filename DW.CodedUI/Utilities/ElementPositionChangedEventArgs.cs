@@ -26,9 +26,12 @@ THE SOFTWARE
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Holds the old and new <see cref="DW.CodedUI.Utilities.ElementInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
+    /// </summary>
     public class ElementPositionChangedEventArgs : ElementNameChangedEventArgs
     {
-        public ElementPositionChangedEventArgs(ElementInfo oldElementInfo, ElementInfo newElementInfo)
+        internal ElementPositionChangedEventArgs(ElementInfo oldElementInfo, ElementInfo newElementInfo)
             : base(oldElementInfo, newElementInfo)
         {
         }

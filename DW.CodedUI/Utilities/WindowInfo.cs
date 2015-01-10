@@ -28,17 +28,45 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Represents the data of a window.
+    /// </summary>
     public class WindowInfo : IEquatable<WindowInfo>
     {
+        internal WindowInfo()
+        {
+        }
+
+        /// <summary>
+        /// Gets the handle of the window.
+        /// </summary>
         public IntPtr Handle { get; internal set; }
+
+        /// <summary>
+        /// Gets the title of the window.
+        /// </summary>
         public string Title { get; internal set; }
+
+        /// <summary>
+        /// Gets a value which indicates if the window is visible or not.
+        /// </summary>
         public bool IsVisible { get; internal set; }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="DW.CodedUI.Utilities.WindowInfo" /> is equal to the current <see cref="DW.CodedUI.Utilities.WindowInfo" />.
+        /// </summary>
+        /// <param name="other">The object to compare with the current object.</param>
+        /// <returns>true if the specified <see cref="DW.CodedUI.Utilities.WindowInfo" /> is equal to the current <see cref="DW.CodedUI.Utilities.WindowInfo" />; otherwise, false.</returns>
         public bool Equals(WindowInfo other)
         {
             return Handle.Equals(other.Handle);
         }
 
+        /// <summary>
+        /// Determines whether the specified System.Object is equal to the current <see cref="DW.CodedUI.Utilities.WindowInfo" />.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>true if the specified System.Object is equal to the current <see cref="DW.CodedUI.Utilities.WindowInfo" />; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -47,6 +75,10 @@ namespace DW.CodedUI.Utilities
             return Equals((WindowInfo)obj);
         }
 
+        /// <summary>
+        /// Serves as a hash function for a particular type.
+        /// </summary>
+        /// <returns>A hash code for the current <see cref="DW.CodedUI.Utilities.WindowInfo" />.</returns>
         public override int GetHashCode()
         {
             return Handle.GetHashCode();

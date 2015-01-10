@@ -28,12 +28,22 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
-    public sealed class WindowTitleChangedEventArgs : EventArgs
+    /// <summary>
+    /// Holds the old and new <see cref="DW.CodedUI.Utilities.WindowInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.WindowListener" />.
+    /// </summary>
+    public class WindowTitleChangedEventArgs : EventArgs
     {
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" /> with the old state.
+        /// </summary>
         public WindowInfo OldWindowInfo { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" /> with the new state.
+        /// </summary>
         public WindowInfo NewWindowInfo { get; private set; }
 
-        public WindowTitleChangedEventArgs(WindowInfo oldWindowInfo, WindowInfo newWindowInfo)
+        internal WindowTitleChangedEventArgs(WindowInfo oldWindowInfo, WindowInfo newWindowInfo)
         {
             OldWindowInfo = oldWindowInfo;
             NewWindowInfo = newWindowInfo;

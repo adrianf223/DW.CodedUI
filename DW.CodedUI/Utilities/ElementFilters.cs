@@ -28,13 +28,35 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Defines which <see cref="DW.CodedUI.BasicElements.BasicElement" /> properties should be observed.
+    /// </summary>
     [Flags]
     public enum ElementFilters
     {
+        /// <summary>
+        /// The <see cref="DW.CodedUI.BasicElements.BasicElement.IsEnabled" /> property should be observed.
+        /// </summary>
         IsEnabledStateChanged,
+
+        /// <summary>
+        /// The element gets destroyed.
+        /// </summary>
         Destroyed,
+
+        /// <summary>
+        /// The <see cref="DW.CodedUI.BasicElements.BasicElement.IsEnabled" /> property should be observed.
+        /// </summary>
         IsVisibleStateChanged,
+
+        /// <summary>
+        /// The <see cref="DW.CodedUI.BasicElements.BasicElement.Name" /> property should be observed.
+        /// </summary>
         NameChanged,
+
+        /// <summary>
+        /// The position (Properties.BoundingRectangle) property should be observed.
+        /// </summary>
         PositionChanged
     }
 }

@@ -28,11 +28,17 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
-    public sealed class ElementInfoEventArgs : EventArgs
+    /// <summary>
+    /// Holds the <see cref="DW.CodedUI.Utilities.ElementInfo" /> object for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
+    /// </summary>
+    public class ElementInfoEventArgs : EventArgs
     {
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" />.
+        /// </summary>
         public ElementInfo ElementInfo { get; private set; }
 
-        public ElementInfoEventArgs(ElementInfo elementInfo)
+        internal ElementInfoEventArgs(ElementInfo elementInfo)
         {
             ElementInfo = elementInfo;
         }

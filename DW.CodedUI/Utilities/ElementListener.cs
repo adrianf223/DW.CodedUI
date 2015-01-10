@@ -30,23 +30,52 @@ using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Brings possibilities to observe a <see cref="DW.CodedUI.BasicElements.BasicElement" /> to get events if something happened.
+    /// </summary>
     public class ElementListener : Listener
     {
         private BasicElement _element;
         private BasicElementData _elementData;
         private ElementFilters _filters;
 
+        /// <summary>
+        /// Occurs when the IsEnabled state of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
+        /// </summary>
         public event EventHandler<ElementInfoEventArgs> ElementIsEnabledStateChanged;
+
+        /// <summary>
+        /// Occurs when the <see cref="DW.CodedUI.BasicElements.BasicElement" /> got destroyed.
+        /// </summary>
         public event EventHandler<ElementInfoEventArgs> ElementDestroyed;
+
+        /// <summary>
+        /// Occurs when the IsVisible state of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
+        /// </summary>
         public event EventHandler<ElementInfoEventArgs> ElementIsVisibleStateChanged;
+
+        /// <summary>
+        /// Occurs when the Name of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
+        /// </summary>
         public event EventHandler<ElementNameChangedEventArgs> ElementNameChanged;
+
+        /// <summary>
+        /// Occurs when the position (BoundingRectangle) of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
+        /// </summary>
         public event EventHandler<ElementPositionChangedEventArgs> ElementPositionChanged;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.Utilities.ElementListener" /> class.
+        /// </summary>
+        /// <param name="element">The BasicElement which states should be listened to.</param>
         public ElementListener(BasicElement element)
         {
             _element = element;
         }
 
+        /// <summary>
+        /// Gets or sets values which indicates which properties of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> should be observed.
+        /// </summary>
         public ElementFilters Filters
         {
             get { return _filters; }
@@ -57,6 +86,9 @@ namespace DW.CodedUI.Utilities
             }
         }
 
+        /// <summary>
+        /// Starts observing of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> properties. To say which one see <see cref="DW.CodedUI.Utilities.ElementListener.Filters" />.
+        /// </summary>
         public override void Start()
         {
             _elementData = _element.GetDataCopy();
@@ -64,6 +96,10 @@ namespace DW.CodedUI.Utilities
             base.Start();
         }
 
+        /// <summary>
+        /// Stopps observing of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> properties.
+        /// </summary>
+        /// <remarks>The <see cref="DW.CodedUI.Utilities.ElementListener.Filters" /> will not be resetted.</remarks>
         public override void Stop()
         {
             _elementData = null;
@@ -72,6 +108,9 @@ namespace DW.CodedUI.Utilities
             base.Stop();
         }
 
+        /// <summary>
+        /// All checks are done and the current <see cref="DW.CodedUI.BasicElements.BasicElement" /> state can be taken.
+        /// </summary>
         protected override void ChecksOver()
         {
             _elementData = _element.GetDataCopy();

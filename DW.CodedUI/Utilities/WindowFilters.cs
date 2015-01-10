@@ -28,12 +28,30 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Defines which window state change should be observed.
+    /// </summary>
     [Flags]
     public enum WindowFilters
     {
+        /// <summary>
+        /// A window is opened.
+        /// </summary>
         Opened,
+
+        /// <summary>
+        /// A window is closed.
+        /// </summary>
         Closed,
+
+        /// <summary>
+        /// A window visitibily has been changed.
+        /// </summary>
         VisibilityChanged,
+
+        /// <summary>
+        /// A window title has been changed.
+        /// </summary>
         TitleChanged
     }
 }

@@ -32,21 +32,45 @@ using DW.CodedUI.Internal;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Brings possibilities to observe the system to get events if something with the windows happened.
+    /// </summary>
     public class WindowListener : Listener
     {
         private List<WindowInfo> _startWindowStates;
+        private WindowFilters _filters; 
 
+        /// <summary>
+        /// Occurs when a window is opened.
+        /// </summary>
         public event EventHandler<WindowInfoEventArgs> WindowOpened;
+
+        /// <summary>
+        /// Occurs when a window is closed.
+        /// </summary>
         public event EventHandler<WindowInfoEventArgs> WindowClosed;
+
+        /// <summary>
+        /// Occurs when the visibility of a window has been changed.
+        /// </summary>
         public event EventHandler<WindowInfoEventArgs> WindowVisibilityChanged;
+
+        /// <summary>
+        /// Occurs when the title of a window has been changed.
+        /// </summary>
         public event EventHandler<WindowTitleChangedEventArgs> WindowTitleChanged;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.Utilities.WindowListener" /> class.
+        /// </summary>
         public WindowListener()
         {
             _startWindowStates = new List<WindowInfo>();
         }
-
-        private WindowFilters _filters;
+        
+        /// <summary>
+        /// Gets or sets values which indicates which properties of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> should be observed.
+        /// </summary>
         public WindowFilters Filters
         {
             get { return _filters; }
@@ -57,6 +81,9 @@ namespace DW.CodedUI.Utilities
             }
         }
 
+        /// <summary>
+        /// Starts observing of the system windows. To say what exactly see <see cref="DW.CodedUI.Utilities.WindowListener.Filters" />.
+        /// </summary>
         public override void Start()
         {
             _startWindowStates = GetOpenWindows();
@@ -64,6 +91,10 @@ namespace DW.CodedUI.Utilities
             base.Start();
         }
 
+        /// <summary>
+        /// Stopps observing of the system windows.
+        /// </summary>
+        /// <remarks>The <see cref="DW.CodedUI.Utilities.ElementListener.Filters" /> will not be resetted.</remarks>
         public override void Stop()
         {
             _startWindowStates.Clear();
@@ -71,6 +102,9 @@ namespace DW.CodedUI.Utilities
             base.Stop();
         }
 
+        /// <summary>
+        /// All checks are done and the current window states can be taken.
+        /// </summary>
         protected override void ChecksOver()
         {
             _startWindowStates = GetOpenWindows();

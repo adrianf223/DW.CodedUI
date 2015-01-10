@@ -29,25 +29,45 @@ using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Represents the data of the observed <see cref="DW.CodedUI.BasicElements.BasicElement" />.
+    /// </summary>
     public class ElementInfo : IEquatable<ElementInfo>
     {
+        /// <summary>
+        /// Gets the data of the observed <see cref="DW.CodedUI.BasicElements.BasicElement" />.
+        /// </summary>
         public BasicElementData BasicElementData { get; private set; }
 
-        public ElementInfo(BasicElementData basicElementData)
+        internal ElementInfo(BasicElementData basicElementData)
         {
             BasicElementData = basicElementData;
         }
 
+        /// <summary>
+        /// Determines whether the specified System.Object is equal to the current <see cref="DW.CodedUI.Utilities.ElementInfo" />.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>true if the specified System.Object is equal to the current <see cref="DW.CodedUI.Utilities.ElementInfo" />; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             return Equals(this, obj);
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="DW.CodedUI.Utilities.ElementInfo" /> is equal to the current <see cref="DW.CodedUI.Utilities.ElementInfo" />.
+        /// </summary>
+        /// <param name="other">The object to compare with the current object.</param>
+        /// <returns>true if the specified <see cref="DW.CodedUI.Utilities.ElementInfo" /> is equal to the current <see cref="DW.CodedUI.Utilities.ElementInfo" />; otherwise, false.</returns>
         public bool Equals(ElementInfo other)
         {
             return Equals(BasicElementData, other.BasicElementData);
         }
 
+        /// <summary>
+        /// Serves as a hash function for a particular type.
+        /// </summary>
+        /// <returns>A hash code for the current <see cref="DW.CodedUI.Utilities.ElementInfo" />.</returns>
         public override int GetHashCode()
         {
             return (BasicElementData != null ? BasicElementData.GetHashCode() : 0);

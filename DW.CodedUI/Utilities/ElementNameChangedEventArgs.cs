@@ -28,12 +28,22 @@ using System;
 
 namespace DW.CodedUI.Utilities
 {
+    /// <summary>
+    /// Holds the old and new <see cref="DW.CodedUI.Utilities.ElementInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
+    /// </summary>
     public class ElementNameChangedEventArgs : EventArgs
     {
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" /> with the old state.
+        /// </summary>
         public ElementInfo OldElementInfo { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" /> with the new state.
+        /// </summary>
         public ElementInfo NewElementInfo { get; private set; }
 
-        public ElementNameChangedEventArgs(ElementInfo oldElementInfo, ElementInfo newElementInfo)
+        internal ElementNameChangedEventArgs(ElementInfo oldElementInfo, ElementInfo newElementInfo)
         {
             OldElementInfo = oldElementInfo;
             NewElementInfo = newElementInfo;
