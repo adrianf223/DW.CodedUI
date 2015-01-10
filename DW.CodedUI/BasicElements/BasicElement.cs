@@ -267,6 +267,8 @@ namespace DW.CodedUI.BasicElements
             data.ClassName = GetSafeData(() => Properties.ClassName);
             data.NativeWindowHandle = GetSafeData(() => Properties.NativeWindowHandle);
             data.ProcessId = GetSafeData(() => Properties.ProcessId);
+            data.IsEnabled = GetSafeData(() => Properties.IsEnabled);
+            data.IsVisible = GetSafeData(() => IsVisible);
         }
 
         /// <summary>

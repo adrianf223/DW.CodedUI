@@ -73,5 +73,15 @@ namespace DW.CodedUI.BasicElements.Data
         /// Gets the child elements of the current element. This will be filled by use the <see cref="DW.CodedUI.UI.GetFullUITreeData" />.
         /// </summary>
         public IEnumerable<BasicElementData> Children { get; set; }
+
+        /// <summary>
+        /// Gets a value that indicates if the element is enabled or not.
+        /// </summary>
+        public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// Gets a value that indicates if the element is visible or not.
+        /// </summary>
+        public bool IsVisible { get; set; }
     }
 }

@@ -144,12 +144,24 @@
     <Compile Include="Use.cs" />
     <Compile Include="Utilities\ColorDetector.cs" />
     <Compile Include="Utilities\DynamicSleep.cs" />
+    <Compile Include="Utilities\ElementFilters.cs" />
+    <Compile Include="Utilities\ElementInfo.cs" />
+    <Compile Include="Utilities\ElementInfoEventArgs.cs" />
+    <Compile Include="Utilities\ElementListener.cs" />
+    <Compile Include="Utilities\ElementNameChangedEventArgs.cs" />
+    <Compile Include="Utilities\ElementPositionChangedEventArgs.cs" />
     <Compile Include="Utilities\Highlighter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\InExclude.cs" />
+    <Compile Include="Utilities\Listener.cs" />
+    <Compile Include="Utilities\WindowFilters.cs" />
+    <Compile Include="Utilities\WindowListener.cs" />
     <Compile Include="Utilities\Time.cs" />
     <Compile Include="Utilities\WindowFocus.cs" />
+    <Compile Include="Utilities\WindowInfo.cs" />
+    <Compile Include="Utilities\WindowInfoEventArgs.cs" />
+    <Compile Include="Utilities\WindowTitleChangedEventArgs.cs" />
     <Compile Include="WindowFinder.cs" />
     <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />

@@ -3,6 +3,9 @@
 ==============================
 Release 2.4.0.X
 ==============================
+2015-01-10    BasicElementData: Add IsEnabled property
+              BasicElementData: Add IsVisible property
+              *Listener: Add possibility to get informed if a window or element state changed
 2014-12-12    WindowFinder: Add WrongSetupException to be thrown if an assembly is missing which prevents CodedUI to run
               UI: Add possibility to search with the setting that the element have to be usable (visible and enabled)
 
