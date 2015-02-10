@@ -27,13 +27,33 @@ THE SOFTWARE
 namespace DW.CodedUI.Utilities
 {
     /// <summary>
-    /// Holds the old and new <see cref="DW.CodedUI.Utilities.ElementInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
+    /// Defines how an element has been changed. See <see cref="DW.CodedUI.Utilities.ElementListener" />.
     /// </summary>
-    public class ElementPositionChangedEventArgs : ElementNameChangedEventArgs
+    public enum ElementChangeKind
     {
-        internal ElementPositionChangedEventArgs(ElementInfo oldElementInfo, ElementInfo newElementInfo)
-            : base(oldElementInfo, newElementInfo)
-        {
-        }
+        /// <summary>
+        /// The position of the element has been changed.
+        /// </summary>
+        PositionChanged,
+
+        /// <summary>
+        /// The name of the element has been changed.
+        /// </summary>
+        NameChanged,
+
+        /// <summary>
+        /// An element got enabled.
+        /// </summary>
+        Enabled,
+
+        /// <summary>
+        /// An element got destroyed.
+        /// </summary>
+        Destroyed,
+
+        /// <summary>
+        /// The visibility state of the element got changed.
+        /// </summary>
+        VisibleStateChanged
     }
 }

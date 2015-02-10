@@ -46,7 +46,7 @@ namespace DW.CodedUI.Utilities
         {
             _checks = new List<Action>();
             _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Interval = CodedUIEnvironment.ListenerSettings.CheckInverval;
             _timer.Tick += TimerOnTick;
         }
 
@@ -79,6 +79,20 @@ namespace DW.CodedUI.Utilities
         /// </summary>
         protected virtual void ChecksOver()
         {
+        }
+
+        /// <summary>
+        /// Invokes an event asynchronously or not dependent from the CodedUIEnvironment.ListenerSettings.AsyncEventInvoke property.
+        /// </summary>
+        /// <typeparam name="T">The type of the event args.</typeparam>
+        /// <param name="handler">The event to invoke.</param>
+        /// <param name="e">The event args to pass to the event.</param>
+        protected void Invoke<T>(EventHandler<T> handler, T e) where T : EventArgs
+        {
+            if (CodedUIEnvironment.ListenerSettings.AsyncEventInvoke)
+                handler.BeginInvoke(this, e, ar => { }, null);
+            else
+                handler.Invoke(this, e);
         }
     }
 }

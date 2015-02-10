@@ -29,24 +29,30 @@ using System;
 namespace DW.CodedUI.Utilities
 {
     /// <summary>
-    /// Holds the old and new <see cref="DW.CodedUI.Utilities.ElementInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
+    /// Holds the old and new <see cref="DW.CodedUI.Utilities.WindowInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.WindowListener" />.
     /// </summary>
-    public class ElementNameChangedEventArgs : EventArgs
+    public class WindowChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" /> with the old state.
+        /// Gets a value that indicated what on the window has been changed.
         /// </summary>
-        public ElementInfo OldElementInfo { get; private set; }
+        public WindowChangeKind WindowChangeKind { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" /> with the new state.
+        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" /> with the old state.
         /// </summary>
-        public ElementInfo NewElementInfo { get; private set; }
+        public WindowInfo OldWindowInfo { get; private set; }
 
-        internal ElementNameChangedEventArgs(ElementInfo oldElementInfo, ElementInfo newElementInfo)
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" /> with the new state.
+        /// </summary>
+        public WindowInfo NewWindowInfo { get; private set; }
+
+        internal WindowChangedEventArgs(WindowChangeKind windowChangeKind, WindowInfo oldWindowInfo, WindowInfo newWindowInfo)
         {
-            OldElementInfo = oldElementInfo;
-            NewElementInfo = newElementInfo;
+            WindowChangeKind = windowChangeKind;
+            OldWindowInfo = oldWindowInfo;
+            NewWindowInfo = newWindowInfo;
         }
     }
 }

@@ -24,23 +24,31 @@ THE SOFTWARE
 */
 #endregion License
 
-using System;
-
 namespace DW.CodedUI.Utilities
 {
     /// <summary>
-    /// Holds the <see cref="DW.CodedUI.Utilities.ElementInfo" /> object for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
+    /// Defines how a window has been changed. See <see cref="DW.CodedUI.Utilities.WindowListener" />.
     /// </summary>
-    public class ElementInfoEventArgs : EventArgs
+    public enum WindowChangeKind
     {
         /// <summary>
-        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" />.
+        /// A window is opened.
         /// </summary>
-        public ElementInfo ElementInfo { get; private set; }
+        Opened,
 
-        internal ElementInfoEventArgs(ElementInfo elementInfo)
-        {
-            ElementInfo = elementInfo;
-        }
+        /// <summary>
+        /// A window is closed.
+        /// </summary>
+        Closed,
+
+        /// <summary>
+        /// The visibility state of a window has been changed.
+        /// </summary>
+        VisibleStateChanged,
+
+        /// <summary>
+        /// The title of a window has been changed.
+        /// </summary>
+        TitleChanged
     }
 }

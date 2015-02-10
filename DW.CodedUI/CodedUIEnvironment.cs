@@ -24,6 +24,7 @@ THE SOFTWARE
 */
 #endregion License
 
+using System;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 
@@ -49,6 +50,11 @@ namespace DW.CodedUI
         /// Holds the global default settings to be used at runtime in the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" />.
         /// </summary>
         public static DefaultSettingsHolder DefaultSettings { get; private set; }
+
+        /// <summary>
+        /// Holds the global settings to be used in the <see cref="DW.CodedUI.Utilities.ElementListener" /> and <see cref="DW.CodedUI.Utilities.WindowListener" />.
+        /// </summary>
+        public static ListenerSettingsHolder ListenerSettings { get; private set; }
 
         /// <summary>
         /// Contains global time settings to be used at runtime in the <see cref="DW.CodedUI.Utilities.DynamicSleep" />.
@@ -135,6 +141,28 @@ namespace DW.CodedUI
             /// Gets or sets a value that indicates if if the <see cref="DW.CodedUI.UI" /> or <see cref="DW.CodedUI.WindowFinder" /> has a Intervall on default or not. The default is <see cref="DW.CodedUI.Utilities.InExclude.Without" />.
             /// </summary>
             public InExclude Interval { get; set; }
+        }
+
+        /// <summary>
+        /// Contains global settings to be used in the <see cref="DW.CodedUI.Utilities.ElementListener" /> and <see cref="DW.CodedUI.Utilities.WindowListener" />.
+        /// </summary>
+        public class ListenerSettingsHolder
+        {
+            internal ListenerSettingsHolder()
+            {
+                CheckInverval = TimeSpan.FromSeconds(1);
+                AsyncEventInvoke = false;
+            }
+
+            /// <summary>
+            /// Gets or sets a value that indicates in which intervall the object states will be checked. The default is one second.
+            /// </summary>
+            public TimeSpan CheckInverval { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value that indicates of the events in the listeners should be invoked asynchronously or not.
+            /// </summary>
+            public bool AsyncEventInvoke { get; set; }
         }
 
         internal static BasicWindow LastWindow { get; set; }

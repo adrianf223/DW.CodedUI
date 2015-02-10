@@ -29,24 +29,33 @@ using System;
 namespace DW.CodedUI.Utilities
 {
     /// <summary>
-    /// Holds the old and new <see cref="DW.CodedUI.Utilities.WindowInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.WindowListener" />.
+    /// Holds the old and new <see cref="DW.CodedUI.Utilities.ElementInfo" /> objects for events in the <see cref="DW.CodedUI.Utilities.ElementListener" />.
     /// </summary>
-    public class WindowTitleChangedEventArgs : EventArgs
+    public class ElementChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" /> with the old state.
+        /// Gets a value that indicated what on the element has been changed.
         /// </summary>
-        public WindowInfo OldWindowInfo { get; private set; }
+        public ElementChangeKind ElementChangeKind { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="DW.CodedUI.Utilities.WindowInfo" /> with the new state.
+        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" /> with the old state.
         /// </summary>
-        public WindowInfo NewWindowInfo { get; private set; }
+        public ElementInfo OldElementInfo { get; private set; }
 
-        internal WindowTitleChangedEventArgs(WindowInfo oldWindowInfo, WindowInfo newWindowInfo)
+        /// <summary>
+        /// Gets the <see cref="DW.CodedUI.Utilities.ElementInfo" /> with the new state.
+        /// </summary>
+        public ElementInfo NewElementInfo { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DW.CodedUI.Utilities.ElementChangedEventArgs" /> class.
+        /// </summary>
+        public ElementChangedEventArgs(ElementChangeKind elementChangeKind, ElementInfo oldElementInfo, ElementInfo newElementInfo)
         {
-            OldWindowInfo = oldWindowInfo;
-            NewWindowInfo = newWindowInfo;
+            ElementChangeKind = elementChangeKind;
+            OldElementInfo = oldElementInfo;
+            NewElementInfo = newElementInfo;
         }
     }
 }

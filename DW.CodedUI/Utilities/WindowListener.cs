@@ -43,22 +43,22 @@ namespace DW.CodedUI.Utilities
         /// <summary>
         /// Occurs when a window is opened.
         /// </summary>
-        public event EventHandler<WindowInfoEventArgs> WindowOpened;
+        public event EventHandler<WindowChangedEventArgs> WindowOpened;
 
         /// <summary>
         /// Occurs when a window is closed.
         /// </summary>
-        public event EventHandler<WindowInfoEventArgs> WindowClosed;
+        public event EventHandler<WindowChangedEventArgs> WindowClosed;
 
         /// <summary>
         /// Occurs when the visibility of a window has been changed.
         /// </summary>
-        public event EventHandler<WindowInfoEventArgs> WindowVisibilityChanged;
+        public event EventHandler<WindowChangedEventArgs> WindowVisibilityChanged;
 
         /// <summary>
         /// Occurs when the title of a window has been changed.
         /// </summary>
-        public event EventHandler<WindowTitleChangedEventArgs> WindowTitleChanged;
+        public event EventHandler<WindowChangedEventArgs> WindowTitleChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.Utilities.WindowListener" /> class.
@@ -167,7 +167,7 @@ namespace DW.CodedUI.Utilities
                         continue;
 
                     if (knownOpenWindow.IsVisible != openWindow.IsVisible)
-                        OnWindowVisibilityChanged(openWindow);
+                        OnWindowVisibilityChanged(knownOpenWindow, openWindow);
                 }
             });
             _checks.Add(condition);
@@ -214,32 +214,32 @@ namespace DW.CodedUI.Utilities
             return collection;
         }
 
-        private void OnWindowOpened(WindowInfo e)
+        private void OnWindowOpened(WindowInfo newWindowInfo)
         {
             var handler = WindowOpened;
             if (handler != null)
-                handler(this, new WindowInfoEventArgs(e));
+                handler(this, new WindowChangedEventArgs(WindowChangeKind.Opened, null, newWindowInfo));
         }
 
-        private void OnWindowClosed(WindowInfo e)
+        private void OnWindowClosed(WindowInfo oldWindowInfo)
         {
             var handler = WindowClosed;
             if (handler != null)
-                handler(this, new WindowInfoEventArgs(e));
+                handler(this, new WindowChangedEventArgs(WindowChangeKind.Closed, oldWindowInfo, null));
         }
 
-        private void OnWindowVisibilityChanged(WindowInfo e)
+        private void OnWindowVisibilityChanged(WindowInfo oldWindowInfo, WindowInfo newWindowInfo)
         {
             var handler = WindowVisibilityChanged;
             if (handler != null)
-                handler(this, new WindowInfoEventArgs(e));
+                handler(this, new WindowChangedEventArgs(WindowChangeKind.VisibleStateChanged, oldWindowInfo, newWindowInfo));
         }
 
         private void OnWindowTitleChanged(WindowInfo oldWindowInfo, WindowInfo newWindowInfo)
         {
             var handler = WindowTitleChanged;
             if (handler != null)
-                handler(this, new WindowTitleChangedEventArgs(oldWindowInfo, newWindowInfo));
+                handler(this, new WindowChangedEventArgs(WindowChangeKind.TitleChanged, oldWindowInfo, newWindowInfo));
         }
     }
 }

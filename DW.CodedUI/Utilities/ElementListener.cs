@@ -42,27 +42,27 @@ namespace DW.CodedUI.Utilities
         /// <summary>
         /// Occurs when the IsEnabled state of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
         /// </summary>
-        public event EventHandler<ElementInfoEventArgs> ElementIsEnabledStateChanged;
+        public event EventHandler<ElementChangedEventArgs> ElementIsEnabledStateChanged;
 
         /// <summary>
         /// Occurs when the <see cref="DW.CodedUI.BasicElements.BasicElement" /> got destroyed.
         /// </summary>
-        public event EventHandler<ElementInfoEventArgs> ElementDestroyed;
+        public event EventHandler<ElementChangedEventArgs> ElementDestroyed;
 
         /// <summary>
         /// Occurs when the IsVisible state of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
         /// </summary>
-        public event EventHandler<ElementInfoEventArgs> ElementIsVisibleStateChanged;
+        public event EventHandler<ElementChangedEventArgs> ElementIsVisibleStateChanged;
 
         /// <summary>
         /// Occurs when the Name of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
         /// </summary>
-        public event EventHandler<ElementNameChangedEventArgs> ElementNameChanged;
+        public event EventHandler<ElementChangedEventArgs> ElementNameChanged;
 
         /// <summary>
         /// Occurs when the position (BoundingRectangle) of the <see cref="DW.CodedUI.BasicElements.BasicElement" /> changes.
         /// </summary>
-        public event EventHandler<ElementPositionChangedEventArgs> ElementPositionChanged;
+        public event EventHandler<ElementChangedEventArgs> ElementPositionChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.Utilities.ElementListener" /> class.
@@ -141,7 +141,7 @@ namespace DW.CodedUI.Utilities
 
                 var copy = _element.GetDataCopy();
                 if (_elementData.IsEnabled != copy.IsEnabled)
-                    OnElementIsEnabledStateChanged(copy);
+                    OnElementIsEnabledStateChanged(_elementData, copy);
             });
             _checks.Add(condition);
         }
@@ -165,7 +165,7 @@ namespace DW.CodedUI.Utilities
 
                 var copy = _element.GetDataCopy();
                 if (_elementData.IsVisible != copy.IsVisible)
-                    OnElementIsVisibleStateChanged(copy);
+                    OnElementIsVisibleStateChanged(_elementData, copy);
             });
             _checks.Add(condition);
         }
@@ -199,39 +199,39 @@ namespace DW.CodedUI.Utilities
             _checks.Add(condition);
         }
 
-        private void OnElementIsEnabledStateChanged(BasicElementData e)
+        private void OnElementIsEnabledStateChanged(BasicElementData oldElementData, BasicElementData newElementData)
         {
             var handler = ElementIsEnabledStateChanged;
             if (handler != null)
-                handler(this, new ElementInfoEventArgs(new ElementInfo(e)));
+                Invoke(handler, new ElementChangedEventArgs(ElementChangeKind.Enabled, new ElementInfo(oldElementData), new ElementInfo(newElementData)));
         }
 
         private void OnElementDestroyed(BasicElementData e)
         {
             var handler = ElementDestroyed;
             if (handler != null)
-                handler(this, new ElementInfoEventArgs(new ElementInfo(e)));
+                Invoke(handler, new ElementChangedEventArgs(ElementChangeKind.Destroyed, new ElementInfo(e), null));
         }
 
-        private void OnElementIsVisibleStateChanged(BasicElementData e)
+        private void OnElementIsVisibleStateChanged(BasicElementData oldElementData, BasicElementData newElementData)
         {
             var handler = ElementIsVisibleStateChanged;
             if (handler != null)
-                handler(this, new ElementInfoEventArgs(new ElementInfo(e)));
+                Invoke(handler, new ElementChangedEventArgs(ElementChangeKind.VisibleStateChanged, new ElementInfo(oldElementData), new ElementInfo(newElementData)));
         }
 
         private void OnElementNameChanged(BasicElementData oldElementData, BasicElementData newElementData)
         {
             var handler = ElementNameChanged;
             if (handler != null)
-                handler(this, new ElementNameChangedEventArgs(new ElementInfo(oldElementData), new ElementInfo(newElementData)));
+                Invoke(handler, new ElementChangedEventArgs(ElementChangeKind.NameChanged, new ElementInfo(oldElementData), new ElementInfo(newElementData)));
         }
 
         private void OnElementPositionChanged(BasicElementData oldElementData, BasicElementData newElementData)
         {
             var handler = ElementPositionChanged;
             if (handler != null)
-                handler(this, new ElementPositionChangedEventArgs(new ElementInfo(oldElementData), new ElementInfo(newElementData)));
+                Invoke(handler, new ElementChangedEventArgs(ElementChangeKind.PositionChanged, new ElementInfo(oldElementData), new ElementInfo(newElementData)));
         }
     }
 }
