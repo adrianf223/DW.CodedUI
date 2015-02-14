@@ -161,6 +161,7 @@
     <Compile Include="Utilities\WindowFocus.cs" />
     <Compile Include="Utilities\WindowInfo.cs" />
     <Compile Include="Utilities\WindowChangedEventArgs.cs" />
+    <Compile Include="Utilities\WindowSetup.cs" />
     <Compile Include="WindowFinder.cs" />
     <Compile Include="WindowNotFoundException.cs" />
     <Compile Include="WindowState.cs" />

@@ -56,7 +56,7 @@ namespace DW.CodedUI.Internal
         [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
         private static extern IntPtr GetWindowLongPtr64(IntPtr hWnd, int nIndex);
 
-        public static IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex)
+        internal static IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex)
         {
             return IntPtr.Size == 8 ? GetWindowLongPtr64(hWnd, nIndex) : GetWindowLongPtr32(hWnd, nIndex);
         }
@@ -101,6 +101,9 @@ namespace DW.CodedUI.Internal
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetWindow(IntPtr hWnd, GetWindowFlags uFlags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
         internal const int ID_Close = 0x10;
 
@@ -158,6 +161,33 @@ namespace DW.CodedUI.Internal
             DWLP_USER = 0x8,
             DWLP_MSGRESULT = 0x0,
             DWLP_DLGPROC = 0x4
+        }
+
+        internal static class HwndInsertAfter
+        {
+            public static IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+            public static IntPtr HWND_TOPMOST = new IntPtr(-1);
+            public static IntPtr HWND_TOP = new IntPtr(0);
+            public static IntPtr HWND_BOTTOM = new IntPtr(1);
+        }
+
+        internal static class SetWindowPositionFlags
+        {
+            public static readonly uint SWP_NOSIZE = 0x0001;
+            public static readonly uint SWP_NOMOVE = 0x0002;
+            public static readonly uint SWP_NOZORDER = 0x0004;
+            public static readonly uint SWP_NOREDRAW = 0x0008;
+            public static readonly uint SWP_NOACTIVATE = 0x0010;
+            public static readonly uint SWP_DRAWFRAME = 0x0020;
+            public static readonly uint SWP_FRAMECHANGED = 0x0020;
+            public static readonly uint SWP_SHOWWINDOW = 0x0040;
+            public static readonly uint SWP_HIDEWINDOW = 0x0080;
+            public static readonly uint SWP_NOCOPYBITS = 0x0100;
+            public static readonly uint SWP_NOOWNERZORDER = 0x0200;
+            public static readonly uint SWP_NOREPOSITION = 0x0200;
+            public static readonly uint SWP_NOSENDCHANGING = 0x0400;
+            public static readonly uint SWP_DEFERERASE = 0x2000;
+            public static readonly uint SWP_ASYNCWINDOWPOS = 0x4000;
         }
     }
 }

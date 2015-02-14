@@ -27,7 +27,9 @@ THE SOFTWARE
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
 using DW.CodedUI.Internal;
@@ -99,6 +101,58 @@ namespace DW.CodedUI.BasicElements
             public void Close()
             {
                 WinApi.SendMessage(new HandleRef(null, new IntPtr(_automationElement.Current.NativeWindowHandle)), WinApi.ID_Close, IntPtr.Zero, IntPtr.Zero);
+            }
+
+            /// <summary>
+            /// Sets the new state of the window.
+            /// </summary>
+            /// <param name="windowState">The new state of the window.</param>
+            public void SetState(WindowState windowState)
+            {
+                switch (windowState)
+                {
+                    case WindowState.Maximized:
+                        Maximize();
+                        break;
+                    case WindowState.Minimized:
+                        Minimize();
+                        break;
+                    case WindowState.Normal:
+                        Normalize();
+                        break;
+                    case WindowState.Hidden:
+                        WinApi.ShowWindow((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.ShowWindowCommands.Hide);
+                        break;
+                }
+            }
+
+            /// <summary>
+            /// Sets the new size of the window.
+            /// </summary>
+            /// <param name="size">The new site of the window.</param>
+            public void SetSize(System.Drawing.Size size)
+            {
+                var rect = _automationElement.Current.BoundingRectangle;
+                SetRect(new Rectangle(rect.Location, size));
+            }
+
+            /// <summary>
+            /// Sets the new position of the window.
+            /// </summary>
+            /// <param name="position">The new position of the window.</param>
+            public void SetPosition(System.Drawing.Point position)
+            {
+                var rect = _automationElement.Current.BoundingRectangle;
+                SetRect(new Rectangle(position, rect.Size));
+            }
+
+            /// <summary>
+            /// Sets the new size and position of a window.
+            /// </summary>
+            /// <param name="rect">The new position and size of the window.</param>
+            public void SetRect(System.Drawing.Rectangle rect)
+            {
+                WinApi.SetWindowPos((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.HwndInsertAfter.HWND_TOP, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height, WinApi.SetWindowPositionFlags.SWP_NOZORDER);
             }
         }
 

@@ -3,6 +3,8 @@
 ==============================
 Release 2.4.0.X
 ==============================
+2015-02-14    Add possibilies to the the window size, position and state into the BasicWindow.Unsafe
+              Add new WindowSetup object for a more easy window setup
 2015-02-10    Add possibility to configure the listeners from the CodedUIEnvironment
               Allow async invoke of the listener events
 2015-01-10    BasicElementData: Add IsEnabled property
