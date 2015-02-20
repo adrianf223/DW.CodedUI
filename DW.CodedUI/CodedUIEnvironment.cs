@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System;
+using System.IO;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 
@@ -39,6 +40,8 @@ namespace DW.CodedUI
         {
             SleepSettings = new SleepSettingsHolder();
             DefaultSettings = new DefaultSettingsHolder();
+            ListenerSettings = new ListenerSettingsHolder();
+            LoggerSettings = new LoggerSettingsHolder();
         }
 
         /// <summary>
@@ -55,6 +58,11 @@ namespace DW.CodedUI
         /// Holds the global settings to be used in the <see cref="DW.CodedUI.Utilities.ElementListener" /> and <see cref="DW.CodedUI.Utilities.WindowListener" />.
         /// </summary>
         public static ListenerSettingsHolder ListenerSettings { get; private set; }
+
+        /// <summary>
+        /// Holds the settings of the activity logs. See <see cref="DW.CodedUI.Utilities.LogWriter" />.
+        /// </summary>
+        public static LoggerSettingsHolder LoggerSettings { get; set; }
 
         /// <summary>
         /// Contains global time settings to be used at runtime in the <see cref="DW.CodedUI.Utilities.DynamicSleep" />.
@@ -163,6 +171,51 @@ namespace DW.CodedUI
             /// Gets or sets a value that indicates of the events in the listeners should be invoked asynchronously or not.
             /// </summary>
             public bool AsyncEventInvoke { get; set; }
+        }
+
+        /// <summary>
+        /// Contains the settings used for the activity logs. See <see cref="DW.CodedUI.Utilities.LogWriter" />.
+        /// </summary>
+        public class LoggerSettingsHolder
+        {
+            private string _logFilesDirectory;
+
+            internal LoggerSettingsHolder()
+            {
+                IsEnabled = false;
+                LogFilesDirectory = Path.Combine(Path.GetTempPath(), "DWCodedUI", Guid.NewGuid().ToString());
+                LogPassedTestsToo = false;
+                AddTestResultToFileName = false;
+            }
+
+            /// <summary>
+            /// Gets or sets a value that indicates if the activity logging is enabled or not. The default is false.
+            /// </summary>
+            public bool IsEnabled { get; set; }
+
+            /// <summary>
+            /// Gets or sets the directory where the log files got created. If not changed %temp%\DWCodedUI\[Guid]\ will be used.
+            /// </summary>
+            /// <remarks>When the directoy will be set the IsEnabled will be set to true automatically. Call IsEnabled = False afterwards to deactivate the logging.</remarks>
+            public string LogFilesDirectory
+            {
+                get { return _logFilesDirectory; }
+                set
+                {
+                    _logFilesDirectory = value;
+                    IsEnabled = true;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets a value that indicates if tests should be loggen also when they passed. The default is false.
+            /// </summary>
+            public bool LogPassedTestsToo { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value that indicates if the result file name should start with the result of the test. The default is false.
+            /// </summary>
+            public bool AddTestResultToFileName { get; set; }
         }
 
         internal static BasicWindow LastWindow { get; set; }

@@ -26,9 +26,11 @@ THE SOFTWARE
 
 using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Internal;
 using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
 using Point = System.Drawing.Point;
 
@@ -45,7 +47,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click()
         {
-            return Do.Action(Mouse.Click);
+            return Do.Action(() =>
+            {
+                LogPool.Append("Click.");
+                Mouse.Click();
+            });
         }
 
         /// <summary>
@@ -55,7 +61,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(ModifierKeys modifierKeys)
         {
-            return Do.Action(() => Mouse.Click(modifierKeys));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Click.");
+                else
+                    LogPool.Append("Click with the modifier keys '{0}'.", modifierKeys);
+
+                Mouse.Click(modifierKeys);
+            });
         }
 
         /// <summary>
@@ -65,7 +79,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(MouseButtons button)
         {
-            return Do.Action(() => Mouse.Click(button));
+            return Do.Action(() =>
+            {
+                if (button == MouseButtons.None)
+                    LogPool.Append("Click.");
+                else
+                    LogPool.Append("Click with the buttons '{0}'.", button);
+
+                Mouse.Click(button);
+            });
         }
 
         /// <summary>
@@ -75,7 +97,12 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(Point screenCoordinate)
         {
-            return Do.Action(() => Mouse.Click(screenCoordinate));
+            return Do.Action(() =>
+            {
+                LogPool.Append("Click on the screen coordinate '{0}'.", screenCoordinate);
+
+                Mouse.Click(screenCoordinate);
+            });
         }
 
         /// <summary>
@@ -87,7 +114,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo Click(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinate)
         {
-            return Do.Action(() => Mouse.Click(button, modifierKeys, screenCoordinate));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Click on the screen coordinate '{0}'.", screenCoordinate);
+                else
+                    LogPool.Append("Click with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate);
+
+                Mouse.Click(button, modifierKeys, screenCoordinate);
+            });
         }
 
         /// <summary>
@@ -181,10 +216,12 @@ namespace DW.CodedUI
         {
             return Do.Action(() =>
             {
+                AppendToLogPool("Click", element, button, modifierKeys, relativePosition);
+
                 var rect = element.Properties.BoundingRectangle;
 
                 if (rect == Rectangle.Empty)
-                    throw new InvalidOperationException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
+                    throw new LoggedException("The control cannot be clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
 
                 if (relativePosition == null)
                     ClickCentered(element, button, modifierKeys, rect);
@@ -200,7 +237,12 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick()
         {
-            return Do.Action(Mouse.DoubleClick);
+            return Do.Action(() =>
+            {
+                LogPool.Append("Doubleclick.");
+
+                Mouse.DoubleClick();
+            });
         }
 
         /// <summary>
@@ -210,7 +252,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(ModifierKeys modifierKeys)
         {
-            return Do.Action(() => Mouse.DoubleClick(modifierKeys));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Doubleclick.");
+                else
+                    LogPool.Append("Doubleclick with the modifier keys '{0}'.", modifierKeys);
+
+                Mouse.DoubleClick(modifierKeys);
+            });
         }
 
         /// <summary>
@@ -220,7 +270,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(MouseButtons button)
         {
-            return Do.Action(() => Mouse.DoubleClick(button));
+            return Do.Action(() =>
+            {
+                if (button == MouseButtons.None)
+                    LogPool.Append("Doubleclick.");
+                else
+                    LogPool.Append("Doubleclick with the buttons '{0}'.", button);
+
+                Mouse.DoubleClick(button);
+            });
         }
 
         /// <summary>
@@ -230,7 +288,12 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(Point screenCoordinate)
         {
-            return Do.Action(() => Mouse.DoubleClick(screenCoordinate));
+            return Do.Action(() =>
+            {
+                LogPool.Append("Doubleclick on the screen coordinate '{0}'.", screenCoordinate);
+
+                Mouse.DoubleClick(screenCoordinate);
+            });
         }
 
         /// <summary>
@@ -242,7 +305,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo DoubleClick(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinate)
         {
-            return Do.Action(() => Mouse.DoubleClick(button, modifierKeys, screenCoordinate));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Doubleclick on the screen coordinate '{0}'.", screenCoordinate);
+                else
+                    LogPool.Append("Doubleclick with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate);
+
+                Mouse.DoubleClick(button, modifierKeys, screenCoordinate);
+            });
         }
 
         /// <summary>
@@ -336,10 +407,12 @@ namespace DW.CodedUI
         {
             return Do.Action(() =>
             {
+                AppendToLogPool("Doubleclick", element, button, modifierKeys, relativePosition);
+
                 var rect = element.Properties.BoundingRectangle;
 
                 if (rect == Rectangle.Empty)
-                    throw new InvalidOperationException("The control cannot be double clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
+                    throw new LoggedException("The control cannot be double clicked. It might be invisible or out of the screen. Please check the 'IsVisible' property first.");
 
                 if (relativePosition == null)
                     DoubleClickCentered(element, button, modifierKeys, rect);
@@ -384,6 +457,31 @@ namespace DW.CodedUI
         {
             var position = relativePosition.GetPoint(element);
             Mouse.DoubleClick(button, modifierKeys, position);
+        }
+
+        private static void AppendToLogPool(string clickKind, BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
+        {
+            var builder = new StringBuilder(clickKind);
+            builder.Append(string.Format(" on element '{0}'", element));
+            var useAnd = false;
+            if (button != MouseButtons.None)
+            {
+                useAnd = true;
+                builder.Append(string.Format(" with the buttons '{0}'", button));
+            }
+            if (modifierKeys != ModifierKeys.None)
+            {
+                if (useAnd)
+                    builder.Append(string.Format(" and the modifier keys '{0}'", modifierKeys));
+                else
+                    builder.Append(string.Format(" with modifier keys '{0}'", modifierKeys));
+            }
+            if (relativePosition != null)
+                builder.Append(string.Format(" at the relative position '{0}'", relativePosition));
+
+            builder.Append(".");
+
+            LogPool.Append(builder.ToString());
         }
     }
 }

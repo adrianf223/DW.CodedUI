@@ -112,6 +112,8 @@ namespace DW.CodedUI
             var interval = with.GetInterval();
             var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
+            LogPool.Append("Search for UI element down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
+
             var watch = new Stopwatch();
             watch.Start();
             while (true)
@@ -120,7 +122,10 @@ namespace DW.CodedUI
                 if (foundItem != null)
                 {
                     if (!needsToBeReady)
+                    {
+                        LogPool.Append("UI element '{0}' found.", foundItem);
                         return foundItem;
+                    }
 
                     return ReturnIfReady(assertResult, by, useTimeout, useInterval, timeout, watch, interval, false, foundItem);
                 }
@@ -224,6 +229,8 @@ namespace DW.CodedUI
             var interval = with.GetInterval();
             var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
+            LogPool.Append("Search for UI elements down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
+            
             var foundItems = new List<TControl>();
             var watch = new Stopwatch();
             watch.Start();
@@ -233,7 +240,10 @@ namespace DW.CodedUI
                 if (foundItems.Any())
                 {
                     if (!needsToBeReady)
+                    {
+                        LogPool.Append("{0} element(s) found.", foundItems.Count);
                         return foundItems;
+                    }
 
                     for (var i = 0; i < foundItems.Count; ++i)
                     {
@@ -397,6 +407,8 @@ namespace DW.CodedUI
             var interval = with.GetInterval();
             var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
+            LogPool.Append("Search for parent element of '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
+
             var watch = new Stopwatch();
             watch.Start();
             while (true)
@@ -405,7 +417,10 @@ namespace DW.CodedUI
                 if (foundItem != null)
                 {
                     if (!needsToBeReady)
+                    {
+                        LogPool.Append("Parent element '{0}' found.", foundItem);
                         return foundItem;
+                    }
 
                     return ReturnIfReady(assertResult, by, useTimeout, useInterval, timeout, watch, interval, false, foundItem);
                 }
@@ -448,6 +463,7 @@ namespace DW.CodedUI
         public static AutomationElementInfo GetFullUITree(AutomationElement element)
         {
             var rootElementInfo = new AutomationElementInfo(element);
+            LogPool.Append("Read full UI tree down from '{0}'.", rootElementInfo);
             Read(rootElementInfo);
             return rootElementInfo;
         }
@@ -533,6 +549,7 @@ namespace DW.CodedUI
             var timeLeft = TimeSpan.FromMilliseconds(timeout - watch.Elapsed.TotalMilliseconds);
             var readyInterval = TimeSpan.FromMilliseconds(interval);
             
+            LogPool.Append("Wait for UI control '{0}' to become ready.", foundItem);
             foundItem.WaitForCondition(timeLeft, readyInterval, e => !e.IsEnabled || !e.IsVisible);
             
             if (!foundItem.IsEnabled || !foundItem.IsVisible)
@@ -541,6 +558,8 @@ namespace DW.CodedUI
                     throw new UIElementNotReadyException(foundItem.IsEnabled, foundItem.IsVisible, by, useTimeout, useInterval, interval, watch.Elapsed, multiply);
                 return null;
             }
+
+            LogPool.Append("The element is ready to use.");
             return foundItem;
         }
 

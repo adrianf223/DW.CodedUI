@@ -127,6 +127,8 @@
     <Compile Include="From.cs" />
     <Compile Include="Internal\AndCondition.cs" />
     <Compile Include="Internal\IsCondition.cs" />
+    <Compile Include="Internal\LogPool.cs" />
+    <Compile Include="Internal\MessageBuilder.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Internal\SystemStrings.cs" />
     <Compile Include="Internal\WinApi.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Is.cs" />
     <Compile Include="KeyboardCommands.cs" />
     <Compile Include="KeyboardEx.cs" />
+    <Compile Include="LoggedException.cs" />
     <Compile Include="MissingWindowException.cs" />
     <Compile Include="MouseEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -154,6 +157,7 @@
     </Compile>
     <Compile Include="Utilities\InExclude.cs" />
     <Compile Include="Utilities\Listener.cs" />
+    <Compile Include="Utilities\LogWriter.cs" />
     <Compile Include="Utilities\WindowChangeKind.cs" />
     <Compile Include="Utilities\WindowFilters.cs" />
     <Compile Include="Utilities\WindowListener.cs" />

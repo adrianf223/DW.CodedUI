@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System.Threading;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI.Utilities
 {
@@ -65,6 +66,8 @@ namespace DW.CodedUI.Utilities
         /// <param name="milliseconds">The time to suspend in milliseconds.</param>
         public static void Wait(int milliseconds)
         {
+            LogPool.Append("Wait {0} milliseconds.", milliseconds);
+
             Thread.Sleep(milliseconds);
         }
     }

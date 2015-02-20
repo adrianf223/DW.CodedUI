@@ -28,6 +28,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {
@@ -39,12 +40,12 @@ namespace DW.CodedUI
         private DoAction _doAction;
         private Action _currentAction;
         private readonly CombinableDo _previousDo;
-        
+
         internal CombinableDo()
         {
         }
 
-        internal CombinableDo(CombinableDo previousDo)
+        private CombinableDo(CombinableDo previousDo)
         {
             _previousDo = previousDo;
         }
@@ -65,7 +66,11 @@ namespace DW.CodedUI
         public CombinableDo Wait(uint milliseconds)
         {
             _doAction = DoAction.Action;
-            _currentAction = () => Thread.Sleep((int)milliseconds);
+            _currentAction = () =>
+            {
+                LogPool.Append("Wait {0} milliseconds.", milliseconds);
+                Thread.Sleep((int)milliseconds);
+            };
 
             Execute();
             return new CombinableDo();
@@ -94,6 +99,8 @@ namespace DW.CodedUI
             {
                 try
                 {
+                    LogPool.Append("Wait for the CPU to idle. Minimum percent {0}; Maximum wait time {1}; Interval {2}.", mimimumPercent, maximumWaitTime, interval);
+
                     var cpuload = new PerformanceCounter();
                     cpuload.CategoryName = "Processor";
                     cpuload.CounterName = "% Processor Time";
@@ -109,18 +116,25 @@ namespace DW.CodedUI
                     while (true)
                     {
                         if (watch.Elapsed.TotalMilliseconds >= maximumWaitTime)
+                        {
+                            LogPool.Append("Stop waiting for the CPU to idle, the maximum wait time has been reached.");
                             return;
+                        }
 
-                        if (cpuload.NextValue() < mimimumPercent)
+                        var cpuLoad = cpuload.NextValue();
+                        if (cpuLoad < mimimumPercent)
+                        {
+                            LogPool.Append("The CPU load now is at {0} percent; stop waiting.", cpuLoad);
                             return;
+                        }
 
                         if (interval > 0)
-                            Thread.Sleep((int) interval);
+                            Thread.Sleep((int)interval);
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Cannot meassure the current CPU load. See inner exception.", ex);
+                    throw new LoggedException("Cannot meassure the current CPU load. See inner exception for details.", ex);
                 }
             };
 
@@ -146,6 +160,11 @@ namespace DW.CodedUI
             {
                 try
                 {
+                    if (arguments == null)
+                        LogPool.Append("Launch application '{0}'.", path);
+                    else
+                        LogPool.Append("Launch application '{0}'. (arguments '{1}').", path, arguments);
+
                     var processStartInfo = new ProcessStartInfo();
                     processStartInfo.FileName = path;
                     if (arguments != null)
@@ -155,7 +174,7 @@ namespace DW.CodedUI
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Cannot launch the application. See inner exception.", ex);
+                    throw new LoggedException("Cannot launch the application. See inner exception.", ex);
                 }
             };
 
@@ -180,7 +199,7 @@ namespace DW.CodedUI
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Cannot invoke the given action. See inner exception.", ex);
+                    throw new LoggedException("Cannot invoke the given action. See inner exception.", ex);
                 }
             };
 
@@ -198,6 +217,8 @@ namespace DW.CodedUI
         {
             _currentAction = null;
             _doAction = DoAction.Repeat;
+
+            LogPool.Append("Repeat the previous action {0} times.", amount);
 
             for (int i = 0; i < amount; i++)
             {

@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Drawing;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI.Utilities
 {
@@ -58,6 +59,8 @@ namespace DW.CodedUI.Utilities
         /// <returns>A WindowSetup to be able to append additional actions.</returns>
         public WindowSetup State(WindowState windowState)
         {
+            LogPool.Append("Set window state to '{0}'.", windowState);
+
             _window.Unsafe.SetState(windowState);
             return this;
         }
@@ -70,6 +73,8 @@ namespace DW.CodedUI.Utilities
         /// <returns>A WindowSetup to be able to append additional actions.</returns>
         public WindowSetup Position(int left, int top)
         {
+            LogPool.Append("Set window position to left {0} and top {1}.", left, top);
+
             _window.Unsafe.SetPosition(new Point(left, top));
             return this;
         }
@@ -82,6 +87,8 @@ namespace DW.CodedUI.Utilities
         /// <returns>A WindowSetup to be able to append additional actions.</returns>
         public WindowSetup Size(int width, int height)
         {
+            LogPool.Append("Set window size to  width {0} and height {1}.", width, height);
+
             _window.Unsafe.SetSize(new Size(width, height));
             return this;
         }

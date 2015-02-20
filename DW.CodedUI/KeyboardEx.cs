@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Internal;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 namespace DW.CodedUI
@@ -41,7 +42,11 @@ namespace DW.CodedUI
         public static int SendKeysDelay
         {
             get { return Keyboard.SendKeysDelay; }
-            set { Keyboard.SendKeysDelay = value; }
+            set
+            {
+                LogPool.Append("Set the keyboard delay to '{0}'.", value); 
+                Keyboard.SendKeysDelay = value;
+            }
         }
 
         /// <summary>
@@ -54,7 +59,10 @@ namespace DW.CodedUI
         {
             return Do.Action(() =>
             {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", keys);
                 Keyboard.PressModifierKeys(keys);
             });
         }
@@ -69,7 +77,10 @@ namespace DW.CodedUI
         {
             return Do.Action(() =>
             {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", keys);
                 Keyboard.ReleaseModifierKeys(keys);
             });
         }
@@ -97,7 +108,13 @@ namespace DW.CodedUI
         {
             return Do.Action(() =>
             {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
+
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Send text '{0}'.", text);
+                else
+                    LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
                 Keyboard.SendKeys(text, modifierKeys);
             });
         }
@@ -109,7 +126,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo PressModifierKeys(ModifierKeys keys)
         {
-            return Do.Action(() => Keyboard.PressModifierKeys(keys));
+            return Do.Action(() =>
+            {
+                LogPool.Append("Press keys '{0}'.", keys);
+                Keyboard.PressModifierKeys(keys);
+            });
         }
 
         /// <summary>
@@ -119,7 +140,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo ReleaseModifierKeys(ModifierKeys keys)
         {
-            return Do.Action(() => Keyboard.ReleaseModifierKeys(keys));
+            return Do.Action(() =>
+            {
+                LogPool.Append("Release keys '{0}'.", keys);
+                Keyboard.ReleaseModifierKeys(keys);
+            });
         }
 
         /// <summary>
@@ -129,7 +154,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text)
         {
-            return Do.Action(() => Keyboard.SendKeys(text));
+            return Do.Action(() =>
+            {
+                LogPool.Append("Send text '{0}'.", text);
+                Keyboard.SendKeys(text);
+            });
         }
 
         /// <summary>
@@ -140,7 +169,11 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, bool isEncoded)
         {
-            return Do.Action(() => Keyboard.SendKeys(text, isEncoded));
+            return Do.Action(() =>
+            {
+                LogPool.Append("Send text '{0}' (encoded '{1}').", text, isEncoded);
+                Keyboard.SendKeys(text, isEncoded);
+            });
         }
 
         /// <summary>
@@ -151,7 +184,14 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys)
         {
-            return Do.Action(() => Keyboard.SendKeys(text, modifierKeys));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Send text '{0}'.", text);
+                else
+                    LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
+                Keyboard.SendKeys(text, modifierKeys);
+            });
         }
 
         /// <summary>
@@ -163,7 +203,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys, bool isEncoded)
         {
-            return Do.Action(() => Keyboard.SendKeys(text, modifierKeys, isEncoded));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Send text '{0}' (encoded '{1}').", text, isEncoded);
+                else
+                    LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}').", text, modifierKeys, isEncoded);
+                
+                Keyboard.SendKeys(text, modifierKeys, isEncoded);
+            });
         }
 
         /// <summary>
@@ -176,7 +224,15 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys, bool isEncoded, bool isUnicode)
         {
-            return Do.Action(() => Keyboard.SendKeys(text, modifierKeys, isEncoded, isUnicode));
+            return Do.Action(() =>
+            {
+                if (modifierKeys == ModifierKeys.None)
+                    LogPool.Append("Send text '{0}' (encoded '{1}'; unicode '{2}').", text, isEncoded, isUnicode);
+                else
+                    LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}'; unicode '{3}').", text, modifierKeys, isEncoded, isUnicode);
+                
+                Keyboard.SendKeys(text, modifierKeys, isEncoded, isUnicode);
+            });
         }
     }
 }

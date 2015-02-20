@@ -31,7 +31,7 @@ namespace DW.CodedUI
     /// <summary>
     /// Represents the error if the environment is not setup properly to run CodedUI tests.
     /// </summary>
-    public class WrongSetupException : Exception
+    public class WrongSetupException : LoggedException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.WrongSetupException" /> class.

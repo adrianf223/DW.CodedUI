@@ -3,10 +3,13 @@
 ==============================
 Release 2.4.0.X
 ==============================
+2015-02-20    CodedUIEnvironment: The listener was not configurable
+              LoggedException: Add LoggedException to write error to the activity logs
+              LogWriter: Add configurable activity logs
 2015-02-14    Add possibilies to the the window size, position and state into the BasicWindow.Unsafe
-              Add new WindowSetup object for a more easy window setup
-2015-02-10    Add possibility to configure the listeners from the CodedUIEnvironment
-              Allow async invoke of the listener events
+              WindowSetup: Add new WindowSetup object for a more easy window setup
+2015-02-10    CodedUIEnvironment: Add possibility to configure the listeners from the CodedUIEnvironment
+              *Listener: Allow async invoke of the listener events
 2015-01-10    BasicElementData: Add IsEnabled property
               BasicElementData: Add IsVisible property
               *Listener: Add possibility to get informed if a window or element state changed

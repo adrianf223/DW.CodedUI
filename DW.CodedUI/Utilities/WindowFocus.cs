@@ -42,6 +42,8 @@ namespace DW.CodedUI.Utilities
         /// <param name="window">The window to be on top. This can be a window, messagebox or system dialog.</param>
         public static void BringOnTop<TWindow>(TWindow window) where TWindow : BasicWindowBase
         {
+            LogPool.Append("Bring window '{0}' to the foreground.", window.Title);
+
             WinApi.SetForegroundWindow((IntPtr)window.Properties.NativeWindowHandle);
         }
     }

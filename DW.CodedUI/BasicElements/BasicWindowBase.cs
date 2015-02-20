@@ -126,7 +126,7 @@ namespace DW.CodedUI.BasicElements
                 return new BasicWindow(AutomationElement.FromHandle(ownerHandle));
 
             if (assert)
-                throw new Exception(string.Format("The current window '{0}' has no parent window.", Title));
+                throw new LoggedException(string.Format("The current window '{0}' has no parent window.", Title));
             return null;
         }
 

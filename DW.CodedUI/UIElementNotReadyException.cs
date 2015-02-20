@@ -25,14 +25,14 @@ THE SOFTWARE
 #endregion License
 
 using System;
-using System.Text;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {
     /// <summary>
     /// Represents errors that occur if an element got found in the UI but became not ready to use.
     /// </summary>
-    public class UIElementNotReadyException : Exception
+    public class UIElementNotReadyException : LoggedException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.UIElementNotReadyException" /> class.
@@ -46,31 +46,8 @@ namespace DW.CodedUI
         /// <param name="timeout">The elapsed search time.</param>
         /// <param name="multiply">A value that indicates if one or multiple elements has been searched.</param>
         public UIElementNotReadyException(bool isEnabled, bool isVisible, By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
-            : base(BuildMessage(isEnabled, isVisible, by, useTimeout, useInterval, intervalTime, timeout, multiply))
+            : base(MessageBuilder.BuildErrorMessage(isEnabled, isVisible, by, useTimeout, useInterval, intervalTime, timeout, multiply))
         {
-        }
-
-        private static string BuildMessage(bool isEnabled, bool isVisible, By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine(multiply ? "At least one element was found but it was not become ready to use." : "The UI element was found but was not become ready to use.");
-            builder.AppendLine("Enabled state of the element: " + (isEnabled ? "Enabled" : "Disabled"));
-            builder.AppendLine("Visibility state of the element: " + (isVisible ? "Visible" : "Not visible"));
-            builder.AppendLine();
-            builder.AppendLine("Condition(s):");
-            builder.AppendLine(by.GetConditionDescription());
-            builder.AppendLine();
-            builder.AppendLine("Settings:");
-            if (useTimeout)
-                builder.AppendLine("* With timeout: " + timeout);
-            else
-                builder.AppendLine("* Without timeout");
-            if (useInterval)
-                builder.AppendLine("* With interval: " + intervalTime);
-            else
-                builder.AppendLine("* Without interval");
-            builder.AppendLine();
-            return builder.ToString();
         }
     }
 }

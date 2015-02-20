@@ -39,13 +39,15 @@ namespace DW.CodedUI
         private double? _top;
         private double? _right;
         private double? _bottom;
+        private readonly string _description;
 
-        private At(double? left, double? top, double? right, double? bottom)
+        private At(double? left, double? top, double? right, double? bottom, string description)
         {
             _left = left;
             _top = top;
             _right = right;
             _bottom = bottom;
+            _description = description;
         }
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At Left(double x)
         {
-            return new At(x, null, null, null);
+            return new At(x, null, null, null, string.Format("Left x{0}", x));
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At TopLeft(double x, double y)
         {
-            return new At(x, y, null, null);
+            return new At(x, y, null, null, string.Format("TopLeft x{0} y{1}", x, y));
         }
 
         /// <summary>
@@ -76,7 +78,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At Top(double y)
         {
-            return new At(null, y, null, null);
+            return new At(null, y, null, null, string.Format("Top y{0}", y));
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At TopRight(double x, double y)
         {
-            return new At(null, y, x, null);
+            return new At(null, y, x, null, string.Format("TopRight x{0} y{1}", x, y));
         }
 
         /// <summary>
@@ -97,7 +99,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At Right(double x)
         {
-            return new At(null, null, x, null);
+            return new At(null, null, x, null, string.Format("Right x{0}", x));
         }
 
         /// <summary>
@@ -108,7 +110,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At BottomRight(double x, double y)
         {
-            return new At(null, null, x, y);
+            return new At(null, null, x, y, string.Format("BottomRight x{0} y{1}", x, y));
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At Bottom(double y)
         {
-            return new At(null, null, null, y);
+            return new At(null, null, null, y, string.Format("Bottom y{0}", y));
         }
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace DW.CodedUI
         /// <returns>Instance of the position object.</returns>
         public static At BottomLeft(double x, double y)
         {
-            return new At(x, null, null, y);
+            return new At(x, null, null, y, string.Format("BottomLeft x{0}", x));
         }
 
         internal Point GetPoint(BasicElement element)
@@ -164,6 +166,15 @@ namespace DW.CodedUI
             if (_bottom != null)
                 y = rect.Height - _bottom.Value;
             return y + rect.Top;
+        }
+
+        /// <summary>
+        /// Provides a description of the relative position.
+        /// </summary>
+        /// <returns>A description of the relative position.</returns>
+        public override string ToString()
+        {
+            return _description;
         }
     }
 }

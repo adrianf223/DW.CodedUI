@@ -46,8 +46,10 @@ namespace DW.CodedUI.Utilities
         /// <returns>The System.Drawing.Color at the specific position.</returns>
         public static Color GetColor(BasicElement element, int relativePositionX = 1, int relativePositionY = 1)
         {
-            var positionX = (int)element.AutomationElement.Current.BoundingRectangle.Left + relativePositionX;
-            var positionY = (int)element.AutomationElement.Current.BoundingRectangle.Top + relativePositionY;
+            LogPool.Append("Check for the color at the relative position x={0} y={1} at the element '{2}'.", relativePositionX, relativePositionY, element);
+
+            var positionX = element.AutomationElement.Current.BoundingRectangle.Left + relativePositionX;
+            var positionY = element.AutomationElement.Current.BoundingRectangle.Top + relativePositionY;
 
             var originalMouseSpeed = Mouse.MouseMoveSpeed;
             Mouse.MouseMoveSpeed = 10000;

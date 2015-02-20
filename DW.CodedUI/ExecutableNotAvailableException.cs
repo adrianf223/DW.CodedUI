@@ -24,7 +24,6 @@ THE SOFTWARE
 */
 #endregion License
 
-using System;
 using System.Text;
 
 namespace DW.CodedUI
@@ -32,7 +31,7 @@ namespace DW.CodedUI
     /// <summary>
     /// Represents errors that occur during launching an executable.
     /// </summary>
-    public class ExecutableNotAvailableException : Exception
+    public class ExecutableNotAvailableException : LoggedException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.ExecutableNotAvailableException" /> class.

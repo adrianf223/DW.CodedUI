@@ -24,14 +24,12 @@ THE SOFTWARE
 */
 #endregion License
 
-using System;
-
 namespace DW.CodedUI
 {
     /// <summary>
     /// Represents errors that occur during searching for elements starting from a window.
     /// </summary>
-    public class MissingWindowException : Exception
+    public class MissingWindowException : LoggedException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.MissingWindowException" /> class.

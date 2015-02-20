@@ -25,14 +25,14 @@ THE SOFTWARE
 #endregion License
 
 using System;
-using System.Text;
+using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {
     /// <summary>
     /// Represents errors that occur if an element in the UI cannot be found.
     /// </summary>
-    public class UIElementNotFoundException : Exception
+    public class UIElementNotFoundException : LoggedException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DW.CodedUI.UIElementNotFoundException" /> class.
@@ -44,29 +44,8 @@ namespace DW.CodedUI
         /// <param name="timeout">The elapsed search time.</param>
         /// <param name="multiply">A value that indicates if one or multiple elements has been searched.</param>
         public UIElementNotFoundException(By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
-            : base(BuildMessage(by, useTimeout, useInterval, intervalTime, timeout, multiply))
+            : base(MessageBuilder.BuildErrorMessage(by, useTimeout, useInterval, intervalTime, timeout, multiply))
         {
-        }
-
-        private static string BuildMessage(By by, bool useTimeout, bool useInterval, uint intervalTime, TimeSpan timeout, bool multiply)
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine(multiply ? "No UI element could be found." : "The UI element could not be found.");
-            builder.AppendLine();
-            builder.AppendLine("Condition(s):");
-            builder.AppendLine(by.GetConditionDescription());
-            builder.AppendLine();
-            builder.AppendLine("Settings:");
-            if (useTimeout)
-                builder.AppendLine("* With timeout: " + timeout);
-            else
-                builder.AppendLine("* Without timeout");
-            if (useInterval)
-                builder.AppendLine("* With interval: " + intervalTime);
-            else
-                builder.AppendLine("* Without interval");
-            builder.AppendLine();
-            return builder.ToString();
         }
     }
 }

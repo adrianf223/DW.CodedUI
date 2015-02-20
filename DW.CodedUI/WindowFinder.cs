@@ -103,6 +103,8 @@ namespace DW.CodedUI
             var useInterval = settingsConditions.Contains(AndCondition.Interval);
             var interval = settings.GetInterval();
 
+            LogPool.Append("Search for a window. {0}", MessageBuilder.BuildMessage(use, useTimeout, useInterval, interval, timeout, @is));
+
             var watch = new Stopwatch();
             watch.Start();
             while (true)
@@ -116,7 +118,10 @@ namespace DW.CodedUI
                         continue;
 
                     if (!checkInstance || ++foundInstance == instanceNumber)
+                    {
+                        LogPool.Append("Window '{0}' found.", matchingWindow);
                         return matchingWindow;
+                    }
                 }
 
                 if (!useTimeout || watch.Elapsed.TotalMilliseconds >= timeout)
@@ -201,12 +206,19 @@ namespace DW.CodedUI
         /// <exception cref="DW.CodedUI.WrongSetupException">Dll is missing or in the wrong version.</exception>
         public static BasicWindow GetForegroundWindow()
         {
+            LogPool.Append("Search for the current foreground window.");
+
             var windowHandle = WinApi.GetForegroundWindow();
             if (windowHandle == IntPtr.Zero)
+            {
+                LogPool.Append("No window found.");
                 return null;
+            }
             try
             {
-                return new BasicWindow(AutomationElement.FromHandle(windowHandle));
+                var foregroundWindow = new BasicWindow(AutomationElement.FromHandle(windowHandle));
+                LogPool.Append("Window '{0}' found.", foregroundWindow);
+                return foregroundWindow;
             }
             catch (FileNotFoundException ex)
             {
