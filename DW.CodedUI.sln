@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI", "DW.CodedUI\DW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DW.CodedUI.Tests", "DW.CodedUI.Tests\DW.CodedUI.Tests.csproj", "{53518CC4-4956-4645-8DC4-34351AE06D0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementFinder", "ElementFinder\ElementFinder.csproj", "{B5770979-E072-463C-9F50-703D8EC098A3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6341FBBC-886A-4E75-BF3C-B995B285F66C}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
@@ -29,10 +27,6 @@ Global
 		{53518CC4-4956-4645-8DC4-34351AE06D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53518CC4-4956-4645-8DC4-34351AE06D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53518CC4-4956-4645-8DC4-34351AE06D0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5770979-E072-463C-9F50-703D8EC098A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5770979-E072-463C-9F50-703D8EC098A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5770979-E072-463C-9F50-703D8EC098A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5770979-E072-463C-9F50-703D8EC098A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
