@@ -3,6 +3,9 @@ DW.CodedUI - Test your UI fast and easy
 
 Version    Publish Date
 
+2.4.0      2015-02-21
+    Assembly:      http://libs.my-libraries.com/DW.CodedUI/v2.4.0/Assembly.zip
+    Documentation: http://libs.my-libraries.com/DW.CodedUI/v2.4.0/Documentation
 2.2.0      2014-07-15
     Assembly:      http://libs.my-libraries.com/DW.CodedUI/v2.2.0/Assembly.zip
     Documentation: http://libs.my-libraries.com/DW.CodedUI/v2.2.0/Documentation
