@@ -103,7 +103,10 @@ namespace DW.CodedUI
             var useInterval = settingsConditions.Contains(AndCondition.Interval);
             var interval = settings.GetInterval();
 
-            LogPool.Append("Search for a window. {0}", MessageBuilder.BuildMessage(use, useTimeout, useInterval, interval, timeout, @is));
+            if (CodedUIEnvironment.LoggerSettings.ShortLogging)
+                LogPool.Append("Search for a window. {0}", use.GetConditionDescription());
+            else
+                LogPool.Append("Search for a window. {0}", MessageBuilder.BuildMessage(use, useTimeout, useInterval, interval, timeout, @is));
 
             var watch = new Stopwatch();
             watch.Start();

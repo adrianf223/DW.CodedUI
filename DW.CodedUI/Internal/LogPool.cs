@@ -18,7 +18,10 @@ namespace DW.CodedUI.Internal
 
             try
             {
-                message = DateTime.Now.ToString("T") + " -> " + string.Format(message, args);
+                var logLineFormat = AdjustLogLineFormat(CodedUIEnvironment.LoggerSettings.LogLineFormat);
+                var dateTime = DateTime.Now.ToString(CodedUIEnvironment.LoggerSettings.DateTimeFormat);
+
+                message =  string.Format(logLineFormat, dateTime, string.Format(message, args));
             }
             catch (Exception ex)
             {
@@ -30,6 +33,12 @@ namespace DW.CodedUI.Internal
                     StartDateTime = DateTime.Now;
                 _logLines.Add(message);
             }
+        }
+
+        private static string AdjustLogLineFormat(string logLineFormat)
+        {
+            var line = logLineFormat.ToLower().Replace("%datetime%", "{0}");
+            return line.Replace("%message%", "{1}");
         }
 
         internal static IEnumerable<string> PopList()

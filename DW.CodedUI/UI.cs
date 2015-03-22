@@ -112,7 +112,10 @@ namespace DW.CodedUI
             var interval = with.GetInterval();
             var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
-            LogPool.Append("Search for UI element down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
+            if (CodedUIEnvironment.LoggerSettings.ShortLogging)
+                LogPool.Append("Search for UI element. {0}", by.GetConditionDescription());
+            else
+                LogPool.Append("Search for UI element down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
 
             var watch = new Stopwatch();
             watch.Start();
@@ -229,7 +232,10 @@ namespace DW.CodedUI
             var interval = with.GetInterval();
             var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
-            LogPool.Append("Search for UI elements down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
+            if (CodedUIEnvironment.LoggerSettings.ShortLogging)
+                LogPool.Append("Search for UI elements. {0}", by.GetConditionDescription());
+            else
+                LogPool.Append("Search for UI elements down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
             
             var foundItems = new List<TControl>();
             var watch = new Stopwatch();
@@ -407,7 +413,10 @@ namespace DW.CodedUI
             var interval = with.GetInterval();
             var needsToBeReady = settings.Contains(WithCondition.ReadyToUse);
 
-            LogPool.Append("Search for parent element of '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
+            if (CodedUIEnvironment.LoggerSettings.ShortLogging)
+                LogPool.Append("Search for parent element. {0}", by.GetConditionDescription());
+            else
+                LogPool.Append("Search for parent element of '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
 
             var watch = new Stopwatch();
             watch.Start();

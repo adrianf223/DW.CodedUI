@@ -67,12 +67,11 @@ namespace DW.CodedUI.Utilities
                 var startTime = LogPool.StartDateTime;
                 var endTime = DateTime.Now;
 
-                logs.AppendLine();
                 logs.AppendLine(string.Format("Executed test: {0}.{1}()", textContext.FullyQualifiedTestClassName, textContext.TestName));
                 logs.AppendLine(string.Format("Result: {0}", textContext.CurrentTestOutcome));
-                logs.AppendLine(string.Format("Start time: {0}", startTime.ToString("G")));
-                logs.AppendLine(string.Format("Testrun finished at: {0}", endTime.ToString("G")));
-                logs.AppendLine(string.Format("Execution time: {0}", (endTime - startTime).ToString("g")));
+                logs.AppendLine(string.Format("Start time: {0}", startTime.ToString("dd/MM/yyyy HH:mm:ss.fff")));
+                logs.AppendLine(string.Format("Testrun finished at: {0}", endTime.ToString("dd/MM/yyyy HH:mm:ss.fff")));
+                logs.AppendLine(string.Format("Execution time: {0}", (endTime - startTime).ToString("hh\\:mm\\:ss\\.fff")));
                 logs.AppendLine();
                 logs.AppendLine("### Begin ###");
 

@@ -14,9 +14,12 @@ namespace DW.CodedUI.Tests
         public void Setup()
         {
             CodedUIEnvironment.LoggerSettings.LogFilesDirectory = @"D:\Logs";
-            //CodedUIEnvironment.LoggerSettings.IsEnabled = true;
             CodedUIEnvironment.LoggerSettings.LogPassedTestsToo = true;
             CodedUIEnvironment.LoggerSettings.AddTestResultToFileName = true;
+
+            CodedUIEnvironment.LoggerSettings.DateTimeFormat = "HH:mm:ss.ffff";
+            CodedUIEnvironment.LoggerSettings.ShortLogging = true;
+            CodedUIEnvironment.LoggerSettings.LogLineFormat = ":: %DateTime% >> %Message%";
         }
 
         [TestCleanup]

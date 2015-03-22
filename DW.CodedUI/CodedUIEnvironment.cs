@@ -186,6 +186,9 @@ namespace DW.CodedUI
                 LogFilesDirectory = Path.Combine(Path.GetTempPath(), "DWCodedUI", Guid.NewGuid().ToString());
                 LogPassedTestsToo = false;
                 AddTestResultToFileName = false;
+                LogLineFormat = "%DateTime% -> %Message%";
+                DateTimeFormat = "HH:mm:ss.fff";
+                ShortLogging = false;
             }
 
             /// <summary>
@@ -216,6 +219,21 @@ namespace DW.CodedUI
             /// Gets or sets a value that indicates if the result file name should start with the result of the test. The default is false.
             /// </summary>
             public bool AddTestResultToFileName { get; set; }
+
+            /// <summary>
+            /// Gets or sets the format of the log line. The default is "%DateTime% -> %Message%".
+            /// </summary>
+            public string LogLineFormat { get; set; }
+
+            /// <summary>
+            /// Gets or sets how to write the date and time in the log lines. Default is "HH:mm:ss.fff".
+            /// </summary>
+            public string DateTimeFormat { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value that indicates of the logging is complete or just short. The default is false.
+            /// </summary>
+            public bool ShortLogging { get; set; }
         }
 
         internal static BasicWindow LastWindow { get; set; }

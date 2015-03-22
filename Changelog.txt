@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.4.1.X
+==============================
+2015-03-22    LogWriter: Add some settings how exactly the log line should be formatted
+
+
+==============================
 Release 2.4.0.X
 ==============================
 2015-02-20    CodedUIEnvironment: The listener was not configurable
