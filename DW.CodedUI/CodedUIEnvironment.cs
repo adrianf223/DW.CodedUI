@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI
 {
@@ -234,6 +235,19 @@ namespace DW.CodedUI
             /// Gets or sets a value that indicates of the logging is complete or just short. The default is false.
             /// </summary>
             public bool ShortLogging { get; set; }
+
+            /// <summary>
+            /// Prepares the LogWriter that all actions will be written into a log file directly when happened. A LogWriter.Write is not needed anymore but the execution performance may suffer. 
+            /// (Even with the instant write the LogWriter.Write should be called in the test cleanup anyway to finalize the log file and start time in the log file header.)
+            /// </summary>
+            /// <param name="testContext">The TextContext of the test class.</param>
+            /// <remarks>During the execution the log file has no result on the front no matter of the setting, the log file also have no header, it will finalized by the write on the test cleanup.</remarks>
+            public void PrepareInstantWrite(TestContext testContext)
+            {
+                InstantLoggingContext = testContext;
+            }
+
+            internal TestContext InstantLoggingContext { get; private set; }
         }
 
         internal static BasicWindow LastWindow { get; set; }

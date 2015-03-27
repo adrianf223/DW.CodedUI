@@ -3,6 +3,7 @@
 ==============================
 Release 2.4.1.X
 ==============================
+2015-03-27    LogWriter: Add possibility to let log files be written instantly when an action happen
 2015-03-22    LogWriter: Add some settings how exactly the log line should be formatted
 
 

@@ -20,6 +20,8 @@ namespace DW.CodedUI.Tests
             CodedUIEnvironment.LoggerSettings.DateTimeFormat = "HH:mm:ss.ffff";
             CodedUIEnvironment.LoggerSettings.ShortLogging = true;
             CodedUIEnvironment.LoggerSettings.LogLineFormat = ":: %DateTime% >> %Message%";
+
+            CodedUIEnvironment.LoggerSettings.PrepareInstantWrite(TestContext);
         }
 
         [TestCleanup]

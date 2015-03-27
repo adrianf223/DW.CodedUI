@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.Internal
 {
@@ -10,11 +10,18 @@ namespace DW.CodedUI.Internal
         private static List<string> _logLines = new List<string>();
 
         internal static DateTime StartDateTime { get; private set; }
+        internal static bool StartDateTimeWritten { get; set; }
 
         internal static void Append(string message, params object[] args)
         {
             if (!CodedUIEnvironment.LoggerSettings.IsEnabled)
                 return;
+
+            if (!StartDateTimeWritten)
+            {
+                StartDateTime = DateTime.Now;
+                StartDateTimeWritten = true;
+            }
 
             try
             {
@@ -27,12 +34,15 @@ namespace DW.CodedUI.Internal
             {
                 message = string.Format("Cannot format the log message properly '{0}' because '{1}'", message, ex.Message);
             }
-            lock (_listLocker)
+
+            if (CodedUIEnvironment.LoggerSettings.InstantLoggingContext != null)
             {
-                if (!_logLines.Any())
-                    StartDateTime = DateTime.Now;
-                _logLines.Add(message);
+                LogWriter.WriteInstant(message);
+                return;
             }
+
+            lock (_listLocker)
+                _logLines.Add(message);
         }
 
         private static string AdjustLogLineFormat(string logLineFormat)
