@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.6.0.X
+==============================
+2015-04-08    WindowFinder: Add possibility to find a window by its automation ID
+
+
+==============================
 Release 2.4.1.X
 ==============================
 2015-03-27    LogWriter: Add possibility to let log files be written instantly when an action happen

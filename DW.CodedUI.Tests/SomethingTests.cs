@@ -71,5 +71,15 @@ namespace DW.CodedUI.Tests
             MouseEx.Click(dontSaveButton);
             DynamicSleep.Wait(1000);
         }
+
+        [TestMethod]
+        public void FindWindowByAutomationId()
+        {
+            Do.Launch(@"D:\Sources\Playground\WpfApplication13\WpfApplication13\bin\Debug\WpfApplication13.exe").And.Wait(2000);
+
+            var window = WindowFinder.Search<BasicWindow>(Use.AutomationId("KrasseSache"));
+
+            MouseEx.Click(window.CloseButton);
+        }
     }
 }

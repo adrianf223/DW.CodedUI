@@ -121,6 +121,29 @@ namespace DW.CodedUI
         }
 
         /// <summary>
+        /// Starts searching for a window by its automation ID. By default CompareKind.Exact will be used.
+        /// </summary>
+        /// <param name="automationId">The automation ID to search for.</param>
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse AutomationId(string automationId)
+        {
+            return AutomationId(automationId, CompareKind.Exact);
+        }
+
+        /// <summary>
+        /// Starts searching for a window by its automation ID.
+        /// </summary>
+        /// <param name="automationId">The automation ID to search for.</param>
+        /// <param name="comparison">The comparison kind how the automation ID will be compared.</param>
+        /// <returns>A combinable Use to be able to append additional conditions.</returns>
+        public new CombinableUse AutomationId(string automationId, CompareKind comparison)
+        {
+            _conditions.Add(window => StringExtensions.Match(window.AutomationId, automationId, comparison));
+            _conditionDescriptions.Add(string.Format("StringExtensions.Match(window.AutomationId, \"{0}\", CompareKind.{1})", automationId, comparison));
+            return this;
+        }
+
+        /// <summary>
         /// Starts searching for windows by a custom condition.
         /// </summary>
         /// <param name="condition">The window condition to be used for compare.</param>
