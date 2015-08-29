@@ -1,7 +1,7 @@
 
 
 ==============================
-Release 2.6.0.X
+Release 2.4.2.X
 ==============================
 2015-04-08    WindowFinder: Add possibility to find a window by its automation ID
 
