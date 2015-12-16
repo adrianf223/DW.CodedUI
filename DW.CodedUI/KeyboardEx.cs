@@ -115,7 +115,8 @@ namespace DW.CodedUI
                     LogPool.Append("Send text '{0}'.", text);
                 else
                     LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
-                Keyboard.SendKeys(text, modifierKeys);
+                System.Windows.Forms.SendKeys.SendWait(text);
+                //TODO: Keyboard.SendKeys(text, modifierKeys);
             });
         }
 

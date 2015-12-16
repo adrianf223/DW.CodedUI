@@ -24,14 +24,13 @@ THE SOFTWARE
 */
 #endregion License
 
-using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using Mouse = Microsoft.VisualStudio.TestTools.UITesting.Mouse;
+using Cursor = System.Windows.Forms.Cursor;
 using Point = System.Drawing.Point;
 
 namespace DW.CodedUI
@@ -50,7 +49,7 @@ namespace DW.CodedUI
             return Do.Action(() =>
             {
                 LogPool.Append("Click.");
-                Mouse.Click();
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
             });
         }
 
@@ -68,7 +67,9 @@ namespace DW.CodedUI
                 else
                     LogPool.Append("Click with the modifier keys '{0}'.", modifierKeys);
 
-                Mouse.Click(modifierKeys);
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
             });
         }
 
@@ -86,7 +87,7 @@ namespace DW.CodedUI
                 else
                     LogPool.Append("Click with the buttons '{0}'.", button);
 
-                Mouse.Click(button);
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
             });
         }
 
@@ -101,7 +102,8 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Click on the screen coordinate '{0}'.", screenCoordinate);
 
-                Mouse.Click(screenCoordinate);
+                Cursor.Position = screenCoordinate;
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
             });
         }
 
@@ -121,7 +123,10 @@ namespace DW.CodedUI
                 else
                     LogPool.Append("Click with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate);
 
-                Mouse.Click(button, modifierKeys, screenCoordinate);
+                Cursor.Position = screenCoordinate;
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
             });
         }
 
@@ -241,7 +246,8 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Doubleclick.");
 
-                Mouse.DoubleClick();
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
             });
         }
 
@@ -259,7 +265,10 @@ namespace DW.CodedUI
                 else
                     LogPool.Append("Doubleclick with the modifier keys '{0}'.", modifierKeys);
 
-                Mouse.DoubleClick(modifierKeys);
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
             });
         }
 
@@ -277,7 +286,8 @@ namespace DW.CodedUI
                 else
                     LogPool.Append("Doubleclick with the buttons '{0}'.", button);
 
-                Mouse.DoubleClick(button);
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
             });
         }
 
@@ -292,7 +302,9 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Doubleclick on the screen coordinate '{0}'.", screenCoordinate);
 
-                Mouse.DoubleClick(screenCoordinate);
+                Cursor.Position = screenCoordinate;
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(MouseButtons.Left), 0, 0, 0, 0);
             });
         }
 
@@ -312,7 +324,12 @@ namespace DW.CodedUI
                 else
                     LogPool.Append("Doubleclick with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate);
 
-                Mouse.DoubleClick(button, modifierKeys, screenCoordinate);
+                Cursor.Position = screenCoordinate;
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
+
             });
         }
 
@@ -407,7 +424,7 @@ namespace DW.CodedUI
         {
             return Do.Action(() =>
             {
-                AppendToLogPool("Doubleclick", element, button, modifierKeys, relativePosition);
+                AppendToLogPool("DoubleClick", element, button, modifierKeys, relativePosition);
 
                 var rect = element.Properties.BoundingRectangle;
 
@@ -425,38 +442,73 @@ namespace DW.CodedUI
         {
             Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
-                Mouse.Click(button, modifierKeys, point);
+            {
+                Cursor.Position = point;
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
+            }
             else
             {
                 var x = rect.Left + (rect.Width / 2.0);
                 var y = rect.Top + (rect.Height / 2.0);
-                Mouse.Click(button, modifierKeys, new Point((int)x, (int)y));
+
+                Cursor.Position = new Point((int)x, (int)y);
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
             }
         }
 
         private static void ClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
-            var position = relativePosition.GetPoint(element);
-            Mouse.Click(button, modifierKeys, position);
+            Cursor.Position = relativePosition.GetPoint(element);
+            // TODO: Press modifierKeys
+            WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+            // TODO: Release modifierKeys
         }
 
         private static void DoubleClickCentered(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, Rectangle rect)
         {
             Point point;
             if (element.AutomationElement.TryGetClickablePoint(out point))
-                Mouse.DoubleClick(button, modifierKeys, point);
+            {
+                Cursor.Position = point;
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
+            }
             else
             {
                 var x = rect.Left + (rect.Width / 2.0);
                 var y = rect.Top + (rect.Height / 2.0);
-                Mouse.DoubleClick(button, modifierKeys, new Point((int)x, (int)y));
+
+                Cursor.Position = new Point((int)x, (int)y);
+                // TODO: Press modifierKeys
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+                // TODO: Release modifierKeys
             }
         }
 
         private static void DoubleClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
-            var position = relativePosition.GetPoint(element);
-            Mouse.DoubleClick(button, modifierKeys, position);
+            Cursor.Position = relativePosition.GetPoint(element);
+            // TODO: Press modifierKeys
+            WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+            WinApi.mouse_event(ToWinApiMouseButtons(button), 0, 0, 0, 0);
+            // TODO: Release modifierKeys
+        }
+
+        private static long ToWinApiMouseButtons(MouseButtons mouseButtons)
+        {
+            // TODO: Support XButton1 and XButton2, see WinApi.MouseEventDataXButtons
+            if (mouseButtons.HasFlag(MouseButtons.Middle))
+                return (long)(WinApi.MouseEventFlags.MIDDLEDOWN | WinApi.MouseEventFlags.MIDDLEUP);
+            if (mouseButtons.HasFlag(MouseButtons.Right))
+                return (long)(WinApi.MouseEventFlags.RIGHTDOWN | WinApi.MouseEventFlags.RIGHTUP);
+            return (long)(WinApi.MouseEventFlags.LEFTDOWN | WinApi.MouseEventFlags.LEFTUP);
         }
 
         private static void AppendToLogPool(string clickKind, BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)

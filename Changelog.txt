@@ -1,6 +1,13 @@
 
 
 ==============================
+Release 3.0.0.0
+==============================
+2015-16-12    Start bring CodedUI stand alone. Target is to be able to let it run with Visual Studio 2015 Professional or lower
+              MouseEx: Emulate click and doubleclick with specific mouse buttons without the MSTest CodedUI framework running
+
+
+==============================
 Release 2.4.2.X
 ==============================
 2015-04-08    WindowFinder: Add possibility to find a window by its automation ID

@@ -7,28 +7,6 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class SomethingTests
     {
-        public TestContext TestContext { get; set; }
-
-        [TestInitialize]
-        public void Setup()
-        {
-            CodedUIEnvironment.LoggerSettings.LogFilesDirectory = @"D:\Logs";
-            CodedUIEnvironment.LoggerSettings.LogPassedTestsToo = true;
-            CodedUIEnvironment.LoggerSettings.AddTestResultToFileName = true;
-
-            CodedUIEnvironment.LoggerSettings.DateTimeFormat = "HH:mm:ss.ffff";
-            CodedUIEnvironment.LoggerSettings.ShortLogging = true;
-            CodedUIEnvironment.LoggerSettings.LogLineFormat = ":: %DateTime% >> %Message%";
-
-            CodedUIEnvironment.LoggerSettings.PrepareInstantWrite(TestContext);
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            LogWriter.Write(TestContext);
-        }
-
         [TestMethod]
         public void Notepad_AddAndRemoveLineBreakAndClose()
         {
