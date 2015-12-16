@@ -1,11 +1,10 @@
 ﻿using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.TestTools.UITesting;
 
 namespace DW.CodedUI.Tests
 {
-    [CodedUITest]
+    [TestClass]
     public class SomethingTests
     {
         public TestContext TestContext { get; set; }
