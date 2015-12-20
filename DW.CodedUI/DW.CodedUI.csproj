@@ -37,25 +37,39 @@
     <DocumentationFile>..\bin\DW.CodedUI.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.UIAutomationClient, Version=12.0.21213.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\3rdParty\Interop.UIAutomationClient.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\3rdParty\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\3rdParty\Microsoft.VisualStudio.QualityTools.CodedUITestFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\3rdParty\Microsoft.VisualStudio.QualityTools.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.Sqm, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\3rdParty\Microsoft.VisualStudio.QualityTools.Sqm.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TeamSystem.Licensing, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\3rdParty\Microsoft.VisualStudio.TeamSystem.Licensing.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.Extension.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension.MSAA, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.Extension.MSAA.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestTools.UITest.ExtensionUtilities, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.ExtensionUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Framework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Logging, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Playback, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\3rdParty\Microsoft.VisualStudio.TestTools.UITest.Playback.dll</HintPath>
@@ -196,6 +210,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Interop.UIAutomationClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Microsoft.VisualStudio.Diagnostics.Measurement.Native.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Microsoft.VisualStudio.TestTools.UITest.Playback.Engine.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -24,6 +24,7 @@ THE SOFTWARE
 */
 #endregion License
 
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
@@ -44,7 +45,7 @@ namespace DW.CodedUI
             get { return Keyboard.SendKeysDelay; }
             set
             {
-                LogPool.Append("Set the keyboard delay to '{0}'.", value); 
+                LogPool.Append("Set the keyboard delay to '{0}'.", value);
                 Keyboard.SendKeysDelay = value;
             }
         }
@@ -64,6 +65,8 @@ namespace DW.CodedUI
 
                 LogPool.Append("Press keys '{0}'.", keys);
                 Keyboard.PressModifierKeys(keys);
+
+                WinApi.keybd_event(WinApi.KeyboardKey.UP, 0, WinApi.KeyboardEventFlags.KEY_DOWN_EVENT, 0);
             });
         }
 
@@ -158,7 +161,7 @@ namespace DW.CodedUI
             return Do.Action(() =>
             {
                 LogPool.Append("Send text '{0}'.", text);
-                Keyboard.SendKeys(text);
+                System.Windows.Forms.SendKeys.SendWait(text);
             });
         }
 
@@ -210,7 +213,7 @@ namespace DW.CodedUI
                     LogPool.Append("Send text '{0}' (encoded '{1}').", text, isEncoded);
                 else
                     LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}').", text, modifierKeys, isEncoded);
-                
+
                 Keyboard.SendKeys(text, modifierKeys, isEncoded);
             });
         }
@@ -231,9 +234,26 @@ namespace DW.CodedUI
                     LogPool.Append("Send text '{0}' (encoded '{1}'; unicode '{2}').", text, isEncoded, isUnicode);
                 else
                     LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}'; unicode '{3}').", text, modifierKeys, isEncoded, isUnicode);
-                
+
                 Keyboard.SendKeys(text, modifierKeys, isEncoded, isUnicode);
             });
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+
+        public const uint KEYEVENTF_KEYUP = 0x02;
+        public const uint VK_SHIFT = 0x10;
+        public const uint VK_CONTROL = 0x11;
+
+        public static void PressKey(string key)
+        {
+            WinApi.keybd_event((byte)VK_SHIFT, 0, 0, 0);
+        }
+
+        public static void ReleaseKey(string key)
+        {
+            WinApi.keybd_event((byte)VK_SHIFT, 0, (int)KEYEVENTF_KEYUP, 0);
         }
     }
 }
