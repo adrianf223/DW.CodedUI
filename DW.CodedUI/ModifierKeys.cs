@@ -2,6 +2,9 @@
 
 namespace DW.CodedUI
 {
+    /// <summary>
+    /// Represents the modifier keys.
+    /// </summary>
     [Flags]
     public enum ModifierKeys
     {

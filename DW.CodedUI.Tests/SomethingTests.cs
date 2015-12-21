@@ -37,7 +37,7 @@ namespace DW.CodedUI.Tests
             Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
             var window = WindowFinder.Search(Use.Process("notepad"));
 
-            KeyboardEx.SendKeys(window, "das ist ein Text");
+            KeyboardEx.TypeText(window, "das ist ein Text");
             DynamicSleep.Wait(1000);
 
             MouseEx.Click(window.CloseButton);

@@ -1,5 +1,8 @@
 namespace DW.CodedUI
 {
+    /// <summary>
+    /// Represents keys on the keyboard.
+    /// </summary>
     public enum Key
     {
         /// <summary>

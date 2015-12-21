@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests
@@ -37,17 +38,9 @@ namespace DW.CodedUI.Tests
             Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
             var window = WindowFinder.Search(Use.Process("notepad"));
 
-            //try
-            //{
-                KeyboardEx.PressKey("A"); // Hold shift
-                KeyboardEx.SendKeys("demo");
-                KeyboardEx.ReleaseKey("A");
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    KeyboardEx.ReleaseKey("A");
-            //}
-
+            KeyboardEx.PressKey(window, ModifierKeys.Shift);
+            KeyboardEx.TypeText("demo");
+            KeyboardEx.ReleaseKey(ModifierKeys.Shift);
         }
     }
 }

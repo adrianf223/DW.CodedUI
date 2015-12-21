@@ -173,7 +173,6 @@
     <Compile Include="Key.cs" />
     <Compile Include="KeyboardCommands.cs" />
     <Compile Include="KeyboardEx.cs" />
-    <Compile Include="KeyboardEx2.cs" />
     <Compile Include="LoggedException.cs" />
     <Compile Include="MissingWindowException.cs" />
     <Compile Include="ModifierKeys.cs" />

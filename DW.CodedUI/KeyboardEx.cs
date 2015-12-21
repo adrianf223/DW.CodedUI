@@ -1,4 +1,4 @@
-#region License
+﻿#region License
 /*
 The MIT License (MIT)
 
@@ -24,10 +24,10 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Runtime.InteropServices;
+using System;
+using System.Threading;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 using WinModifierKeys = System.Windows.Input.ModifierKeys;
 
 namespace DW.CodedUI
@@ -38,220 +38,609 @@ namespace DW.CodedUI
     public static class KeyboardEx
     {
         /// <summary>
-        /// Gets or sets the time to wait between sending keystrokes to the application.
+        /// Presses and holds the given key down. Use <see cref="ReleaseKey(Key)" /> to release the key back again.
         /// </summary>
-        public static int SendKeysDelay
+        /// <param name="key">The key to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo PressKey(Key key)
         {
-            get { return Keyboard.SendKeysDelay; }
-            set
+            return WrapIt(() =>
             {
-                LogPool.Append("Set the keyboard delay to '{0}'.", value);
-                Keyboard.SendKeysDelay = value;
+                LogPool.Append("Press key '{0}'.", key);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
+            },
+            string.Format("Cannot press down the key '{0}'.", key));
+        }
+
+        /// <summary>
+        /// Presses and holds the given modifier keys down. Use <see cref="ReleaseKey(ModifierKeys)" /> to release the key back again.
+        /// </summary>
+        /// <param name="modifierKeys">The modifier keys to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo PressKey(ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Press key '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+            },
+            string.Format("Cannot press down the modifier key '{0}'.", modifierKeys));
+        }
+
+        /// <summary>
+        /// Presses and holds the given key and modifier keys down. Use <see cref="ReleaseKey(Key, ModifierKeys)" /> to release the key back again.
+        /// </summary>
+        /// <param name="key">The key to press and hold.</param>
+        /// <param name="modifierKeys">The modifier keys to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo PressKey(Key key, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+                LogPool.Append("Press key '{0}'.", key);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
+            },
+            string.Format("Cannot press down the key '{0}' with the modifier keys '{1}'.", key, modifierKeys));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and presses and holds the given key down. Use <see cref="ReleaseKey(Key)" /> to release the key back again.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before pressing the key.</param>
+        /// <param name="key">The key to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo PressKey(BasicElement control, Key key)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press key '{0}'.", key);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
+            },
+            string.Format("Cannot press down the key '{0}' with the '{1}' focused.", key, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and presses and holds the given modifier keys down. Use <see cref="ReleaseKey(ModifierKeys)" /> to release the key back again.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before pressing the key.</param>
+        /// <param name="modifierKeys">The modifier keys to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo PressKey(BasicElement control, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+            },
+            string.Format("Cannot press down the modifier keys '{0}' with the '{1}' focused.", modifierKeys, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and presses and holds the given key and modifier keys down. Use <see cref="ReleaseKey(Key, ModifierKeys)" /> to release the key back again.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before pressing the key.</param>
+        /// <param name="key">The key to press and hold.</param>
+        /// <param name="modifierKeys">The modifier keys to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo PressKey(BasicElement control, Key key, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+                LogPool.Append("Press key '{0}'.", key);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
+            },
+            string.Format("Cannot press down the key '{0}' and the modifier keys '{1}' with the '{2}' focused.", key, modifierKeys, control));
+        }
+
+
+        /// <summary>
+        /// Releases the key which got pressed before.
+        /// </summary>
+        /// <param name="key">The key to release.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo ReleaseKey(Key key)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Release key '{0}'.", key);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot release the key '{0}'", key));
+        }
+
+        /// <summary>
+        /// Releases the modifier key which got pressed before.
+        /// </summary>
+        /// <param name="modifierKeys">The modifier keys to release.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo ReleaseKey(ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot release the modifier key '{0}'", modifierKeys));
+        }
+
+        /// <summary>
+        /// Releases the key and modifier keys which got pressed before.
+        /// </summary>
+        /// <param name="key">The key to release.</param>
+        /// <param name="modifierKeys">The modifier keys to release.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo ReleaseKey(Key key, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Release key '{0}'.", key);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyUp);
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot release the key '{0}' and the modifier keys '{1}'", key, modifierKeys));
+        }
+
+
+        /// <summary>
+        /// Types the given key.
+        /// </summary>
+        /// <param name="key">The key to type.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeKey(Key key)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Type key '{0}'.", key);
+                Type((byte)key);
+            },
+            string.Format("Cannot type the key '{0}'", key));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and types the given key.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the key.</param>
+        /// <param name="key">The key to type.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeKey(BasicElement control, Key key)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Type key '{0}'.", key);
+                Type((byte)key);
+            },
+            string.Format("Cannot press down the key '{0}' with the '{1}' focused.", key, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and holds the modifier keys while typing the given key.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the key.</param>
+        /// <param name="key">The key to type.</param>
+        /// <param name="modifierKeys">The modifier keys to hold while typing.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeKey(BasicElement control, Key key, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+
+                LogPool.Append("Type key '{0}'.", key);
+                Type((byte)key);
+
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot type the key '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", key, modifierKeys, control));
+        }
+
+
+        /// <summary>
+        /// Types the given text.
+        /// </summary>
+        /// <param name="text">The text to type.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(string text)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Type text '{0}'.", text);
+                SendText(text);
+            },
+            string.Format("Cannot send the text '{0}'", text));
+        }
+
+        /// <summary>
+        /// Types the given text with a small delay time between each character.
+        /// </summary>
+        /// <param name="text">The text to type.</param>
+        /// <param name="delay">The time to wait after each character in milliseconds.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(string text, int delay)
+        {
+            if (delay < 1)
+                return TypeText(text);
+
+            return WrapIt(() =>
+            {
+                LogPool.Append("Type text '{0}' with a delay of {1} milliseconds.", text, delay);
+                SendText(text, delay);
+            },
+            string.Format("Cannot send the text '{0}'", text));
+        }
+
+        /// <summary>
+        /// Types the given text while holding the modifier keys.
+        /// </summary>
+        /// <param name="text">The text to type.</param>
+        /// <param name="modifierKeys">The modifier keys to hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(string text, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+
+                LogPool.Append("Type text '{0}'.", text);
+                SendText(text);
+
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot send the text '{0}' with the pressed modifier keys '{1}'", text, modifierKeys));
+        }
+
+        /// <summary>
+        /// Types the given text while holding the modifier keys with a small delay time between each character.
+        /// </summary>
+        /// <param name="text">The text to type.</param>
+        /// <param name="modifierKeys">The modifier keys to hold.</param>
+        /// <param name="delay">The time to wait after each character in milliseconds.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(string text, ModifierKeys modifierKeys, int delay)
+        {
+            if (delay < 1)
+                return TypeText(text, modifierKeys);
+
+            return WrapIt(() =>
+            {
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+
+                LogPool.Append("Type text '{0}' with a delay of {1} milliseconds.", text, delay);
+                SendText(text, delay);
+
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot send the text '{0}' with the pressed modifier keys '{1}'", text, modifierKeys));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and types the given text.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the text.</param>
+        /// <param name="text">The text to type.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(BasicElement control, string text)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Type text '{0}'.", text);
+                SendText(text);
+            },
+            string.Format("Cannot send the text '{0}' with the '{1} focused.'", text, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and types the given text with a small delay time between each character.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the text.</param>
+        /// <param name="text">The text to type.</param>
+        /// <param name="delay">The time to wait after each character in milliseconds.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(BasicElement control, string text, int delay)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Type text '{0}' with a delay of {1} milliseconds.", text, delay);
+                SendText(text, delay);
+            },
+            string.Format("Cannot send the text '{0}' with the '{1} focused.'", text, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and types the given text while holding the modifier keys.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the text.</param>
+        /// <param name="text">The text to type.</param>
+        /// <param name="modifierKeys">The modifier keys to hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(BasicElement control, string text, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+
+                LogPool.Append("Type text '{0}'.", text);
+                SendText(text);
+
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot send the text '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", text, modifierKeys, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and types the given text while holding the modifier keys with a small delay time between each character.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the text.</param>
+        /// <param name="text">The text to type.</param>
+        /// <param name="modifierKeys">The modifier keys to hold.</param>
+        /// <param name="delay">The time to wait after each character in milliseconds.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeText(BasicElement control, string text, ModifierKeys modifierKeys, int delay)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+
+                LogPool.Append("Type text '{0}' with a delay of {1} milliseconds.", text, delay);
+                SendText(text, delay);
+
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot send the text '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", text, modifierKeys, control));
+        }
+
+        private static CombinableDo WrapIt(Action action, string errorText)
+        {
+            try
+            {
+                action();
             }
-        }
-
-        /// <summary>
-        /// Gives the passed control the focus and presses the specified modifier keys without releasing them.
-        /// </summary>
-        /// <param name="control">The basic element who has to get the focus first.</param>
-        /// <param name="keys">The modifier keys to press.</param>
-        /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo PressModifierKeys(BasicElement control, WinModifierKeys keys)
-        {
-            return Do.Action(() =>
+            catch (Exception ex)
             {
-                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
-                control.AutomationElement.SetFocus();
+                throw new LoggedException(string.Format("{0} See inner exception for details.", errorText), ex);
+            }
 
-                LogPool.Append("Press keys '{0}'.", keys);
-                Keyboard.PressModifierKeys(keys);
-            });
-        }
-
-        /// <summary>
-        /// Gives the passed control the focus and releases the specified keys that were previously pressed by using the DW.CodedUI.KeyboardEx.PressModifierKeys method.
-        /// </summary>
-        /// <param name="control">The basic element who has to get the focus first.</param>
-        /// <param name="keys">The modifier keys to release.</param>
-        /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo ReleaseModifierKeys(BasicElement control, WinModifierKeys keys)
-        {
-            return Do.Action(() =>
-            {
-                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
-                control.AutomationElement.SetFocus();
-
-                LogPool.Append("Press keys '{0}'.", keys);
-                Keyboard.ReleaseModifierKeys(keys);
-            });
-        }
-
-        /// <summary>
-        /// Gives the passed control the focus and send key commands to it.
-        /// </summary>
-        /// <param name="control">The basic element who has to get the focus first.</param>
-        /// <param name="text">The text to be written into the focused element.</param>
-        /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo SendKeys(BasicElement control, string text)
-        {
-            SendKeys(control, text, WinModifierKeys.None);
             return new CombinableDo();
         }
 
+        private static void Type(byte key)
+        {
+            WinApi.KeyboardEvent(key, WinApi.KeyboardEventFlags.KeyDown);
+            WinApi.KeyboardEvent(key, WinApi.KeyboardEventFlags.KeyUp);
+        }
+
+        private static void SendText(string text)
+        {
+            System.Windows.Forms.SendKeys.SendWait(text);
+        }
+
+        private static void SendText(string text, int delay)
+        {
+            foreach (var @char in text)
+            {
+                System.Windows.Forms.SendKeys.SendWait(@char.ToString());
+                Thread.Sleep(delay);
+            }
+        }
+
+        #region Downward compatibility
         /// <summary>
-        /// Gives the passed control the focus and send key commands with pressed modifier keys to it.
+        /// Not supported anymore (it does nothing). Consider using the overloads with the delay parameter.
         /// </summary>
-        /// <param name="control">The basic element who has to get the focus first.</param>
-        /// <param name="text">The text to be written into the focused element.</param>
-        /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
+        [Obsolete("Not supported anymore (it does nothing). Consider using the overloads with the delay parameter.")]
+        public static int SendKeysDelay { get; set; }
+
+        /// <summary>
+        ///"Not supported anymore (PressKey will be called).
+        /// </summary>
+        /// <param name="control">Forwarded to the PressKey method.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the ReleaseKey method.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (PressKey will be called).")]
+        public static CombinableDo PressModifierKeys(BasicElement control, WinModifierKeys modifierKeys)
+        {
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
+
+            return PressKey(control, Convert(modifierKeys));
+        }
+
+        /// <summary>
+        /// Not supported anymore (ReleaseKey will be called).
+        /// </summary>
+        /// <param name="control">Not used.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the ReleaseKey method.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (ReleaseKey will be called).")]
+        public static CombinableDo ReleaseModifierKeys(BasicElement control, WinModifierKeys modifierKeys)
+        {
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
+
+            return ReleaseKey(Convert(modifierKeys));
+        }
+
+        /// <summary>
+        /// Not supported anymore (TypeText will be called).
+        /// </summary>
+        /// <param name="control">Forwarded to the TypeText method.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
+        public static CombinableDo SendKeys(BasicElement control, string text)
+        {
+            return TypeText(control, text);
+        }
+
+        /// <summary>
+        /// Not supported anymore (TypeText will be called).
+        /// </summary>
+        /// <param name="control">Forwarded to the TypeText method.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the TypeText method.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
         public static CombinableDo SendKeys(BasicElement control, string text, WinModifierKeys modifierKeys)
         {
-            return Do.Action(() =>
-            {
-                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
-                control.AutomationElement.SetFocus();
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
 
-                if (modifierKeys == WinModifierKeys.None)
-                    LogPool.Append("Send text '{0}'.", text);
-                else
-                    LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
-                System.Windows.Forms.SendKeys.SendWait(text);
-                //TODO: Keyboard.SendKeys(text, modifierKeys);
-            });
+            return TypeText(control, text, Convert(modifierKeys));
         }
 
         /// <summary>
-        /// Presses the specified modifier keys without releasing them.
+        /// Not supported anymore (PressKey will be called).
         /// </summary>
-        /// <param name="keys">The modifier keys to get hold while the text is written.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the PressKey method.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo PressModifierKeys(WinModifierKeys keys)
+        [Obsolete("Not supported anymore (PressKey will be called).")]
+        public static CombinableDo PressModifierKeys(WinModifierKeys modifierKeys)
         {
-            return Do.Action(() =>
-            {
-                LogPool.Append("Press keys '{0}'.", keys);
-                Keyboard.PressModifierKeys(keys);
-            });
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
+
+            return PressKey(Convert(modifierKeys));
         }
 
         /// <summary>
-        /// Releases the specified keys that were previously pressed by using the DW.CodedUI.KeyboardEx.PressModifierKeys method.
+        /// Not supported anymore (ReleaseKey will be called).
         /// </summary>
-        /// <param name="keys">The modifier keys to release.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the ReleaseKey method.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo ReleaseModifierKeys(WinModifierKeys keys)
+        [Obsolete("Not supported anymore (ReleaseKey will be called).")]
+        public static CombinableDo ReleaseModifierKeys(WinModifierKeys modifierKeys)
         {
-            return Do.Action(() =>
-            {
-                LogPool.Append("Release keys '{0}'.", keys);
-                Keyboard.ReleaseModifierKeys(keys);
-            });
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
+
+            return ReleaseKey(Convert(modifierKeys));
         }
 
         /// <summary>
-        /// Sends keystrokes to generate the specified text string.
+        /// Not supported anymore (TypeText will be called).
         /// </summary>
-        /// <param name="text">The text for which to generate keystrokes.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
         public static CombinableDo SendKeys(string text)
         {
-            return Do.Action(() =>
-            {
-                LogPool.Append("Send text '{0}'.", text);
-                System.Windows.Forms.SendKeys.SendWait(text);
-            });
+            return TypeText(text);
         }
 
         /// <summary>
-        /// Sends keystrokes to generate the specified text string.
+        /// Not supported anymore (TypeText will be called).
         /// </summary>
-        /// <param name="text">The text for which to generate keystrokes.</param>
-        /// <param name="isEncoded">True if the text is encoded; otherwise, false.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
+        /// <param name="isEncoded">Not used.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
         public static CombinableDo SendKeys(string text, bool isEncoded)
         {
-            return Do.Action(() =>
-            {
-                LogPool.Append("Send text '{0}' (encoded '{1}').", text, isEncoded);
-                Keyboard.SendKeys(text, isEncoded);
-            });
+            return TypeText(text);
         }
 
         /// <summary>
-        /// Sends keystrokes to generate the specified text string.
+        /// Not supported anymore (TypeText will be called).
         /// </summary>
-        /// <param name="text">The text for which to generate keystrokes.</param>
-        /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the TypeText method.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
         public static CombinableDo SendKeys(string text, WinModifierKeys modifierKeys)
         {
-            return Do.Action(() =>
-            {
-                if (modifierKeys == WinModifierKeys.None)
-                    LogPool.Append("Send text '{0}'.", text);
-                else
-                    LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
-                Keyboard.SendKeys(text, modifierKeys);
-            });
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
+
+            return TypeText(text, Convert(modifierKeys));
         }
 
         /// <summary>
-        /// Sends keystrokes to generate the specified text string.
+        /// Not supported anymore (TypeText will be called).
         /// </summary>
-        /// <param name="text">The text for which to generate keystrokes.</param>
-        /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
-        /// <param name="isEncoded">True if the text is encoded; otherwise, false.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the TypeText method.</param>
+        /// <param name="isEncoded">Not used.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
         public static CombinableDo SendKeys(string text, WinModifierKeys modifierKeys, bool isEncoded)
         {
-            return Do.Action(() =>
-            {
-                if (modifierKeys == WinModifierKeys.None)
-                    LogPool.Append("Send text '{0}' (encoded '{1}').", text, isEncoded);
-                else
-                    LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}').", text, modifierKeys, isEncoded);
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
 
-                Keyboard.SendKeys(text, modifierKeys, isEncoded);
-            });
+            return TypeText(text, Convert(modifierKeys));
         }
 
         /// <summary>
-        /// Sends keystrokes to the provided control to generate the specified text string using the provided modifier keys and indicators for encoding and unicode.
+        /// Not supported anymore (TypeText will be called).
         /// </summary>
-        /// <param name="text">The text for which to generate keystrokes.</param>
-        /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
-        /// <param name="isEncoded">True if the text is encoded; otherwise, false.</param>
-        /// <param name="isUnicode">True if the text is Unicode text; otherwise, false.</param>
+        /// <param name="text">Forwarded to the TypeText method.</param>
+        /// <param name="modifierKeys">Converted and forwarded to the TypeText method.</param>
+        /// <param name="isEncoded">Not used.</param>
+        /// <param name="isUnicode">Not used.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        [Obsolete("Not supported anymore (TypeText will be called).")]
         public static CombinableDo SendKeys(string text, WinModifierKeys modifierKeys, bool isEncoded, bool isUnicode)
         {
-            return Do.Action(() =>
-            {
-                if (modifierKeys == WinModifierKeys.None)
-                    LogPool.Append("Send text '{0}' (encoded '{1}'; unicode '{2}').", text, isEncoded, isUnicode);
-                else
-                    LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}'; unicode '{3}').", text, modifierKeys, isEncoded, isUnicode);
+            if (modifierKeys == WinModifierKeys.None)
+                return new CombinableDo();
 
-                Keyboard.SendKeys(text, modifierKeys, isEncoded, isUnicode);
-            });
+            return TypeText(text, Convert(modifierKeys));
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
-
-        public const uint KEYEVENTF_KEYUP = 0x02;
-        public const uint VK_SHIFT = 0x10;
-        public const uint VK_CONTROL = 0x11;
-
-        public static void PressKey(string key)
+        private static ModifierKeys Convert(WinModifierKeys modifierKeys)
         {
-            WinApi.keybd_event((byte)VK_SHIFT, 0, 0, 0);
+            ModifierKeys converted = 0;
+            if (modifierKeys.HasFlag(WinModifierKeys.Shift))
+                converted |= ModifierKeys.Shift;
+            if (modifierKeys.HasFlag(WinModifierKeys.Control))
+                converted |= ModifierKeys.Control;
+            if (modifierKeys.HasFlag(WinModifierKeys.Alt))
+                converted |= ModifierKeys.Alt;
+            if (modifierKeys.HasFlag(WinModifierKeys.Windows))
+                converted |= ModifierKeys.Windows;
+            return converted;
         }
-
-        public static void ReleaseKey(string key)
-        {
-            WinApi.keybd_event((byte)VK_SHIFT, 0, (int)KEYEVENTF_KEYUP, 0);
-        }
+        #endregion Downward compatibility
     }
 }
