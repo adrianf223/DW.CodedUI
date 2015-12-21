@@ -32,19 +32,19 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class KeyboardExTests
     {
-        private BasicWindow _window;
+        private BasicWindow _notepad;
 
         [TestInitialize]
         public void Setup()
         {
             Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
-            _window = WindowFinder.Search(Use.Process("notepad"));
+            _notepad = WindowFinder.Search(Use.Process("notepad"));
         }
 
         [TestCleanup]
-        private void Cleanup()
+        public void Cleanup()
         {
-            MouseEx.Click(_window.CloseButton).And.Wait(1000);
+            MouseEx.Click(_notepad.CloseButton).And.Wait(1000);
             var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
             var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
             MouseEx.Click(dontSaveButton).And.Wait(1000);
@@ -53,8 +53,8 @@ namespace DW.CodedUI.Tests
         [TestMethod]
         public void PressKey_TypeText_TypeLowerTextWithShiftHoldDown_TheTextAppearsInupperCase()
         {
-            KeyboardEx.PressKey(_window, ModifierKeys.Shift);
-            KeyboardEx.TypeText("demo");
+            KeyboardEx.PressKey(_notepad, ModifierKeys.Shift);
+            KeyboardEx.TypeText("demo", 50);
             KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
         }
     }
