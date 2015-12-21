@@ -24,12 +24,9 @@ THE SOFTWARE
 */
 #endregion License
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Automation;
-using System.Windows.Documents;
 using DW.CodedUI.BasicElements.Data;
 
 namespace DW.CodedUI.BasicElements

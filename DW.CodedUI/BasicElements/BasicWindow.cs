@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
 using DW.CodedUI.Internal;
@@ -130,7 +129,7 @@ namespace DW.CodedUI.BasicElements
             /// Sets the new size of the window.
             /// </summary>
             /// <param name="size">The new site of the window.</param>
-            public void SetSize(System.Drawing.Size size)
+            public void SetSize(Size size)
             {
                 var rect = _automationElement.Current.BoundingRectangle;
                 SetRect(new Rectangle(rect.Location, size));
@@ -140,7 +139,7 @@ namespace DW.CodedUI.BasicElements
             /// Sets the new position of the window.
             /// </summary>
             /// <param name="position">The new position of the window.</param>
-            public void SetPosition(System.Drawing.Point position)
+            public void SetPosition(Point position)
             {
                 var rect = _automationElement.Current.BoundingRectangle;
                 SetRect(new Rectangle(position, rect.Size));
@@ -150,7 +149,7 @@ namespace DW.CodedUI.BasicElements
             /// Sets the new size and position of a window.
             /// </summary>
             /// <param name="rect">The new position and size of the window.</param>
-            public void SetRect(System.Drawing.Rectangle rect)
+            public void SetRect(Rectangle rect)
             {
                 WinApi.SetWindowPos((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.HwndInsertAfter.HWND_TOP, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height, WinApi.SetWindowPositionFlags.SWP_NOZORDER);
             }

@@ -24,7 +24,6 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Collections.Generic;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
 
