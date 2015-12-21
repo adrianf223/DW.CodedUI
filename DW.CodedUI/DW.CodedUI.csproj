@@ -163,6 +163,7 @@
     <Compile Include="From.cs" />
     <Compile Include="Internal\AndCondition.cs" />
     <Compile Include="Internal\IsCondition.cs" />
+    <Compile Include="Internal\KeyConverter.cs" />
     <Compile Include="Internal\LogPool.cs" />
     <Compile Include="Internal\MessageBuilder.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Is.cs" />
     <Compile Include="KeyboardCommands.cs" />
     <Compile Include="KeyboardEx.cs" />
+    <Compile Include="KeyboardEx2.cs" />
     <Compile Include="LoggedException.cs" />
     <Compile Include="MissingWindowException.cs" />
     <Compile Include="MouseEx.cs" />

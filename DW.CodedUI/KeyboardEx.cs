@@ -65,8 +65,6 @@ namespace DW.CodedUI
 
                 LogPool.Append("Press keys '{0}'.", keys);
                 Keyboard.PressModifierKeys(keys);
-
-                WinApi.keybd_event(WinApi.KeyboardKey.UP, 0, WinApi.KeyboardEventFlags.KEY_DOWN_EVENT, 0);
             });
         }
 
