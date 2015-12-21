@@ -4,7 +4,8 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using KeyConverter = DW.CodedUI.Internal.KeyConverter;
+using Key = DW.CodedUI.Key;
+using ModifierKeys = DW.CodedUI.ModifierKeys;
 
 namespace DW.CodedUI
 {
@@ -20,7 +21,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Press key '{0}'.", key);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(key), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
             },
             string.Format("Cannot press down the key '{0}'.", key));
         }
@@ -35,7 +36,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Press key '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(modifierKeys), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
             },
             string.Format("Cannot press down the modifier key '{0}'.", modifierKeys));
         }
@@ -51,9 +52,9 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(modifierKeys), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
                 LogPool.Append("Press key '{0}'.", key);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(key), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
             },
             string.Format("Cannot press down the key '{0}' with the modifier keys '{1}'.", key, modifierKeys));
         }
@@ -72,7 +73,7 @@ namespace DW.CodedUI
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Press key '{0}'.", key);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(key), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
             },
             string.Format("Cannot press down the key '{0}' with the '{1}' focused.", key, control));
         }
@@ -91,7 +92,7 @@ namespace DW.CodedUI
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(modifierKeys), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
             },
             string.Format("Cannot press down the modifier keys '{0}' with the '{1}' focused.", modifierKeys, control));
         }
@@ -111,9 +112,9 @@ namespace DW.CodedUI
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(modifierKeys), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
                 LogPool.Append("Press key '{0}'.", key);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(key), WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyDown);
             },
             string.Format("Cannot press down the key '{0}' and the modifier keys '{1}' with the '{2}' focused.", key, modifierKeys, control));
         }
@@ -129,7 +130,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Release key '{0}'.", key);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(key), WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot release the key '{0}'", key));
         }
@@ -144,7 +145,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(modifierKeys), WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot release the modifier key '{0}'", modifierKeys));
         }
@@ -160,9 +161,9 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Release key '{0}'.", key);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(key), WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)key, WinApi.KeyboardEventFlags.KeyUp);
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(KeyConverter.ToKeyboardKey(modifierKeys), WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot release the key '{0}' and the modifier keys '{1}'", key, modifierKeys));
         }
@@ -178,7 +179,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Type key '{0}'.", key);
-                Type(KeyConverter.ToKeyboardKey(key));
+                Type((byte)key);
             },
             string.Format("Cannot type the key '{0}'", key));
         }
@@ -197,7 +198,7 @@ namespace DW.CodedUI
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Type key '{0}'.", key);
-                Type(KeyConverter.ToKeyboardKey(key));
+                Type((byte)key);
             },
             string.Format("Cannot press down the key '{0}' with the '{1}' focused.", key, control));
         }
@@ -213,19 +214,17 @@ namespace DW.CodedUI
         {
             return WrapIt(() =>
             {
-                var keyboardKey = KeyConverter.ToKeyboardKey(modifierKeys);
-
                 LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
 
                 LogPool.Append("Type key '{0}'.", key);
-                Type(KeyConverter.ToKeyboardKey(key));
+                Type((byte)key);
 
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot type the key '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", key, modifierKeys, control));
         }
@@ -272,16 +271,14 @@ namespace DW.CodedUI
         {
             return WrapIt(() =>
             {
-                var keyboardKey = KeyConverter.ToKeyboardKey(modifierKeys);
-
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
 
                 LogPool.Append("Type text '{0}'.", text);
                 SendText(text);
 
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot send the text '{0}' with the pressed modifier keys '{1}'", text, modifierKeys));
         }
@@ -299,16 +296,14 @@ namespace DW.CodedUI
 
             return WrapIt(() =>
             {
-                var keyboardKey = KeyConverter.ToKeyboardKey(modifierKeys);
-
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
 
                 LogPool.Append("Type text '{0}' with a delay of {1} milliseconds.", text, delay);
                 SendText(text, delay);
 
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot send the text '{0}' with the pressed modifier keys '{1}'", text, modifierKeys));
         }
@@ -360,19 +355,17 @@ namespace DW.CodedUI
         {
             return WrapIt(() =>
             {
-                var keyboardKey = KeyConverter.ToKeyboardKey(modifierKeys);
-
                 LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
 
                 LogPool.Append("Type text '{0}'.", text);
                 SendText(text);
 
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot send the text '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", text, modifierKeys, control));
         }
@@ -388,19 +381,17 @@ namespace DW.CodedUI
         {
             return WrapIt(() =>
             {
-                var keyboardKey = KeyConverter.ToKeyboardKey(modifierKeys);
-
                 LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
 
                 LogPool.Append("Press keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyDown);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
 
                 LogPool.Append("Type text '{0}' with a delay of {1} milliseconds.", text, delay);
                 SendText(text, delay);
 
                 LogPool.Append("Release keys '{0}'.", modifierKeys);
-                WinApi.KeyboardEvent(keyboardKey, WinApi.KeyboardEventFlags.KeyUp);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
             },
             string.Format("Cannot send the text '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", text, modifierKeys, control));
         }

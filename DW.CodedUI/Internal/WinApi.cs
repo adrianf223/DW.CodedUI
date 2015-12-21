@@ -108,6 +108,11 @@ namespace DW.CodedUI.Internal
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         internal static extern void mouse_event(long dwFlags, long dx, long dy, long cButtons, long dwExtraInfo);
 
+        internal static void MouseEvent(long buttons)
+        {
+            mouse_event(buttons, 0, 0, 0, 0);
+        }
+
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 

@@ -25,10 +25,10 @@ THE SOFTWARE
 #endregion License
 
 using System.Runtime.InteropServices;
-using System.Windows.Input;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
+using WinModifierKeys = System.Windows.Input.ModifierKeys;
 
 namespace DW.CodedUI
 {
@@ -56,7 +56,7 @@ namespace DW.CodedUI
         /// <param name="control">The basic element who has to get the focus first.</param>
         /// <param name="keys">The modifier keys to press.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo PressModifierKeys(BasicElement control, ModifierKeys keys)
+        public static CombinableDo PressModifierKeys(BasicElement control, WinModifierKeys keys)
         {
             return Do.Action(() =>
             {
@@ -74,7 +74,7 @@ namespace DW.CodedUI
         /// <param name="control">The basic element who has to get the focus first.</param>
         /// <param name="keys">The modifier keys to release.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo ReleaseModifierKeys(BasicElement control, ModifierKeys keys)
+        public static CombinableDo ReleaseModifierKeys(BasicElement control, WinModifierKeys keys)
         {
             return Do.Action(() =>
             {
@@ -94,7 +94,7 @@ namespace DW.CodedUI
         /// <returns>A combinable Do to be able to append additional actions.</returns>
         public static CombinableDo SendKeys(BasicElement control, string text)
         {
-            SendKeys(control, text, ModifierKeys.None);
+            SendKeys(control, text, WinModifierKeys.None);
             return new CombinableDo();
         }
 
@@ -105,14 +105,14 @@ namespace DW.CodedUI
         /// <param name="text">The text to be written into the focused element.</param>
         /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo SendKeys(BasicElement control, string text, ModifierKeys modifierKeys)
+        public static CombinableDo SendKeys(BasicElement control, string text, WinModifierKeys modifierKeys)
         {
             return Do.Action(() =>
             {
                 LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
                 control.AutomationElement.SetFocus();
 
-                if (modifierKeys == ModifierKeys.None)
+                if (modifierKeys == WinModifierKeys.None)
                     LogPool.Append("Send text '{0}'.", text);
                 else
                     LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
@@ -126,7 +126,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="keys">The modifier keys to get hold while the text is written.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo PressModifierKeys(ModifierKeys keys)
+        public static CombinableDo PressModifierKeys(WinModifierKeys keys)
         {
             return Do.Action(() =>
             {
@@ -140,7 +140,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="keys">The modifier keys to release.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo ReleaseModifierKeys(ModifierKeys keys)
+        public static CombinableDo ReleaseModifierKeys(WinModifierKeys keys)
         {
             return Do.Action(() =>
             {
@@ -184,11 +184,11 @@ namespace DW.CodedUI
         /// <param name="text">The text for which to generate keystrokes.</param>
         /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys)
+        public static CombinableDo SendKeys(string text, WinModifierKeys modifierKeys)
         {
             return Do.Action(() =>
             {
-                if (modifierKeys == ModifierKeys.None)
+                if (modifierKeys == WinModifierKeys.None)
                     LogPool.Append("Send text '{0}'.", text);
                 else
                     LogPool.Append("Send text '{0}' with the modifier keys '{1}'.", text, modifierKeys);
@@ -203,11 +203,11 @@ namespace DW.CodedUI
         /// <param name="modifierKeys">The modifier keys to get hold while the text is written.</param>
         /// <param name="isEncoded">True if the text is encoded; otherwise, false.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys, bool isEncoded)
+        public static CombinableDo SendKeys(string text, WinModifierKeys modifierKeys, bool isEncoded)
         {
             return Do.Action(() =>
             {
-                if (modifierKeys == ModifierKeys.None)
+                if (modifierKeys == WinModifierKeys.None)
                     LogPool.Append("Send text '{0}' (encoded '{1}').", text, isEncoded);
                 else
                     LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}').", text, modifierKeys, isEncoded);
@@ -224,11 +224,11 @@ namespace DW.CodedUI
         /// <param name="isEncoded">True if the text is encoded; otherwise, false.</param>
         /// <param name="isUnicode">True if the text is Unicode text; otherwise, false.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        public static CombinableDo SendKeys(string text, ModifierKeys modifierKeys, bool isEncoded, bool isUnicode)
+        public static CombinableDo SendKeys(string text, WinModifierKeys modifierKeys, bool isEncoded, bool isUnicode)
         {
             return Do.Action(() =>
             {
-                if (modifierKeys == ModifierKeys.None)
+                if (modifierKeys == WinModifierKeys.None)
                     LogPool.Append("Send text '{0}' (encoded '{1}'; unicode '{2}').", text, isEncoded, isUnicode);
                 else
                     LogPool.Append("Send text '{0}' with the keys '{1}' (encoded '{2}'; unicode '{3}').", text, modifierKeys, isEncoded, isUnicode);

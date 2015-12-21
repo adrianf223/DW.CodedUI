@@ -163,7 +163,6 @@
     <Compile Include="From.cs" />
     <Compile Include="Internal\AndCondition.cs" />
     <Compile Include="Internal\IsCondition.cs" />
-    <Compile Include="Internal\KeyConverter.cs" />
     <Compile Include="Internal\LogPool.cs" />
     <Compile Include="Internal\MessageBuilder.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
@@ -171,11 +170,15 @@
     <Compile Include="Internal\WinApi.cs" />
     <Compile Include="Internal\WithCondition.cs" />
     <Compile Include="Is.cs" />
+    <Compile Include="Key.cs" />
     <Compile Include="KeyboardCommands.cs" />
     <Compile Include="KeyboardEx.cs" />
     <Compile Include="KeyboardEx2.cs" />
     <Compile Include="LoggedException.cs" />
     <Compile Include="MissingWindowException.cs" />
+    <Compile Include="ModifierKeys.cs" />
+    <Compile Include="MouseButtons.cs" />
+    <Compile Include="MouseClickException.cs" />
     <Compile Include="MouseEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommonMeta.cs" />
