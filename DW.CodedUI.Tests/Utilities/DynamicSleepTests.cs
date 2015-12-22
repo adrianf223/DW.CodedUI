@@ -24,6 +24,9 @@ THE SOFTWARE
 */
 #endregion License
 
+using System;
+using System.Diagnostics;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests.Utilities
@@ -31,6 +34,49 @@ namespace DW.CodedUI.Tests.Utilities
     [TestClass]
     public class DynamicSleepTests
     {
-        // TODO: Test that DynamicSleep waits accordingly
+        [TestInitialize]
+        public void Setup()
+        {
+            CodedUIEnvironment.SleepSettings.Short = 10;
+            CodedUIEnvironment.SleepSettings.Medium = 100;
+            CodedUIEnvironment.SleepSettings.Long = 1000;
+            CodedUIEnvironment.SleepSettings.Default = Time.Long;
+        }
+
+        [TestMethod]
+        public void Wait_WithoutParameter_UsesTheDefaultWaitTime()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            DynamicSleep.Wait();
+
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromMilliseconds(1020) && stopwatch.Elapsed > TimeSpan.FromMilliseconds(800), stopwatch.Elapsed.ToString());
+        }
+
+        [TestMethod]
+        public void Wait_WithAMediumParameter_Waits100Milliseconds()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            DynamicSleep.Wait(Time.Medium);
+
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromMilliseconds(120) && stopwatch.Elapsed > TimeSpan.FromMilliseconds(80), stopwatch.Elapsed.ToString());
+        }
+
+        [TestMethod]
+        public void Wait_WithMilliseconds_WaitsTheGivenTime()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            DynamicSleep.Wait(1200);
+
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromMilliseconds(1220) && stopwatch.Elapsed > TimeSpan.FromMilliseconds(1180), stopwatch.Elapsed.ToString());
+        }
     }
 }

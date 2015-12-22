@@ -25,8 +25,6 @@ THE SOFTWARE
 #endregion License
 
 using System.Drawing;
-using System.IO;
-using System.Reflection;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,10 +40,8 @@ namespace DW.CodedUI.Tests.Utilities
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            var currentLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var path = Path.Combine(currentLocation, "TestApplication.exe");
-            Do.Launch(path).And.Wait(1000);
-            _mainWindow = WindowFinder.Search(Use.AutomationId("CUI_TestApplication_MainWindow"));
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            _mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
             var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_ColorDetectorTests_Button"), From.Element(_mainWindow));
             currentButton.Unsafe.Click();
             DynamicSleep.Wait(1000);

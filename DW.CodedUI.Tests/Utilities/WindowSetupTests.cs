@@ -24,6 +24,7 @@ THE SOFTWARE
 */
 #endregion License
 
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests.Utilities
@@ -31,8 +32,42 @@ namespace DW.CodedUI.Tests.Utilities
     [TestClass]
     public class WindowSetupTests
     {
-        // TODO: Test that the state can be set
-        // TODO: Test that the position can be set
-        // TODO: Test that the size can be set
+        [TestMethod]
+        public void State_CalledWithMaximized_MaximizesTheWindow()
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            var mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+
+            WindowSetup.Prepare(mainWindow).State(WindowState.Maximized);
+
+            Assert.AreEqual(WindowState.Maximized, mainWindow.WindowState);
+            mainWindow.CloseButton.Unsafe.Click();
+        }
+
+        [TestMethod]
+        public void Position_CalledWith100and100_PositionatesTheWuindow()
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            var mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+
+            WindowSetup.Prepare(mainWindow).Position(100, 100);
+
+            Assert.AreEqual(100, mainWindow.Properties.BoundingRectangle.Left);
+            Assert.AreEqual(100, mainWindow.Properties.BoundingRectangle.Top);
+            mainWindow.CloseButton.Unsafe.Click();
+        }
+
+        [TestMethod]
+        public void Size_CalledWith100and100_PositionatesTheWuindow()
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            var mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+
+            WindowSetup.Prepare(mainWindow).Size(500, 400);
+
+            Assert.AreEqual(500, mainWindow.Properties.BoundingRectangle.Width);
+            Assert.AreEqual(400, mainWindow.Properties.BoundingRectangle.Height);
+            mainWindow.CloseButton.Unsafe.Click();
+        }
     }
 }

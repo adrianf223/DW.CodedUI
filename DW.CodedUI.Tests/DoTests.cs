@@ -24,6 +24,8 @@ THE SOFTWARE
 */
 #endregion License
 
+using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests
@@ -105,8 +107,24 @@ namespace DW.CodedUI.Tests
             Assert.AreEqual(5, fifthExecutionCount);
         }
 
-        // TODO: Test that wait is working properly
-        // TODO: Test that WaitCPUIdle is working properly
-        // TODO: Test that Launch is launching an application
+        [TestMethod]
+        public void Wait_WithMilliseconds_WaitsTheGivenTime()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Do.Wait(1200);
+
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromMilliseconds(1220) && stopwatch.Elapsed > TimeSpan.FromMilliseconds(1180), stopwatch.Elapsed.ToString());
+        }
+
+        [TestMethod]
+        public void Launch_CalledWith100and100_PositionatesTheWuindow()
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            var mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+            mainWindow.CloseButton.Unsafe.Click();
+        }
     }
 }
