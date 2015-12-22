@@ -24,6 +24,11 @@ THE SOFTWARE
 */
 #endregion License
 
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests.Utilities
@@ -31,6 +36,49 @@ namespace DW.CodedUI.Tests.Utilities
     [TestClass]
     public class ColorDetectorTests
     {
-        // TODO: Test that the right color is recognized
+        private static BasicWindow _mainWindow;
+        private static BasicWindow _testWindow;
+
+        [ClassInitialize]
+        public static void Setup(TestContext context)
+        {
+            var currentLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var path = Path.Combine(currentLocation, "TestApplication.exe");
+            Do.Launch(path).And.Wait(1000);
+            _mainWindow = WindowFinder.Search(Use.AutomationId("CUI_TestApplication_MainWindow"));
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_ColorDetectorTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_ColorDetectorTestsWindow"), And.NoAssert());
+        }
+
+        [ClassCleanup]
+        public static void Cleanup()
+        {
+            _testWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _mainWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+        }
+
+        [TestMethod]
+        public void GetColor_RedTextBox_ReturnsRed()
+        {
+            var textBox = UI.GetChild(By.AutomationId("CUI_Red_TextBox"), From.Element(_testWindow));
+
+            var color = ColorDetector.GetColor(textBox);
+
+            Assert.AreEqual(Color.FromArgb(255, 255, 0, 0), color);
+        }
+
+        [TestMethod]
+        public void GetColor_BlueTextBox_ReturnsBlue()
+        {
+            var textBox = UI.GetChild(By.AutomationId("CUI_Blue_TextBox"), From.Element(_testWindow));
+
+            var color = ColorDetector.GetColor(textBox, At.BottomRight(50, 50));
+
+            Assert.AreEqual(Color.FromArgb(255, 0, 0, 255), color);
+        }
     }
 }

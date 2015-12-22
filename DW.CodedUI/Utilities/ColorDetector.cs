@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
 using Microsoft.VisualStudio.TestTools.UITesting;
@@ -38,31 +39,56 @@ namespace DW.CodedUI.Utilities
     public static class ColorDetector
     {
         /// <summary>
+        /// Gets the color at the center of the BasicElement.
+        /// </summary>
+        /// <param name="element">The BasicElement which color should be read.</param>
+        /// <returns>The System.Drawing.Color at the center of the BasicElement.</returns>
+        public static Color GetColor(BasicElement element)
+        {
+            var boundingRectangle = element.Properties.BoundingRectangle;
+            return GetColor(new Point(boundingRectangle.X + boundingRectangle.Width / 2, boundingRectangle.Y + boundingRectangle.Height / 2));
+        }
+
+        /// <summary>
+        /// Gets the color at the relative position inside a BasicElement.
+        /// </summary>
+        /// <param name="element">The BasicElement which color should be read.</param>
+        /// <param name="relativePosition">The relative position inside the BasicElement.</param>
+        /// <returns>The System.Drawing.Color at the relative position inside the BasicElement.</returns>
+        public static Color GetColor(BasicElement element, At relativePosition)
+        {
+            return GetColor(relativePosition.GetPoint(element));
+        }
+
+        /// <summary>
+        /// Gets the color at a specific position.
+        /// </summary>
+        /// <param name="point">The position where from the color should be read.</param>
+        /// <returns>The System.Drawing.Color at a specific position.</returns>
+        public static Color GetColor(Point point)
+        {
+            LogPool.Append("Check for the color at the position x={0} y={1}.", point.X, point.Y);
+
+            var hdcScreen = WinApi.CreateDC("Display", null, null, IntPtr.Zero);
+            var cr = WinApi.GetPixel(hdcScreen, point.X, point.Y);
+            WinApi.DeleteDC(hdcScreen);
+
+            return Color.FromArgb((cr & 0x000000FF),
+                                  (cr & 0x0000FF00) >> 8,
+                                  (cr & 0x00FF0000) >> 16);
+        }
+
+        /// <summary>
         /// Gets the color of a BasicElement on a specific relative position
         /// </summary>
         /// <param name="element">The element to get the color from</param>
         /// <param name="relativePositionX">Relative position from the left side of the control</param>
         /// <param name="relativePositionY">Relative position from the top of the control</param>
         /// <returns>The System.Drawing.Color at the specific position.</returns>
+        [Obsolete("Its replaced by overloads. It forwards the call to GetColor(BasicElement, At)")]
         public static Color GetColor(BasicElement element, int relativePositionX = 1, int relativePositionY = 1)
         {
-            LogPool.Append("Check for the color at the relative position x={0} y={1} at the element '{2}'.", relativePositionX, relativePositionY, element);
-
-            var positionX = element.AutomationElement.Current.BoundingRectangle.Left + relativePositionX;
-            var positionY = element.AutomationElement.Current.BoundingRectangle.Top + relativePositionY;
-
-            var originalMouseSpeed = Mouse.MouseMoveSpeed;
-            Mouse.MouseMoveSpeed = 10000;
-            Mouse.Move(new Point(positionX, positionY));
-            Mouse.MouseMoveSpeed = originalMouseSpeed;
-
-            var hdcScreen = WinApi.CreateDC("Display", null, null, IntPtr.Zero);
-            var cr = WinApi.GetPixel(hdcScreen, positionX, positionY);
-            WinApi.DeleteDC(hdcScreen);
-
-            return Color.FromArgb((cr & 0x000000FF),
-                                  (cr & 0x0000FF00) >> 8,
-                                  (cr & 0x00FF0000) >> 16);
+            return GetColor(element, At.TopLeft(relativePositionX, relativePositionY));
         }
     }
 }
