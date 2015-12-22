@@ -100,6 +100,7 @@
     <Compile Include="DoTests.cs" />
     <Compile Include="Internal\StringExtensionsTests.cs" />
     <Compile Include="KeyboardExTests.cs" />
+    <Compile Include="MouseExTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SomethingTests.cs" />
   </ItemGroup>

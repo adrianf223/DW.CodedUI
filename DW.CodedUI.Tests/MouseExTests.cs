@@ -24,39 +24,38 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Threading;
-using DW.CodedUI.BasicElements;
+using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests
 {
     [TestClass]
-    public class KeyboardExTests
+    public class MouseExTests
     {
-        private BasicWindow _notepad;
-
-        [TestInitialize]
-        public void Setup()
+        [TestMethod]
+        public void Move_To_PlacesTheMouse()
         {
-            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
-            _notepad = WindowFinder.Search(Use.Process("notepad"));
-        }
+            var destination = Position.Point(new Point(200, 300));
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-            MouseEx.Click(_notepad.CloseButton).And.Wait(1000);
-            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
-            var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
-            MouseEx.Click(dontSaveButton).And.Wait(1000);
+            MouseEx.Move(destination);
         }
 
         [TestMethod]
-        public void PressKey_TypeText_TypeLowerTextWithShiftHoldDown_TheTextAppearsInupperCase()
+        public void Move_FromPointToPointFor3Seconds_MovesTheMouseAccordingly()
         {
-            KeyboardEx.PressKey(_notepad, ModifierKeys.Shift);
-            KeyboardEx.TypeText("demo", 50);
-            KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
+            var source = Position.Point(new Point(100, 100));
+            var destination = Position.Point(new Point(300, 400));
+
+            MouseEx.Move(source, destination, 3000);
+        }
+
+        [TestMethod]
+        public void Move_FromCurrentToPointFor3Seconds_MovesTheMouseAccordingly()
+        {
+            var source = Position.Current();
+            var destination = Position.Point(new Point(300, 400));
+
+            MouseEx.Move(source, destination, 2000);
         }
     }
 }

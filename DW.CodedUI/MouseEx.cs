@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
@@ -34,7 +35,6 @@ namespace DW.CodedUI
 {
     // TODO: PressButtons
     // TODO: ReleaseButtons
-    // TODO: MoveCursor
 
     /// <summary>
     /// Provides static methods for performing mouse actions in a user interface.
@@ -478,6 +478,71 @@ namespace DW.CodedUI
             string.Format("Cannot doubleclick with the mouse buttons '{0}' in relative position '{1}' of the '{2}' with the modifier keys '{3}' pressed.", buttons, relativePosition, element, modifierKeys));
         }
 
+        /// <summary>
+        /// Places the mouse cursor on the specific position.
+        /// </summary>
+        /// <param name="to">The position where the mouse cursor should be placed.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo Move(Position to)
+        {
+            return WrapIt(() =>
+            {
+                var position = to.GetPosition();
+                LogPool.Append("Place the mouse cursor on position '{0}'.", position);
+                Cursor.Position = position;
+            },
+            string.Format("Cannot place the mouse cursor on position '{0}'.", to.GetPosition()));
+        }
+
+        /// <summary>
+        /// Moves the mouse cursor from a specific position to another one within a defined time.
+        /// </summary>
+        /// <param name="from">The position from where the mouse curser should start moving.</param>
+        /// <param name="to">The position the mouse cursort should move to.</param>
+        /// <param name="duration">The time in milliseconds the curser should move.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        /// <remarks>During the nature of timings ther always will be an additional offset to the duration.<br />
+        /// E.g. when say it should run for 3 seconds, it will need about 4 seconds.<br />
+        /// If you say it shoudl take about 10 seconds, it will need about 12 seconds and so on.<br />
+        /// It depends the machine performance and distance so the MouseEx cannot adjust the time internally.</remarks>
+        public static CombinableDo Move(Position from, Position to, uint duration)
+        {
+            return WrapIt(() =>
+            {
+                var fromPosition = from.GetPosition();
+                var toPosition = to.GetPosition();
+                LogPool.Append("Move the mouse cursor from position '{0}' to position '{1}' within '{2}' milliseconds.", fromPosition, toPosition, duration);
+
+                var xSteps = GetSteps(fromPosition.X, toPosition.X, duration);
+                var ySteps = GetSteps(fromPosition.Y, toPosition.Y, duration);
+                for (double currentX = fromPosition.X, currentY = fromPosition.Y;
+                     Math.Abs(currentX - toPosition.X) > 0.5 || Math.Abs(currentY - toPosition.Y) > 0.5;
+                     currentX += xSteps, currentY += ySteps)
+                {
+                    Cursor.Position = new Point((int)currentX, (int)currentY);
+                    Thread.Sleep(1);
+                }
+                Cursor.Position = toPosition;
+            },
+            string.Format("Cannot move the mouse cursor from position '{0}' to position '{1}' within '{2}' milliseconds.", from.GetPosition(), to.GetPosition(), duration));
+        }
+
+        private static double GetSteps(int from, int to, uint duration)
+        {
+            var distance = GetDistance(from, to);
+            var steps = distance / duration;
+            if (from > to)
+                steps *= -1;
+            return steps;
+        }
+
+        private static double GetDistance(int from, int to)
+        {
+            if (to > from)
+                return to - from;
+            return from - to;
+        }
+
         private static void ClickCentered(BasicElement element, MouseButtons buttons)
         {
             Point point;
@@ -517,7 +582,6 @@ namespace DW.CodedUI
             WinApi.MouseEvent((long)button);
             KeyboardEx.ReleaseKey(modifierKeys);
         }
-
 
         private static void DoubleClickCentered(BasicElement element, MouseButtons buttons)
         {
@@ -576,5 +640,6 @@ namespace DW.CodedUI
 
             return new CombinableDo();
         }
+
     }
 }
