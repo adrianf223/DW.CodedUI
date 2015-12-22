@@ -33,9 +33,6 @@ using DW.CodedUI.Internal;
 
 namespace DW.CodedUI
 {
-    // TODO: PressButtons
-    // TODO: ReleaseButtons
-
     /// <summary>
     /// Provides static methods for performing mouse actions in a user interface.
     /// </summary>
@@ -255,6 +252,46 @@ namespace DW.CodedUI
                 ClickRelative(element, buttons, modifierKeys, relativePosition);
             },
             string.Format("Cannot click with the mouse buttons '{0}' in relative position '{1}' of the '{2}' with the modifier keys '{3}' pressed.", buttons, relativePosition, element, modifierKeys));
+        }
+
+        private static void ClickCentered(BasicElement element, MouseButtons buttons)
+        {
+            Point point;
+            if (element.AutomationElement.TryGetClickablePoint(out point))
+            {
+                Cursor.Position = point;
+                WinApi.MouseEvent((long)buttons);
+            }
+            else
+                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+        }
+
+        private static void ClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
+        {
+            Point point;
+            if (element.AutomationElement.TryGetClickablePoint(out point))
+            {
+                Cursor.Position = point;
+                KeyboardEx.PressKey(modifierKeys);
+                WinApi.MouseEvent((long)buttons);
+                KeyboardEx.ReleaseKey(modifierKeys);
+            }
+            else
+                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+        }
+
+        private static void ClickRelative(BasicElement element, MouseButtons button, At relativePosition)
+        {
+            Cursor.Position = relativePosition.GetPoint(element);
+            WinApi.MouseEvent((long)button);
+        }
+
+        private static void ClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
+        {
+            Cursor.Position = relativePosition.GetPoint(element);
+            KeyboardEx.PressKey(modifierKeys);
+            WinApi.MouseEvent((long)button);
+            KeyboardEx.ReleaseKey(modifierKeys);
         }
 
         /// <summary>
@@ -478,6 +515,50 @@ namespace DW.CodedUI
             string.Format("Cannot doubleclick with the mouse buttons '{0}' in relative position '{1}' of the '{2}' with the modifier keys '{3}' pressed.", buttons, relativePosition, element, modifierKeys));
         }
 
+        private static void DoubleClickCentered(BasicElement element, MouseButtons buttons)
+        {
+            Point point;
+            if (element.AutomationElement.TryGetClickablePoint(out point))
+            {
+                Cursor.Position = point;
+                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((long)buttons);
+            }
+            else
+                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+        }
+
+        private static void DoubleClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
+        {
+            Point point;
+            if (element.AutomationElement.TryGetClickablePoint(out point))
+            {
+                Cursor.Position = point;
+                KeyboardEx.PressKey(modifierKeys);
+                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((long)buttons);
+                KeyboardEx.ReleaseKey(modifierKeys);
+            }
+            else
+                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+        }
+
+        private static void DoubleClickRelative(BasicElement element, MouseButtons button, At relativePosition)
+        {
+            Cursor.Position = relativePosition.GetPoint(element);
+            WinApi.MouseEvent((long)button);
+            WinApi.MouseEvent((long)button);
+        }
+
+        private static void DoubleClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
+        {
+            Cursor.Position = relativePosition.GetPoint(element);
+            KeyboardEx.PressKey(modifierKeys);
+            WinApi.MouseEvent((long)button);
+            WinApi.MouseEvent((long)button);
+            KeyboardEx.ReleaseKey(modifierKeys);
+        }
+
         /// <summary>
         /// Places the mouse cursor on the specific position.
         /// </summary>
@@ -543,88 +624,66 @@ namespace DW.CodedUI
             return from - to;
         }
 
-        private static void ClickCentered(BasicElement element, MouseButtons buttons)
+        /// <summary>
+        /// Presses and holds the given mouse buttons.
+        /// </summary>
+        /// <param name="buttons">The mouse buttons to press and hold.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        // TODO: Support XButton1 and XButton2, see WinApi.MouseEventDataXButtons
+        public static CombinableDo PressButtons(MouseButtons buttons)
         {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
+            return WrapIt(() =>
             {
-                Cursor.Position = point;
-                WinApi.MouseEvent((long)buttons);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+                LogPool.Append("Cannot press and hold the mouse buttons '{0}'", buttons);
+
+                switch (buttons)
+                {
+                    case MouseButtons.Left:
+                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.LEFTDOWN);
+                        break;
+                    case MouseButtons.Middle:
+                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.MIDDLEDOWN);
+                        break;
+                    case MouseButtons.Right:
+                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.RIGHTDOWN);
+                        break;
+                    case MouseButtons.X1:
+                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.XDOWN);
+                        break;
+                }
+            },
+            string.Format("Cannot press and hold the mouse buttons '{0}'", buttons));
         }
 
-        private static void ClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
+        /// <summary>
+        /// Releases the given mouse buttons.
+        /// </summary>
+        /// <param name="buttons">The mouse buttons to release.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        // TODO: Support XButton1 and XButton2, see WinApi.MouseEventDataXButtons
+        public static CombinableDo ReleaseButtons(MouseButtons buttons)
         {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
+            return WrapIt(() =>
             {
-                Cursor.Position = point;
-                KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)buttons);
-                KeyboardEx.ReleaseKey(modifierKeys);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
-        }
+                LogPool.Append("Cannot press and hold the mouse buttons '{0}'", buttons);
 
-        private static void ClickRelative(BasicElement element, MouseButtons button, At relativePosition)
-        {
-            Cursor.Position = relativePosition.GetPoint(element);
-            WinApi.MouseEvent((long)button);
-        }
-
-        private static void ClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
-        {
-            Cursor.Position = relativePosition.GetPoint(element);
-            KeyboardEx.PressKey(modifierKeys);
-            WinApi.MouseEvent((long)button);
-            KeyboardEx.ReleaseKey(modifierKeys);
-        }
-
-        private static void DoubleClickCentered(BasicElement element, MouseButtons buttons)
-        {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
-            {
-                Cursor.Position = point;
-                WinApi.MouseEvent((long)buttons);
-                WinApi.MouseEvent((long)buttons);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
-        }
-
-        private static void DoubleClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
-        {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
-            {
-                Cursor.Position = point;
-                KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)buttons);
-                WinApi.MouseEvent((long)buttons);
-                KeyboardEx.ReleaseKey(modifierKeys);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
-        }
-
-        private static void DoubleClickRelative(BasicElement element, MouseButtons button, At relativePosition)
-        {
-            Cursor.Position = relativePosition.GetPoint(element);
-            WinApi.MouseEvent((long)button);
-            WinApi.MouseEvent((long)button);
-        }
-
-        private static void DoubleClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
-        {
-            Cursor.Position = relativePosition.GetPoint(element);
-            KeyboardEx.PressKey(modifierKeys);
-            WinApi.MouseEvent((long)button);
-            WinApi.MouseEvent((long)button);
-            KeyboardEx.ReleaseKey(modifierKeys);
+                switch (buttons)
+                {
+                    case MouseButtons.Left:
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.LEFTUP);
+                        break;
+                    case MouseButtons.Middle:
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.MIDDLEUP);
+                        break;
+                    case MouseButtons.Right:
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.RIGHTUP);
+                        break;
+                    case MouseButtons.X1:
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.XUP);
+                        break;
+                }
+            },
+            string.Format("Cannot press and hold the mouse buttons '{0}'", buttons));
         }
 
         private static CombinableDo WrapIt(Action action, string errorText)
@@ -640,6 +699,5 @@ namespace DW.CodedUI
 
             return new CombinableDo();
         }
-
     }
 }

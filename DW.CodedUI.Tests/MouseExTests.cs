@@ -57,5 +57,14 @@ namespace DW.CodedUI.Tests
 
             MouseEx.Move(source, destination, 2000);
         }
+
+        [TestMethod]
+        public void PressReleaseButtons_WithAnElementOnTheTopRight_DragsTheIconToAnotherPosition()
+        {
+            MouseEx.Move(Position.Point(new Point(3770, 45)));
+            MouseEx.PressButtons(MouseButtons.Left);
+            MouseEx.Move(Position.Point(new Point(3770, 45)), Position.Point(new Point(3770, 200)), 1000);
+            MouseEx.ReleaseButtons(MouseButtons.Left);
+        }
     }
 }

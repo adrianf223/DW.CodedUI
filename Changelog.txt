@@ -4,6 +4,7 @@
 Release 3.0.0.0
 ==============================
 2015-12-21    The MouseEx now can set the current cursor position either instantly, or from a point over a period of time
+              Add PressButtons and ReleaseButtons to the MouseEx (Together with Move drag & drop can be simulated)
 2015-12-21    Ready implemented the new KeyboardEx to work without the MSTest CodedUI framework running
               Nearly ready implemented the new MouseEx to work without the MSTest CodedUI framework running (Some new functionality is missing)
 2015-12-16    Start bring CodedUI stand alone. Target is to be able to let it run with Visual Studio 2015 Professional or lower
