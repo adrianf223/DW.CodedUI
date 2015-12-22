@@ -4,5 +4,6 @@
 *.user
 /_ReSharper*
 /bin/*
+/bin_Tests/*
 /TestResults/*
 /Documentation/*
