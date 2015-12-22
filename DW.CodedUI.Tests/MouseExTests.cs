@@ -32,6 +32,27 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class MouseExTests
     {
+        // TODO: Replace Notepad by a better testable application
+        [TestMethod]
+        public void Click_ChangeStatusBarVisibilityTwoTimes_DoesItAccordingly()
+        {
+            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
+            var window = WindowFinder.Search(Use.Process("notepad"));
+
+            var viewMenuItem = UI.GetChild(By.Name("Ansicht"), From.Element(window));
+            MouseEx.Click(viewMenuItem).And.Wait(1000); // Open view menu
+
+            var statusleisteMenuItem = UI.GetChild(By.Name("Statusleiste"), From.Element(window));
+            MouseEx.Click(statusleisteMenuItem).And.Wait(1000); // Click on show status bar
+
+            MouseEx.Click(viewMenuItem).And.Wait(1000); // Open view menu
+
+            statusleisteMenuItem = UI.GetChild(By.Name("Statusleiste"), From.Element(window));
+            MouseEx.Click(statusleisteMenuItem).And.Wait(1000); // Click on show status bar
+
+            MouseEx.Click(window.CloseButton);
+        }
+
         [TestMethod]
         public void Move_To_PlacesTheMouse()
         {
@@ -66,5 +87,7 @@ namespace DW.CodedUI.Tests
             MouseEx.Move(Position.Point(new Point(3770, 45)), Position.Point(new Point(3770, 200)), 1000);
             MouseEx.ReleaseButtons(MouseButtons.Left);
         }
+
+        // TODO: Test just more to be sure everything works
     }
 }

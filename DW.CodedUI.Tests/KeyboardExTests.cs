@@ -24,7 +24,6 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Threading;
 using DW.CodedUI.BasicElements;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -33,30 +32,38 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class KeyboardExTests
     {
-        private BasicWindow _notepad;
-
-        [TestInitialize]
-        public void Setup()
-        {
-            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
-            _notepad = WindowFinder.Search(Use.Process("notepad"));
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            MouseEx.Click(_notepad.CloseButton).And.Wait(1000);
-            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
-            var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
-            MouseEx.Click(dontSaveButton).And.Wait(1000);
-        }
+        // TODO: Replace notepad by a better testable application
 
         [TestMethod]
         public void PressKey_TypeText_TypeLowerTextWithShiftHoldDown_TheTextAppearsInupperCase()
         {
-            KeyboardEx.PressKey(_notepad, ModifierKeys.Shift);
+            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
+            var window = WindowFinder.Search(Use.Process("notepad"));
+
+            KeyboardEx.PressKey(window, ModifierKeys.Shift);
             KeyboardEx.TypeText("demo", 50);
             KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
+
+            MouseEx.Click(window.CloseButton).And.Wait(1000);
+            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
+            var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
+            MouseEx.Click(dontSaveButton);
         }
+
+        [TestMethod]
+        public void TypeText_SomeTextTypedIntoNotepad_WindowWantsToSaveOnClose()
+        {
+            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
+            var window = WindowFinder.Search(Use.Process("notepad"));
+
+            KeyboardEx.TypeText(window, "das ist ein Text").And.Wait(1000);
+
+            MouseEx.Click(window.CloseButton).And.Wait(1000);
+            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
+            var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
+            MouseEx.Click(dontSaveButton);
+        }
+
+        // TODO: Test just more to be sure everything works
     }
 }

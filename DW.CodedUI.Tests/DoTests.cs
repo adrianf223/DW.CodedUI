@@ -50,9 +50,9 @@ namespace DW.CodedUI.Tests
         [TestMethod]
         public void Action_ThreeTimesAndOneRepeat_AllGotCalledTwice()
         {
-            int firstExecutionCount = 0;
-            int secondExecutionCount = 0;
-            int thirdExecutionCount = 0;
+            var firstExecutionCount = 0;
+            var secondExecutionCount = 0;
+            var thirdExecutionCount = 0;
 
             Do.Action(() => { ++firstExecutionCount; })
               .And.Action(() => { ++secondExecutionCount; })
@@ -67,9 +67,9 @@ namespace DW.CodedUI.Tests
         [TestMethod]
         public void Action_ThreeTimesAndTwoRepeat_AllGotCalledThreeTimes()
         {
-            int firstExecutionCount = 0;
-            int secondExecutionCount = 0;
-            int thirdExecutionCount = 0;
+            var firstExecutionCount = 0;
+            var secondExecutionCount = 0;
+            var thirdExecutionCount = 0;
 
             Do.Action(() => { ++firstExecutionCount; })
               .And.Action(() => { ++secondExecutionCount; })
@@ -84,11 +84,11 @@ namespace DW.CodedUI.Tests
         [TestMethod]
         public void Action_ThreeTimesWithTwoRepeatAndTwoWithFourRepeats_CallsActionsAccordingly()
         {
-            int firstExecutionCount = 0;
-            int secondExecutionCount = 0;
-            int thirdExecutionCount = 0;
-            int fourthExecutionCount = 0;
-            int fifthExecutionCount = 0;
+            var firstExecutionCount = 0;
+            var secondExecutionCount = 0;
+            var thirdExecutionCount = 0;
+            var fourthExecutionCount = 0;
+            var fifthExecutionCount = 0;
 
             Do.Action(() => { ++firstExecutionCount; })
               .And.Action(() => { ++secondExecutionCount; })
@@ -104,5 +104,9 @@ namespace DW.CodedUI.Tests
             Assert.AreEqual(5, fourthExecutionCount);
             Assert.AreEqual(5, fifthExecutionCount);
         }
+
+        // TODO: Test that wait is working properly
+        // TODO: Test that WaitCPUIdle is working properly
+        // TODO: Test that Launch is launching an application
     }
 }
