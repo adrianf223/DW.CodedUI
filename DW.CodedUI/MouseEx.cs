@@ -629,7 +629,6 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="buttons">The mouse buttons to press and hold.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        // TODO: Support XButton1 and XButton2, see WinApi.MouseEventDataXButtons
         public static CombinableDo PressButtons(MouseButtons buttons)
         {
             return WrapIt(() =>
@@ -639,16 +638,13 @@ namespace DW.CodedUI
                 switch (buttons)
                 {
                     case MouseButtons.Left:
-                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.LEFTDOWN);
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.LEFTDOWN);
                         break;
                     case MouseButtons.Middle:
-                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.MIDDLEDOWN);
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.MIDDLEDOWN);
                         break;
                     case MouseButtons.Right:
-                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.RIGHTDOWN);
-                        break;
-                    case MouseButtons.X1:
-                        WinApi.MouseEvent((long) WinApi.MouseEventFlags.XDOWN);
+                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.RIGHTDOWN);
                         break;
                 }
             },
@@ -660,7 +656,6 @@ namespace DW.CodedUI
         /// </summary>
         /// <param name="buttons">The mouse buttons to release.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
-        // TODO: Support XButton1 and XButton2, see WinApi.MouseEventDataXButtons
         public static CombinableDo ReleaseButtons(MouseButtons buttons)
         {
             return WrapIt(() =>
@@ -677,9 +672,6 @@ namespace DW.CodedUI
                         break;
                     case MouseButtons.Right:
                         WinApi.MouseEvent((long)WinApi.MouseEventFlags.RIGHTUP);
-                        break;
-                    case MouseButtons.X1:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.XUP);
                         break;
                 }
             },
