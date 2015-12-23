@@ -6,6 +6,7 @@ Release 3.0.0.0
 2015-12-23    Remove mouse move in the ColorDetector
               Add different overloads for GetColor
               Fix wrong WinApi call for typing a single key using the KeyboardEx
+              Add missing methods to the KeyboardEx
 2015-12-22    The MouseEx now can set the current cursor position either instantly, or from a point over a period of time
               Add PressButtons and ReleaseButtons to the MouseEx (Together with Move drag & drop can be simulated)
 2015-12-21    Ready implemented the new KeyboardEx to work without the MSTest CodedUI framework running

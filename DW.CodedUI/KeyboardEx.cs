@@ -193,10 +193,6 @@ namespace DW.CodedUI
             string.Format("Cannot release the key '{0}' and the modifier keys '{1}'", key, modifierKeys));
         }
 
-        // TODO: Missing methods
-        //KeyboardEx.TypeKey(ModifierKeys modifierKeys);
-        //KeyboardEx.TypeKey(Key key, ModifierKeys modifierKeys);
-
         /// <summary>
         /// Types the given key.
         /// </summary>
@@ -211,6 +207,44 @@ namespace DW.CodedUI
             },
             string.Format("Cannot type the key '{0}'", key));
         }
+
+        /// <summary>
+        /// Types the given modifier keys.
+        /// </summary>
+        /// <param name="modifierKeys">The modifier keys to type.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeKey(ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Type modifier keys '{0}'.", modifierKeys);
+                Type((byte)modifierKeys);
+            },
+            string.Format("Cannot type the modifier keys '{0}'", modifierKeys));
+        }
+
+        /// <summary>
+        /// Types the given key while holding the modifier keys.
+        /// </summary>
+        /// <param name="key">The key to type.</param>
+        /// <param name="modifierKeys">The modifier keys to hold while typing.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeKey(Key key, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Press keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyDown);
+
+                LogPool.Append("Type key '{0}'.", key);
+                Type((byte)key);
+
+                LogPool.Append("Release keys '{0}'.", modifierKeys);
+                WinApi.KeyboardEvent((byte)modifierKeys, WinApi.KeyboardEventFlags.KeyUp);
+            },
+            string.Format("Cannot type the key '{0}' and the pressed modifier keys '{1}'.", key, modifierKeys));
+        }
+
 
         /// <summary>
         /// Gives the BasicElement the focus and types the given key.
@@ -229,6 +263,25 @@ namespace DW.CodedUI
                 Type((byte)key);
             },
             string.Format("Cannot press down the key '{0}' with the '{1}' focused.", key, control));
+        }
+
+        /// <summary>
+        /// Gives the BasicElement the focus and types the given modifier keys.
+        /// </summary>
+        /// <param name="control">The BasicElement who should get the focus before typing the key.</param>
+        /// <param name="modifierKeys">The modifier keys to type.</param>
+        /// <returns>A combinable Do to be able to append additional actions.</returns>
+        public static CombinableDo TypeKey(BasicElement control, ModifierKeys modifierKeys)
+        {
+            return WrapIt(() =>
+            {
+                LogPool.Append("Set control focus for keyboard inputs on '{0}'.", control);
+                control.AutomationElement.SetFocus();
+
+                LogPool.Append("Type modifier keys '{0}'.", modifierKeys);
+                Type((byte)modifierKeys);
+            },
+            string.Format("Cannot press down the modifier keys '{0}' with the '{1}' focused.", modifierKeys, control));
         }
 
         /// <summary>
@@ -256,7 +309,6 @@ namespace DW.CodedUI
             },
             string.Format("Cannot type the key '{0}' and the pressed modifier keys '{1}' with the '{2}' focused.", key, modifierKeys, control));
         }
-
 
         /// <summary>
         /// Types the given text.

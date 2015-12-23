@@ -24,6 +24,8 @@ THE SOFTWARE
 */
 #endregion License
 
+using System.Linq;
+using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -79,10 +81,8 @@ namespace DW.CodedUI.Tests
         }
 
         [TestMethod]
-        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow()
+        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow1()
         {
-            
-
             KeyboardEx.TypeKey(_testWindow, Key.F4, ModifierKeys.Alt).And.Wait(500);
 
             var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
@@ -93,6 +93,35 @@ namespace DW.CodedUI.Tests
             _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
         }
 
-        // TODO: Test just more to be sure everything works
+        [TestMethod]
+        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow2()
+        {
+            _testWindow.AutomationElement.SetFocus();
+
+            KeyboardEx.TypeKey(Key.F4, ModifierKeys.Alt).And.Wait(500);
+
+            var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
+            Assert.IsNull(testWindow);
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_KeyboardExTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
+        }
+
+        [TestMethod]
+        public void TypeKey_ControlAAfterTypingText_AllGetsSelected()
+        {
+            KeyboardEx.TypeText(_textBox, "Peter Sausage");
+            DynamicSleep.Wait(1000);
+
+            KeyboardEx.TypeKey(_textBox, Key.A, ModifierKeys.Control).And.Wait(500);
+            
+            // TODO: Add to BasicEdit
+            var pattern = (TextPattern)_textBox.AutomationElement.GetCurrentPattern(TextPattern.Pattern);
+            var textPatternRanges = pattern.GetSelection();
+            var text = textPatternRanges.First().GetText(100);
+
+            Assert.AreEqual("Peter Sausage", text);
+        }
     }
 }
