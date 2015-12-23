@@ -65,9 +65,10 @@ namespace DW.CodedUI.Tests
         {
             Assert.AreEqual("", _textBox.Text);
 
-            KeyboardEx.TypeText("anything nice", 50);
+            KeyboardEx.TypeText(_textBox, "anything nice", 50);
 
             Assert.AreEqual("anything nice", _textBox.Text);
+            _textBox.Unsafe.SetValue("");
         }
 
         [TestMethod]
@@ -78,34 +79,7 @@ namespace DW.CodedUI.Tests
             KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
 
             Assert.AreEqual("DEMO", _textBox.Text);
-        }
-
-        [TestMethod]
-        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow1()
-        {
-            KeyboardEx.TypeKey(_testWindow, Key.F4, ModifierKeys.Alt).And.Wait(500);
-
-            var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
-            Assert.IsNull(testWindow);
-            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_KeyboardExTests_Button"), From.Element(_mainWindow));
-            currentButton.Unsafe.Click();
-            DynamicSleep.Wait(1000);
-            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
-        }
-
-        [TestMethod]
-        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow2()
-        {
-            _testWindow.AutomationElement.SetFocus();
-
-            KeyboardEx.TypeKey(Key.F4, ModifierKeys.Alt).And.Wait(500);
-
-            var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
-            Assert.IsNull(testWindow);
-            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_KeyboardExTests_Button"), From.Element(_mainWindow));
-            currentButton.Unsafe.Click();
-            DynamicSleep.Wait(1000);
-            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
+            _textBox.Unsafe.SetValue("");
         }
 
         [TestMethod]
@@ -122,6 +96,21 @@ namespace DW.CodedUI.Tests
             var text = textPatternRanges.First().GetText(100);
 
             Assert.AreEqual("Peter Sausage", text);
+            _textBox.Unsafe.SetValue("");
+        }
+
+        [TestMethod]
+        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow()
+        {
+            KeyboardEx.TypeKey(_testWindow, Key.F4, ModifierKeys.Alt).And.Wait(500);
+
+            var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
+            Assert.IsNull(testWindow);
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_KeyboardExTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
+            _textBox = UI.GetChild<BasicEdit>(By.AutomationId("CUI_InputTextBox"), From.Element(_testWindow));
         }
     }
 }
