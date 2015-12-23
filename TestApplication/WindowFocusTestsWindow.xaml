@@ -1,0 +1,11 @@
+﻿<Window x:Class="TestApplication.WindowFocusTestsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WindowFocusTestsWindow"
+        WindowStartupLocation="CenterOwner"
+        Height="300"
+        Width="300">
+    
+    <TextBox AutomationProperties.AutomationId="CUI_InputTextBox" />
+    
+</Window>

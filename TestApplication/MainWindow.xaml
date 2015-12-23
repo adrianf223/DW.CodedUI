@@ -10,6 +10,7 @@
         <Button Content="ColorDetectorTests" AutomationProperties.AutomationId="CUI_ColorDetectorTests_Button" Click="ColorDetectorTests_Button_OnClick" />
         <Button Content="KeyboardExTests" AutomationProperties.AutomationId="CUI_KeyboardExTests_Button" Click="KeyboardExTests_Button_OnClick" />
         <Button Content="MouseExTests" AutomationProperties.AutomationId="CUI_MouseExTests_Button" Click="MouseExTests_Button_OnClick" />
+        <Button Content="WindowFocusTests" AutomationProperties.AutomationId="CUI_WindowFocusTests_Button" Click="WindowFocusTests_Button_OnClick" />
     </StackPanel>
     
 </Window>

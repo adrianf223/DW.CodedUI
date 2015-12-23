@@ -24,6 +24,8 @@ THE SOFTWARE
 */
 #endregion License
 
+using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests.Utilities
@@ -31,6 +33,56 @@ namespace DW.CodedUI.Tests.Utilities
     [TestClass]
     public class WindowFocusTests
     {
-        // TODO: Test that the window got the focus
+        private static BasicWindow _mainWindow;
+
+        [ClassInitialize]
+        public static void Setup(TestContext context)
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            _mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_WindowFocusTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+        }
+
+        [ClassCleanup]
+        public static void Cleanup()
+        {
+            var basicWindow = WindowFinder.Search(Use.AutomationId("CUI_WindowFocusTestsWindow", CompareKind.StartsWith), And.NoAssert().And.Timeout(100));
+            if (basicWindow != null)
+            {
+                basicWindow.CloseButton.Unsafe.Click();
+                DynamicSleep.Wait(1000);
+            }
+            basicWindow = WindowFinder.Search(Use.AutomationId("CUI_WindowFocusTestsWindow", CompareKind.StartsWith), And.NoAssert().And.Timeout(100));
+            if (basicWindow != null)
+            {
+                basicWindow.CloseButton.Unsafe.Click();
+                DynamicSleep.Wait(1000);
+            }
+
+            _mainWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+        }
+
+        [TestMethod]
+        public void BringOnTop_TypesTextToDifferentWindows_TheWindowsGetsTheTextAccordingly()
+        {
+            var window1 = WindowFinder.Search(Use.AutomationId("CUI_WindowFocusTestsWindow_1"));
+            var window2 = WindowFinder.Search(Use.AutomationId("CUI_WindowFocusTestsWindow_2"));
+            var textBox1 = UI.GetChild<BasicEdit>(By.AutomationId("CUI_InputTextBox"), From.Element(window1));
+            var textBox2 = UI.GetChild<BasicEdit>(By.AutomationId("CUI_InputTextBox"), From.Element(window2));
+
+            WindowFocus.BringOnTop(window1);
+            MouseEx.Click(window1);
+            KeyboardEx.TypeText("First Window Text").And.Wait(1000);
+
+            WindowFocus.BringOnTop(window2);
+            MouseEx.Click(window2);
+            KeyboardEx.TypeText("Second Window Text").And.Wait(1000);
+
+            Assert.AreEqual("First Window Text", textBox1.Text);
+            Assert.AreEqual("Second Window Text", textBox2.Text);
+        }
     }
 }
