@@ -90,12 +90,34 @@ namespace DW.CodedUI.Tests
 
             KeyboardEx.TypeKey(_textBox, Key.A, ModifierKeys.Control).And.Wait(500);
             
-            // TODO: Add to BasicEdit
-            var pattern = (TextPattern)_textBox.AutomationElement.GetCurrentPattern(TextPattern.Pattern);
-            var textPatternRanges = pattern.GetSelection();
-            var text = textPatternRanges.First().GetText(100);
+            Assert.AreEqual("Peter Sausage", _textBox.SelectedText);
+            _textBox.Unsafe.SetValue("");
+        }
 
-            Assert.AreEqual("Peter Sausage", text);
+        [TestMethod]
+        public void TypeText_PressShiftAndArrowLeftSevenTimes_SelectsPartOfTheText()
+        {
+            KeyboardEx.TypeText(_textBox, "Peter Sausage");
+            DynamicSleep.Wait(1000);
+
+            Do.Action(() => KeyboardEx.TypeText(_textBox, "{LEFT}", ModifierKeys.Shift)).Repeat(6).And.Wait(500);
+
+            Assert.AreEqual("Sausage", _textBox.SelectedText);
+            _textBox.Unsafe.SetValue("");
+        }
+
+        [TestMethod]
+        public void TypeText_MoreDifferentShiftSelections_SelectsTheTextAccirdingly()
+        {
+            KeyboardEx.TypeText(_textBox, "Peter Sausage");
+            KeyboardEx.PressKey(Key.Enter);
+            KeyboardEx.TypeText("Was Here");
+            DynamicSleep.Wait(1000);
+            Do.Action(() => KeyboardEx.TypeText("{LEFT}", ModifierKeys.Shift)).Repeat(2);
+            KeyboardEx.TypeText("{UP}", ModifierKeys.Shift);
+            KeyboardEx.TypeText("{LEFT}", ModifierKeys.Shift).And.Wait(500);
+
+            Assert.AreEqual("Sausage\r\nWas Here", _textBox.SelectedText);
             _textBox.Unsafe.SetValue("");
         }
 

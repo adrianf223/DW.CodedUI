@@ -7,6 +7,6 @@
         Height="300"
         Width="300">
 
-    <TextBox AutomationProperties.AutomationId="CUI_InputTextBox" />
+    <TextBox AutomationProperties.AutomationId="CUI_InputTextBox" AcceptsReturn="True" />
     
 </Window>

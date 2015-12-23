@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System;
+using System.Text;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
 
@@ -129,6 +130,22 @@ namespace DW.CodedUI.BasicElements
             {
                 var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
                 return pattern.DocumentRange.GetText(-1);
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected text in the [Rich]TextBox.
+        /// </summary>
+        public string SelectedText
+        {
+            get
+            {
+                var pattern = (TextPattern)AutomationElement.GetCurrentPattern(TextPattern.Pattern);
+                var selection = pattern.GetSelection();
+                var builder = new StringBuilder();
+                foreach (var textPatternRange in selection)
+                    builder.Append(textPatternRange.GetText(-1));
+                return builder.ToString();
             }
         }
 

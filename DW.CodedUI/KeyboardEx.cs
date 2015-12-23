@@ -229,6 +229,9 @@ namespace DW.CodedUI
         /// <param name="key">The key to type.</param>
         /// <param name="modifierKeys">The modifier keys to hold while typing.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        /// <remarks>Some combinations might not work because of a WinApi problem.<br />
+        /// E.g. Shift+Arrow to select text, consider using KeyboardEx.TypeText("{LEFT}", ModifierKeys.Shift) instead.<br />
+        /// See the possible parameter of the Windows Forms SendWait.</remarks>
         public static CombinableDo TypeKey(Key key, ModifierKeys modifierKeys)
         {
             return WrapIt(() =>
@@ -291,6 +294,9 @@ namespace DW.CodedUI
         /// <param name="key">The key to type.</param>
         /// <param name="modifierKeys">The modifier keys to hold while typing.</param>
         /// <returns>A combinable Do to be able to append additional actions.</returns>
+        /// <remarks>Some combinations might not work because of a WinApi problem.<br />
+        /// E.g. Shift+Arrow to select text, consider using KeyboardEx.TypeText("{LEFT}", ModifierKeys.Shift) instead.<br />
+        /// See the possible parameter of the Windows Forms SendWait.</remarks>
         public static CombinableDo TypeKey(BasicElement control, Key key, ModifierKeys modifierKeys)
         {
             return WrapIt(() =>
