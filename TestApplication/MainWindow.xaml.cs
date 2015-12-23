@@ -22,5 +22,12 @@ namespace TestApplication
             window.Owner = this;
             window.ShowDialog();
         }
+
+        private void MouseExTests_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new MouseExTestsWindow();
+            window.Owner = this;
+            window.ShowDialog();
+        }
     }
 }

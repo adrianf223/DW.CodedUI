@@ -25,6 +25,8 @@ THE SOFTWARE
 #endregion License
 
 using System.Drawing;
+using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests
@@ -32,25 +34,45 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class MouseExTests
     {
-        // TODO: Replace Notepad by a better testable application
+        private static BasicWindow _mainWindow;
+        private static BasicWindow _testWindow;
+
+        [ClassInitialize]
+        public static void Setup(TestContext context)
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            _mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_MouseExTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_MouseExTestsWindow"), And.NoAssert());
+        }
+
+        [ClassCleanup]
+        public static void Cleanup()
+        {
+            _testWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _mainWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+        }
+
         [TestMethod]
         public void Click_ChangeStatusBarVisibilityTwoTimes_DoesItAccordingly()
         {
-            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
-            var window = WindowFinder.Search(Use.Process("notepad"));
+            var statusBar = UI.GetChild(By.AutomationId("CUI_StatusBar"), From.Element(_testWindow));
+            Assert.IsTrue(statusBar.IsVisible);
 
-            var viewMenuItem = UI.GetChild(By.Name("Ansicht"), From.Element(window));
-            MouseEx.Click(viewMenuItem).And.Wait(1000); // Open view menu
+            var viewMenuItem = UI.GetChild(By.AutomationId("CUI_ViewMenuItem"), From.Element(_testWindow));
+            MouseEx.Click(viewMenuItem).And.Wait(1000);
+            var statusleisteMenuItem = UI.GetChild(By.AutomationId("CUI_ToggleStatusbarMenuItem"), From.Element(_testWindow));
+            MouseEx.Click(statusleisteMenuItem).And.Wait(1000);
+            Assert.IsFalse(statusBar.IsVisible);
 
-            var statusleisteMenuItem = UI.GetChild(By.Name("Statusleiste"), From.Element(window));
-            MouseEx.Click(statusleisteMenuItem).And.Wait(1000); // Click on show status bar
-
-            MouseEx.Click(viewMenuItem).And.Wait(1000); // Open view menu
-
-            statusleisteMenuItem = UI.GetChild(By.Name("Statusleiste"), From.Element(window));
-            MouseEx.Click(statusleisteMenuItem).And.Wait(1000); // Click on show status bar
-
-            MouseEx.Click(window.CloseButton);
+            MouseEx.Click(viewMenuItem).And.Wait(1000);
+            statusleisteMenuItem = UI.GetChild(By.AutomationId("CUI_ToggleStatusbarMenuItem"), From.Element(_testWindow));
+            MouseEx.Click(statusleisteMenuItem).And.Wait(1000);
+            Assert.IsTrue(statusBar.IsVisible);
         }
 
         [TestMethod]
@@ -86,8 +108,18 @@ namespace DW.CodedUI.Tests
             MouseEx.PressButtons(MouseButtons.Left);
             MouseEx.Move(Position.Point(new Point(3770, 45)), Position.Point(new Point(3770, 200)), 1000);
             MouseEx.ReleaseButtons(MouseButtons.Left);
+
+            // Drag and drop working cannot be asserted, just place an element on the second monitor upper right and watch it
         }
 
-        // TODO: Test just more to be sure everything works
+        [TestMethod]
+        public void DoubleClick_InsideTheWindow_ExecutesTheDoubleClick()
+        {
+            var textBox = UI.GetChild<BasicEdit>(By.AutomationId("CUI_InputTextBox"), From.Element(_testWindow));
+
+            MouseEx.DoubleClick(textBox).And.Wait(1000);
+
+            Assert.AreEqual("TextBox got doubleclicked", textBox.Text);
+        }
     }
 }
