@@ -144,8 +144,7 @@ namespace DW.CodedUI
             },
             string.Format("Cannot press down the key '{0}' and the modifier keys '{1}' with the '{2}' focused.", key, modifierKeys, control));
         }
-
-
+        
         /// <summary>
         /// Releases the key which got pressed before.
         /// </summary>
@@ -194,6 +193,9 @@ namespace DW.CodedUI
             string.Format("Cannot release the key '{0}' and the modifier keys '{1}'", key, modifierKeys));
         }
 
+        // TODO: Missing methods
+        //KeyboardEx.TypeKey(ModifierKeys modifierKeys);
+        //KeyboardEx.TypeKey(Key key, ModifierKeys modifierKeys);
 
         /// <summary>
         /// Types the given key.

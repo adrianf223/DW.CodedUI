@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests
@@ -32,36 +33,64 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class KeyboardExTests
     {
-        // TODO: Replace notepad by a better testable application
+        private static BasicWindow _mainWindow;
+        private static BasicWindow _testWindow;
+        private static BasicEdit _textBox;
 
-        [TestMethod]
-        public void PressKey_TypeText_TypeLowerTextWithShiftHoldDown_TheTextAppearsInupperCase()
+        [ClassInitialize]
+        public static void Setup(TestContext context)
         {
-            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
-            var window = WindowFinder.Search(Use.Process("notepad"));
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            _mainWindow = WindowFinder.Search(Use.AutomationId(TestData.MainWindowAutomationId));
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_KeyboardExTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
+            _textBox = UI.GetChild<BasicEdit>(By.AutomationId("CUI_InputTextBox"), From.Element(_testWindow));
+        }
 
-            KeyboardEx.PressKey(window, ModifierKeys.Shift);
-            KeyboardEx.TypeText("demo", 50);
-            KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
-
-            MouseEx.Click(window.CloseButton).And.Wait(1000);
-            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
-            var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
-            MouseEx.Click(dontSaveButton);
+        [ClassCleanup]
+        public static void Cleanup()
+        {
+            _testWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _mainWindow.CloseButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
         }
 
         [TestMethod]
-        public void TypeText_SomeTextTypedIntoNotepad_WindowWantsToSaveOnClose()
+        public void TypeText_SomeText_TextIsWritten()
         {
-            Do.Launch(@"C:\Windows\System32\notepad.exe").And.Wait(1000);
-            var window = WindowFinder.Search(Use.Process("notepad"));
+            Assert.AreEqual("", _textBox.Text);
 
-            KeyboardEx.TypeText(window, "das ist ein Text").And.Wait(1000);
+            KeyboardEx.TypeText("anything nice", 50);
 
-            MouseEx.Click(window.CloseButton).And.Wait(1000);
-            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("Editor"));
-            var dontSaveButton = UI.GetChild(By.AutomationId("CommandButton_7"), From.Element(messageBox));
-            MouseEx.Click(dontSaveButton);
+            Assert.AreEqual("anything nice", _textBox.Text);
+        }
+
+        [TestMethod]
+        public void TypeText_TypeLowerTextWithShiftHoldDown_TheTextAppearsInupperCase()
+        {
+            KeyboardEx.PressKey(_textBox, ModifierKeys.Shift);
+            KeyboardEx.TypeText("demo", 50);
+            KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
+
+            Assert.AreEqual("DEMO", _textBox.Text);
+        }
+
+        [TestMethod]
+        public void TypeKey_AltF4OnTheWindow_ClosesTheWindow()
+        {
+            
+
+            KeyboardEx.TypeKey(_testWindow, Key.F4, ModifierKeys.Alt).And.Wait(500);
+
+            var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
+            Assert.IsNull(testWindow);
+            var currentButton = UI.GetChild<BasicButton>(By.AutomationId("CUI_KeyboardExTests_Button"), From.Element(_mainWindow));
+            currentButton.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+            _testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert());
         }
 
         // TODO: Test just more to be sure everything works

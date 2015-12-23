@@ -1,0 +1,12 @@
+﻿<Window x:Class="TestApplication.KeyboardExTestsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        AutomationProperties.AutomationId="CUI_KeyboardExTestsWindow"
+        Title="KeyboardExTestsWindow"
+        WindowStartupLocation="CenterOwner"
+        Height="300"
+        Width="300">
+
+    <TextBox AutomationProperties.AutomationId="CUI_InputTextBox" />
+    
+</Window>
