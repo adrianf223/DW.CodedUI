@@ -1,0 +1,42 @@
+﻿<Window x:Class="TestApplication.UITestsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UITestsWindow"
+        AutomationProperties.AutomationId="CUI_UITestsWindow"
+        WindowStartupLocation="CenterOwner"
+        Height="300"
+        Width="300">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Button AutomationProperties.AutomationId="CUI_AutomationIdsPanel">
+            <StackPanel>
+                <Button Content="First" AutomationProperties.AutomationId="CUI_Button1" />
+                <Button Content="Second" AutomationProperties.AutomationId="CUI_Button2" />
+                <Button Content="Third" AutomationProperties.AutomationId="CUI_Button3" />
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Column="1" AutomationProperties.AutomationId="CUI_ClassNamesPanel">
+            <StackPanel>
+                <Button Content="First" />
+                <Button Content="Second" />
+                <Button Content="Third" />
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Column="2" AutomationProperties.AutomationId="CUI_NamesPanel">
+            <StackPanel>
+                <Button Content="B-First" />
+                <Button Content="B-Second" />
+                <Button Content="B-Third" />
+            </StackPanel>
+        </Button>
+    </Grid>
+    
+</Window>

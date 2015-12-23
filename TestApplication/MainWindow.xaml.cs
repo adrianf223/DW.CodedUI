@@ -31,11 +31,6 @@ namespace TestApplication
             window.ShowDialog();
         }
 
-        private void ShowMessageBox_Button_OnClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(this, "MessageBoxText", "MessageBoxTitle");
-        }
-
         private void WindowFocusTests_Button_OnClick(object sender, RoutedEventArgs e)
         {
             var window1 = new WindowFocusTestsWindow();
@@ -47,6 +42,18 @@ namespace TestApplication
             AutomationProperties.SetAutomationId(window2, "CUI_WindowFocusTestsWindow_2");
             window2.Owner = this;
             window2.Show();
+        }
+
+        private void ShowMessageBox_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(this, "MessageBoxText", "MessageBoxTitle");
+        }
+
+        private void UITests_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new UITestsWindow();
+            window.Owner = this;
+            window.ShowDialog();
         }
     }
 }

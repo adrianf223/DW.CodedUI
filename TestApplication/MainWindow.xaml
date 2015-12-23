@@ -12,6 +12,7 @@
         <Button Content="MouseExTests" AutomationProperties.AutomationId="CUI_MouseExTests_Button" Click="MouseExTests_Button_OnClick" />
         <Button Content="WindowFocusTests" AutomationProperties.AutomationId="CUI_WindowFocusTests_Button" Click="WindowFocusTests_Button_OnClick" />
         <Button Content="Show MessageBox" AutomationProperties.AutomationId="CUI_ShowMessageBox_Button" Click="ShowMessageBox_Button_OnClick" />
+        <Button Content="UITests" AutomationProperties.AutomationId="CUI_UITests_Button" Click="UITests_Button_OnClick" />
     </StackPanel>
     
 </Window>
