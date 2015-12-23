@@ -31,6 +31,11 @@ namespace TestApplication
             window.ShowDialog();
         }
 
+        private void ShowMessageBox_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(this, "MessageBoxText", "MessageBoxTitle");
+        }
+
         private void WindowFocusTests_Button_OnClick(object sender, RoutedEventArgs e)
         {
             var window1 = new WindowFocusTestsWindow();

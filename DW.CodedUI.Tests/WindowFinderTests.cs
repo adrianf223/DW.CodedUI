@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DW.CodedUI.Tests
@@ -32,27 +33,39 @@ namespace DW.CodedUI.Tests
     [TestClass]
     public class WindowFinderTests
     {
-        // TODO: Replace application under test
         [TestMethod]
         public void Search_ByTitle_ReturnsTheWindow()
         {
-            Do.Launch(@"D:\Sources\Playground\WpfApplication13\WpfApplication13\bin\Debug\WpfApplication13.exe").And.Wait(2000);
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
 
             var window = WindowFinder.Search<BasicWindow>(Use.Title("mainwindow"));
 
-            MouseEx.Click(window.CloseButton);
+            window.CloseButton.Unsafe.Click();
         }
 
         [TestMethod]
         public void Search_ByAutomationId_ReturnsTheWindow()
         {
-            Do.Launch(@"D:\Sources\Playground\WpfApplication13\WpfApplication13\bin\Debug\WpfApplication13.exe").And.Wait(2000);
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
 
-            var window = WindowFinder.Search<BasicWindow>(Use.AutomationId("KrasseSache"));
+            var window = WindowFinder.Search<BasicWindow>(Use.AutomationId("CUI_TestApplication_MainWindow"));
 
-            MouseEx.Click(window.CloseButton);
+            window.CloseButton.Unsafe.Click();
         }
 
-        // TODO: Add some more tests to be sure it always works well
+        [TestMethod]
+        public void Search_ForAMessageBox_FindsAndClosesIt()
+        {
+            Do.Launch(TestData.ApplicationPath).And.Wait(1000);
+            var window = WindowFinder.Search<BasicWindow>(Use.AutomationId("CUI_TestApplication_MainWindow"));
+            var button = UI.GetChild<BasicButton>(By.AutomationId("CUI_ShowMessageBox_Button"), From.Element(window));
+            button.Unsafe.Click();
+            DynamicSleep.Wait(1000);
+
+            var messageBox = WindowFinder.Search<BasicMessageBox>(Use.Title("MessageBoxTitle"));
+
+            messageBox.OKButton.Unsafe.Click();
+            window.CloseButton.Unsafe.Click();
+        }
     }
 }
