@@ -70,9 +70,7 @@
     <Compile Include="UITests.cs" />
     <Compile Include="Utilities\ColorDetectorTests.cs" />
     <Compile Include="Utilities\DynamicSleepTests.cs" />
-    <Compile Include="Utilities\ElementListenerTests.cs" />
     <Compile Include="Utilities\WindowFocusTests.cs" />
-    <Compile Include="Utilities\WindowListenerTests.cs" />
     <Compile Include="Utilities\WindowSetupTests.cs" />
     <Compile Include="WindowFinderTests.cs" />
   </ItemGroup>
