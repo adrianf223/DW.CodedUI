@@ -37,10 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Logging, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.TestTools.UITest.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -52,7 +48,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UIAComWrapper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\PublicAssemblies\UIAComWrapper.dll</HintPath>
+      <HintPath>..\3rdParty\UIAComWrapper.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -81,7 +77,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\PublicAssemblies\Interop.UIAutomationClient.dll">
+    <None Include="..\3rdParty\Interop.UIAutomationClient.dll">
       <Link>Interop.UIAutomationClient.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
