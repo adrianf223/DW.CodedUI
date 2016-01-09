@@ -1,7 +1,7 @@
 
 
 ==============================
-Release 3.0.0.0
+Release 2.6.0.0
 ==============================
 2015-12-24    Update 3rdParty libraries to have it stand-alone
 2015-12-23    Remove mouse move in the ColorDetector
