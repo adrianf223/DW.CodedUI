@@ -140,7 +140,6 @@
     <Compile Include="MissingWindowException.cs" />
     <Compile Include="ModifierKeys.cs" />
     <Compile Include="MouseButtons.cs" />
-    <Compile Include="MouseClickException.cs" />
     <Compile Include="MouseEx.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

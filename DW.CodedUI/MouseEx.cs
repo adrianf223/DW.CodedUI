@@ -256,28 +256,16 @@ namespace DW.CodedUI
 
         private static void ClickCentered(BasicElement element, MouseButtons buttons)
         {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
-            {
-                Cursor.Position = point;
-                WinApi.MouseEvent((int)buttons);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+            Cursor.Position = GetCenterPoint(element);
+            WinApi.MouseEvent((int)buttons);
         }
 
         private static void ClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
         {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
-            {
-                Cursor.Position = point;
-                KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((int)buttons);
-                KeyboardEx.ReleaseKey(modifierKeys);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+            Cursor.Position = GetCenterPoint(element);
+            KeyboardEx.PressKey(modifierKeys);
+            WinApi.MouseEvent((int)buttons);
+            KeyboardEx.ReleaseKey(modifierKeys);
         }
 
         private static void ClickRelative(BasicElement element, MouseButtons button, At relativePosition)
@@ -517,30 +505,18 @@ namespace DW.CodedUI
 
         private static void DoubleClickCentered(BasicElement element, MouseButtons buttons)
         {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
-            {
-                Cursor.Position = point;
-                WinApi.MouseEvent((int)buttons);
-                WinApi.MouseEvent((int)buttons);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+            Cursor.Position = GetCenterPoint(element);
+            WinApi.MouseEvent((int)buttons);
+            WinApi.MouseEvent((int)buttons);
         }
 
         private static void DoubleClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
         {
-            Point point;
-            if (element.AutomationElement.TryGetClickablePoint(out point))
-            {
-                Cursor.Position = point;
-                KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((int)buttons);
-                WinApi.MouseEvent((int)buttons);
-                KeyboardEx.ReleaseKey(modifierKeys);
-            }
-            else
-                throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
+            Cursor.Position = GetCenterPoint(element);
+            KeyboardEx.PressKey(modifierKeys);
+            WinApi.MouseEvent((int)buttons);
+            WinApi.MouseEvent((int)buttons);
+            KeyboardEx.ReleaseKey(modifierKeys);
         }
 
         private static void DoubleClickRelative(BasicElement element, MouseButtons button, At relativePosition)
@@ -690,6 +666,12 @@ namespace DW.CodedUI
             }
 
             return new CombinableDo();
+        }
+
+        private static Point GetCenterPoint(BasicElement element)
+        {
+            var rect = element.Properties.BoundingRectangle;
+            return new Point(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
         }
     }
 }

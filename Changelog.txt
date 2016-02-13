@@ -4,6 +4,7 @@
 Release 2.6.1.0
 ==============================
 2016-02-13    Adjust mouse_event signatur used in the MouseEx which causes the visual studio debugger to crash
+              Remove usage of the AutomationElement.GetClickablePoint. This on some machines sometimes causes crashes
 
 
 ==============================
