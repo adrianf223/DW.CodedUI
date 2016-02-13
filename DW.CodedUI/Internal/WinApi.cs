@@ -106,11 +106,11 @@ namespace DW.CodedUI.Internal
         internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        internal static extern void mouse_event(long dwFlags, long dx, long dy, long cButtons, long dwExtraInfo);
+        internal static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, IntPtr dwExtraInfo);
 
-        internal static void MouseEvent(long buttons)
+        internal static void MouseEvent(int buttons)
         {
-            mouse_event(buttons, 0, 0, 0, 0);
+            mouse_event(buttons, 0, 0, 0, (IntPtr)0);
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -132,7 +132,7 @@ namespace DW.CodedUI.Internal
         }
         
         [Flags]
-        internal enum MouseEventFlags : uint
+        internal enum MouseEventFlags
         {
             LEFTDOWN = 0x00000002,
             LEFTUP = 0x00000004,
@@ -150,7 +150,7 @@ namespace DW.CodedUI.Internal
         //Use the values of this enum for the 'dwData' parameter
         //to specify an X button when using MouseEventFlags.XDOWN or
         //MouseEventFlags.XUP for the dwFlags parameter.
-        internal enum MouseEventDataXButtons : uint
+        internal enum MouseEventDataXButtons
         {
             XBUTTON1 = 0x00000001,
             XBUTTON2 = 0x00000002

@@ -33,7 +33,7 @@ namespace DW.CodedUI
     /// Represents mouse buttons.
     /// </summary>
     [Flags]
-    public enum MouseButtons : long
+    public enum MouseButtons
     {
         /// <summary>
         /// The left mouse button.

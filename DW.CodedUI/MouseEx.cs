@@ -47,7 +47,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Click with left mouse button.");
-                WinApi.MouseEvent((long)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
             },
             "Cannot click with the left mouse button.");
         }
@@ -63,7 +63,7 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Click with the left mouse button and with the modifier keys '{0}' pressed.", modifierKeys);
                 KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
                 KeyboardEx.ReleaseKey(modifierKeys);
 
             },
@@ -80,7 +80,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Click with the buttons '{0}'.", buttons);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
             },
             string.Format("Cannot click the mouse buttons '{0}'", buttons));
         }
@@ -96,7 +96,7 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Click with the left mouse button on the screen coordinate '{0}'.", screenCoordinate);
                 Cursor.Position = screenCoordinate;
-                WinApi.MouseEvent((long)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
             },
             string.Format("Click with the left mouse button on the screen coordinate '{0}'.", screenCoordinate));
         }
@@ -116,7 +116,7 @@ namespace DW.CodedUI
 
                 Cursor.Position = screenCoordinate;
                 KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
                 KeyboardEx.ReleaseKey(modifierKeys);
             },
             string.Format("Cannot click with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate));
@@ -260,7 +260,7 @@ namespace DW.CodedUI
             if (element.AutomationElement.TryGetClickablePoint(out point))
             {
                 Cursor.Position = point;
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
             }
             else
                 throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
@@ -273,7 +273,7 @@ namespace DW.CodedUI
             {
                 Cursor.Position = point;
                 KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
                 KeyboardEx.ReleaseKey(modifierKeys);
             }
             else
@@ -283,14 +283,14 @@ namespace DW.CodedUI
         private static void ClickRelative(BasicElement element, MouseButtons button, At relativePosition)
         {
             Cursor.Position = relativePosition.GetPoint(element);
-            WinApi.MouseEvent((long)button);
+            WinApi.MouseEvent((int)button);
         }
 
         private static void ClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
             Cursor.Position = relativePosition.GetPoint(element);
             KeyboardEx.PressKey(modifierKeys);
-            WinApi.MouseEvent((long)button);
+            WinApi.MouseEvent((int)button);
             KeyboardEx.ReleaseKey(modifierKeys);
         }
 
@@ -303,8 +303,8 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Doubleclick with the left mouse button.");
-                WinApi.MouseEvent((long)MouseButtons.Left);
-                WinApi.MouseEvent((long)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
             },
             "Cannot doubleclick with the left mouse button.");
         }
@@ -320,8 +320,8 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Doubleclick with the left mouse button and with the modifier keys '{0}' pressed.", modifierKeys);
                 KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)MouseButtons.Left);
-                WinApi.MouseEvent((long)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
                 KeyboardEx.ReleaseKey(modifierKeys);
 
             },
@@ -338,8 +338,8 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Doubleclick with the buttons '{0}'.", buttons);
-                WinApi.MouseEvent((long)buttons);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
+                WinApi.MouseEvent((int)buttons);
             },
             string.Format("Cannot doubleclick the mouse buttons '{0}'", buttons));
         }
@@ -355,8 +355,8 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Doublclick with the left mouse button on the screen coordinate '{0}'.", screenCoordinate);
                 Cursor.Position = screenCoordinate;
-                WinApi.MouseEvent((long)MouseButtons.Left);
-                WinApi.MouseEvent((long)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
+                WinApi.MouseEvent((int)MouseButtons.Left);
             },
             string.Format("Doublclick with the left mouse button on the screen coordinate '{0}'.", screenCoordinate));
         }
@@ -376,8 +376,8 @@ namespace DW.CodedUI
 
                 Cursor.Position = screenCoordinate;
                 KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)buttons);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
+                WinApi.MouseEvent((int)buttons);
                 KeyboardEx.ReleaseKey(modifierKeys);
             },
             string.Format("Cannot click with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate));
@@ -521,8 +521,8 @@ namespace DW.CodedUI
             if (element.AutomationElement.TryGetClickablePoint(out point))
             {
                 Cursor.Position = point;
-                WinApi.MouseEvent((long)buttons);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
+                WinApi.MouseEvent((int)buttons);
             }
             else
                 throw new MouseClickException(string.Format("The given BasicElement '{0}' has no clickable point.", element));
@@ -535,8 +535,8 @@ namespace DW.CodedUI
             {
                 Cursor.Position = point;
                 KeyboardEx.PressKey(modifierKeys);
-                WinApi.MouseEvent((long)buttons);
-                WinApi.MouseEvent((long)buttons);
+                WinApi.MouseEvent((int)buttons);
+                WinApi.MouseEvent((int)buttons);
                 KeyboardEx.ReleaseKey(modifierKeys);
             }
             else
@@ -546,16 +546,16 @@ namespace DW.CodedUI
         private static void DoubleClickRelative(BasicElement element, MouseButtons button, At relativePosition)
         {
             Cursor.Position = relativePosition.GetPoint(element);
-            WinApi.MouseEvent((long)button);
-            WinApi.MouseEvent((long)button);
+            WinApi.MouseEvent((int)button);
+            WinApi.MouseEvent((int)button);
         }
 
         private static void DoubleClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
             Cursor.Position = relativePosition.GetPoint(element);
             KeyboardEx.PressKey(modifierKeys);
-            WinApi.MouseEvent((long)button);
-            WinApi.MouseEvent((long)button);
+            WinApi.MouseEvent((int)button);
+            WinApi.MouseEvent((int)button);
             KeyboardEx.ReleaseKey(modifierKeys);
         }
 
@@ -638,13 +638,13 @@ namespace DW.CodedUI
                 switch (buttons)
                 {
                     case MouseButtons.Left:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.LEFTDOWN);
+                        WinApi.MouseEvent((int)WinApi.MouseEventFlags.LEFTDOWN);
                         break;
                     case MouseButtons.Middle:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.MIDDLEDOWN);
+                        WinApi.MouseEvent((int)WinApi.MouseEventFlags.MIDDLEDOWN);
                         break;
                     case MouseButtons.Right:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.RIGHTDOWN);
+                        WinApi.MouseEvent((int)WinApi.MouseEventFlags.RIGHTDOWN);
                         break;
                 }
             },
@@ -665,13 +665,13 @@ namespace DW.CodedUI
                 switch (buttons)
                 {
                     case MouseButtons.Left:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.LEFTUP);
+                        WinApi.MouseEvent((int)WinApi.MouseEventFlags.LEFTUP);
                         break;
                     case MouseButtons.Middle:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.MIDDLEUP);
+                        WinApi.MouseEvent((int)WinApi.MouseEventFlags.MIDDLEUP);
                         break;
                     case MouseButtons.Right:
-                        WinApi.MouseEvent((long)WinApi.MouseEventFlags.RIGHTUP);
+                        WinApi.MouseEvent((int)WinApi.MouseEventFlags.RIGHTUP);
                         break;
                 }
             },
