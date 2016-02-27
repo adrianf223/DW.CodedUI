@@ -24,8 +24,6 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Linq;
-using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -65,18 +63,27 @@ namespace DW.CodedUI.Tests
         {
             Assert.AreEqual("", _textBox.Text);
 
-            KeyboardEx.TypeText(_textBox, "anything nice", 50);
+            KeyboardEx.TypeText(_textBox, "Anything Nice", 50).And.Wait(2000);
 
-            Assert.AreEqual("anything nice", _textBox.Text);
+            Assert.AreEqual("Anything Nice", _textBox.Text);
+            _textBox.Unsafe.SetValue("");
+        }
+
+        [TestMethod]
+        public void TypeText_TypeLowerTextWithShiftHoldDownSeparatelly_TheTextAppearsInupperCase()
+        {
+            KeyboardEx.PressKey(_textBox, ModifierKeys.Shift);
+            KeyboardEx.TypeText("demo", 50);
+            KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
+
+            Assert.AreEqual("DEMO", _textBox.Text);
             _textBox.Unsafe.SetValue("");
         }
 
         [TestMethod]
         public void TypeText_TypeLowerTextWithShiftHoldDown_TheTextAppearsInupperCase()
         {
-            KeyboardEx.PressKey(_textBox, ModifierKeys.Shift);
-            KeyboardEx.TypeText("demo", 50);
-            KeyboardEx.ReleaseKey(ModifierKeys.Shift).And.Wait(2000);
+            KeyboardEx.TypeText(_textBox, "demo", ModifierKeys.Shift, 50).And.Wait(2000);
 
             Assert.AreEqual("DEMO", _textBox.Text);
             _textBox.Unsafe.SetValue("");
@@ -88,7 +95,7 @@ namespace DW.CodedUI.Tests
             KeyboardEx.TypeText(_textBox, "Peter Sausage");
             DynamicSleep.Wait(1000);
 
-            KeyboardEx.TypeKey(_textBox, Key.A, ModifierKeys.Control).And.Wait(500);
+            KeyboardEx.TypeKey(_textBox, Key.A, ModifierKeys.Control).And.Wait(2000);
             
             Assert.AreEqual("Peter Sausage", _textBox.SelectedText);
             _textBox.Unsafe.SetValue("");
@@ -100,22 +107,25 @@ namespace DW.CodedUI.Tests
             KeyboardEx.TypeText(_textBox, "Peter Sausage");
             DynamicSleep.Wait(1000);
 
-            Do.Action(() => KeyboardEx.TypeText(_textBox, "{LEFT}", ModifierKeys.Shift)).Repeat(6).And.Wait(500);
+            Do.Action(() => KeyboardEx.TypeKey(Key.Left, ModifierKeys.Shift)).Repeat(6).And.Wait(500);
 
             Assert.AreEqual("Sausage", _textBox.SelectedText);
             _textBox.Unsafe.SetValue("");
         }
 
         [TestMethod]
-        public void TypeText_MoreDifferentShiftSelections_SelectsTheTextAccirdingly()
+        public void TypeText_MoreDifferentShiftSelections_SelectsTheTextAccordingly()
         {
             KeyboardEx.TypeText(_textBox, "Peter Sausage");
             KeyboardEx.PressKey(Key.Enter);
             KeyboardEx.TypeText("Was Here");
             DynamicSleep.Wait(1000);
-            Do.Action(() => KeyboardEx.TypeText("{LEFT}", ModifierKeys.Shift)).Repeat(2);
-            KeyboardEx.TypeText("{UP}", ModifierKeys.Shift);
-            KeyboardEx.TypeText("{LEFT}", ModifierKeys.Shift).And.Wait(500);
+
+            KeyboardEx.TypeKey(Key.Left, ModifierKeys.Shift);
+            KeyboardEx.TypeKey(Key.Left, ModifierKeys.Shift);
+            KeyboardEx.TypeKey(Key.Left, ModifierKeys.Shift);
+            KeyboardEx.TypeKey(Key.Up, ModifierKeys.Shift);
+            KeyboardEx.TypeKey(Key.Left, ModifierKeys.Shift).And.Wait(2000);
 
             Assert.AreEqual("Sausage\r\nWas Here", _textBox.SelectedText);
             _textBox.Unsafe.SetValue("");
@@ -124,7 +134,7 @@ namespace DW.CodedUI.Tests
         [TestMethod]
         public void TypeKey_AltF4OnTheWindow_ClosesTheWindow()
         {
-            KeyboardEx.TypeKey(_testWindow, Key.F4, ModifierKeys.Alt).And.Wait(500);
+            KeyboardEx.TypeKey(_testWindow, Key.F4, ModifierKeys.Alt).And.Wait(2000);
 
             var testWindow = WindowFinder.Search(Use.AutomationId("CUI_KeyboardExTestsWindow"), And.NoAssert().And.Timeout(2000));
             Assert.IsNull(testWindow);

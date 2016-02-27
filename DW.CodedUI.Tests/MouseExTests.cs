@@ -104,6 +104,7 @@ namespace DW.CodedUI.Tests
         [TestMethod]
         public void PressReleaseButtons_WithAnElementOnTheTopRight_DragsTheIconToAnotherPosition()
         {
+            // Element on the right monitor on the very top right
             MouseEx.Move(Position.Point(new Point(3770, 45)));
             MouseEx.PressButtons(MouseButtons.Left);
             MouseEx.Move(Position.Point(new Point(3770, 45)), Position.Point(new Point(3770, 200)), 1000);
@@ -120,6 +121,42 @@ namespace DW.CodedUI.Tests
             MouseEx.DoubleClick(textBox).And.Wait(1000);
 
             Assert.AreEqual("TextBox got doubleclicked", textBox.Text);
+        }
+
+        [TestMethod]
+        public void Click_WithControlPressedInList_SelectsItems()
+        {
+            // Explorer open full screen on the left monitor
+            MouseEx.Move(Position.Point(new Point(-1300, 210)));
+            MouseEx.Click().And.Wait(500);
+            MouseEx.Move(Position.Point(new Point(-1300, 250)));
+            MouseEx.Click(ModifierKeys.Control).And.Wait(500);
+            MouseEx.Move(Position.Point(new Point(-1300, 290)));
+            MouseEx.Click(ModifierKeys.Control).And.Wait(500);
+        }
+
+        [TestMethod]
+        public void Click_WithControlPressedInListButThenAnymore_SelectsItems()
+        {
+            // Explorer open full screen on the left monitor
+            MouseEx.Move(Position.Point(new Point(-1300, 210)));
+            MouseEx.Click().And.Wait(500);
+            MouseEx.Move(Position.Point(new Point(-1300, 250)));
+            MouseEx.Click(ModifierKeys.Control).And.Wait(500);
+            MouseEx.Move(Position.Point(new Point(-1300, 290)));
+            MouseEx.Click(ModifierKeys.Control).And.Wait(500);
+            MouseEx.Move(Position.Point(new Point(-1300, 310)));
+            MouseEx.Click().And.Wait(500);
+        }
+
+        [TestMethod]
+        public void Click_WithShiftPressedInList_SelectsItems()
+        {
+            // Explorer open full screen on the left monitor
+            MouseEx.Move(Position.Point(new Point(-1300, 210)));
+            MouseEx.Click().And.Wait(500);
+            MouseEx.Move(Position.Point(new Point(-1300, 310))); 
+            MouseEx.Click(ModifierKeys.Shift).And.Wait(500);
         }
     }
 }

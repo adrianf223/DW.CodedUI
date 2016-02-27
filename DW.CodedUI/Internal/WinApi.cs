@@ -126,11 +126,8 @@ namespace DW.CodedUI.Internal
         {
             internal static int KEYEVENTF_EXTENDEDKEY = 0x0001;
             internal static int KEYEVENTF_KEYUP = 0x0002;
-
-            internal static int KeyDown = 0;
-            internal static int KeyUp = KEYEVENTF_KEYUP;
         }
-        
+
         [Flags]
         internal enum MouseEventFlags
         {

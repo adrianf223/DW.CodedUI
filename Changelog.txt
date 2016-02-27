@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.6.2.0
+==============================
+2016-02-27    Adjust usage of the keybd_event for key down and up
+
+
+==============================
 Release 2.6.1.0
 ==============================
 2016-02-13    Adjust mouse_event signatur used in the MouseEx which causes the visual studio debugger to crash
