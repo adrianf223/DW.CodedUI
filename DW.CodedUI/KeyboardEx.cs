@@ -35,6 +35,10 @@ namespace DW.CodedUI
     /// <summary>
     /// Provides static methods for performing automated keyboard actions.
     /// </summary>
+    /// <remarks>
+    /// If typetext does not work as expected, check if System.Windows.Forms.SendKeys.SendWait is working. This is used internally.<br />
+    /// In some cases an App.config file needs to be created for the test project to force the new implementation of that. See <a href="https://msdn.microsoft.com/en-us/library/system.windows.forms.sendkeys.sendwait(v=vs.110).aspx">MSDN</a>.
+    /// </remarks>
     public static class KeyboardEx
     {
         /// <summary>
