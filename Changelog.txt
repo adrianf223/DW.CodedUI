@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.7.0.0
+==============================
+2016-06-20    Use alternative UI search methods to prevent memory leaks caused by the TreeWalker
+
+
+==============================
 Release 2.6.2.0
 ==============================
 2016-02-27    Adjust usage of the keybd_event for key down and up

@@ -102,6 +102,7 @@ namespace DW.CodedUI
         private static TControl StartSearchChild<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             var condition = by.GetCondition();
+            var rawCondition = by.GetRawCondition();
             var sourceElement = from.GetSourceElement();
 
             var settings = with.GetConditions();
@@ -121,7 +122,7 @@ namespace DW.CodedUI
             watch.Start();
             while (true)
             {
-                var foundItem = StartSearchChild<TControl>(sourceElement, condition);
+                var foundItem = StartSearchChild<TControl>(sourceElement, condition, rawCondition);
                 if (foundItem != null)
                 {
                     if (!needsToBeReady)
@@ -143,6 +144,21 @@ namespace DW.CodedUI
                 if (useInterval)
                     Thread.Sleep((int)interval);
             }
+        }
+
+        private static TControl StartSearchChild<TControl>(BasicElement sourceElement, Predicate<BasicElement> condition, Condition rawCondition) where TControl : BasicElement
+        {
+            if (rawCondition == null)
+                return StartSearchChild<TControl>(sourceElement, condition);
+            return StartSearchChild<TControl>(sourceElement, rawCondition);
+        }
+
+        private static TControl StartSearchChild<TControl>(BasicElement sourceElement, Condition rawCondition) where TControl : BasicElement
+        {
+            var foundItem = sourceElement.AutomationElement.FindFirst(TreeScope.Descendants, rawCondition);
+            if (foundItem == null)
+                return null;
+            return (TControl)Activator.CreateInstance(typeof(TControl), foundItem);
         }
 
         private static TControl StartSearchChild<TControl>(BasicElement sourceElement, Predicate<BasicElement> condition) where TControl : BasicElement
@@ -222,6 +238,7 @@ namespace DW.CodedUI
         private static IEnumerable<TControl> StartSearchChildren<TControl>(By by, From from, With with) where TControl : BasicElement
         {
             var condition = by.GetCondition();
+            var rawCondition = by.GetRawCondition();
             var sourceElement = from.GetSourceElement();
 
             var settings = with.GetConditions();
@@ -236,13 +253,13 @@ namespace DW.CodedUI
                 LogPool.Append("Search for UI elements. {0}", by.GetConditionDescription());
             else
                 LogPool.Append("Search for UI elements down from '{0}'. {1}", sourceElement, MessageBuilder.BuildMessage(by, useTimeout, useInterval, timeout, interval));
-            
+
             var foundItems = new List<TControl>();
             var watch = new Stopwatch();
             watch.Start();
             while (true)
             {
-                foundItems.AddRange(StartSearchChildren<TControl>(sourceElement, condition));
+                foundItems.AddRange(StartSearchChildren<TControl>(sourceElement, condition, rawCondition));
                 if (foundItems.Any())
                 {
                     if (!needsToBeReady)
@@ -273,6 +290,22 @@ namespace DW.CodedUI
                 if (useInterval)
                     Thread.Sleep((int)interval);
             }
+        }
+
+        private static IEnumerable<TControl> StartSearchChildren<TControl>(BasicElement parent, Predicate<BasicElement> condition, Condition rawCondition) where TControl : BasicElement
+        {
+            if (rawCondition == null)
+                return StartSearchChildren<TControl>(parent, condition);
+            return StartSearchChildren<TControl>(parent, rawCondition);
+        }
+
+        private static IEnumerable<TControl> StartSearchChildren<TControl>(BasicElement parent, Condition rawCondition) where TControl : BasicElement
+        {
+            var foundItems = new List<TControl>();
+            var automationElements = parent.AutomationElement.FindAll(TreeScope.Descendants, rawCondition);
+            foreach (AutomationElement foundItem in automationElements)
+                foundItems.Add((TControl)Activator.CreateInstance(typeof(TControl), foundItem));
+            return foundItems;
         }
 
         private static IEnumerable<TControl> StartSearchChildren<TControl>(BasicElement parent, Predicate<BasicElement> condition) where TControl : BasicElement
@@ -512,6 +545,32 @@ namespace DW.CodedUI
 
         #endregion GetFullUITree
 
+        #region GetFocusedElement
+
+        /// <summary>
+        /// Returns the UI control which actually have the keyboard focus.
+        /// </summary>
+        /// <returns>The current focused automation element as BasicElement. Null if nothing is found.</returns>
+        public static BasicElement GetFocusedElement()
+        {
+            return GetFocusedElement<BasicElement>();
+        }
+
+        /// <summary>
+        /// Returns the UI control which actually have the keyboard focus.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element type to return.</typeparam>
+        /// <returns>The current focused automation element as the TControl element. Null if nothing is found.</returns>
+        public static TControl GetFocusedElement<TControl>() where TControl : BasicElement
+        {
+            var foundItem = AutomationElement.FocusedElement;
+            if (foundItem != null)
+                return (TControl)Activator.CreateInstance(typeof(TControl), foundItem);
+            return null;
+        }
+
+        #endregion GetFocusedElement
+
         #region Internals
 
         private static IEnumerable<AutomationElement> GetChildren(AutomationElement parent)
@@ -557,10 +616,10 @@ namespace DW.CodedUI
         {
             var timeLeft = TimeSpan.FromMilliseconds(timeout - watch.Elapsed.TotalMilliseconds);
             var readyInterval = TimeSpan.FromMilliseconds(interval);
-            
+
             LogPool.Append("Wait for UI control '{0}' to become ready.", foundItem);
             foundItem.WaitForCondition(timeLeft, readyInterval, e => !e.IsEnabled || !e.IsVisible);
-            
+
             if (!foundItem.IsEnabled || !foundItem.IsVisible)
             {
                 if (assertResult)

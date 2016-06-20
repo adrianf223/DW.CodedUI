@@ -37,7 +37,10 @@ namespace DW.CodedUI.Internal
             builder.AppendLine(multiply ? "No UI element could be found." : "The UI element could not be found.");
             builder.AppendLine();
             builder.AppendLine("Condition(s):");
-            builder.AppendLine(by.GetConditionDescription());
+            if (by.GetRawCondition() != null)
+                builder.AppendLine(by.GetConditionDescription());
+            else
+                builder.AppendLine(by.GetRawConditionDescription());
             builder.AppendLine();
             builder.AppendLine("Settings:");
             if (useTimeout)

@@ -25,6 +25,7 @@ THE SOFTWARE
 #endregion License
 
 using System;
+using System.Windows.Automation;
 using DW.CodedUI.BasicElements;
 
 namespace DW.CodedUI
@@ -113,6 +114,7 @@ namespace DW.CodedUI
         /// Starts the search for the UI element which has the keyboard focus.
         /// </summary>
         /// <returns>A combinable By to be able to append additional conditions.</returns>
+        [Obsolete("This method still works but it obsolete and causes memory leaks. Consier using UI.GetFocusedElement<T>")]
         public static CombinableBy Focus()
         {
             var combinableBy = new CombinableBy();
@@ -131,6 +133,8 @@ namespace DW.CodedUI
             return combinableBy.Condition(condition);
         }
 
+        internal abstract Condition GetRawCondition();
+        internal abstract string GetRawConditionDescription();
         internal abstract Predicate<BasicElement> GetCondition();
         internal abstract string GetConditionDescription();
     }
