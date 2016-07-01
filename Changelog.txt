@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.7.2.0
+==============================
+2016-07-01    Catch exceptions from the MS automation framework to please the "with" timeout settings
+
+
+==============================
 Release 2.7.0.0
 ==============================
 2016-06-20    Use alternative UI search methods to prevent memory leaks caused by the TreeWalker

@@ -155,7 +155,15 @@ namespace DW.CodedUI
 
         private static TControl StartSearchChild<TControl>(BasicElement sourceElement, Condition rawCondition) where TControl : BasicElement
         {
-            var foundItem = sourceElement.AutomationElement.FindFirst(TreeScope.Descendants, rawCondition);
+            AutomationElement foundItem;
+            try
+            {
+                foundItem = sourceElement.AutomationElement.FindFirst(TreeScope.Descendants, rawCondition);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
             if (foundItem == null)
                 return null;
             return (TControl)Activator.CreateInstance(typeof(TControl), foundItem);
@@ -302,7 +310,15 @@ namespace DW.CodedUI
         private static IEnumerable<TControl> StartSearchChildren<TControl>(BasicElement parent, Condition rawCondition) where TControl : BasicElement
         {
             var foundItems = new List<TControl>();
-            var automationElements = parent.AutomationElement.FindAll(TreeScope.Descendants, rawCondition);
+            AutomationElementCollection automationElements;
+            try
+            {
+                automationElements = parent.AutomationElement.FindAll(TreeScope.Descendants, rawCondition);
+            }
+            catch (Exception)
+            {
+                return foundItems;
+            }
             foreach (AutomationElement foundItem in automationElements)
                 foundItems.Add((TControl)Activator.CreateInstance(typeof(TControl), foundItem));
             return foundItems;
