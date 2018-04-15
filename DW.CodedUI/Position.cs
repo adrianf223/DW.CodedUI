@@ -2,7 +2,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2012-2016 David Wendland
+Copyright (c) 2012-2018 David Wendland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,10 @@ THE SOFTWARE
 */
 #endregion License
 
-using System.Drawing;
+using System.Windows;
 using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
+using DW.CodedUI.Tests.Internal;
 
 namespace DW.CodedUI
 {
@@ -99,7 +100,7 @@ namespace DW.CodedUI
             if (_element != null && _relativePosition != null)
                 return _relativePosition.GetPoint(_element);
 
-            return Cursor.Position;
+            return Cursor.Position.ToWindowsPoint();
         }
     }
 }

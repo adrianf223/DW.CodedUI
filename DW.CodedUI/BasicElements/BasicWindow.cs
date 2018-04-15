@@ -2,7 +2,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2012-2016 David Wendland
+Copyright (c) 2012-2018 David Wendland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,8 @@ THE SOFTWARE
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
 using DW.CodedUI.Internal;
@@ -132,7 +132,7 @@ namespace DW.CodedUI.BasicElements
             public void SetSize(Size size)
             {
                 var rect = _automationElement.Current.BoundingRectangle;
-                SetRect(new Rectangle(rect.Location, size));
+                SetRect(new Rect(rect.Location, size));
             }
 
             /// <summary>
@@ -142,14 +142,14 @@ namespace DW.CodedUI.BasicElements
             public void SetPosition(Point position)
             {
                 var rect = _automationElement.Current.BoundingRectangle;
-                SetRect(new Rectangle(position, rect.Size));
+                SetRect(new Rect(position, rect.Size));
             }
 
             /// <summary>
             /// Sets the new size and position of a window.
             /// </summary>
             /// <param name="rect">The new position and size of the window.</param>
-            public void SetRect(Rectangle rect)
+            public void SetRect(Rect rect)
             {
                 WinApi.SetWindowPos((IntPtr)_automationElement.Current.NativeWindowHandle, WinApi.HwndInsertAfter.HWND_TOP, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height, WinApi.SetWindowPositionFlags.SWP_NOZORDER);
             }

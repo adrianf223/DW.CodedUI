@@ -2,7 +2,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2012-2016 David Wendland
+Copyright (c) 2012-2018 David Wendland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,12 @@ THE SOFTWARE
 #endregion License
 
 using System;
-using System.Drawing;
 using System.Threading;
+using System.Windows;
 using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
+using DW.CodedUI.Tests.Internal;
 
 namespace DW.CodedUI
 {
@@ -95,7 +96,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Click with the left mouse button on the screen coordinate '{0}'.", screenCoordinate);
-                Cursor.Position = screenCoordinate;
+                Cursor.Position = screenCoordinate.ToDrawingPoint();
                 WinApi.MouseEvent((int)MouseButtons.Left);
             },
             string.Format("Click with the left mouse button on the screen coordinate '{0}'.", screenCoordinate));
@@ -114,7 +115,7 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Click with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate);
 
-                Cursor.Position = screenCoordinate;
+                Cursor.Position = screenCoordinate.ToDrawingPoint();
                 KeyboardEx.PressKey(modifierKeys);
                 WinApi.MouseEvent((int)buttons);
                 KeyboardEx.ReleaseKey(modifierKeys);
@@ -256,13 +257,13 @@ namespace DW.CodedUI
 
         private static void ClickCentered(BasicElement element, MouseButtons buttons)
         {
-            Cursor.Position = GetCenterPoint(element);
+            Cursor.Position = GetCenterPoint(element).ToDrawingPoint();
             WinApi.MouseEvent((int)buttons);
         }
 
         private static void ClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
         {
-            Cursor.Position = GetCenterPoint(element);
+            Cursor.Position = GetCenterPoint(element).ToDrawingPoint();
             KeyboardEx.PressKey(modifierKeys);
             WinApi.MouseEvent((int)buttons);
             KeyboardEx.ReleaseKey(modifierKeys);
@@ -270,13 +271,13 @@ namespace DW.CodedUI
 
         private static void ClickRelative(BasicElement element, MouseButtons button, At relativePosition)
         {
-            Cursor.Position = relativePosition.GetPoint(element);
+            Cursor.Position = relativePosition.GetPoint(element).ToDrawingPoint();
             WinApi.MouseEvent((int)button);
         }
 
         private static void ClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
-            Cursor.Position = relativePosition.GetPoint(element);
+            Cursor.Position = relativePosition.GetPoint(element).ToDrawingPoint();
             KeyboardEx.PressKey(modifierKeys);
             WinApi.MouseEvent((int)button);
             KeyboardEx.ReleaseKey(modifierKeys);
@@ -342,7 +343,7 @@ namespace DW.CodedUI
             return WrapIt(() =>
             {
                 LogPool.Append("Doublclick with the left mouse button on the screen coordinate '{0}'.", screenCoordinate);
-                Cursor.Position = screenCoordinate;
+                Cursor.Position = screenCoordinate.ToDrawingPoint();
                 WinApi.MouseEvent((int)MouseButtons.Left);
                 WinApi.MouseEvent((int)MouseButtons.Left);
             },
@@ -362,7 +363,7 @@ namespace DW.CodedUI
             {
                 LogPool.Append("Doubleclick with the modifier keys '{0}' on the screen coordinate '{1}'.", modifierKeys, screenCoordinate);
 
-                Cursor.Position = screenCoordinate;
+                Cursor.Position = screenCoordinate.ToDrawingPoint();
                 KeyboardEx.PressKey(modifierKeys);
                 WinApi.MouseEvent((int)buttons);
                 WinApi.MouseEvent((int)buttons);
@@ -505,14 +506,14 @@ namespace DW.CodedUI
 
         private static void DoubleClickCentered(BasicElement element, MouseButtons buttons)
         {
-            Cursor.Position = GetCenterPoint(element);
+            Cursor.Position = GetCenterPoint(element).ToDrawingPoint();
             WinApi.MouseEvent((int)buttons);
             WinApi.MouseEvent((int)buttons);
         }
 
         private static void DoubleClickCentered(BasicElement element, MouseButtons buttons, ModifierKeys modifierKeys)
         {
-            Cursor.Position = GetCenterPoint(element);
+            Cursor.Position = GetCenterPoint(element).ToDrawingPoint();
             KeyboardEx.PressKey(modifierKeys);
             WinApi.MouseEvent((int)buttons);
             WinApi.MouseEvent((int)buttons);
@@ -521,14 +522,14 @@ namespace DW.CodedUI
 
         private static void DoubleClickRelative(BasicElement element, MouseButtons button, At relativePosition)
         {
-            Cursor.Position = relativePosition.GetPoint(element);
+            Cursor.Position = relativePosition.GetPoint(element).ToDrawingPoint();
             WinApi.MouseEvent((int)button);
             WinApi.MouseEvent((int)button);
         }
 
         private static void DoubleClickRelative(BasicElement element, MouseButtons button, ModifierKeys modifierKeys, At relativePosition)
         {
-            Cursor.Position = relativePosition.GetPoint(element);
+            Cursor.Position = relativePosition.GetPoint(element).ToDrawingPoint();
             KeyboardEx.PressKey(modifierKeys);
             WinApi.MouseEvent((int)button);
             WinApi.MouseEvent((int)button);
@@ -546,7 +547,7 @@ namespace DW.CodedUI
             {
                 var position = to.GetPosition();
                 LogPool.Append("Place the mouse cursor on position '{0}'.", position);
-                Cursor.Position = position;
+                Cursor.Position = position.ToDrawingPoint();
             },
             string.Format("Cannot place the mouse cursor on position '{0}'.", to.GetPosition()));
         }
@@ -576,15 +577,15 @@ namespace DW.CodedUI
                      Math.Abs(currentX - toPosition.X) > 0.5 || Math.Abs(currentY - toPosition.Y) > 0.5;
                      currentX += xSteps, currentY += ySteps)
                 {
-                    Cursor.Position = new Point((int)currentX, (int)currentY);
+                    Cursor.Position = new System.Drawing.Point((int)currentX, (int)currentY);
                     Thread.Sleep(1);
                 }
-                Cursor.Position = toPosition;
+                Cursor.Position = toPosition.ToDrawingPoint();
             },
             string.Format("Cannot move the mouse cursor from position '{0}' to position '{1}' within '{2}' milliseconds.", from.GetPosition(), to.GetPosition(), duration));
         }
 
-        private static double GetSteps(int from, int to, uint duration)
+        private static double GetSteps(double from, double to, uint duration)
         {
             var distance = GetDistance(from, to);
             var steps = distance / duration;
@@ -593,7 +594,7 @@ namespace DW.CodedUI
             return steps;
         }
 
-        private static double GetDistance(int from, int to)
+        private static double GetDistance(double from, double to)
         {
             if (to > from)
                 return to - from;
@@ -671,7 +672,7 @@ namespace DW.CodedUI
         private static Point GetCenterPoint(BasicElement element)
         {
             var rect = element.Properties.BoundingRectangle;
-            return new Point(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
+            return new Point((int)(rect.Left + rect.Width / 2), (int)(rect.Top + rect.Height / 2));
         }
     }
 }

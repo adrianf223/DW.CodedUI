@@ -11,7 +11,7 @@ http://www.my-libraries.com/index.php/2-uncategorised/26-dw-codedui-downloads
 --------------------------------------------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2012-2016 David Wendland
+Copyright (c) 2012-2018 David Wendland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -2,7 +2,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2012-2016 David Wendland
+Copyright (c) 2012-2018 David Wendland
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,9 @@ THE SOFTWARE
 
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using DW.CodedUI.BasicElements;
 using DW.CodedUI.Internal;
-using Microsoft.VisualStudio.TestTools.UITesting;
+using Point = System.Windows.Point;
 
 namespace DW.CodedUI.Utilities
 {
@@ -70,7 +69,7 @@ namespace DW.CodedUI.Utilities
             LogPool.Append("Check for the color at the position x={0} y={1}.", point.X, point.Y);
 
             var hdcScreen = WinApi.CreateDC("Display", null, null, IntPtr.Zero);
-            var cr = WinApi.GetPixel(hdcScreen, point.X, point.Y);
+            var cr = WinApi.GetPixel(hdcScreen, (int)point.X, (int)point.Y);
             WinApi.DeleteDC(hdcScreen);
 
             return Color.FromArgb((cr & 0x000000FF),

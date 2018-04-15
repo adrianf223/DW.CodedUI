@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.8.0.0
+==============================
+2018-04-13    Change references to the UIAComWrapper using the open source alternatives from GitHub/NuGet
+
+
+==============================
 Release 2.7.2.0
 ==============================
 2016-07-01    Catch exceptions from the MS automation framework to please the "with" timeout settings
