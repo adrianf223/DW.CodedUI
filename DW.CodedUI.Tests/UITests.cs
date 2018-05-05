@@ -24,6 +24,7 @@ THE SOFTWARE
 */
 #endregion License
 
+using System;
 using System.Diagnostics;
 using System.Linq;
 using DW.CodedUI.BasicElements;
@@ -200,6 +201,34 @@ namespace DW.CodedUI.Tests
             Assert.AreEqual("B-First", nameElements[0].Name);
             Assert.AreEqual("B-Second", nameElements[1].Name);
             Assert.AreEqual("B-Third", nameElements[2].Name);
+        }
+
+        [TestMethod]
+        public void GetChildren_WithoutParameter_ReturnsDirectChildrenOnly()
+        {
+            var windowItems = UI.GetChildren(From.Element(_testWindow)).ToList();
+            Assert.AreEqual(4, windowItems.Count);
+
+            Assert.AreEqual("TitleBar", windowItems[0].AutomationId);
+            Assert.AreEqual("CUI_AutomationIdsPanel", windowItems[1].AutomationId);
+            Assert.AreEqual("CUI_ClassNamesPanel", windowItems[2].AutomationId);
+            Assert.AreEqual("CUI_NamesPanel", windowItems[3].AutomationId);
+        }
+
+        [TestMethod]
+        public void GetDescendants_WithoutParameter_ReturnsAllCatchableChildElements()
+        {
+            var button = UI.GetChild(By.AutomationId("CUI_AutomationIdsPanel"), From.Element(_testWindow));
+
+            var descendants = UI.GetDescendants(From.Element(button)).ToList();
+            Assert.AreEqual(6, descendants.Count);
+
+            Assert.AreEqual("CUI_Button1", descendants[0].AutomationId);
+            Assert.AreEqual("First", descendants[1].Name);
+            Assert.AreEqual("CUI_Button2", descendants[2].AutomationId);
+            Assert.AreEqual("Second", descendants[3].Name);
+            Assert.AreEqual("CUI_Button3", descendants[4].AutomationId);
+            Assert.AreEqual("Third", descendants[5].Name);
         }
     }
 }

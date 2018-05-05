@@ -29,4 +29,4 @@ using System.Reflection;
 [assembly: AssemblyCompany("my-libraries David Wendland")]
 [assembly: AssemblyCopyright("Copyright © my-libraries David Wendland 2012-2018")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyVersion("2.8.0.0")]
+[assembly: AssemblyVersion("2.8.1.0")]

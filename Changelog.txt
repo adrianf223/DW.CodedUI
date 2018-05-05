@@ -1,6 +1,12 @@
 
 
 ==============================
+Release 2.8.?.0
+==============================
+2018-05-05    Add methods to the UI class to get direct or descendants children without a condition
+
+
+==============================
 Release 2.8.0.0
 ==============================
 2018-04-13    Change references to the UIAComWrapper using the open source alternatives from GitHub/NuGet

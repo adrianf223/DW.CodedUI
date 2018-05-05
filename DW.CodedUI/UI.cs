@@ -48,7 +48,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <typeparam name="TControl">The UI element type to search for.</typeparam>
         /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI element has to start from.</param>
         /// <returns>The found control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
@@ -62,7 +62,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <typeparam name="TControl">The UI element type to search for.</typeparam>
         /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI element has to start from.</param>
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The found control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
@@ -76,7 +76,7 @@ namespace DW.CodedUI
         /// Searches for a given child element with the passed By conditions. By default With.Assert().And.Timeout(10000) is in use.
         /// </summary>
         /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI element has to start from.</param>
         /// <returns>The found control if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found.</exception>
         /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
@@ -89,7 +89,7 @@ namespace DW.CodedUI
         /// Searches for a given child element with the passed By conditions and With settings. If not disabled With.Timeout(10000).And.Assert() gets appended.
         /// </summary>
         /// <param name="by">Provides the conditions to be used by searching the UI element.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI element has to start from.</param>
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>The found control if any; otherwise an exception if it is not disabled. If it is disabled null gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">No UI element could be found. (If not disabled.)</exception>
@@ -192,7 +192,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <typeparam name="TControl">The UI element types to search for.</typeparam>
         /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI elements has to start from.</param>
         /// <returns>A list of found child elements if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found.</exception>
         /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
@@ -206,7 +206,7 @@ namespace DW.CodedUI
         /// </summary>
         /// <typeparam name="TControl">The UI element types to search for.</typeparam>
         /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI elements has to start from.</param>
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>A list of found child elements if any; otherwise an exception if it is not disabled. If it is disabled an empty list gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found. (If not disabled.)</exception>
@@ -217,10 +217,26 @@ namespace DW.CodedUI
         }
 
         /// <summary>
+        /// Returns all direct child elements.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element types.</typeparam>
+        /// <param name="from">The source where the child elements belongs to.</param>
+        /// <returns>A list of the child elements.</returns>
+        public static IEnumerable<TControl> GetChildren<TControl>(From from) where TControl : BasicElement
+        {
+            var sourceElement = from.GetSourceElement();
+            var children = GetChildren(sourceElement.AutomationElement);
+            var foundChildren = new List<TControl>();
+            foreach (var child in children)
+                foundChildren.Add((TControl)Activator.CreateInstance(typeof(TControl), child));
+            return foundChildren;
+        }
+
+        /// <summary>
         /// Returns all child elements which passes the By conditions. By default With.Assert().And.Timeout(10000) is in use.
         /// </summary>
         /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI elements has to start from.</param>
         /// <returns>A list of found child elements if any; otherwise an exception.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found.</exception>
         /// <remarks>To change the default With settings globaly consider changing the values in the <see cref="DW.CodedUI.CodedUIEnvironment" />.</remarks>
@@ -233,7 +249,7 @@ namespace DW.CodedUI
         /// Returns all child elements which passes the By conditions and With settings. If not disabled With.Timeout(10000).And.Assert() gets appended.
         /// </summary>
         /// <param name="by">Provides the conditions to be used by searching the UI elements.</param>
-        /// <param name="from">The source where the start of the UI element has to start from.</param>
+        /// <param name="from">The source where the search of the child UI elements has to start from.</param>
         /// <param name="with">The settings to be used while searching.</param>
         /// <returns>A list of found child elements if any; otherwise an exception if it is not disabled. If it is disabled an empty list gets returned.</returns>
         /// <exception cref="DW.CodedUI.UIElementNotFoundException">The UI element could not be found. (If not disabled.)</exception>
@@ -241,6 +257,16 @@ namespace DW.CodedUI
         public static IEnumerable<BasicElement> GetChildren(By by, From from, With with)
         {
             return StartSearchChildren<BasicElement>(by, from, with);
+        }
+
+        /// <summary>
+        /// Returns all direct child elements.
+        /// </summary>
+        /// <param name="from">The source where the child elements belongs to.</param>
+        /// <returns>A list of the child elements.</returns>
+        public static IEnumerable<BasicElement> GetChildren(From from)
+        {
+            return GetChildren<BasicElement>(from);
         }
 
         private static IEnumerable<TControl> StartSearchChildren<TControl>(By by, From from, With with) where TControl : BasicElement
@@ -338,6 +364,31 @@ namespace DW.CodedUI
         }
 
         #endregion GetChildren
+
+        #region GetDescendants
+
+        /// <summary>
+        /// Returns all available child elements, no matter their position the child tree, as a plain list.
+        /// </summary>
+        /// <param name="from">The source where the child elements belongs to.</param>
+        /// <returns>A list of all available child elements.</returns>
+        public static IEnumerable<BasicElement> GetDescendants(From from)
+        {
+            return GetDescendants<BasicElement>(from);
+        }
+
+        /// <summary>
+        /// Returns all available child elements, no matter their position the child tree, as a plain list.
+        /// </summary>
+        /// <typeparam name="TControl">The UI element types.</typeparam>
+        /// <param name="from">The source where the child elements belongs to.</param>
+        /// <returns>A list of all available child elements.</returns>
+        public static IEnumerable<TControl> GetDescendants<TControl>(From from) where TControl : BasicElement
+        {
+            return GetChildren<TControl>(By.Condition(p => true), from, With.NoAssert().NoTimeout().NoInterval());
+        }
+
+        #endregion GetDescendants
 
         #region GetParent
 
