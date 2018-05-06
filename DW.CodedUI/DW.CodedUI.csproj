@@ -161,6 +161,7 @@
     <Compile Include="Utilities\InExclude.cs" />
     <Compile Include="Utilities\Listener.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
+    <Compile Include="Utilities\Patterns.cs" />
     <Compile Include="Utilities\WindowChangeKind.cs" />
     <Compile Include="Utilities\WindowFilters.cs" />
     <Compile Include="Utilities\WindowListener.cs" />
