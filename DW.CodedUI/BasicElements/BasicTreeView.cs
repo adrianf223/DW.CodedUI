@@ -27,6 +27,7 @@ THE SOFTWARE
 using System.Collections.Generic;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -64,7 +65,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="verticalAmount">The amount of lines to scroll.</param>
             public void Scroll(ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.Scroll(horizontalAmount, verticalAmount);
             }
 
@@ -74,7 +75,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="amount">The amount of characters to scroll.</param>
             public void ScrollHorizontal(ScrollAmount amount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.ScrollHorizontal(amount);
             }
 
@@ -84,7 +85,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="amount">The amount of lines to scroll.</param>
             public void ScrollVertical(ScrollAmount amount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.ScrollVertical(amount);
             }
 
@@ -95,7 +96,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="verticalPercent">The vertical percentual value to set.</param>
             public void SetScrollPercent(double horizontalPercent, double verticalPercent)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.SetScrollPercent(horizontalPercent, verticalPercent);
             }
         }
@@ -123,7 +124,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.HorizontalScrollPercent;
             }
         }
@@ -135,7 +136,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.HorizontalViewSize;
             }
         }
@@ -147,7 +148,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.HorizontallyScrollable;
             }
         }
@@ -159,7 +160,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticalScrollPercent;
             }
         }
@@ -171,7 +172,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticalViewSize;
             }
         }
@@ -183,7 +184,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticallyScrollable;
             }
         }

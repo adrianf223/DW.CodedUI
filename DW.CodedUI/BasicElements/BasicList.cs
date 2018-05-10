@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -66,7 +67,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="verticalAmount">The amount of lines to scroll.</param>
             public void Scroll(ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.Scroll(horizontalAmount, verticalAmount);
             }
 
@@ -76,7 +77,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="amount">The amount of characters to scroll.</param>
             public void ScrollHorizontal(ScrollAmount amount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.ScrollHorizontal(amount);
             }
 
@@ -86,7 +87,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="amount">The amount of lines to scroll.</param>
             public void ScrollVertical(ScrollAmount amount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.ScrollVertical(amount);
             }
 
@@ -97,7 +98,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="verticalPercent">The vertical percentual value to set.</param>
             public void SetScrollPercent(double horizontalPercent, double verticalPercent)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.SetScrollPercent(horizontalPercent, verticalPercent);
             }
         }
@@ -114,7 +115,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                var pattern = Patterns.GetSelectionPattern(AutomationElement);
                 return pattern.Current.CanSelectMultiple;
             }
         }
@@ -126,7 +127,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                var pattern = Patterns.GetSelectionPattern(AutomationElement);
                 return pattern.Current.GetSelection().Select(element => new BasicListItem(element));
             }
         }
@@ -149,7 +150,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.HorizontalScrollPercent;
             }
         }
@@ -161,7 +162,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.HorizontalViewSize;
             }
         }
@@ -173,7 +174,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.HorizontallyScrollable;
             }
         }
@@ -185,7 +186,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticalScrollPercent;
             }
         }
@@ -197,7 +198,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticalViewSize;
             }
         }
@@ -209,7 +210,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticallyScrollable;
             }
         }
@@ -218,15 +219,12 @@ namespace DW.CodedUI.BasicElements
         /// Gets the amount of columns.
         /// </summary>
         /// <remarks>Not supported for a ListBox.</remarks>
-        /// <exception cref="System.NotSupportedException">The element does not support ColumnCount.</exception>
         public int ColumnCount
         {
             get
             {
-                object pattern;
-                if (AutomationElement.TryGetCurrentPattern(GridPattern.Pattern, out pattern))
-                    return ((GridPattern)pattern).Current.ColumnCount;
-                throw new NotSupportedException(string.Format("The '{0}' does not support ColumnCount.", AutomationElement.Current.ClassName));
+                var pattern = Patterns.GetGridPattern(AutomationElement);
+                return pattern.Current.ColumnCount;
             }
         }
 
@@ -234,15 +232,12 @@ namespace DW.CodedUI.BasicElements
         /// Gets the amount of rows.
         /// </summary>
         /// <remarks>Not supported for a ListBox.</remarks>
-        /// <exception cref="System.NotSupportedException">The element does not support RowCount.</exception>
         public int RowCount
         {
             get
             {
-                object pattern;
-                if (AutomationElement.TryGetCurrentPattern(GridPattern.Pattern, out pattern))
-                    return ((GridPattern)pattern).Current.RowCount;
-                throw new NotSupportedException(string.Format("The '{0}' does not support RowCount.", AutomationElement.Current.ClassName));
+                var pattern = Patterns.GetGridPattern(AutomationElement);
+                return pattern.Current.RowCount;
             }
         }
 
@@ -253,13 +248,10 @@ namespace DW.CodedUI.BasicElements
         /// <param name="column">The item column.</param>
         /// <returns>The BasicElement.</returns>
         /// <remarks>Not supported for a ListBox.</remarks>
-        /// <exception cref="System.NotSupportedException">The element does not support GetItem.</exception>
         public BasicElement GetItem(int row, int column)
         {
-            object pattern;
-            if (AutomationElement.TryGetCurrentPattern(GridPattern.Pattern, out pattern))
-                return new BasicElement(((GridPattern)pattern).GetItem(row, column));
-            throw new NotSupportedException(string.Format("The '{0}' does not support GetItem.", AutomationElement.Current.ClassName));
+            var pattern = Patterns.GetGridPattern(AutomationElement);
+            return new BasicElement(pattern.GetItem(row, column));
         }
 
         /// <summary>
@@ -267,13 +259,11 @@ namespace DW.CodedUI.BasicElements
         /// </summary>
         /// <returns>The column headers.</returns>
         /// <remarks>Not supported for a ListBox.</remarks>
-        /// <exception cref="System.NotSupportedException">The element does not support GetColumnHeaders.</exception>
         public IEnumerable<BasicElement> GetColumnHeaders()
         {
-            object pattern;
-            if (AutomationElement.TryGetCurrentPattern(TablePattern.Pattern, out pattern))
-                return ((TablePattern) pattern).Current.GetColumnHeaders().Select(i => new BasicElement(i));
-            throw new NotSupportedException(string.Format("The '{0}' does not support GetColumnHeaders.", AutomationElement.Current.ClassName));
+            var pattern = Patterns.GetTablePattern(AutomationElement);
+            foreach (var columnHeader in pattern.Current.GetColumnHeaders())
+                yield return new BasicElement(columnHeader);
         }
 
         /// <summary>

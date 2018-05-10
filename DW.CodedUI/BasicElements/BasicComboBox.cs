@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -63,7 +64,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Expand()
             {
-                var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                var pattern = Patterns.GetExpandCollapsePattern(_automationElement);
                 pattern.Expand();
             }
 
@@ -72,7 +73,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Collapse()
             {
-                var pattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                var pattern = Patterns.GetExpandCollapsePattern(_automationElement);
                 pattern.Collapse();
             }
 
@@ -82,9 +83,8 @@ namespace DW.CodedUI.BasicElements
             /// <param name="value">The value to set.</param>
             public void SetValue(string value)
             {
-                object valuePattern;
-                if (_automationElement.TryGetCurrentPattern(ValuePattern.Pattern, out valuePattern))
-                    ((ValuePattern)valuePattern).SetValue(value);
+                var pattern = Patterns.GetValuePattern(_automationElement);
+                pattern.SetValue(value);
             }
 
             /// <summary>
@@ -93,7 +93,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="verticalPercent">The percentual value to set.</param>
             public void SetScrollPercent(double verticalPercent)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.SetScrollPercent(ScrollPattern.NoScroll, verticalPercent);
             }
 
@@ -103,7 +103,7 @@ namespace DW.CodedUI.BasicElements
             /// <param name="amount">The amount of lines to scroll</param>
             public void ScrollVertical(ScrollAmount amount)
             {
-                var pattern = (ScrollPattern)_automationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(_automationElement);
                 pattern.ScrollVertical(amount);
             }
         }
@@ -120,7 +120,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                var pattern = Patterns.GetSelectionPattern(AutomationElement);
                 var selectedItem = pattern.Current.GetSelection().FirstOrDefault();
                 return selectedItem != null ? new BasicComboBoxItem(selectedItem) : null;
             }
@@ -148,8 +148,8 @@ namespace DW.CodedUI.BasicElements
             {
                 if (SelectedItem == null)
                 {
-                    var valuePattern = (ValuePattern)AutomationElement.GetCurrentPattern(ValuePattern.Pattern);
-                    return valuePattern.Current.Value;
+                    var pattern = Patterns.GetValuePattern(AutomationElement);
+                    return pattern.Current.Value;
                 }
                 return SelectedItem.Text;
             }
@@ -162,10 +162,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                object valuePattern;
-                if (AutomationElement.TryGetCurrentPattern(ValuePattern.Pattern, out valuePattern))
-                    return ((ValuePattern)valuePattern).Current.IsReadOnly;
-                return true;
+                var pattern = Patterns.GetValuePattern(AutomationElement);
+                return pattern.Current.IsReadOnly;
             }
         }
 
@@ -176,8 +174,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var expandCollapsePattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
-                return expandCollapsePattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
+                var pattern = Patterns.GetExpandCollapsePattern(AutomationElement);
+                return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
             }
         }
 
@@ -188,7 +186,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticalScrollPercent;
             }
         }
@@ -200,7 +198,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticalViewSize;
             }
         }
@@ -212,7 +210,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ScrollPattern)AutomationElement.GetCurrentPattern(ScrollPattern.Pattern);
+                var pattern = Patterns.GetScrollPattern(AutomationElement);
                 return pattern.Current.VerticallyScrollable;
             }
         }

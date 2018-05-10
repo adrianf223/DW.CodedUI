@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -66,8 +67,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Click()
             {
-                var invokePattern = (InvokePattern) _automationElement.GetCurrentPattern(InvokePattern.Pattern);
-                invokePattern.Invoke();
+                var pattern = Patterns.GetInvokePattern(_automationElement);
+                pattern.Invoke();
             }
         }
 

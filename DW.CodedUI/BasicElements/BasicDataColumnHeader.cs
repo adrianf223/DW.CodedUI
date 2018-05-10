@@ -35,8 +35,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Click()
             {
-                var invokePattern = Patterns.GetInvokePattern(_automationElement);
-                invokePattern.Invoke();
+                var pattern = Patterns.GetInvokePattern(_automationElement);
+                pattern.Invoke();
             }
 
             /// <summary>
@@ -44,8 +44,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void ScrollIntoView()
             {
-                var scrollItemPattern = Patterns.GetScrollItemPattern(_automationElement);
-                scrollItemPattern.ScrollIntoView();
+                var pattern = Patterns.GetScrollItemPattern(_automationElement);
+                pattern.ScrollIntoView();
             }
         }
 

@@ -4,6 +4,7 @@
 Release 2.8.?.0
 ==============================
 2018-05-10    Add objects for the DataGrid and its children
+2018-05-10    Replace all usages of direct pattern reading by the Patterns objects
 2018-05-06    Add class to the utilities for a more easy access to the AutomationPatterns
 2018-05-05    Add methods to the UI class to get direct or descendants children without a condition
 

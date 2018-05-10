@@ -36,8 +36,8 @@ namespace DW.CodedUI.BasicElements
             /// <param name="newValue">The new value to set.</param>
             public void SetValue(string newValue)
             {
-                var valuePattern = Patterns.GetValuePattern(_automationElement);
-                valuePattern.SetValue(newValue);
+                var pattern = Patterns.GetValuePattern(_automationElement);
+                pattern.SetValue(newValue);
             }
 
             /// <summary>
@@ -45,8 +45,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void ScrollIntoView()
             {
-                var scrollItemPattern = Patterns.GetScrollItemPattern(_automationElement);
-                scrollItemPattern.ScrollIntoView();
+                var pattern = Patterns.GetScrollItemPattern(_automationElement);
+                pattern.ScrollIntoView();
             }
         }
 
@@ -62,8 +62,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var valuePattern = Patterns.GetValuePattern(AutomationElement);
-                return valuePattern.Current.IsReadOnly;
+                var pattern = Patterns.GetValuePattern(AutomationElement);
+                return pattern.Current.IsReadOnly;
             }
         }
 
@@ -74,8 +74,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var valuePattern = Patterns.GetValuePattern(AutomationElement);
-                return valuePattern.Current.Value;
+                var pattern = Patterns.GetValuePattern(AutomationElement);
+                return pattern.Current.Value;
             }
         }
 
@@ -86,8 +86,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tableItemPattern = Patterns.GetTableItemPattern(AutomationElement);
-                return tableItemPattern.Current.Column;
+                var pattern = Patterns.GetTableItemPattern(AutomationElement);
+                return pattern.Current.Column;
             }
         }
 
@@ -98,8 +98,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tableItemPattern = Patterns.GetTableItemPattern(AutomationElement);
-                return tableItemPattern.Current.ColumnSpan;
+                var pattern = Patterns.GetTableItemPattern(AutomationElement);
+                return pattern.Current.ColumnSpan;
             }
         }
 
@@ -110,8 +110,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tableItemPattern = Patterns.GetTableItemPattern(AutomationElement);
-                return tableItemPattern.Current.Row;
+                var pattern = Patterns.GetTableItemPattern(AutomationElement);
+                return pattern.Current.Row;
             }
         }
 
@@ -122,8 +122,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tableItemPattern = Patterns.GetTableItemPattern(AutomationElement);
-                return tableItemPattern.Current.RowSpan;
+                var pattern = Patterns.GetTableItemPattern(AutomationElement);
+                return pattern.Current.RowSpan;
             }
         }
 
@@ -134,8 +134,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tableItemPattern = Patterns.GetTableItemPattern(AutomationElement);
-                return new BasicDataGrid(tableItemPattern.Current.ContainingGrid);
+                var pattern = Patterns.GetTableItemPattern(AutomationElement);
+                return new BasicDataGrid(pattern.Current.ContainingGrid);
             }
         }
     }

@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -61,8 +62,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Select()
             {
-                var invokePattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
-                invokePattern.Select();
+                var pattern = Patterns.GetSelectionItemPattern(_automationElement);
+                pattern.Select();
             }
         }
 
@@ -78,7 +79,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (SelectionItemPattern)AutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                var pattern = Patterns.GetSelectionItemPattern(AutomationElement);
                 return pattern.Current.IsSelected;
             }
         }

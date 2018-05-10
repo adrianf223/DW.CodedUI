@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -66,7 +67,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Toggle()
             {
-                var pattern = (TogglePattern)_automationElement.GetCurrentPattern(TogglePattern.Pattern);
+                var pattern = Patterns.GetTogglePattern(_automationElement);
                 pattern.Toggle();
             }
         }
@@ -78,7 +79,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (TogglePattern)AutomationElement.GetCurrentPattern(TogglePattern.Pattern);
+                var pattern = Patterns.GetTogglePattern(AutomationElement);
                 return pattern.Current.ToggleState == ToggleState.On;
             }
         }

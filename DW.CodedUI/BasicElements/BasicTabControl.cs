@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -52,7 +53,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (SelectionPattern)AutomationElement.GetCurrentPattern(SelectionPattern.Pattern);
+                var pattern = Patterns.GetSelectionPattern(AutomationElement);
                 var selectedItem = pattern.Current.GetSelection().FirstOrDefault();
                 return selectedItem != null ? new BasicTabItem(selectedItem) : null;
             }

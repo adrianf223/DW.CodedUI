@@ -27,6 +27,7 @@ THE SOFTWARE
 using System.Collections.Generic;
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -62,8 +63,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Expand()
             {
-                var expandCollapsePattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
-                expandCollapsePattern.Expand();
+                var pattern = Patterns.GetExpandCollapsePattern(_automationElement);
+                pattern.Expand();
             }
 
             /// <summary>
@@ -71,8 +72,8 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Collapse()
             {
-                var expandCollapsePattern = (ExpandCollapsePattern)_automationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
-                expandCollapsePattern.Collapse();
+                var pattern = Patterns.GetExpandCollapsePattern(_automationElement);
+                pattern.Collapse();
             }
         }
 
@@ -88,7 +89,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (ExpandCollapsePattern)AutomationElement.GetCurrentPattern(ExpandCollapsePattern.Pattern);
+                var pattern = Patterns.GetExpandCollapsePattern(AutomationElement);
                 return pattern.Current.ExpandCollapseState == ExpandCollapseState.Expanded;
             }
         }

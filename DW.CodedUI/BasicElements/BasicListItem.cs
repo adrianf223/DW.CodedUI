@@ -26,6 +26,7 @@ THE SOFTWARE
 
 using System.Windows.Automation;
 using DW.CodedUI.BasicElements.Data;
+using DW.CodedUI.Utilities;
 
 namespace DW.CodedUI.BasicElements
 {
@@ -66,7 +67,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void AddToSelection()
             {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                var pattern = Patterns.GetSelectionItemPattern(_automationElement);
                 pattern.AddToSelection();
             }
 
@@ -75,7 +76,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void RemoveFromSelection()
             {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                var pattern = Patterns.GetSelectionItemPattern(_automationElement);
                 pattern.RemoveFromSelection();
             }
 
@@ -84,7 +85,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void Select()
             {
-                var pattern = (SelectionItemPattern)_automationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                var pattern = Patterns.GetSelectionItemPattern(_automationElement);
                 pattern.Select();
             }
 
@@ -93,7 +94,7 @@ namespace DW.CodedUI.BasicElements
             /// </summary>
             public void ScrollIntoView()
             {
-                var pattern = (ScrollItemPattern)_automationElement.GetCurrentPattern(ScrollItemPattern.Pattern);
+                var pattern = Patterns.GetScrollItemPattern(_automationElement);
                 pattern.ScrollIntoView();
             }
         }
@@ -105,7 +106,7 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var pattern = (SelectionItemPattern)AutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern);
+                var pattern = Patterns.GetSelectionItemPattern(AutomationElement);
                 return pattern.Current.IsSelected;
             }
         }

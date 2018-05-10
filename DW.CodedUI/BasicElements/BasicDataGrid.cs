@@ -87,8 +87,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tablePattern = Patterns.GetTablePattern(AutomationElement);
-                return tablePattern.Current.ColumnCount;
+                var pattern = Patterns.GetTablePattern(AutomationElement);
+                return pattern.Current.ColumnCount;
             }
         }
 
@@ -99,8 +99,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tablePattern = Patterns.GetTablePattern(AutomationElement);
-                return tablePattern.Current.RowCount;
+                var pattern = Patterns.GetTablePattern(AutomationElement);
+                return pattern.Current.RowCount;
             }
         }
 
@@ -117,8 +117,9 @@ namespace DW.CodedUI.BasicElements
                 throw new IndexOutOfRangeException("The row index was outside the range of BasicDataGrid.RowCount");
             if (columnIndex < 0 || columnIndex > ColumnCount - 1)
                 throw new IndexOutOfRangeException("The row index was outside the range of BasicDataGrid.ColumnCount");
-            var gridPattern = Patterns.GetGridPattern(AutomationElement);
-            return new BasicDataCell(gridPattern.GetItem((int)rowIndex, (int)columnIndex));
+
+            var pattern = Patterns.GetGridPattern(AutomationElement);
+            return new BasicDataCell(pattern.GetItem(rowIndex, columnIndex));
         }
 
         /// <summary>
@@ -128,8 +129,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tablePattern = Patterns.GetTablePattern(AutomationElement);
-                foreach (var header in tablePattern.Current.GetColumnHeaders())
+                var pattern = Patterns.GetTablePattern(AutomationElement);
+                foreach (var header in pattern.Current.GetColumnHeaders())
                     yield return new BasicDataColumnHeader(header);
             }
         }
@@ -141,8 +142,8 @@ namespace DW.CodedUI.BasicElements
         {
             get
             {
-                var tablePattern = Patterns.GetTablePattern(AutomationElement);
-                foreach (var header in tablePattern.Current.GetRowHeaders())
+                var pattern = Patterns.GetTablePattern(AutomationElement);
+                foreach (var header in pattern.Current.GetRowHeaders())
                     yield return new BasicDataRowHeader(header);
             }
         }
