@@ -66,6 +66,11 @@
     <Compile Include="BasicElements\BasicColorPickerDialog.cs" />
     <Compile Include="BasicElements\BasicComboBox.cs" />
     <Compile Include="BasicElements\BasicComboBoxItem.cs" />
+    <Compile Include="BasicElements\BasicDataCell.cs" />
+    <Compile Include="BasicElements\BasicDataColumnHeader.cs" />
+    <Compile Include="BasicElements\BasicDataGrid.cs" />
+    <Compile Include="BasicElements\BasicDataRow.cs" />
+    <Compile Include="BasicElements\BasicDataRowHeader.cs" />
     <Compile Include="BasicElements\BasicDialog.cs" />
     <Compile Include="BasicElements\BasicEdit.cs" />
     <Compile Include="BasicElements\BasicElement.cs" />
