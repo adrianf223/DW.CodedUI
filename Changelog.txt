@@ -1,7 +1,7 @@
 
 
 ==============================
-Release 2.8.?.0
+Release 2.8.4.0
 ==============================
 2018-05-10    Add objects for the DataGrid and its children
 2018-05-10    Replace all usages of direct pattern reading by the Patterns objects
